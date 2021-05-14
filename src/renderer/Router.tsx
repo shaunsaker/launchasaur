@@ -1,11 +1,11 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
 
 export const Router = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <Route path="/settings">
           <Settings />
@@ -14,6 +14,6 @@ export const Router = () => {
           <Home />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
