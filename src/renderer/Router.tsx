@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
 
-export const Router = () => {
+export const Router = (): ReactElement => {
   return (
     <HashRouter>
       <Switch>

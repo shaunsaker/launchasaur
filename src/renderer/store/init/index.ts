@@ -6,7 +6,10 @@ export const initialState: InitState = {
   init: true,
 };
 
-export const initReducer: Reducer<InitState> = (state = initialState, action) => {
+export const initReducer: Reducer<InitState> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case REHYDRATE: {
       return {

@@ -9,7 +9,9 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts ."
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:eslint": "eslint --ext [.ts,.tsx] .",
+    "lint:prettier": "prettier -c \"**/*.{js,ts,tsx}\""
   },
   "keywords": [],
   "author": {
@@ -62,6 +64,17 @@
       ]
     }
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
     "@electron-forge/maker-deb": "^6.0.0-beta.54",
@@ -79,9 +92,14 @@
     "css-loader": "^4.2.1",
     "electron": "12.0.7",
     "eslint": "^7.6.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.0",
     "fork-ts-checker-webpack-plugin": "^5.0.14",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "node-loader": "^1.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.0",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.2",
     "typescript": "^4.0.2"
