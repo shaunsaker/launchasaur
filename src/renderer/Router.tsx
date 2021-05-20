@@ -1,13 +1,13 @@
 import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { HashRouter, Switch, Route } from "react-router-dom";
-import { MenuOptionsModal } from "./components/MenuOptionsModal";
+import { MenuActionsModal } from "./components/MenuActionsModal";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
-import { selectMenuOptionsModalShowForMenuId } from "./store/menuOptionsModal/selectors";
+import { selectMenuOptionsModalShowForMenuId } from "./store/menuActionsModal/selectors";
 
 export const Router = (): ReactElement => {
-  const showMenuOptionsModal = useSelector(selectMenuOptionsModalShowForMenuId);
+  const showMenuActionsModal = useSelector(selectMenuOptionsModalShowForMenuId);
 
   return (
     <HashRouter>
@@ -23,7 +23,7 @@ export const Router = (): ReactElement => {
         </Route>
       </Switch>
 
-      {showMenuOptionsModal && <MenuOptionsModal />}
+      {showMenuActionsModal && <MenuActionsModal />}
     </HashRouter>
   );
 };

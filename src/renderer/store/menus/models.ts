@@ -1,17 +1,17 @@
 export enum MenuAction {
-  openFile = "Open a File",
-  closeFile = "Close a File",
-  openLink = "Open a Link",
-  runScript = "Run a Script",
-  openSubmenu = "Open a Submenu",
+  OpenFile = "Open a File",
+  CloseFile = "Close a File",
+  OpenLink = "Open a Link",
+  RunScript = "Run a Script",
+  OpenSubmenu = "Open a Submenu",
 }
 
 export const menuActions = [
-  MenuAction.openFile,
-  MenuAction.closeFile,
-  MenuAction.openLink,
-  MenuAction.runScript,
-  MenuAction.openSubmenu,
+  MenuAction.OpenFile,
+  MenuAction.CloseFile,
+  MenuAction.OpenLink,
+  MenuAction.RunScript,
+  MenuAction.OpenSubmenu,
 ];
 
 export type Filepath = string;
@@ -19,7 +19,7 @@ export type MenuId = string;
 
 export interface MenuActionData {
   type: MenuAction;
-  resource: Filepath | MenuId; // MenuId is used when the type is MenuActionTypes.openSubmenu TODO: can we just use an app url here to deep link?
+  resource: Filepath | MenuId; // MenuId is used when the type is MenuActionTypes.OpenSubmenu TODO: can we just use an app url here to deep link?
 }
 
 export interface MenuOptionData {
@@ -28,6 +28,7 @@ export interface MenuOptionData {
   icon: string;
   colour: string;
   actions: MenuActionData[];
+  isEditing: boolean;
 }
 
 export interface MenuData {

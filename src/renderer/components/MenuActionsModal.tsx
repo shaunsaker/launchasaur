@@ -1,14 +1,17 @@
 import React, { ReactElement, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { hideMenuOptionsModal } from "../store/menuOptionsModal/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { hideMenuOptionsModal } from "../store/menuActionsModal/actions";
+import { selectMenuOptionsModalShowForMenuId } from "../store/menuActionsModal/selectors";
+import { addMenuAction } from "../store/menus/actions";
 import { MenuAction, menuActions } from "../store/menus/models";
 
-export const MenuOptionsModal = (): ReactElement => {
+export const MenuActionsModal = (): ReactElement => {
   const dispatch = useDispatch();
+  const menuId = useSelector(selectMenuOptionsModalShowForMenuId);
 
   const onMenuActionClick = useCallback(
     (action: MenuAction) => {
-      console.log({ action });
+      dispatch(addMenuAction({ menuId, action }));
     },
     [dispatch],
   );

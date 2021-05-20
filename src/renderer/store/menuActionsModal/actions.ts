@@ -1,7 +1,7 @@
 import { createStandardAction } from "typesafe-actions";
 
-export const showMenuOptionsModal = createStandardAction(
-  "MENU_OPTIONS_MODAL/showMenuOptionsModal",
+export const showMenuActionsModal = createStandardAction(
+  "MENU_OPTIONS_MODAL/showMenuActionsModal",
 )<string>();
 
 export const hideMenuOptionsModal = createStandardAction(

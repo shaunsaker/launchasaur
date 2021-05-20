@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import { menusReducer } from "./menus/reducer";
 import { MenusState } from "./menus/models";
-import { MenuOptionsModalState } from "./menuOptionsModal/models";
-import { menuOptionsReducer } from "./menuOptionsModal/reducer";
+import { MenuOptionsModalState } from "./menuActionsModal/models";
+import { menuOptionsReducer } from "./menuActionsModal/reducer";
 
 export interface ApplicationState {
   menus: MenusState;
