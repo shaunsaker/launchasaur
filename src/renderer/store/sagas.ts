@@ -1,8 +1,9 @@
-import { SagaIterator } from "@redux-saga/types"; // eslint-disable-line
-import { call, fork } from "redux-saga/effects";
+import { SagaIterator } from "redux-saga";
+import { fork } from "redux-saga/effects";
+import { menusSagas } from "./menus/flow";
 
 function* omnipresentFlows() {
-  yield call(() => true); // TODO: update this
+  yield fork(menusSagas);
 }
 
 function* rootSaga(): SagaIterator {

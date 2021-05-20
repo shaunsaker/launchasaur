@@ -11,7 +11,8 @@ const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
-    width: 800,
+    width: 1200,
+    // fullscreen: true,
   });
 
   // and load the index.html of the app.

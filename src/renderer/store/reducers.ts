@@ -1,13 +1,17 @@
 import { combineReducers } from "redux";
-import { initReducer } from "./init";
-import { InitState } from "./init/models";
+import { menusReducer } from "./menus/reducer";
+import { MenusState } from "./menus/models";
+import { MenuOptionsModalState } from "./menuOptionsModal/models";
+import { menuOptionsReducer } from "./menuOptionsModal/reducer";
 
 export interface ApplicationState {
-  init: InitState;
+  menus: MenusState;
+  menuOptionsModal: MenuOptionsModalState;
 }
 
 export const rootReducer = combineReducers({
-  init: initReducer,
+  menus: menusReducer,
+  menuOptionsModal: menuOptionsReducer,
 });
 
 export const initialState = rootReducer(undefined, { type: "" });
