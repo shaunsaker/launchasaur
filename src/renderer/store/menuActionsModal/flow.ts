@@ -7,7 +7,7 @@ import { makeActionData } from "../menus/data";
 import { MenuAction } from "../menus/models";
 import { hideMenuActionsModal } from "./actions";
 
-function* handleAddOpenFileActionSaga(
+function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addMenuOptionAction.request>,
 ): SagaIterator {
   yield put(getFilepath.request());
@@ -48,8 +48,6 @@ function* handleAddOpenFileActionSaga(
   }
 }
 
-function* handleAddCloseFileActionSaga(): SagaIterator {}
-
 function* handleAddOpenLinkActionSaga(): SagaIterator {}
 
 function* handleAddRunScriptActionSaga(): SagaIterator {}
@@ -66,10 +64,10 @@ function* handleAddMenuActionSaga(): SagaIterator {
 
       switch (menuAction) {
         case MenuAction.OpenFile:
-          yield call(handleAddOpenFileActionSaga, action);
+          yield call(handleAddOpenOrCloseFileActionSaga, action);
           break;
         case MenuAction.CloseFile:
-          yield call(handleAddCloseFileActionSaga);
+          yield call(handleAddOpenOrCloseFileActionSaga, action);
           break;
         case MenuAction.OpenLink:
           yield call(handleAddOpenLinkActionSaga);
