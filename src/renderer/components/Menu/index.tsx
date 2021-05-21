@@ -5,9 +5,10 @@ import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
 import {
   addMenuOption,
   deleteMenuOption,
+  deleteMenuOptionAction,
   editMenuOption,
 } from "../../store/menus/actions";
-import { MenuData, MenuOptionData } from "../../store/menus/models";
+import { ActionData, MenuData, MenuOptionData } from "../../store/menus/models";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
 
@@ -32,6 +33,19 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     (option: MenuOptionData) => {
       dispatch(
         showMenuActionsModal({ menuId: menu.id, menuOptionId: option.id }),
+      );
+    },
+    [dispatch],
+  );
+
+  const onDeleteActionClick = useCallback(
+    (option: MenuOptionData, action: ActionData) => {
+      dispatch(
+        deleteMenuOptionAction({
+          menuId: menu.id,
+          menuOptionId: option.id,
+          actionId: action.id,
+        }),
       );
     },
     [dispatch],
@@ -87,6 +101,10 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
                 <div key={action.id}>
                   <div>Type: {action.action}</div>
                   <div>Resource: {action.resource}</div>
+
+                  <div onClick={() => onDeleteActionClick(option, action)}>
+                    Delete Action
+                  </div>
                 </div>
               ))}
             </div>

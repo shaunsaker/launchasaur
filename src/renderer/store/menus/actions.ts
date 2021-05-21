@@ -1,5 +1,11 @@
 import { createAsyncAction, createStandardAction } from "typesafe-actions";
-import { MenuAction, ActionData, MenuId, MenuOptionId } from "./models";
+import {
+  MenuAction,
+  ActionData,
+  MenuId,
+  MenuOptionId,
+  ActionId,
+} from "./models";
 
 export const addMenuOption = createStandardAction("MENUS/addMenuOption")<{
   menuId: MenuId;
@@ -30,3 +36,11 @@ export const addMenuOptionAction = createAsyncAction(
   { menuId: MenuId; menuOptionId: MenuOptionId; actionData: ActionData },
   Error
 >();
+
+export const deleteMenuOptionAction = createStandardAction(
+  "MENUS/deleteMenuOptionAction",
+)<{
+  menuId: MenuId;
+  menuOptionId: MenuOptionId;
+  actionId: ActionId;
+}>();
