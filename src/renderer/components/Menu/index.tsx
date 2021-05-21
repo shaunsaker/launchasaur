@@ -84,7 +84,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
               <div>Actions:</div>
 
               {objectToArray(option.actions).map((action) => (
-                <div key={action.action}>
+                <div key={action.id}>
                   <div>Type: {action.action}</div>
                   <div>Resource: {action.resource}</div>
                 </div>
