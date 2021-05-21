@@ -3,7 +3,8 @@ import { SagaIterator } from "redux-saga";
 import { ActionType, getType } from "typesafe-actions";
 import { getFilepath } from "../files/actions";
 import { addMenuAction } from "../menus/actions";
-import { MenuAction, ActionData } from "../menus/models";
+import { makeActionData } from "../menus/data";
+import { MenuAction } from "../menus/models";
 import { hideMenuActionsModal } from "./actions";
 
 function* handleAddOpenFileActionSaga(
@@ -22,10 +23,10 @@ function* handleAddOpenFileActionSaga(
     const filepath = getFilepathAction.payload.filePaths[0]; // we only allow a single selection
 
     // create the menu action and add it to the menu
-    const actionData: ActionData = {
-      type: action.payload.action,
+    const actionData = makeActionData({
+      action: action.payload.action,
       resource: filepath,
-    };
+    });
     yield put(
       addMenuAction.success({
         menuId: action.payload.menuId,

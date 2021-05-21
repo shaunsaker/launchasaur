@@ -1,4 +1,4 @@
-import { Map } from "immutable";
+import { Map, OrderedMap } from "immutable";
 
 export enum MenuAction {
   OpenFile = "Open a File",
@@ -18,27 +18,31 @@ export const menuActions = [
 
 export type Filepath = string;
 export type MenuId = string;
+export type ActionDataResource = Filepath | MenuId; // MenuId is used when the type is MenuActionTypes.OpenSubmenu TODO: can we just use an app url here to deep link?
 
 export interface ActionData {
-  type: MenuAction;
-  resource: Filepath | MenuId; // MenuId is used when the type is MenuActionTypes.OpenSubmenu TODO: can we just use an app url here to deep link?
+  id: ActionId;
+  action: MenuAction;
+  resource: ActionDataResource;
 }
 
 export type ActionId = string;
 
 export interface MenuOptionData {
+  id: MenuOptionId;
   title: string;
   icon: string;
   colour: string;
-  actions: Map<ActionId, ActionData>;
+  actions: OrderedMap<ActionId, ActionData>;
   isEditing: boolean;
 }
 
 export type MenuOptionId = string;
 
 export interface MenuData {
+  id: MenuId;
   title: string;
-  options: Map<MenuOptionId, MenuOptionData>;
+  options: OrderedMap<MenuOptionId, MenuOptionData>;
 }
 
 export interface MenusState {

@@ -1,4 +1,3 @@
-import { isEmptyObject } from "../../utils/isEmptyObject";
 import { ApplicationState } from "../reducers";
 import { defaultMenuId } from "./models";
 
@@ -11,4 +10,4 @@ export const selectMenu = (
 export const selectMenus = (state: ApplicationState) => state.menus.data;
 
 export const selectHasMenus = (state: ApplicationState) =>
-  !isEmptyObject(state.menus.data);
+  !state.menus.data.isEmpty();

@@ -8,6 +8,7 @@ import {
   editMenuOption,
 } from "../../store/menus/actions";
 import { MenuData, MenuOptionData } from "../../store/menus/models";
+import { mapToArray } from "../../utils/immutableMapToArray";
 
 interface MenuProps {
   menu: MenuData;
@@ -27,13 +28,18 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     dispatch(addMenuOption({ menuId: menu.id }));
   }, [dispatch]);
 
-  const onAddActionClick = useCallback(() => {
-    dispatch(showMenuActionsModal(menu.id));
-  }, [dispatch]);
+  const onAddActionClick = useCallback(
+    (option: MenuOptionData) => {
+      dispatch(
+        showMenuActionsModal({ menuId: menu.id, menuOptionId: option.id }),
+      );
+    },
+    [dispatch],
+  );
 
   const onEditMenuOptionClick = useCallback(
-    (menuOptionId: string) => {
-      dispatch(editMenuOption({ menuId: menu.id, menuOptionId }));
+    (option: MenuOptionData) => {
+      dispatch(editMenuOption({ menuId: menu.id, menuOptionId: option.id }));
     },
     [dispatch],
   );
@@ -43,15 +49,15 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
   }, [dispatch]);
 
   const onDeleteMenuOptionClick = useCallback(
-    (menuOptionId: string) => {
-      dispatch(deleteMenuOption({ menuId: menu.id, menuOptionId }));
+    (option: MenuOptionData) => {
+      dispatch(deleteMenuOption({ menuId: menu.id, menuOptionId: option.id }));
     },
     [dispatch],
   );
 
   return (
     <Container>
-      {menu?.options.map((option) => {
+      {mapToArray(menu?.options).map((option) => {
         const { isEditing } = option;
 
         return (
@@ -62,26 +68,26 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
             <div>
               <div>Actions:</div>
 
-              {option.actions.map((action) => (
-                <div key={action.type}>
-                  <div>Type: {action.type}</div>
+              {mapToArray(option.actions).map((action) => (
+                <div key={action.action}>
+                  <div>Type: {action.action}</div>
                   <div>Resource: {action.resource}</div>
                 </div>
               ))}
             </div>
 
-            {isEditing && <div onClick={onAddActionClick}>Add Action</div>}
+            {isEditing && (
+              <div onClick={() => onAddActionClick(option)}>Add Action</div>
+            )}
 
             {!isEditing ? (
-              <div onClick={() => onEditMenuOptionClick(option.id)}>Edit</div>
+              <div onClick={() => onEditMenuOptionClick(option)}>Edit</div>
             ) : (
               <div onClick={onCloseEditMenuOptionClick}>Close Edit</div>
             )}
 
             {isEditing && (
-              <div onClick={() => onDeleteMenuOptionClick(option.id)}>
-                Delete
-              </div>
+              <div onClick={() => onDeleteMenuOptionClick(option)}>Delete</div>
             )}
           </MenuOption>
         );
