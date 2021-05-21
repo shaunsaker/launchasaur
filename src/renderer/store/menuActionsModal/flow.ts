@@ -20,6 +20,11 @@ function* handleAddOpenFileActionSaga(
   ]);
 
   if (getFilepathAction.type === getType(getFilepath.success)) {
+    // if the file system dialog was closed, do nothing
+    if (getFilepathAction.payload.canceled) {
+      return;
+    }
+
     const filepath = getFilepathAction.payload.filePaths[0]; // we only allow a single selection
 
     // create the menu action and add it to the menu
