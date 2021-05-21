@@ -4,10 +4,10 @@ import { HashRouter, Switch, Route } from "react-router-dom";
 import { MenuActionsModal } from "./components/MenuActionsModal";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
-import { selectMenuOptionsModalShowForMenuId } from "./store/menuActionsModal/selectors";
+import { selectMenuActionsModalIsShown } from "./store/menuActionsModal/selectors";
 
 export const Router = (): ReactElement => {
-  const showMenuActionsModal = useSelector(selectMenuOptionsModalShowForMenuId);
+  const showMenuActionsModal = useSelector(selectMenuActionsModalIsShown);
 
   return (
     <HashRouter>

@@ -14,6 +14,7 @@ export const Home = (): ReactElement => {
   const menu = useSelector((state: ApplicationState) =>
     selectMenu(state, menuId),
   );
+  console.log({ menu });
 
   return (
     <div>

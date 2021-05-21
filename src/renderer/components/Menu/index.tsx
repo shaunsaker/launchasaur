@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from "react";
+import React, { ReactElement, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
@@ -24,7 +24,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
   }, []);
 
   const onAddMenuOptionClick = useCallback(() => {
-    dispatch(addMenuOption(menu.id));
+    dispatch(addMenuOption({ menuId: menu.id }));
   }, [dispatch]);
 
   const onAddActionClick = useCallback(() => {
@@ -51,7 +51,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
 
   return (
     <Container>
-      {menu.options.map((option) => {
+      {menu?.options.map((option) => {
         const { isEditing } = option;
 
         return (

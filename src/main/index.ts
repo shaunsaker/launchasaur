@@ -15,6 +15,10 @@ const start = (): void => {
     height: 600,
     width: 1200,
     // fullscreen: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
   });
 
   // and load the index.html of the app.

@@ -1,12 +1,16 @@
-import { v4 as uuidv4 } from "uuid";
+import { Map } from "immutable";
+import { v4 } from "uuid";
+import { MenuData, MenuOptionData, MenuOptionId } from "./models";
 
-import { MenuOptionData } from "./models";
-
-export const makePlaceholderMenuOptionData = (): MenuOptionData => ({
-  id: uuidv4(),
-  title: "Placeholder",
+export const makeMenuOptionData = (): MenuOptionData => ({
+  title: "",
   icon: "",
   colour: "",
-  actions: [],
+  actions: Map(),
   isEditing: true,
+});
+
+export const makeMenuData = (): MenuData => ({
+  title: "",
+  options: Map<MenuOptionId, MenuOptionData>().set(v4(), makeMenuOptionData()),
 });

@@ -1,4 +1,10 @@
 import { ApplicationState } from "../reducers";
 
-export const selectMenuOptionsModalShowForMenuId = (state: ApplicationState) =>
-  state.menuOptionsModal.showForMenuId;
+export const selectMenuActionsModalIsShown = (state: ApplicationState) =>
+  state.menuActionsModal.isShown;
+
+export const selectMenuActionsModalMenuId = (state: ApplicationState) =>
+  state.menuActionsModal.menuId;
+
+export const selectMenuActionsModalMenuOptionId = (state: ApplicationState) =>
+  state.menuActionsModal.menuOptionId;

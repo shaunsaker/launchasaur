@@ -1,3 +1,5 @@
-export interface MenuOptionsModalState {
-  showForMenuId: string;
+export interface MenuActionsModalState {
+  isShown: boolean;
+  menuId: string;
+  menuOptionId: string;
 }

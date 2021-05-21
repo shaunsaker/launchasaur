@@ -1,21 +1,30 @@
-import { createStandardAction } from "typesafe-actions";
-import { MenuAction } from "./models";
+import { createAsyncAction, createStandardAction } from "typesafe-actions";
+import { MenuAction, ActionData, MenuId, MenuOptionId } from "./models";
 
-export const addMenuOption = createStandardAction(
-  "MENUS/addMenuOption",
-)<string>();
-
-export const editMenuOption = createStandardAction("MENUS/editMenuOption")<{
-  menuId: string;
-  menuOptionId: string;
+export const addMenuOption = createStandardAction("MENUS/addMenuOption")<{
+  menuId: MenuId;
 }>();
 
-export const addMenuAction = createStandardAction("MENUS/addMenuAction")<{
-  menuId: string;
-  action: MenuAction;
+export const editMenuOption = createStandardAction("MENUS/editMenuOption")<{
+  menuId: MenuId;
+  menuOptionId: MenuOptionId;
 }>();
 
 export const deleteMenuOption = createStandardAction("MENUS/deleteMenuOption")<{
-  menuId: string;
-  menuOptionId: string;
+  menuId: MenuId;
+  menuOptionId: MenuOptionId;
 }>();
+
+export const addMenuAction = createAsyncAction(
+  "MENU_ACTIONS_MODAL/addMenuAction.request",
+  "MENU_ACTIONS_MODAL/addMenuAction.success",
+  "MENU_ACTIONS_MODAL/addMenuAction.failure",
+)<
+  {
+    menuId: MenuId;
+    menuOptionId: MenuOptionId;
+    action: MenuAction;
+  },
+  { menuId: MenuId; menuOptionId: MenuOptionId; actionData: ActionData },
+  Error
+>();
