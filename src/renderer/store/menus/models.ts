@@ -1,5 +1,3 @@
-import { Map, OrderedMap } from "immutable";
-
 export enum MenuAction {
   OpenFile = "Open a File",
   CloseFile = "Close a File",
@@ -33,7 +31,7 @@ export interface MenuOptionData {
   title: string;
   icon: string;
   colour: string;
-  actions: OrderedMap<ActionId, ActionData>;
+  actions: Record<ActionId, ActionData>;
   isEditing: boolean;
 }
 
@@ -42,11 +40,11 @@ export type MenuOptionId = string;
 export interface MenuData {
   id: MenuId;
   title: string;
-  options: OrderedMap<MenuOptionId, MenuOptionData>;
+  options: Record<MenuOptionId, MenuOptionData>;
 }
 
 export interface MenusState {
-  data: Map<MenuId, MenuData>;
+  data: Record<MenuId, MenuData>;
 }
 
 export const defaultMenuId = "default";

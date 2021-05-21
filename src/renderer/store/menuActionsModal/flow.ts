@@ -2,13 +2,13 @@ import { call, fork, put, take, takeLatest } from "@redux-saga/core/effects";
 import { SagaIterator } from "redux-saga";
 import { ActionType, getType } from "typesafe-actions";
 import { getFilepath } from "../files/actions";
-import { addMenuAction } from "../menus/actions";
+import { addMenuOptionAction } from "../menus/actions";
 import { makeActionData } from "../menus/data";
 import { MenuAction } from "../menus/models";
 import { hideMenuActionsModal } from "./actions";
 
 function* handleAddOpenFileActionSaga(
-  action: ActionType<typeof addMenuAction.request>,
+  action: ActionType<typeof addMenuOptionAction.request>,
 ): SagaIterator {
   yield put(getFilepath.request());
 
@@ -33,7 +33,7 @@ function* handleAddOpenFileActionSaga(
       resource: filepath,
     });
     yield put(
-      addMenuAction.success({
+      addMenuOptionAction.success({
         menuId: action.payload.menuId,
         menuOptionId: action.payload.menuOptionId,
         actionData,
@@ -44,7 +44,7 @@ function* handleAddOpenFileActionSaga(
     yield put(hideMenuActionsModal());
   } else {
     // failure
-    yield put(addMenuAction.failure(getFilepathAction.payload));
+    yield put(addMenuOptionAction.failure(getFilepathAction.payload));
   }
 }
 
@@ -58,8 +58,10 @@ function* handleAddOpenSubmenuActionSaga(): SagaIterator {}
 
 function* handleAddMenuActionSaga(): SagaIterator {
   yield takeLatest(
-    getType(addMenuAction.request),
-    function* (action: ActionType<typeof addMenuAction.request>): SagaIterator {
+    getType(addMenuOptionAction.request),
+    function* (
+      action: ActionType<typeof addMenuOptionAction.request>,
+    ): SagaIterator {
       const { action: menuAction } = action.payload;
 
       switch (menuAction) {

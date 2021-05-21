@@ -3,11 +3,13 @@ import { MenuAction, ActionData, MenuId, MenuOptionId } from "./models";
 
 export const addMenuOption = createStandardAction("MENUS/addMenuOption")<{
   menuId: MenuId;
+  menuOptionId: MenuOptionId;
 }>();
 
 export const editMenuOption = createStandardAction("MENUS/editMenuOption")<{
   menuId: MenuId;
   menuOptionId: MenuOptionId;
+  isEditing: boolean;
 }>();
 
 export const deleteMenuOption = createStandardAction("MENUS/deleteMenuOption")<{
@@ -15,10 +17,10 @@ export const deleteMenuOption = createStandardAction("MENUS/deleteMenuOption")<{
   menuOptionId: MenuOptionId;
 }>();
 
-export const addMenuAction = createAsyncAction(
-  "MENU_ACTIONS_MODAL/addMenuAction.request",
-  "MENU_ACTIONS_MODAL/addMenuAction.success",
-  "MENU_ACTIONS_MODAL/addMenuAction.failure",
+export const addMenuOptionAction = createAsyncAction(
+  "MENU_ACTIONS_MODAL/addMenuOptionAction.request",
+  "MENU_ACTIONS_MODAL/addMenuOptionAction.success",
+  "MENU_ACTIONS_MODAL/addMenuOptionAction.failure",
 )<
   {
     menuId: MenuId;

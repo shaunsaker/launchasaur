@@ -8,7 +8,8 @@ import {
   editMenuOption,
 } from "../../store/menus/actions";
 import { MenuData, MenuOptionData } from "../../store/menus/models";
-import { mapToArray } from "../../utils/immutableMapToArray";
+import { objectToArray } from "../../utils/objectToArray";
+import { uuid } from "../../utils/uuid";
 
 interface MenuProps {
   menu: MenuData;
@@ -20,12 +21,11 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
   const onMenuOptionClick = useCallback((option: MenuOptionData) => {
     if (!option.isEditing) {
       // TODO: send actions to main so that we can trigger them from there
-      console.log({ option });
     }
   }, []);
 
   const onAddMenuOptionClick = useCallback(() => {
-    dispatch(addMenuOption({ menuId: menu.id }));
+    dispatch(addMenuOption({ menuId: menu.id, menuOptionId: uuid() }));
   }, [dispatch]);
 
   const onAddActionClick = useCallback(
@@ -39,14 +39,29 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
 
   const onEditMenuOptionClick = useCallback(
     (option: MenuOptionData) => {
-      dispatch(editMenuOption({ menuId: menu.id, menuOptionId: option.id }));
+      dispatch(
+        editMenuOption({
+          menuId: menu.id,
+          menuOptionId: option.id,
+          isEditing: true,
+        }),
+      );
     },
     [dispatch],
   );
 
-  const onCloseEditMenuOptionClick = useCallback(() => {
-    dispatch(editMenuOption({ menuId: menu.id, menuOptionId: "" }));
-  }, [dispatch]);
+  const onCloseEditMenuOptionClick = useCallback(
+    (option: MenuOptionData) => {
+      dispatch(
+        editMenuOption({
+          menuId: menu.id,
+          menuOptionId: option.id,
+          isEditing: false,
+        }),
+      );
+    },
+    [dispatch],
+  );
 
   const onDeleteMenuOptionClick = useCallback(
     (option: MenuOptionData) => {
@@ -57,7 +72,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
 
   return (
     <Container>
-      {mapToArray(menu?.options).map((option) => {
+      {objectToArray(menu?.options).map((option) => {
         const { isEditing } = option;
 
         return (
@@ -68,7 +83,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
             <div>
               <div>Actions:</div>
 
-              {mapToArray(option.actions).map((action) => (
+              {objectToArray(option.actions).map((action) => (
                 <div key={action.action}>
                   <div>Type: {action.action}</div>
                   <div>Resource: {action.resource}</div>
@@ -83,7 +98,9 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
             {!isEditing ? (
               <div onClick={() => onEditMenuOptionClick(option)}>Edit</div>
             ) : (
-              <div onClick={onCloseEditMenuOptionClick}>Close Edit</div>
+              <div onClick={() => onCloseEditMenuOptionClick(option)}>
+                Close Edit
+              </div>
             )}
 
             {isEditing && (

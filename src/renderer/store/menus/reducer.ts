@@ -1,131 +1,138 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { defaultMenuId, MenuData, MenuId, MenusState } from "./models";
+import { defaultMenuId, MenusState } from "./models";
 import {
-  addMenuAction,
+  addMenuOptionAction,
   addMenuOption,
   deleteMenuOption,
   editMenuOption,
 } from "./actions";
 import { makeMenuData, makeMenuOptionData } from "./data";
-import { v4 } from "uuid";
-import { Map } from "immutable";
 
 const reducerActions = {
   addMenuOption,
   editMenuOption,
   deleteMenuOption,
-  addMenuActionSuccess: addMenuAction.success,
+  addMenuOptionActionSuccess: addMenuOptionAction.success,
 };
 
 // create the initial menu
-const data = Map<MenuId, MenuData>().set(
-  defaultMenuId,
-  makeMenuData({ id: defaultMenuId }),
-);
 export const initialState: MenusState = {
-  data,
+  data: {
+    [defaultMenuId]: makeMenuData({ id: defaultMenuId }),
+  },
 };
 
 const addMenuOptionReducer = (
   state: MenusState,
   action: ActionType<typeof addMenuOption>,
 ): MenusState => {
-  const menuId = action.payload.menuId;
-  const menu = state.data.get(menuId);
-  const menuOptionId = v4();
-  const menuOptionData = makeMenuOptionData({ id: menuOptionId });
-  menu.options = menu.options.set(menuOptionId, menuOptionData);
+  const { menuId, menuOptionId } = action.payload;
+  const newMenuOptionData = makeMenuOptionData({ id: menuOptionId });
 
   return {
     ...state,
-    data: state.data.set(menuId, menu),
+    data: {
+      ...state.data,
+      [menuId]: {
+        ...state.data[menuId],
+        options: {
+          ...state.data[menuId].options,
+          [menuOptionId]: newMenuOptionData,
+        },
+      },
+    },
   };
 };
 
-// const editMenuOptionReducer = (
-//   state: MenusState,
-//   action: ActionType<typeof editMenuOption>,
-// ): MenusState => {
-//   const { menuId, menuOptionId } = action.payload;
-//   const menu = { ...state.data[menuId] };
-//   const newMenuOptions = menu.options.map((option) => ({
-//     ...option,
-//     isEditing: menuOptionId === option.id,
-//   }));
-//   menu.options = newMenuOptions;
+const editMenuOptionReducer = (
+  state: MenusState,
+  action: ActionType<typeof editMenuOption>,
+): MenusState => {
+  const { menuId, menuOptionId, isEditing } = action.payload;
 
-//   return {
-//     ...state,
-//     data: {
-//       ...state.data,
-//       [menuId]: menu,
-//     },
-//   };
-// };
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [menuId]: {
+        ...state.data[menuId],
+        options: {
+          ...state.data[menuId].options,
+          [menuOptionId]: {
+            ...state.data[menuId].options[menuOptionId],
+            isEditing,
+          },
+        },
+      },
+    },
+  };
+};
 
-// const deleteMenuOptionReducer = (
-//   state: MenusState,
-//   action: ActionType<typeof deleteMenuOption>,
-// ): MenusState => {
-//   const { menuId, menuOptionId } = action.payload;
-//   const menu = { ...state.data[menuId] };
-//   const newMenuOptions = menu.options.filter(
-//     (option) => !(option.id === menuOptionId),
-//   );
-//   menu.options = newMenuOptions;
+const deleteMenuOptionReducer = (
+  state: MenusState,
+  action: ActionType<typeof deleteMenuOption>,
+): MenusState => {
+  const { menuId, menuOptionId } = action.payload;
+  const menuOptions = { ...state.data[menuId].options };
 
-//   return {
-//     ...state,
-//     data: {
-//       ...state.data,
-//       [menuId]: menu,
-//     },
-//   };
-// };
+  delete menuOptions[menuOptionId];
 
-// const addMenuActionSuccessReducer = (
-//   state: MenusState,
-//   action: ActionType<typeof addMenuAction.success>,
-// ): MenusState => {
-//   const { menuId, menuOptionId, actionData } = action.payload;
-//   const menu = { ...state.data[menuId] };
-//   const newMenuOptions = menu.options.map((option) => ({
-//     ...option,
-//   }));
-//   menu.options = newMenuOptions;
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [menuId]: {
+        ...state.data[menuId],
+        options: menuOptions,
+      },
+    },
+  };
+};
 
-//   return {
-//     ...state,
-//     data: {
-//       ...state.data,
-//       [menuId]: menu,
-//     },
-//   };
-// };
+const addMenuOptionActionSuccessReducer = (
+  state: MenusState,
+  action: ActionType<typeof addMenuOptionAction.success>,
+): MenusState => {
+  const { menuId, menuOptionId, actionData } = action.payload;
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [menuId]: {
+        ...state.data[menuId],
+        options: {
+          ...state.data[menuId].options,
+          [menuOptionId]: {
+            ...state.data[menuId].options[menuOptionId],
+            actions: {
+              ...state.data[menuId].options[menuOptionId].actions,
+              [actionData.id]: actionData,
+            },
+          },
+        },
+      },
+    },
+  };
+};
 
 export const menusReducer: Reducer<MenusState> = (
   state = initialState,
   action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //     ...action.payload?.menus,
-    //   };
-
     case getType(addMenuOption):
       return addMenuOptionReducer(state, action);
 
-    // case getType(editMenuOption):
-    //   return editMenuOptionReducer(state, action);
+    case getType(editMenuOption):
+      return editMenuOptionReducer(state, action);
 
-    // case getType(deleteMenuOption):
-    //   return deleteMenuOptionReducer(state, action);
+    case getType(deleteMenuOption):
+      return deleteMenuOptionReducer(state, action);
 
-    // case getType(addMenuAction.success):
-    //   return addMenuActionSuccessReducer(state, action);
+    case getType(addMenuOptionAction.success):
+      return addMenuOptionActionSuccessReducer(state, action);
 
     default: {
       return state;

@@ -1,12 +1,10 @@
-import { Map } from "immutable";
-import { v4 } from "uuid";
+import { uuid } from "../../utils/uuid";
 import {
   ActionData,
   ActionDataResource,
   MenuAction,
   MenuData,
   MenuOptionData,
-  MenuOptionId,
 } from "./models";
 
 export const makeActionData = ({
@@ -18,7 +16,7 @@ export const makeActionData = ({
   action: MenuAction;
   resource: ActionDataResource;
 }): ActionData => ({
-  id: id || v4(),
+  id: id || uuid(),
   action,
   resource,
 });
@@ -28,23 +26,22 @@ export const makeMenuOptionData = ({
 }: {
   id?: string;
 }): MenuOptionData => ({
-  id: id || v4(),
+  id: id || uuid(),
   title: "",
   icon: "",
   colour: "",
-  actions: Map(),
+  actions: {},
   isEditing: false,
 });
 
 export const makeMenuData = ({ id }: { id?: string }): MenuData => {
-  const menuOptionId = v4();
+  const menuOptionId = uuid();
 
   return {
-    id: id || v4(),
+    id: id || uuid(),
     title: "",
-    options: Map<MenuOptionId, MenuOptionData>().set(
-      menuOptionId,
-      makeMenuOptionData({ id: menuOptionId }),
-    ),
+    options: {
+      [menuOptionId]: makeMenuOptionData({ id: menuOptionId }),
+    },
   };
 };

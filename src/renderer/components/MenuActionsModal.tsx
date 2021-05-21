@@ -5,7 +5,7 @@ import {
   selectMenuActionsModalMenuId,
   selectMenuActionsModalMenuOptionId,
 } from "../store/menuActionsModal/selectors";
-import { addMenuAction } from "../store/menus/actions";
+import { addMenuOptionAction } from "../store/menus/actions";
 import { MenuAction, menuActions } from "../store/menus/models";
 
 export const MenuActionsModal = (): ReactElement => {
@@ -15,7 +15,7 @@ export const MenuActionsModal = (): ReactElement => {
 
   const onMenuActionClick = useCallback(
     (action: MenuAction) => {
-      dispatch(addMenuAction.request({ menuId, menuOptionId, action }));
+      dispatch(addMenuOptionAction.request({ menuId, menuOptionId, action }));
     },
     [dispatch],
   );

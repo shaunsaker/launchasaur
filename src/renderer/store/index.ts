@@ -3,8 +3,6 @@ import { persistStore, persistReducer, PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
 import { createLogger } from "redux-logger";
-// @ts-expect-error no types available
-import immutableTransform from "redux-persist-transform-immutable";
 
 import reducers, { ApplicationState } from "./reducers";
 import sagas from "./sagas";
@@ -31,9 +29,8 @@ const middleware = applyMiddleware(...middlewares);
 
 const persistConfig: PersistConfig<ApplicationState> = {
   key: "root",
-  transforms: [immutableTransform()],
   storage,
-  blacklist: ["menuActionsModal", "menus"],
+  blacklist: ["menuActionsModal"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
