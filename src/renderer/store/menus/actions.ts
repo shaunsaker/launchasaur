@@ -18,9 +18,9 @@ export const deleteMenuOption = createStandardAction("MENUS/deleteMenuOption")<{
 }>();
 
 export const addMenuOptionAction = createAsyncAction(
-  "MENU_ACTIONS_MODAL/addMenuOptionAction.request",
-  "MENU_ACTIONS_MODAL/addMenuOptionAction.success",
-  "MENU_ACTIONS_MODAL/addMenuOptionAction.failure",
+  "MENUS/addMenuOptionActionRequest",
+  "MENUS/addMenuOptionActionSuccess",
+  "MENUS/addMenuOptionActionFailure",
 )<
   {
     menuId: MenuId;
