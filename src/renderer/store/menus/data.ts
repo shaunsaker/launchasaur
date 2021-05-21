@@ -23,17 +23,28 @@ export const makeActionData = ({
   resource,
 });
 
-export const makeMenuOptionData = (): MenuOptionData => ({
-  id: v4(),
+export const makeMenuOptionData = ({
+  id,
+}: {
+  id?: string;
+}): MenuOptionData => ({
+  id: id || v4(),
   title: "",
   icon: "",
   colour: "",
   actions: Map(),
-  isEditing: true,
+  isEditing: false,
 });
 
-export const makeMenuData = (): MenuData => ({
-  id: v4(),
-  title: "",
-  options: Map<MenuOptionId, MenuOptionData>().set(v4(), makeMenuOptionData()),
-});
+export const makeMenuData = ({ id }: { id?: string }): MenuData => {
+  const menuOptionId = v4();
+
+  return {
+    id: id || v4(),
+    title: "",
+    options: Map<MenuOptionId, MenuOptionData>().set(
+      menuOptionId,
+      makeMenuOptionData({ id: menuOptionId }),
+    ),
+  };
+};

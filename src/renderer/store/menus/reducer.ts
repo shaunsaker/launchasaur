@@ -10,7 +10,6 @@ import {
 import { makeMenuData, makeMenuOptionData } from "./data";
 import { v4 } from "uuid";
 import { Map } from "immutable";
-import { REHYDRATE } from "redux-persist/es/constants";
 
 const reducerActions = {
   addMenuOption,
@@ -20,7 +19,10 @@ const reducerActions = {
 };
 
 // create the initial menu
-const data = Map<MenuId, MenuData>().set(defaultMenuId, makeMenuData());
+const data = Map<MenuId, MenuData>().set(
+  defaultMenuId,
+  makeMenuData({ id: defaultMenuId }),
+);
 export const initialState: MenusState = {
   data,
 };
@@ -30,15 +32,15 @@ const addMenuOptionReducer = (
   action: ActionType<typeof addMenuOption>,
 ): MenusState => {
   const menuId = action.payload.menuId;
-  console.log(state.data);
   const menu = state.data.get(menuId);
   const menuOptionId = v4();
-  const menuOptionData = makeMenuOptionData();
-  menu.options.set(menuOptionId, menuOptionData);
+  const menuOptionData = makeMenuOptionData({ id: menuOptionId });
+  menu.options = menu.options.set(menuOptionId, menuOptionData);
 
-  state.data.set(menuId, menu);
-
-  return state;
+  return {
+    ...state,
+    data: state.data.set(menuId, menu),
+  };
 };
 
 // const editMenuOptionReducer = (
@@ -113,8 +115,8 @@ export const menusReducer: Reducer<MenusState> = (
     //     ...action.payload?.menus,
     //   };
 
-    // case getType(addMenuOption):
-    //   return addMenuOptionReducer(state, action);
+    case getType(addMenuOption):
+      return addMenuOptionReducer(state, action);
 
     // case getType(editMenuOption):
     //   return editMenuOptionReducer(state, action);
