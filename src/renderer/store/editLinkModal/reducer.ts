@@ -1,34 +1,36 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { showMenuActionsModal, hideMenuActionsModal } from "./actions";
-import { MenuActionsModalState } from "./models";
+import { showEditLinkModal, hideEditLinkModal } from "./actions";
+import { EditLinkModalState } from "./models";
 
 const reducerActions = {
-  showMenuActionsModal,
-  hideMenuActionsModal,
+  showEditLinkModal,
+  hideEditLinkModal,
 };
 
-export const initialState: MenuActionsModalState = {
+export const initialState: EditLinkModalState = {
   isShown: false,
   menuId: "",
   menuOptionId: "",
+  actionId: "",
 };
 
-export const menuActionsModalReducer: Reducer<MenuActionsModalState> = (
+export const editLinkModalReducer: Reducer<EditLinkModalState> = (
   state = initialState,
   action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
-    case getType(showMenuActionsModal):
-      const newState: MenuActionsModalState = {
+    case getType(showEditLinkModal):
+      const newState: EditLinkModalState = {
         ...state,
         isShown: true,
         menuId: action.payload.menuId,
         menuOptionId: action.payload.menuOptionId,
+        actionId: action.payload.actionId,
       };
 
       return newState;
-    case getType(hideMenuActionsModal):
+    case getType(hideEditLinkModal):
       return initialState;
 
     default: {

@@ -102,9 +102,11 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
                   <div>Type: {action.action}</div>
                   <div>Resource: {action.resource}</div>
 
-                  <div onClick={() => onDeleteActionClick(option, action)}>
-                    Delete Action
-                  </div>
+                  {isEditing && (
+                    <div onClick={() => onDeleteActionClick(option, action)}>
+                      Delete Action
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
