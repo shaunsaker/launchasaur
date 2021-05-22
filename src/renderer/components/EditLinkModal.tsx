@@ -5,6 +5,7 @@ import {
   selectEditLinkModalMenuId,
   selectEditLinkModalMenuOptionId,
 } from "../store/editLinkModal/selectors";
+import { hideMenuActionsModal } from "../store/menuActionsModal/actions";
 import { addMenuOptionAction } from "../store/menus/actions";
 import { makeActionData } from "../store/menus/data";
 import { MenuAction } from "../store/menus/models";
@@ -32,6 +33,7 @@ export const EditLinkModal = (): ReactElement => {
 
     dispatch(addMenuOptionAction.success({ menuId, menuOptionId, actionData }));
     dispatch(hideEditLinkModal());
+    dispatch(hideMenuActionsModal());
   }, [dispatch, value]);
 
   return (
