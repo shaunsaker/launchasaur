@@ -27,7 +27,7 @@ const start = (): void => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  startIPC(mainWindow);
+  startIPC();
 };
 
 // This method will be called when Electron has finished

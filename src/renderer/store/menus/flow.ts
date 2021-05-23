@@ -16,7 +16,7 @@ import {
   showEditScriptModal,
 } from "../editScriptModal/actions";
 import { createFile, getFilepath } from "../ipc/actions";
-import { closeFileSaga, openFileSaga } from "../ipc/flow";
+import { closeFileSaga, openFileSaga, openLinkSaga } from "../ipc/flow";
 import { hideMenuActionsModal } from "../menuActionsModal/actions";
 import { addMenuOptionAction, triggerMenuOption } from "../menus/actions";
 import { makeActionData } from "../menus/data";
@@ -180,6 +180,10 @@ function* triggerMenuOptionSaga(): SagaIterator {
 
         if (action.action === MenuAction.CloseFile) {
           return call(closeFileSaga, action.resource);
+        }
+
+        if (action.action === MenuAction.OpenLink) {
+          return call(openLinkSaga, action.resource);
         }
 
         // TODO: handle the other action types

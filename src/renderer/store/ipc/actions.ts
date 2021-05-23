@@ -25,3 +25,9 @@ export const closeFile = createAsyncAction(
   "IPC/closeFileSuccess",
   "IPC/closeFileFailure",
 )<{ filepath: string }, void, Error>();
+
+export const openLink = createAsyncAction(
+  "IPC/openLinkRequest",
+  "IPC/openLinkSuccess",
+  "IPC/openLinkFailure",
+)<{ url: string }, void, Error>();

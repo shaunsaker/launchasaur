@@ -3,4 +3,5 @@ export enum IPC {
   CreateFile = "CreateFile",
   OpenFile = "OpenFile",
   CloseFile = "CloseFile",
+  OpenLink = "OpenLink",
 }

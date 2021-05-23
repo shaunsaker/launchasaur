@@ -5,7 +5,13 @@ import { ActionType, getType } from "typesafe-actions";
 import { IPC } from "../../../main/ipc/models";
 import { getFilenameFromFilepath } from "./utils";
 import { uuid } from "../../utils/uuid";
-import { closeFile, createFile, getFilepath, openFile } from "./actions";
+import {
+  closeFile,
+  createFile,
+  getFilepath,
+  openFile,
+  openLink,
+} from "./actions";
 
 function* getFilepathSaga(): SagaIterator {
   yield takeLatest(getType(getFilepath.request), function* (): SagaIterator {
@@ -60,6 +66,18 @@ export function* closeFileSaga(filepath: string): SagaIterator {
     yield put(closeFile.success());
   } catch (error) {
     yield put(closeFile.failure(error));
+  }
+}
+
+export function* openLinkSaga(url: string): SagaIterator {
+  yield put(openLink.request({ url }));
+
+  try {
+    yield call(() => ipcRenderer.invoke(IPC.OpenLink, url));
+
+    yield put(openLink.success());
+  } catch (error) {
+    yield put(openLink.failure(error));
   }
 }
 
