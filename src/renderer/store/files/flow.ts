@@ -1,11 +1,11 @@
 import { call, fork, put, takeLatest } from "@redux-saga/core/effects";
 import { ipcRenderer } from "electron";
 import { SagaIterator } from "redux-saga";
-import { resolvePromiseAction } from "redux-saga-promise-actions";
 import { ActionType, getType } from "typesafe-actions";
 import { IPC } from "../../../main/ipc/models";
+import { getFilenameFromFilepath } from "./utils";
 import { uuid } from "../../utils/uuid";
-import { createFile, fileOpened, getFilepath, openFile } from "./actions";
+import { closeFile, createFile, getFilepath, openFile } from "./actions";
 
 function* getFilepathSaga(): SagaIterator {
   yield takeLatest(getType(getFilepath.request), function* (): SagaIterator {
@@ -46,6 +46,20 @@ export function* openFileSaga(filepath: string): SagaIterator {
     yield put(openFile.success());
   } catch (error) {
     yield put(openFile.failure(error));
+  }
+}
+
+export function* closeFileSaga(filepath: string): SagaIterator {
+  yield put(closeFile.request({ filepath }));
+
+  try {
+    const filename = getFilenameFromFilepath(filepath);
+
+    yield call(() => ipcRenderer.invoke(IPC.CloseFile, filename));
+
+    yield put(closeFile.success());
+  } catch (error) {
+    yield put(closeFile.failure(error));
   }
 }
 

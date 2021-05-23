@@ -19,3 +19,9 @@ export const openFile = createAsyncAction(
   "FILES/openFileSuccess",
   "FILES/openFileFailure",
 )<{ filepath: string }, void, Error>();
+
+export const closeFile = createAsyncAction(
+  "FILES/closeFileRequest",
+  "FILES/closeFileSuccess",
+  "FILES/closeFileFailure",
+)<{ filepath: string }, void, Error>();

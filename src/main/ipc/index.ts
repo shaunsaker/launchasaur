@@ -1,4 +1,5 @@
 import {
+  startCloseFileIPC,
   startCreateFileIPC,
   startGetFilepathIPC,
   startOpenFileIPC,
@@ -8,4 +9,5 @@ export function startIPC(): void {
   startGetFilepathIPC();
   startCreateFileIPC();
   startOpenFileIPC();
+  startCloseFileIPC();
 }

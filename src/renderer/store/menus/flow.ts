@@ -3,12 +3,10 @@ import {
   call,
   fork,
   put,
-  putResolve,
   take,
   takeLatest,
 } from "@redux-saga/core/effects";
 import { SagaIterator } from "redux-saga";
-import { dispatch } from "redux-saga-promise-actions";
 import { ActionType, getType } from "typesafe-actions";
 import { objectToArray } from "../../utils/objectToArray";
 import { select } from "../../utils/select";
@@ -17,8 +15,8 @@ import {
   hideEditScriptModal,
   showEditScriptModal,
 } from "../editScriptModal/actions";
-import { createFile, getFilepath, openFile } from "../files/actions";
-import { openFileSaga } from "../files/flow";
+import { createFile, getFilepath } from "../files/actions";
+import { closeFileSaga, openFileSaga } from "../files/flow";
 import { hideMenuActionsModal } from "../menuActionsModal/actions";
 import { addMenuOptionAction, triggerMenuOption } from "../menus/actions";
 import { makeActionData } from "../menus/data";
@@ -178,6 +176,10 @@ function* triggerMenuOptionSaga(): SagaIterator {
       const actionsArray = objectToArray(actions).map((action) => {
         if (action.action === MenuAction.OpenFile) {
           return call(openFileSaga, action.resource);
+        }
+
+        if (action.action === MenuAction.CloseFile) {
+          return call(closeFileSaga, action.resource);
         }
 
         // TODO: handle the other action types
