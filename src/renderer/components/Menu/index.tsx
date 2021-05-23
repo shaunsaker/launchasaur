@@ -27,7 +27,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
 
   const onAddMenuOptionClick = useCallback(() => {
     dispatch(addMenuOption({ menuId: menu.id, menuOptionId: uuid() }));
-  }, [dispatch]);
+  }, [dispatch, menu.id]);
 
   const onAddActionClick = useCallback(
     (option: MenuOptionData) => {
@@ -35,7 +35,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
         showMenuActionsModal({ menuId: menu.id, menuOptionId: option.id }),
       );
     },
-    [dispatch],
+    [dispatch, menu.id],
   );
 
   const onDeleteActionClick = useCallback(
@@ -48,7 +48,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
         }),
       );
     },
-    [dispatch],
+    [dispatch, menu.id],
   );
 
   const onEditMenuOptionClick = useCallback(
@@ -61,7 +61,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
         }),
       );
     },
-    [dispatch],
+    [dispatch, menu.id],
   );
 
   const onCloseEditMenuOptionClick = useCallback(
@@ -74,14 +74,14 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
         }),
       );
     },
-    [dispatch],
+    [dispatch, menu.id],
   );
 
   const onDeleteMenuOptionClick = useCallback(
     (option: MenuOptionData) => {
       dispatch(deleteMenuOption({ menuId: menu.id, menuOptionId: option.id }));
     },
-    [dispatch],
+    [dispatch, menu.id],
   );
 
   return (

@@ -1,2 +1,2 @@
-export const isEmptyObject = (object: Record<string, any>): boolean =>
-  !Object.keys.length;
+export const isEmptyObject = (object: Record<string, unknown>): boolean =>
+  !Object.keys(object).length;

@@ -36,7 +36,7 @@ export const SelectSubmenuModal = (): ReactElement => {
       dispatch(hideSelectSubmenuModal());
       dispatch(hideMenuActionsModal());
     },
-    [dispatch],
+    [dispatch, menuId, menuOptionId],
   );
 
   if (!hasSubmenus) {

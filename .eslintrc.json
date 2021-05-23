@@ -10,7 +10,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "prettier"
+    "prettier",
+    "plugin:react-hooks/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "settings": {
@@ -22,6 +23,7 @@
   },
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "react-hooks/exhaustive-deps": "error"
   }
 }

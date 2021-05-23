@@ -17,7 +17,7 @@ export const MenuActionsModal = (): ReactElement => {
     (action: MenuAction) => {
       dispatch(addMenuOptionAction.request({ menuId, menuOptionId, action }));
     },
-    [dispatch],
+    [dispatch, menuId, menuOptionId],
   );
 
   const onCloseClick = useCallback(() => {

@@ -34,7 +34,7 @@ export const EditLinkModal = (): ReactElement => {
     dispatch(addMenuOptionAction.success({ menuId, menuOptionId, actionData }));
     dispatch(hideEditLinkModal());
     dispatch(hideMenuActionsModal());
-  }, [dispatch, value]);
+  }, [dispatch, value, menuId, menuOptionId]);
 
   return (
     <div>
