@@ -3,21 +3,18 @@ import { useSelector } from "react-redux";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { EditLinkModal } from "./components/EditLinkModal";
 import { EditMenuModal } from "./components/EditMenuModal";
-import { EditScriptModal } from "./components/EditScriptModal";
 import { MenuActionsModal } from "./components/MenuActionsModal";
 import { SelectSubmenuModal } from "./components/SelectSubmenuModal";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
 import { selectEditLinkModalIsShown } from "./store/editLinkModal/selectors";
 import { selectEditMenuModalIsShown } from "./store/editMenuModal/selectors";
-import { selectEditScriptModalIsShown } from "./store/editScriptModal/selectors";
 import { selectMenuActionsModalIsShown } from "./store/menuActionsModal/selectors";
 import { selectSelectSubmenuModalIsShown } from "./store/selectSubmenuModal/selectors";
 
 export const Router = (): ReactElement => {
   const menuActionsModalIsShown = useSelector(selectMenuActionsModalIsShown);
   const editLinkModalIsShown = useSelector(selectEditLinkModalIsShown);
-  const editScriptsModalIsShown = useSelector(selectEditScriptModalIsShown);
   const submenuModalIsShown = useSelector(selectSelectSubmenuModalIsShown);
   const editMenuModalIsShown = useSelector(selectEditMenuModalIsShown);
 
@@ -38,8 +35,6 @@ export const Router = (): ReactElement => {
       {menuActionsModalIsShown && <MenuActionsModal />}
 
       {editLinkModalIsShown && <EditLinkModal />}
-
-      {editScriptsModalIsShown && <EditScriptModal />}
 
       {submenuModalIsShown && <SelectSubmenuModal />}
 

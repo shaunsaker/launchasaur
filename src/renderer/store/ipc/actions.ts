@@ -1,18 +1,11 @@
 import { OpenDialogReturnValue } from "electron";
 import { createAsyncAction } from "typesafe-actions";
-import { Filepath } from "../menus/models";
 
 export const getFilepath = createAsyncAction(
   "IPC/getFilepathRequest",
   "IPC/getFilepathSuccess",
   "IPC/getFilepathFailure",
 )<void, OpenDialogReturnValue, Error>();
-
-export const createFile = createAsyncAction(
-  "IPC/createFileRequest",
-  "IPC/createFileSuccess",
-  "IPC/createFileFailure",
-)<{ filename?: string; contents: string }, Filepath, Error>();
 
 export const openFile = createAsyncAction(
   "IPC/openFileRequest",

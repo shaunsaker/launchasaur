@@ -11,11 +11,7 @@ import { ActionType, getType } from "typesafe-actions";
 import { objectToArray } from "../../utils/objectToArray";
 import { select } from "../../utils/select";
 import { showEditLinkModal } from "../editLinkModal/actions";
-import {
-  hideEditScriptModal,
-  showEditScriptModal,
-} from "../editScriptModal/actions";
-import { createFile, getFilepath } from "../ipc/actions";
+import { getFilepath } from "../ipc/actions";
 import { closeFileSaga, openFileSaga, openLinkSaga } from "../ipc/flow";
 import { hideMenuActionsModal } from "../menuActionsModal/actions";
 import { addMenuOptionAction, triggerMenuOption } from "../menus/actions";
@@ -78,48 +74,6 @@ function* handleAddOpenLinkActionSaga(
   );
 }
 
-function* handleAddRunScriptActionSaga(
-  action: ActionType<typeof addMenuOptionAction.request>,
-): SagaIterator {
-  yield put(
-    showEditScriptModal({
-      menuId: action.payload.menuId,
-      menuOptionId: action.payload.menuOptionId,
-      actionId: "", // it's a new action
-    }),
-  );
-
-  const createFileAction:
-    | ActionType<typeof createFile.success>
-    | ActionType<typeof createFile.failure> = yield take([
-    getType(createFile.success),
-    getType(createFile.failure),
-  ]);
-
-  if (createFileAction.type === getType(createFile.success)) {
-    const filepath = createFileAction.payload;
-
-    // create the menu action and add it to the menu
-    const actionData = makeActionData({
-      action: action.payload.action,
-      resource: filepath,
-    });
-    yield put(
-      addMenuOptionAction.success({
-        menuId: action.payload.menuId,
-        menuOptionId: action.payload.menuOptionId,
-        actionData,
-      }),
-    );
-
-    yield put(hideEditScriptModal());
-    yield put(hideMenuActionsModal());
-  } else {
-    // failure
-    yield put(addMenuOptionAction.failure(createFileAction.payload));
-  }
-}
-
 function* handleAddOpenSubmenuActionSaga(
   action: ActionType<typeof addMenuOptionAction.request>,
 ): SagaIterator {
@@ -149,9 +103,6 @@ function* addMenuActionSaga(): SagaIterator {
           break;
         case MenuAction.OpenLink:
           yield call(handleAddOpenLinkActionSaga, action);
-          break;
-        case MenuAction.RunScript:
-          yield call(handleAddRunScriptActionSaga, action);
           break;
         case MenuAction.OpenSubmenu:
           yield call(handleAddOpenSubmenuActionSaga, action);

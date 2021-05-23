@@ -33,7 +33,6 @@ const persistConfig: PersistConfig<ApplicationState> = {
   blacklist: [
     "menuActionsModal",
     "editLinkModal",
-    "editScriptModal",
     "selectSubmenuModal",
     "editMenuModal",
   ],
