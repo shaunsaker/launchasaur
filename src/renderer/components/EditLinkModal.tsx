@@ -10,18 +10,21 @@ import { addMenuOptionAction } from "../store/menus/actions";
 import { makeActionData } from "../store/menus/data";
 import { MenuAction } from "../store/menus/models";
 import { uuid } from "../utils/uuid";
+import { validateUrl } from "../utils/validateUrl";
 
 export const EditLinkModal = (): ReactElement => {
   const dispatch = useDispatch();
   const menuId = useSelector(selectEditLinkModalMenuId);
   const menuOptionId = useSelector(selectEditLinkModalMenuOptionId);
   const [value, setValue] = useState("");
+  const [isValid, setIsValid] = useState(validateUrl(value));
 
   const onChange = useCallback(
     (event: FormEvent<HTMLInputElement>) => {
       setValue(event.currentTarget.value);
+      setIsValid(validateUrl(value));
     },
-    [setValue],
+    [setValue, value],
   );
 
   const onSubmitClick = useCallback(() => {
@@ -40,7 +43,9 @@ export const EditLinkModal = (): ReactElement => {
     <div>
       <input value={value} onChange={onChange} />
 
-      <div onClick={onSubmitClick}>Submit</div>
+      <button onClick={onSubmitClick} disabled={!isValid}>
+        Submit
+      </button>
     </div>
   );
 };
