@@ -7,11 +7,17 @@ import {
 } from "../store/menuActionsModal/selectors";
 import { addMenuOptionAction } from "../store/menus/actions";
 import { MenuAction, menuActions } from "../store/menus/models";
+import { selectMenuOptionHasOpenSubmenuAction } from "../store/menus/selectors";
+import { ApplicationState } from "../store/reducers";
 
 export const MenuActionsModal = (): ReactElement => {
   const dispatch = useDispatch();
   const menuId = useSelector(selectMenuActionsModalMenuId);
   const menuOptionId = useSelector(selectMenuActionsModalMenuOptionId);
+  const menuOptionHasOpenSubmenuAction = useSelector(
+    (state: ApplicationState) =>
+      selectMenuOptionHasOpenSubmenuAction(state, { menuId, menuOptionId }),
+  );
 
   const onMenuActionClick = useCallback(
     (action: MenuAction) => {
@@ -27,12 +33,18 @@ export const MenuActionsModal = (): ReactElement => {
   return (
     <div>
       {menuActions.map((action) => (
-        <div key={action} onClick={() => onMenuActionClick(action)}>
+        <button
+          key={action}
+          onClick={() => onMenuActionClick(action)}
+          disabled={
+            // don't allow multiple open submenu actions
+            action === MenuAction.OpenSubmenu && menuOptionHasOpenSubmenuAction
+          }>
           {action}
-        </div>
+        </button>
       ))}
 
-      <div onClick={onCloseClick}>Close</div>
+      <button onClick={onCloseClick}>Close</button>
     </div>
   );
 };

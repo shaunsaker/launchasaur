@@ -8,7 +8,7 @@ export const EditScriptModal = (): ReactElement => {
   const [value, setValue] = useState("");
 
   const onChange = useCallback(
-    (event: FormEvent<HTMLInputElement>) => {
+    (event: FormEvent<HTMLTextAreaElement>) => {
       setValue(event.currentTarget.value);
     },
     [setValue],
@@ -20,7 +20,7 @@ export const EditScriptModal = (): ReactElement => {
 
   return (
     <div>
-      <input value={value} onChange={onChange} />
+      <textarea value={value} onChange={onChange} />
 
       <div onClick={onSubmitClick}>Submit</div>
     </div>
