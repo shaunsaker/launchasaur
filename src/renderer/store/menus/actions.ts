@@ -5,6 +5,7 @@ import {
   MenuId,
   MenuOptionId,
   ActionId,
+  MenuTitle,
 } from "./models";
 
 export const addMenuOption = createStandardAction("MENUS/addMenuOption")<{
@@ -44,3 +45,8 @@ export const deleteMenuOptionAction = createStandardAction(
   menuOptionId: MenuOptionId;
   actionId: ActionId;
 }>();
+
+export const addMenu =
+  createStandardAction("MENUS/addMenu")<{
+    title: MenuTitle;
+  }>();

@@ -36,10 +36,11 @@ export interface MenuOptionData {
 }
 
 export type MenuOptionId = string;
+export type MenuTitle = string;
 
 export interface MenuData {
   id: MenuId;
-  title: string;
+  title: MenuTitle;
   options: Record<MenuOptionId, MenuOptionData>;
 }
 

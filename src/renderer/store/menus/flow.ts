@@ -11,6 +11,7 @@ import { hideMenuActionsModal } from "../menuActionsModal/actions";
 import { addMenuOptionAction } from "../menus/actions";
 import { makeActionData } from "../menus/data";
 import { MenuAction } from "../menus/models";
+import { showSelectSubmenuModal } from "../selectSubmenuModal/actions";
 
 function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addMenuOptionAction.request>,
@@ -107,7 +108,17 @@ function* handleAddRunScriptActionSaga(
   }
 }
 
-function* handleAddOpenSubmenuActionSaga(): SagaIterator {}
+function* handleAddOpenSubmenuActionSaga(
+  action: ActionType<typeof addMenuOptionAction.request>,
+): SagaIterator {
+  yield put(
+    showSelectSubmenuModal({
+      menuId: action.payload.menuId,
+      menuOptionId: action.payload.menuOptionId,
+      actionId: "", // it's a new action
+    }),
+  );
+}
 
 function* handleAddMenuActionSaga(): SagaIterator {
   yield takeLatest(
@@ -131,7 +142,7 @@ function* handleAddMenuActionSaga(): SagaIterator {
           yield call(handleAddRunScriptActionSaga, action);
           break;
         case MenuAction.OpenSubmenu:
-          yield call(handleAddOpenSubmenuActionSaga);
+          yield call(handleAddOpenSubmenuActionSaga, action);
           break;
       }
     },

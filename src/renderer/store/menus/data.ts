@@ -34,12 +34,18 @@ export const makeMenuOptionData = ({
   isEditing: false,
 });
 
-export const makeMenuData = ({ id }: { id?: string }): MenuData => {
+export const makeMenuData = ({
+  id,
+  title,
+}: {
+  id?: string;
+  title?: string;
+}): MenuData => {
   const menuOptionId = uuid();
 
   return {
     id: id || uuid(),
-    title: "",
+    title: title || "",
     options: {
       [menuOptionId]: makeMenuOptionData({ id: menuOptionId }),
     },

@@ -7,12 +7,18 @@ import { EditLinkModalState } from "./editLinkModal/models";
 import { editLinkModalReducer } from "./editLinkModal/reducer";
 import { EditScriptModalState } from "./editScriptModal/models";
 import { editScriptModalReducer } from "./editScriptModal/reducer";
+import { SelectSubmenuModalState } from "./selectSubmenuModal/models";
+import { selectSubmenuModalReducer } from "./selectSubmenuModal/reducer";
+import { EditMenuModalState } from "./editMenuModal/models";
+import { editMenuModalReducer } from "./editMenuModal/reducer";
 
 export interface ApplicationState {
   menus: MenusState;
   menuActionsModal: MenuActionsModalState;
   editLinkModal: EditLinkModalState;
   editScriptModal: EditScriptModalState;
+  selectSubmenuModal: SelectSubmenuModalState;
+  editMenuModal: EditMenuModalState;
 }
 
 export const rootReducer = combineReducers({
@@ -20,6 +26,8 @@ export const rootReducer = combineReducers({
   menuActionsModal: menuActionsModalReducer,
   editLinkModal: editLinkModalReducer,
   editScriptModal: editScriptModalReducer,
+  selectSubmenuModal: selectSubmenuModalReducer,
+  editMenuModal: editMenuModalReducer,
 });
 
 export const initialState = rootReducer(undefined, { type: "" });

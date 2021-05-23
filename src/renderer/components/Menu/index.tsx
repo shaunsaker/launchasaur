@@ -145,4 +145,6 @@ const MenuOption = styled.div`
   width: 200px;
   height: 200px;
   border: 1px solid black;
+  overflow: auto;
+  background-color: white;
 `;

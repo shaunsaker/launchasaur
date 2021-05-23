@@ -7,6 +7,7 @@ import {
   deleteMenuOption,
   editMenuOption,
   deleteMenuOptionAction,
+  addMenu,
 } from "./actions";
 import { makeMenuData, makeMenuOptionData } from "./data";
 
@@ -16,6 +17,7 @@ const reducerActions = {
   deleteMenuOption,
   addMenuOptionActionSuccess: addMenuOptionAction.success,
   deleteMenuOptionAction,
+  addMenu,
 };
 
 // create the initial menu
@@ -146,6 +148,21 @@ const deleteMenuOptionActionReducer = (
   };
 };
 
+const addMenuReducer = (
+  state: MenusState,
+  action: ActionType<typeof addMenu>,
+): MenusState => {
+  const newMenu = makeMenuData({ title: action.payload.title });
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [newMenu.id]: newMenu,
+    },
+  };
+};
+
 export const menusReducer: Reducer<MenusState> = (
   state = initialState,
   action: ActionType<typeof reducerActions>,
@@ -165,6 +182,9 @@ export const menusReducer: Reducer<MenusState> = (
 
     case getType(deleteMenuOptionAction):
       return deleteMenuOptionActionReducer(state, action);
+
+    case getType(addMenu):
+      return addMenuReducer(state, action);
 
     default: {
       return state;
