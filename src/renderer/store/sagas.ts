@@ -1,6 +1,6 @@
 import { SagaIterator } from "redux-saga";
 import { fork } from "redux-saga/effects";
-import { filesSagas } from "./files/flow";
+import { filesSagas } from "./ipc/flow";
 import { menusSagas } from "./menus/flow";
 
 function* omnipresentFlows() {

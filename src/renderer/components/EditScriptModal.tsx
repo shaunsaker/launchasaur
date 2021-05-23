@@ -1,6 +1,6 @@
 import React, { FormEvent, ReactElement, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createFile } from "../store/files/actions";
+import { createFile } from "../store/ipc/actions";
 
 export const EditScriptModal = (): ReactElement => {
   const dispatch = useDispatch();

@@ -15,8 +15,8 @@ import {
   hideEditScriptModal,
   showEditScriptModal,
 } from "../editScriptModal/actions";
-import { createFile, getFilepath } from "../files/actions";
-import { closeFileSaga, openFileSaga } from "../files/flow";
+import { createFile, getFilepath } from "../ipc/actions";
+import { closeFileSaga, openFileSaga } from "../ipc/flow";
 import { hideMenuActionsModal } from "../menuActionsModal/actions";
 import { addMenuOptionAction, triggerMenuOption } from "../menus/actions";
 import { makeActionData } from "../menus/data";
