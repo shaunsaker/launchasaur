@@ -50,3 +50,16 @@ export const addMenu =
   createStandardAction("MENUS/addMenu")<{
     title: MenuTitle;
   }>();
+
+export const triggerMenuOption = createAsyncAction(
+  "MENUS/triggerMenuOptionRequest",
+  "MENUS/triggerMenuOptionSuccess",
+  "MENUS/triggerMenuOptionFailure",
+)<
+  {
+    menuId: MenuId;
+    menuOptionId: MenuOptionId;
+  },
+  void,
+  Error
+>();

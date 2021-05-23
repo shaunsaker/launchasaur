@@ -1,4 +1,4 @@
-import { dialog, ipcMain, IpcMainInvokeEvent } from "electron";
+import { dialog, ipcMain, IpcMainInvokeEvent, shell } from "electron";
 import path from "path";
 import fs from "fs";
 
@@ -7,7 +7,7 @@ import { getAppDataDir } from "../utils/getAppDataDir";
 import { isWindows } from "../utils/isWindows";
 import { createDirIfNotExists } from "../utils/createDirIfNotExists";
 
-export function startGetFilepathIPC() {
+export const startGetFilepathIPC = () => {
   ipcMain.handle(IPC.GetFilePath, async () => {
     const filepaths = await dialog.showOpenDialog({
       properties: ["openFile"],
@@ -15,9 +15,9 @@ export function startGetFilepathIPC() {
 
     return filepaths;
   });
-}
+};
 
-export function startCreateFileIPC() {
+export const startCreateFileIPC = () => {
   ipcMain.handle(
     IPC.CreateFile,
     async (_event: IpcMainInvokeEvent, filename: string, contents: string) => {
@@ -33,4 +33,17 @@ export function startCreateFileIPC() {
       return filepath;
     },
   );
-}
+};
+
+export const startOpenFileIPC = () => {
+  ipcMain.handle(
+    IPC.OpenFile,
+    async (_event: IpcMainInvokeEvent, filepath: string) => {
+      try {
+        shell.openPath(filepath);
+      } catch (error) {
+        console.log({ error });
+      }
+    },
+  );
+};

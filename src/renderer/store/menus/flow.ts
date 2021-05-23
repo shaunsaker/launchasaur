@@ -1,17 +1,31 @@
-import { call, fork, put, take, takeLatest } from "@redux-saga/core/effects";
+import {
+  all,
+  call,
+  fork,
+  put,
+  putResolve,
+  take,
+  takeLatest,
+} from "@redux-saga/core/effects";
 import { SagaIterator } from "redux-saga";
+import { dispatch } from "redux-saga-promise-actions";
 import { ActionType, getType } from "typesafe-actions";
+import { objectToArray } from "../../utils/objectToArray";
+import { select } from "../../utils/select";
 import { showEditLinkModal } from "../editLinkModal/actions";
 import {
   hideEditScriptModal,
   showEditScriptModal,
 } from "../editScriptModal/actions";
-import { createFile, getFilepath } from "../files/actions";
+import { createFile, getFilepath, openFile } from "../files/actions";
+import { openFileSaga } from "../files/flow";
 import { hideMenuActionsModal } from "../menuActionsModal/actions";
-import { addMenuOptionAction } from "../menus/actions";
+import { addMenuOptionAction, triggerMenuOption } from "../menus/actions";
 import { makeActionData } from "../menus/data";
 import { MenuAction } from "../menus/models";
+import { ApplicationState } from "../reducers";
 import { showSelectSubmenuModal } from "../selectSubmenuModal/actions";
+import { selectMenuOption } from "./selectors";
 
 function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addMenuOptionAction.request>,
@@ -120,7 +134,7 @@ function* handleAddOpenSubmenuActionSaga(
   );
 }
 
-function* handleAddMenuActionSaga(): SagaIterator {
+function* addMenuActionSaga(): SagaIterator {
   yield takeLatest(
     getType(addMenuOptionAction.request),
     function* (
@@ -149,6 +163,34 @@ function* handleAddMenuActionSaga(): SagaIterator {
   );
 }
 
+function* triggerMenuOptionSaga(): SagaIterator {
+  yield takeLatest(
+    getType(triggerMenuOption.request),
+    function* (
+      action: ActionType<typeof triggerMenuOption.request>,
+    ): SagaIterator {
+      const { menuId, menuOptionId } = action.payload;
+      const { actions } = yield* select((state: ApplicationState) =>
+        selectMenuOption(state, { menuId, menuOptionId }),
+      );
+
+      // trigger the actions as appropriate
+      const actionsArray = objectToArray(actions).map((action) => {
+        if (action.action === MenuAction.OpenFile) {
+          return call(openFileSaga, action.resource);
+        }
+
+        // TODO: handle the other action types
+      });
+
+      yield all(actionsArray);
+
+      yield put(triggerMenuOption.success());
+    },
+  );
+}
+
 export function* menusSagas(): SagaIterator {
-  yield fork(handleAddMenuActionSaga);
+  yield fork(addMenuActionSaga);
+  yield fork(triggerMenuOptionSaga);
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from "react";
+import React, { ReactElement, useCallback, MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
@@ -7,6 +7,7 @@ import {
   deleteMenuOption,
   deleteMenuOptionAction,
   editMenuOption,
+  triggerMenuOption,
 } from "../../store/menus/actions";
 import { ActionData, MenuData, MenuOptionData } from "../../store/menus/models";
 import { objectToArray } from "../../utils/objectToArray";
@@ -19,11 +20,19 @@ interface MenuProps {
 export const Menu = ({ menu }: MenuProps): ReactElement => {
   const dispatch = useDispatch();
 
-  const onMenuOptionClick = useCallback((option: MenuOptionData) => {
-    if (!option.isEditing) {
-      // TODO: send actions to main so that we can trigger them from there
-    }
-  }, []);
+  const onMenuOptionClick = useCallback(
+    (option: MenuOptionData) => {
+      if (!option.isEditing) {
+        dispatch(
+          triggerMenuOption.request({
+            menuId: menu.id,
+            menuOptionId: option.id,
+          }),
+        );
+      }
+    },
+    [dispatch, menu.id],
+  );
 
   const onAddMenuOptionClick = useCallback(() => {
     dispatch(addMenuOption({ menuId: menu.id, menuOptionId: uuid() }));
@@ -52,7 +61,11 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
   );
 
   const onEditMenuOptionClick = useCallback(
-    (option: MenuOptionData) => {
+    (event: MouseEvent<HTMLButtonElement>, option: MenuOptionData) => {
+      // stop propogation of the event to the menu option container
+      // otherwise we will trigger it's actions
+      event.stopPropagation();
+
       dispatch(
         editMenuOption({
           menuId: menu.id,
@@ -103,34 +116,43 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
                   <div>Resource: {action.resource}</div>
 
                   {isEditing && (
-                    <div onClick={() => onDeleteActionClick(option, action)}>
+                    <button onClick={() => onDeleteActionClick(option, action)}>
                       Delete Action
-                    </div>
+                    </button>
                   )}
                 </div>
               ))}
             </div>
 
             {isEditing && (
-              <div onClick={() => onAddActionClick(option)}>Add Action</div>
+              <button onClick={() => onAddActionClick(option)}>
+                Add Action
+              </button>
             )}
 
             {!isEditing ? (
-              <div onClick={() => onEditMenuOptionClick(option)}>Edit</div>
+              <button
+                onClick={(event: MouseEvent<HTMLButtonElement>) =>
+                  onEditMenuOptionClick(event, option)
+                }>
+                Edit
+              </button>
             ) : (
-              <div onClick={() => onCloseEditMenuOptionClick(option)}>
+              <button onClick={() => onCloseEditMenuOptionClick(option)}>
                 Close Edit
-              </div>
+              </button>
             )}
 
             {isEditing && (
-              <div onClick={() => onDeleteMenuOptionClick(option)}>Delete</div>
+              <button onClick={() => onDeleteMenuOptionClick(option)}>
+                Delete
+              </button>
             )}
           </MenuOption>
         );
       })}
 
-      <div onClick={onAddMenuOptionClick}>Add Menu Option</div>
+      <button onClick={onAddMenuOptionClick}>Add Menu Option</button>
     </Container>
   );
 };
