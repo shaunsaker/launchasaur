@@ -41,12 +41,10 @@ export const startOpenFileIPC = () => {
   ipcMain.handle(
     IPC.OpenFile,
     async (_event: IpcMainInvokeEvent, filepath: string) => {
-      try {
-        shell.openPath(filepath);
-      } catch (error) {
-        // TODO: how to handle errors here
-        console.log({ error });
-      }
+      const error = await shell.openPath(filepath);
+
+      // TODO: how to handle errors here
+      console.log({ error });
     },
   );
 };
