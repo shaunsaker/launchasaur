@@ -11,10 +11,11 @@ interface HomeRouteParams {
 }
 
 export const Home = (): ReactElement => {
-  const { menuId } = useParams<HomeRouteParams>();
+  const { menuId } = useParams<HomeRouteParams>(); // TODO: this is not updating
   const menu = useSelector((state: ApplicationState) =>
     selectMenu(state, menuId || defaultMenuId),
   );
+  console.log({ menuId, menu });
 
   return (
     <div>

@@ -1,3 +1,4 @@
+import { ConnectedRouter } from "connected-react-router";
 import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { HashRouter, Switch, Route } from "react-router-dom";
@@ -7,9 +8,11 @@ import { MenuActionsModal } from "./components/MenuActionsModal";
 import { SelectSubmenuModal } from "./components/SelectSubmenuModal";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
+import { history } from "./store";
 import { selectEditLinkModalIsShown } from "./store/editLinkModal/selectors";
 import { selectEditMenuModalIsShown } from "./store/editMenuModal/selectors";
 import { selectMenuActionsModalIsShown } from "./store/menuActionsModal/selectors";
+import { menuIdParam } from "./store/navigation/routes";
 import { selectSelectSubmenuModalIsShown } from "./store/selectSubmenuModal/selectors";
 
 export const Router = (): ReactElement => {
@@ -19,26 +22,28 @@ export const Router = (): ReactElement => {
   const editMenuModalIsShown = useSelector(selectEditMenuModalIsShown);
 
   return (
-    <HashRouter>
-      <Switch>
-        <Route path="/settings">
-          <Settings />
-        </Route>
-        <Route path="/:menuId">
-          <Home />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+    <ConnectedRouter history={history}>
+      <HashRouter>
+        <Switch>
+          <Route path="/settings">
+            <Settings />
+          </Route>
+          <Route path={`/${menuIdParam}`}>
+            <Home />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
 
-      {menuActionsModalIsShown && <MenuActionsModal />}
+        {menuActionsModalIsShown && <MenuActionsModal />}
 
-      {editLinkModalIsShown && <EditLinkModal />}
+        {editLinkModalIsShown && <EditLinkModal />}
 
-      {submenuModalIsShown && <SelectSubmenuModal />}
+        {submenuModalIsShown && <SelectSubmenuModal />}
 
-      {editMenuModalIsShown && <EditMenuModal />}
-    </HashRouter>
+        {editMenuModalIsShown && <EditMenuModal />}
+      </HashRouter>
+    </ConnectedRouter>
   );
 };

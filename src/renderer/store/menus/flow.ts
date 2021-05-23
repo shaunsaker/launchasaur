@@ -17,6 +17,7 @@ import { hideMenuActionsModal } from "../menuActionsModal/actions";
 import { addMenuOptionAction, triggerMenuOption } from "../menus/actions";
 import { makeActionData } from "../menus/data";
 import { MenuAction } from "../menus/models";
+import { navigateToMenu } from "../navigation/actions";
 import { ApplicationState } from "../reducers";
 import { showSelectSubmenuModal } from "../selectSubmenuModal/actions";
 import { selectMenuOption } from "./selectors";
@@ -137,7 +138,9 @@ function* triggerMenuOptionSaga(): SagaIterator {
           return call(openLinkSaga, action.resource);
         }
 
-        // TODO: handle the other action types
+        if (action.action === MenuAction.OpenSubmenu) {
+          return put(navigateToMenu({ menuId: action.resource }));
+        }
       });
 
       yield all(actionsArray);

@@ -9,6 +9,8 @@ import { SelectSubmenuModalState } from "./selectSubmenuModal/models";
 import { selectSubmenuModalReducer } from "./selectSubmenuModal/reducer";
 import { EditMenuModalState } from "./editMenuModal/models";
 import { editMenuModalReducer } from "./editMenuModal/reducer";
+import { connectRouter } from "connected-react-router";
+import { History } from "history";
 
 export interface ApplicationState {
   menus: MenusState;
@@ -18,14 +20,16 @@ export interface ApplicationState {
   editMenuModal: EditMenuModalState;
 }
 
-export const rootReducer = combineReducers({
-  menus: menusReducer,
-  menuActionsModal: menuActionsModalReducer,
-  editLinkModal: editLinkModalReducer,
-  selectSubmenuModal: selectSubmenuModalReducer,
-  editMenuModal: editMenuModalReducer,
-});
+export const createRootReducer = (history_: History) =>
+  combineReducers({
+    router: connectRouter(history_),
+    menus: menusReducer,
+    menuActionsModal: menuActionsModalReducer,
+    editLinkModal: editLinkModalReducer,
+    selectSubmenuModal: selectSubmenuModalReducer,
+    editMenuModal: editMenuModalReducer,
+  });
 
-export const initialState = rootReducer(undefined, { type: "" });
-
-export default rootReducer;
+export const initialState = {
+  router: {},
+}; // TODO: fix this
