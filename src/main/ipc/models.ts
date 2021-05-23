@@ -1,3 +1,4 @@
 export enum IPC {
-  OpenFile = "OpenFile",
+  GetFilePath = "GetFilePath",
+  CreateFile = "CreateFile",
 }

@@ -30,7 +30,7 @@ const middleware = applyMiddleware(...middlewares);
 const persistConfig: PersistConfig<ApplicationState> = {
   key: "root",
   storage,
-  blacklist: ["menuActionsModal", "editLinkModal"],
+  blacklist: ["menuActionsModal", "editLinkModal", "editScriptModal"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -10,6 +10,8 @@ import { MenuAction, menuActions } from "../store/menus/models";
 
 export const MenuActionsModal = (): ReactElement => {
   const dispatch = useDispatch();
+
+  // TODO: the saga can get these directly
   const menuId = useSelector(selectMenuActionsModalMenuId);
   const menuOptionId = useSelector(selectMenuActionsModalMenuOptionId);
 
