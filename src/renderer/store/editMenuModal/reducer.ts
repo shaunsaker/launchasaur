@@ -18,12 +18,10 @@ export const editMenuModalReducer: Reducer<EditMenuModalState> = (
 ) => {
   switch (action.type) {
     case getType(showEditMenuModal):
-      const newState: EditMenuModalState = {
+      return {
         ...state,
         isShown: true,
       };
-
-      return newState;
     case getType(hideEditMenuModal):
       return initialState;
 

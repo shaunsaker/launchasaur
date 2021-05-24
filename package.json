@@ -109,6 +109,7 @@
   },
   "dependencies": {
     "connected-react-router": "^6.9.1",
+    "electron-is-accelerator": "^0.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "fkill": "^7.1.1",
     "history": "4.10.1",

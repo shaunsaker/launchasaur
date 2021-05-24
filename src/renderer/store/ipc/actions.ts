@@ -24,3 +24,21 @@ export const openLink = createAsyncAction(
   "IPC/openLinkSuccess",
   "IPC/openLinkFailure",
 )<{ url: string }, void, Error>();
+
+export const checkShortcutRegistered = createAsyncAction(
+  "IPC/checkShortcutRegisteredRequest",
+  "IPC/checkShortcutRegisteredSuccess",
+  "IPC/checkShortcutRegisteredFailure",
+)<{ shortcut: string }, boolean, Error>();
+
+export const unregisterShortcut = createAsyncAction(
+  "IPC/unregisterShortcutRequest",
+  "IPC/unregisterShortcutSuccess",
+  "IPC/unregisterShortcutFailure",
+)<{ shortcut: string }, void, Error>();
+
+export const registerShortcut = createAsyncAction(
+  "IPC/registerShortcutRequest",
+  "IPC/registerShortcutSuccess",
+  "IPC/registerShortcutFailure",
+)<{ shortcut: string }, void, Error>();

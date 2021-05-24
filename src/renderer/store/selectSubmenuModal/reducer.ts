@@ -21,15 +21,13 @@ export const selectSubmenuModalReducer: Reducer<SelectSubmenuModalState> = (
 ) => {
   switch (action.type) {
     case getType(showSelectSubmenuModal):
-      const newState: SelectSubmenuModalState = {
+      return {
         ...state,
         isShown: true,
         menuId: action.payload.menuId,
         menuOptionId: action.payload.menuOptionId,
         actionId: action.payload.actionId,
       };
-
-      return newState;
     case getType(hideSelectSubmenuModal):
       return initialState;
 

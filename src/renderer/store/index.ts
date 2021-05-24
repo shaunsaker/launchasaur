@@ -34,12 +34,14 @@ const middleware = applyMiddleware(...middlewares);
 const persistConfig: PersistConfig<ApplicationState> = {
   key: "root",
   storage,
+  // TODO: type this
   blacklist: [
     "router",
     "menuActionsModal",
     "editLinkModal",
     "selectSubmenuModal",
     "editMenuModal",
+    "editAppShortcutModal",
   ],
 };
 

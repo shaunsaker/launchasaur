@@ -11,24 +11,32 @@ import { EditMenuModalState } from "./editMenuModal/models";
 import { editMenuModalReducer } from "./editMenuModal/reducer";
 import { connectRouter, RouterState } from "connected-react-router";
 import { History } from "history";
+import { EditAppShortcutModalState } from "./editAppShortcutModal/models";
+import { editAppShortcutModalReducer } from "./editAppShortcutModal/reducer";
+import { SettingsState } from "./settings/models";
+import { settingsReducer } from "./settings/reducer";
 
 export interface ApplicationState {
   router: RouterState;
+  settings: SettingsState;
   menus: MenusState;
   menuActionsModal: MenuActionsModalState;
   editLinkModal: EditLinkModalState;
   selectSubmenuModal: SelectSubmenuModalState;
   editMenuModal: EditMenuModalState;
+  editAppShortcutModal: EditAppShortcutModalState;
 }
 
 export const createRootReducer = (history_: History) =>
   combineReducers({
     router: connectRouter(history_),
+    settings: settingsReducer,
     menus: menusReducer,
     menuActionsModal: menuActionsModalReducer,
     editLinkModal: editLinkModalReducer,
     selectSubmenuModal: selectSubmenuModalReducer,
     editMenuModal: editMenuModalReducer,
+    editAppShortcutModal: editAppShortcutModalReducer,
   });
 
 export const initialState = {

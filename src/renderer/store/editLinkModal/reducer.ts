@@ -21,15 +21,13 @@ export const editLinkModalReducer: Reducer<EditLinkModalState> = (
 ) => {
   switch (action.type) {
     case getType(showEditLinkModal):
-      const newState: EditLinkModalState = {
+      return {
         ...state,
         isShown: true,
         menuId: action.payload.menuId,
         menuOptionId: action.payload.menuOptionId,
         actionId: action.payload.actionId,
       };
-
-      return newState;
     case getType(hideEditLinkModal):
       return initialState;
 

@@ -3,4 +3,7 @@ export enum IPC {
   OpenFile = "OpenFile",
   CloseFile = "CloseFile",
   OpenLink = "OpenLink",
+  CheckShortcutRegistered = "CheckShortcutRegistered",
+  RegisterShortcut = "RegisterShortcut",
+  UnregisterShortcut = "UnregisterShortcu",
 }

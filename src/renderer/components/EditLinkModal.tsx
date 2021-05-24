@@ -17,14 +17,13 @@ export const EditLinkModal = (): ReactElement => {
   const menuId = useSelector(selectEditLinkModalMenuId);
   const menuOptionId = useSelector(selectEditLinkModalMenuOptionId);
   const [value, setValue] = useState("");
-  const [isValid, setIsValid] = useState(validateUrl(value));
+  const isValid = validateUrl(value);
 
   const onChange = useCallback(
     (event: FormEvent<HTMLInputElement>) => {
       setValue(event.currentTarget.value);
-      setIsValid(validateUrl(value));
     },
-    [setValue, value],
+    [setValue],
   );
 
   const onSubmitClick = useCallback(() => {

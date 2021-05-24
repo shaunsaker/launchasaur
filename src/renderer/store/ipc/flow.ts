@@ -4,7 +4,15 @@ import { SagaIterator } from "redux-saga";
 import { getType } from "typesafe-actions";
 import { IPC } from "../../../main/ipc/models";
 import { getFilenameFromFilepath } from "./utils";
-import { closeFile, getFilepath, openFile, openLink } from "./actions";
+import {
+  checkShortcutRegistered,
+  closeFile,
+  getFilepath,
+  openFile,
+  openLink,
+  registerShortcut,
+  unregisterShortcut,
+} from "./actions";
 
 function* getFilepathSaga(): SagaIterator {
   yield takeLatest(getType(getFilepath.request), function* (): SagaIterator {
@@ -53,6 +61,46 @@ export function* openLinkSaga(url: string): SagaIterator {
     yield put(openLink.success());
   } catch (error) {
     yield put(openLink.failure(error));
+  }
+}
+
+export function* checkShortcutRegisteredSaga(shortcut: string): SagaIterator {
+  yield put(checkShortcutRegistered.request({ shortcut }));
+
+  try {
+    const shortcutRegistered = yield call(() =>
+      ipcRenderer.invoke(IPC.CheckShortcutRegistered, shortcut),
+    );
+
+    yield put(checkShortcutRegistered.success(shortcutRegistered));
+
+    return shortcutRegistered;
+  } catch (error) {
+    yield put(checkShortcutRegistered.failure(error));
+  }
+}
+
+export function* unregisterShortcutSaga(shortcut: string): SagaIterator {
+  yield put(unregisterShortcut.request({ shortcut }));
+
+  try {
+    yield call(() => ipcRenderer.invoke(IPC.UnregisterShortcut, shortcut));
+
+    yield put(unregisterShortcut.success());
+  } catch (error) {
+    yield put(unregisterShortcut.failure(error));
+  }
+}
+
+export function* registerShortcutSaga(shortcut: string): SagaIterator {
+  yield put(registerShortcut.request({ shortcut }));
+
+  try {
+    yield call(() => ipcRenderer.invoke(IPC.RegisterShortcut, shortcut));
+
+    yield put(registerShortcut.success());
+  } catch (error) {
+    yield put(registerShortcut.failure(error));
   }
 }
 

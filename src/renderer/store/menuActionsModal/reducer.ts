@@ -20,14 +20,12 @@ export const menuActionsModalReducer: Reducer<MenuActionsModalState> = (
 ) => {
   switch (action.type) {
     case getType(showMenuActionsModal):
-      const newState: MenuActionsModalState = {
+      return {
         ...state,
         isShown: true,
         menuId: action.payload.menuId,
         menuOptionId: action.payload.menuOptionId,
       };
-
-      return newState;
     case getType(hideMenuActionsModal):
       return initialState;
 
