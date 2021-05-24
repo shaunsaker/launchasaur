@@ -9,10 +9,11 @@ import { SelectSubmenuModalState } from "./selectSubmenuModal/models";
 import { selectSubmenuModalReducer } from "./selectSubmenuModal/reducer";
 import { EditMenuModalState } from "./editMenuModal/models";
 import { editMenuModalReducer } from "./editMenuModal/reducer";
-import { connectRouter } from "connected-react-router";
+import { connectRouter, RouterState } from "connected-react-router";
 import { History } from "history";
 
 export interface ApplicationState {
+  router: RouterState;
   menus: MenusState;
   menuActionsModal: MenuActionsModalState;
   editLinkModal: EditLinkModalState;

@@ -12,7 +12,7 @@ import { history } from "./store";
 import { selectEditLinkModalIsShown } from "./store/editLinkModal/selectors";
 import { selectEditMenuModalIsShown } from "./store/editMenuModal/selectors";
 import { selectMenuActionsModalIsShown } from "./store/menuActionsModal/selectors";
-import { menuIdParam } from "./store/navigation/routes";
+import { Routes } from "./store/navigation/routes";
 import { selectSelectSubmenuModalIsShown } from "./store/selectSubmenuModal/selectors";
 
 export const Router = (): ReactElement => {
@@ -25,13 +25,13 @@ export const Router = (): ReactElement => {
     <ConnectedRouter history={history}>
       <HashRouter>
         <Switch>
-          <Route path="/settings">
+          <Route path={Routes.settings}>
             <Settings />
           </Route>
-          <Route path={`/${menuIdParam}`}>
+          <Route path={Routes.submenu}>
             <Home />
           </Route>
-          <Route exact path="/">
+          <Route exact path={Routes.root}>
             <Home />
           </Route>
         </Switch>

@@ -1,5 +1,7 @@
 export const menuIdParam = ":menuId";
 
 export const Routes = {
-  root: `/${menuIdParam}`,
+  root: "/",
+  submenu: `/menu/${menuIdParam}`,
+  settings: "/settings",
 };

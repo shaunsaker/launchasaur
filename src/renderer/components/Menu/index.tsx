@@ -10,6 +10,9 @@ import {
   triggerMenuOption,
 } from "../../store/menus/actions";
 import { ActionData, MenuData, MenuOptionData } from "../../store/menus/models";
+import { navigateBack, navigateTo } from "../../store/navigation/actions";
+import { Routes } from "../../store/navigation/routes";
+import { isSubmenuRoute } from "../../store/navigation/utils";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
 
@@ -97,6 +100,10 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     [dispatch, menu.id],
   );
 
+  const onGoBackClick = useCallback(() => {
+    dispatch(navigateTo({ to: Routes.root }));
+  }, [dispatch]);
+
   return (
     <Container>
       {objectToArray(menu?.options).map((option) => {
@@ -153,6 +160,8 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
       })}
 
       <button onClick={onAddMenuOptionClick}>Add Menu Option</button>
+
+      {isSubmenuRoute() && <button onClick={onGoBackClick}>Go Back</button>}
     </Container>
   );
 };
