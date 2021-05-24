@@ -10,7 +10,7 @@ import {
   triggerMenuOption,
 } from "../../store/menus/actions";
 import { ActionData, MenuData, MenuOptionData } from "../../store/menus/models";
-import { navigateBack, navigateTo } from "../../store/navigation/actions";
+import { navigateTo } from "../../store/navigation/actions";
 import { Routes } from "../../store/navigation/routes";
 import { isSubmenuRoute } from "../../store/navigation/utils";
 import { objectToArray } from "../../utils/objectToArray";
