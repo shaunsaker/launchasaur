@@ -5,6 +5,7 @@ import { HashRouter, Switch, Route } from "react-router-dom";
 import { EditAppShortcutModal } from "./components/EditAppShortcutModal";
 import { EditLinkModal } from "./components/EditLinkModal";
 import { EditMenuModal } from "./components/EditMenuModal";
+import { EditMenuOptionShortcutModal } from "./components/EditMenuOptionShortcutModal";
 import { MenuActionsModal } from "./components/MenuActionsModal";
 import { SelectSubmenuModal } from "./components/SelectSubmenuModal";
 import { Home } from "./pages/Home";
@@ -13,6 +14,7 @@ import { history } from "./store";
 import { selectEditAppShortcutModalIsShown } from "./store/editAppShortcutModal/selectors";
 import { selectEditLinkModalIsShown } from "./store/editLinkModal/selectors";
 import { selectEditMenuModalIsShown } from "./store/editMenuModal/selectors";
+import { selectEditMenuOptionShortcutModalIsShown } from "./store/editMenuOptionShortcutModal/selectors";
 import { selectMenuActionsModalIsShown } from "./store/menuActionsModal/selectors";
 import { Routes } from "./store/navigation/routes";
 import { selectSelectSubmenuModalIsShown } from "./store/selectSubmenuModal/selectors";
@@ -24,6 +26,9 @@ export const Router = (): ReactElement => {
   const editMenuModalIsShown = useSelector(selectEditMenuModalIsShown);
   const editAppShortcutModalIsShown = useSelector(
     selectEditAppShortcutModalIsShown,
+  );
+  const editMenuOptionShortcutModalIsShown = useSelector(
+    selectEditMenuOptionShortcutModalIsShown,
   );
 
   return (
@@ -50,6 +55,8 @@ export const Router = (): ReactElement => {
         {editMenuModalIsShown && <EditMenuModal />}
 
         {editAppShortcutModalIsShown && <EditAppShortcutModal />}
+
+        {editMenuOptionShortcutModalIsShown && <EditMenuOptionShortcutModal />}
       </HashRouter>
     </ConnectedRouter>
   );

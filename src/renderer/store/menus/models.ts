@@ -23,6 +23,7 @@ export interface ActionData {
 }
 
 export type ActionId = string;
+export type Shortcut = string;
 
 export interface MenuOptionData {
   id: MenuOptionId;
@@ -30,6 +31,7 @@ export interface MenuOptionData {
   icon: string;
   colour: string;
   actions: Record<ActionId, ActionData>;
+  shortcut: Shortcut;
   isEditing: boolean;
 }
 

@@ -2,6 +2,7 @@ import React, { ReactElement, useCallback, MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
 import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
 import {
   addMenuOption,
@@ -100,6 +101,18 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     [dispatch, menu.id],
   );
 
+  const onShortcutClick = useCallback(
+    (option: MenuOptionData) => {
+      dispatch(
+        showEditMenuOptionShortcutModal({
+          menuId: menu.id,
+          menuOptionId: option.id,
+        }),
+      );
+    },
+    [dispatch, menu.id],
+  );
+
   return (
     <Container>
       {objectToArray(menu?.options).map((option) => {
@@ -110,6 +123,15 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
             <div>Title: {option.title}</div>
             <div>Icon: {option.icon}</div>
             <div>Colour: {option.colour}</div>
+
+            {isEditing ? (
+              <button onClick={() => onShortcutClick(option)}>
+                Edit Shortcut: {option.shortcut}
+              </button>
+            ) : (
+              <div>Shortcut: {option.shortcut}</div>
+            )}
+
             <div>
               <div>Actions:</div>
 

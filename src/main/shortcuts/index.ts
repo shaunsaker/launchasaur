@@ -26,6 +26,7 @@ const isMac = process.platform === "darwin";
 
 const showWindow = (window: BrowserWindow) => {
   window.show();
+
   // TODO: we may need to setFullScreen here
 
   return false;

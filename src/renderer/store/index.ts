@@ -42,6 +42,7 @@ const persistConfig: PersistConfig<ApplicationState> = {
     "selectSubmenuModal",
     "editMenuModal",
     "editAppShortcutModal",
+    "editMenuOptionShortcutModal",
   ],
 };
 

@@ -6,6 +6,7 @@ import {
   MenuOptionId,
   ActionId,
   MenuTitle,
+  Shortcut,
 } from "./models";
 
 export const addMenuOption = createStandardAction("MENUS/addMenuOption")<{
@@ -63,3 +64,11 @@ export const triggerMenuOption = createAsyncAction(
   void,
   Error
 >();
+
+export const setMenuOptionShortcut = createStandardAction(
+  "MENUS/setMenuOptionShortcut",
+)<{
+  menuId: MenuId;
+  menuOptionId: MenuOptionId;
+  shortcut: Shortcut;
+}>();

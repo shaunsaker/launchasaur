@@ -2,19 +2,18 @@ import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Menu } from "../components/Menu";
-import { defaultMenuId } from "../store/menus/models";
 import { selectMenu } from "../store/menus/selectors";
 import { Routes } from "../store/navigation/routes";
 import { ApplicationState } from "../store/reducers";
 
-interface HomeRouteParams {
+export interface HomeRouteParams {
   menuId: string | undefined;
 }
 
 export const Home = (): ReactElement => {
   const { menuId } = useParams<HomeRouteParams>();
   const menu = useSelector((state: ApplicationState) =>
-    selectMenu(state, menuId || defaultMenuId),
+    selectMenu(state, menuId),
   );
 
   return (

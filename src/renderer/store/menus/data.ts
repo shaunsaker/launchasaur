@@ -31,6 +31,7 @@ export const makeMenuOptionData = ({
   icon: "",
   colour: "",
   actions: {},
+  shortcut: "",
   isEditing: false,
 });
 

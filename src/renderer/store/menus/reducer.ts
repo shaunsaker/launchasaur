@@ -8,6 +8,7 @@ import {
   editMenuOption,
   deleteMenuOptionAction,
   addMenu,
+  setMenuOptionShortcut,
 } from "./actions";
 import { makeMenuData, makeMenuOptionData } from "./data";
 
@@ -18,6 +19,7 @@ const reducerActions = {
   addMenuOptionActionSuccess: addMenuOptionAction.success,
   deleteMenuOptionAction,
   addMenu,
+  setMenuOptionShortcut,
 };
 
 // create the initial menu
@@ -163,6 +165,30 @@ const addMenuReducer = (
   };
 };
 
+const setMenuOptionShortcutReducer = (
+  state: MenusState,
+  action: ActionType<typeof setMenuOptionShortcut>,
+): MenusState => {
+  const { menuId, menuOptionId, shortcut } = action.payload;
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [menuId]: {
+        ...state.data[menuId],
+        options: {
+          ...state.data[menuId].options,
+          [menuOptionId]: {
+            ...state.data[menuId].options[menuOptionId],
+            shortcut,
+          },
+        },
+      },
+    },
+  };
+};
+
 export const menusReducer: Reducer<MenusState> = (
   state = initialState,
   action: ActionType<typeof reducerActions>,
@@ -185,6 +211,9 @@ export const menusReducer: Reducer<MenusState> = (
 
     case getType(addMenu):
       return addMenuReducer(state, action);
+
+    case getType(setMenuOptionShortcut):
+      return setMenuOptionShortcutReducer(state, action);
 
     default: {
       return state;

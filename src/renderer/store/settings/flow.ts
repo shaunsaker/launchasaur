@@ -2,6 +2,7 @@ import { SagaIterator } from "redux-saga";
 import { call, fork, put, takeLatest } from "redux-saga/effects";
 import { ActionType, getType } from "typesafe-actions";
 import { select } from "../../utils/select";
+import { hideEditAppShortcutModal } from "../editAppShortcutModal/actions";
 import {
   checkShortcutRegisteredSaga,
   registerShortcutSaga,
@@ -38,7 +39,9 @@ function* setAppShortcutSaga(): SagaIterator {
       if (shortcutRegistered) {
         yield put(
           settingsSetAppShortcut.failure(
-            new Error("Shortcut is already registered to another application."),
+            new Error(
+              "Shortcut is already registered. Please try a different one.",
+            ),
           ),
         );
       } else {
@@ -48,6 +51,7 @@ function* setAppShortcutSaga(): SagaIterator {
         yield call(registerShortcutSaga, shortcut);
 
         yield put(settingsSetAppShortcut.success({ shortcut }));
+        yield put(hideEditAppShortcutModal());
       }
     },
   );
