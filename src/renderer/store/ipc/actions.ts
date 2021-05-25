@@ -42,3 +42,9 @@ export const registerShortcut = createAsyncAction(
   "IPC/registerShortcutSuccess",
   "IPC/registerShortcutFailure",
 )<{ shortcut: string }, void, Error>();
+
+export const hideWindow = createAsyncAction(
+  "IPC/hideWindowRequest",
+  "IPC/hideWindowSuccess",
+  "IPC/hideWindowFailure",
+)<void, void, Error>();

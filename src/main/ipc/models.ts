@@ -5,5 +5,6 @@ export enum IPC {
   OpenLink = "OpenLink",
   CheckShortcutRegistered = "CheckShortcutRegistered",
   RegisterShortcut = "RegisterShortcut",
-  UnregisterShortcut = "UnregisterShortcu",
+  UnregisterShortcut = "UnregisterShortcut",
+  HideWindow = "HideWindow",
 }

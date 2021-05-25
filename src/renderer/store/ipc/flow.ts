@@ -8,6 +8,7 @@ import {
   checkShortcutRegistered,
   closeFile,
   getFilepath,
+  hideWindow,
   openFile,
   openLink,
   registerShortcut,
@@ -101,6 +102,18 @@ export function* registerShortcutSaga(shortcut: string): SagaIterator {
     yield put(registerShortcut.success());
   } catch (error) {
     yield put(registerShortcut.failure(error));
+  }
+}
+
+export function* hideWindowSaga(): SagaIterator {
+  yield put(hideWindow.request());
+
+  try {
+    yield call(() => ipcRenderer.invoke(IPC.HideWindow));
+
+    yield put(hideWindow.success());
+  } catch (error) {
+    yield put(hideWindow.failure(error));
   }
 }
 

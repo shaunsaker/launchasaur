@@ -1,10 +1,12 @@
 import {
+  app,
   BrowserWindow,
   globalShortcut,
   ipcMain,
   IpcMainInvokeEvent,
 } from "electron";
 import { IPC } from "../ipc/models";
+import { hideWindow, showWindow } from "../window";
 
 export const startCheckShortcutRegisteredIPC = () => {
   ipcMain.handle(
@@ -22,41 +24,15 @@ export const startUnregisterShortcutIPC = () => {
   );
 };
 
-const isMac = process.platform === "darwin";
-
-const showWindow = (window: BrowserWindow) => {
-  window.show();
-
-  // TODO: we may need to setFullScreen here
-
-  return false;
-};
-
-const hideWindow = (window: BrowserWindow) => {
-  window.hide();
-  // TODO: we may need to setFullScreen here
-
-  return true;
-};
-
 export const startRegisterShortcutIPC = (window: BrowserWindow) => {
   ipcMain.handle(
     IPC.RegisterShortcut,
     async (_event: IpcMainInvokeEvent, shortcut: string) => {
-      let hidden = false;
-
       globalShortcut.register(shortcut, () => {
-        if (hidden) {
-          hidden = showWindow(window);
+        if (!window.isFocused()) {
+          showWindow(window);
         } else {
-          if (isMac && window.isFullScreen()) {
-            // on mac, if you hide a window while fullscreen, you get a black screen of death
-            setTimeout(() => {
-              hidden = hideWindow(window);
-            }, 750);
-          }
-
-          hidden = hideWindow(window);
+          hideWindow(window);
         }
       });
     },

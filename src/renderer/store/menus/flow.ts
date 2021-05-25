@@ -12,7 +12,12 @@ import { objectToArray } from "../../utils/objectToArray";
 import { select } from "../../utils/select";
 import { showEditLinkModal } from "../editLinkModal/actions";
 import { getFilepath } from "../ipc/actions";
-import { closeFileSaga, openFileSaga, openLinkSaga } from "../ipc/flow";
+import {
+  closeFileSaga,
+  hideWindowSaga,
+  openFileSaga,
+  openLinkSaga,
+} from "../ipc/flow";
 import { hideMenuActionsModal } from "../menuActionsModal/actions";
 import { addMenuOptionAction, triggerMenuOption } from "../menus/actions";
 import { makeActionData } from "../menus/data";
@@ -146,6 +151,8 @@ function* triggerMenuOptionSaga(): SagaIterator {
       yield all(actionsArray);
 
       yield put(triggerMenuOption.success());
+
+      yield call(hideWindowSaga);
     },
   );
 }

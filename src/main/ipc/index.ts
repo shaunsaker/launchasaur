@@ -10,6 +10,7 @@ import {
   startRegisterShortcutIPC,
   startUnregisterShortcutIPC,
 } from "../shortcuts";
+import { startHideWindowIPC } from "../window";
 
 export function startIPC(window: BrowserWindow): void {
   startGetFilepathIPC();
@@ -19,4 +20,5 @@ export function startIPC(window: BrowserWindow): void {
   startCheckShortcutRegisteredIPC();
   startUnregisterShortcutIPC();
   startRegisterShortcutIPC(window);
+  startHideWindowIPC(window);
 }
