@@ -1,4 +1,4 @@
-import React, { FormEvent, ReactElement, useCallback, useState } from "react";
+import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideEditMenuOptionTitleModal } from "../store/editMenuOptionTitleModal/actions";
 import {
@@ -8,6 +8,7 @@ import {
 import { setMenuOptionTitle } from "../store/menus/actions";
 import { selectMenuOption } from "../store/menus/selectors";
 import { ApplicationState } from "../store/reducers";
+import { EditTitleModal } from "./EditTitleModal";
 
 export const EditMenuOptionTitleModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -16,31 +17,23 @@ export const EditMenuOptionTitleModal = (): ReactElement => {
   const menuOption = useSelector((state: ApplicationState) =>
     selectMenuOption(state, { menuId, menuOptionId }),
   );
-  const [value, setValue] = useState(menuOption.title);
-
-  const onChange = useCallback(
-    (event: FormEvent<HTMLInputElement>) => {
-      setValue(event.currentTarget.value);
+  const onSubmit = useCallback(
+    (value: string) => {
+      dispatch(setMenuOptionTitle({ menuId, menuOptionId, title: value }));
+      dispatch(hideEditMenuOptionTitleModal());
     },
-    [setValue],
+    [dispatch, menuId, menuOptionId],
   );
 
-  const onSubmitClick = useCallback(() => {
-    dispatch(setMenuOptionTitle({ menuId, menuOptionId, title: value }));
-    dispatch(hideEditMenuOptionTitleModal());
-  }, [dispatch, menuId, menuOptionId, value]);
-
-  const onCloseClick = useCallback(() => {
+  const onClose = useCallback(() => {
     dispatch(hideEditMenuOptionTitleModal());
   }, [dispatch]);
 
   return (
-    <div>
-      <input value={value} onChange={onChange} />
-
-      <button onClick={onSubmitClick}>Submit</button>
-
-      <button onClick={onCloseClick}>Close</button>
-    </div>
+    <EditTitleModal
+      title={menuOption.title}
+      handleSubmit={onSubmit}
+      handleClose={onClose}
+    />
   );
 };

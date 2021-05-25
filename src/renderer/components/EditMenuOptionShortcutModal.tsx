@@ -16,9 +16,9 @@ export const EditMenuOptionShortcutModal = (): ReactElement => {
   const menuOptionId = useSelector(
     selectEditMenuOptionShortcutModalMenuOptionId,
   );
-  const menuOptionShortcut = useSelector((state: ApplicationState) =>
+  const menuOption = useSelector((state: ApplicationState) =>
     selectMenuOption(state, { menuId, menuOptionId }),
-  ).shortcut;
+  );
 
   const onSubmit = useCallback(
     (shortcut: string) => {
@@ -34,7 +34,7 @@ export const EditMenuOptionShortcutModal = (): ReactElement => {
 
   return (
     <EditShortcutModal
-      shortcut={menuOptionShortcut}
+      shortcut={menuOption.shortcut}
       handleSubmit={onSubmit}
       handleClose={onClose}
     />
