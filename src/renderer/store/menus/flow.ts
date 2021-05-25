@@ -156,7 +156,8 @@ function* triggerMenuOptionSaga(): SagaIterator {
       const isOpeningSubmenu = arrayActions.some(
         (action) => action.action === MenuAction.OpenSubmenu,
       );
-      if (!isOpeningSubmenu) {
+      const hasActions = arrayActions.length;
+      if (!isOpeningSubmenu && hasActions) {
         yield call(hideWindowSaga);
       }
     },

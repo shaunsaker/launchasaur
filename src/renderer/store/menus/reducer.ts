@@ -11,6 +11,7 @@ import {
   setMenuOptionShortcut,
 } from "./actions";
 import { makeMenuData, makeMenuOptionData } from "./data";
+import { REHYDRATE } from "redux-persist/es/constants";
 
 const reducerActions = {
   addMenuOption,
@@ -27,6 +28,28 @@ export const initialState: MenusState = {
   data: {
     [defaultMenuId]: makeMenuData({ id: defaultMenuId }),
   },
+};
+
+const rehydrateReducer = (
+  state: MenusState,
+  action: { payload: { menus: MenusState } },
+) => {
+  // reset all menu options isEditing state
+  const menus = action.payload.menus.data;
+
+  Object.keys(menus).forEach((menuId) => {
+    const options = menus[menuId].options;
+
+    Object.keys(options).forEach((optionId) => {
+      const option = options[optionId];
+      option.isEditing = false;
+    });
+  });
+
+  return {
+    ...state,
+    data: menus,
+  };
 };
 
 const addMenuOptionReducer = (
@@ -191,9 +214,14 @@ const setMenuOptionShortcutReducer = (
 
 export const menusReducer: Reducer<MenusState> = (
   state = initialState,
-  action: ActionType<typeof reducerActions>,
+  action:
+    | ActionType<typeof reducerActions>
+    | { type: typeof REHYDRATE; payload: { menus: MenusState } },
 ) => {
   switch (action.type) {
+    case REHYDRATE:
+      return rehydrateReducer(state, action);
+
     case getType(addMenuOption):
       return addMenuOptionReducer(state, action);
 
