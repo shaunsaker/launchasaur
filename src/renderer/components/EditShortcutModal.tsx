@@ -13,7 +13,7 @@ export const EditShortcutModal = ({
   handleClose,
 }: EditShortcutModalProps): ReactElement => {
   const [value, setValue] = useState(shortcut);
-  const isValid = isAccelerator(value);
+  const isValid = !value || isAccelerator(value);
 
   const onChange = useCallback(
     (event: FormEvent<HTMLInputElement>) => {

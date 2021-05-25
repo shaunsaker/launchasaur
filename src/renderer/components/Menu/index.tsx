@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
+import { showEditMenuOptionTitleModal } from "../../store/editMenuOptionTitleModal/actions";
 import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
 import {
   addMenuOption,
@@ -101,7 +102,19 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     [dispatch, menu.id],
   );
 
-  const onShortcutClick = useCallback(
+  const onEditTitleClick = useCallback(
+    (option: MenuOptionData) => {
+      dispatch(
+        showEditMenuOptionTitleModal({
+          menuId: menu.id,
+          menuOptionId: option.id,
+        }),
+      );
+    },
+    [dispatch, menu.id],
+  );
+
+  const onEditShortcutClick = useCallback(
     (option: MenuOptionData) => {
       dispatch(
         showEditMenuOptionShortcutModal({
@@ -120,12 +133,18 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
 
         return (
           <MenuOption key={option.id} onClick={() => onMenuOptionClick(option)}>
-            <div>Title: {option.title}</div>
+            {isEditing ? (
+              <button onClick={() => onEditTitleClick(option)}>
+                Edit Title: {option.title}
+              </button>
+            ) : (
+              <div>Title: {option.title}</div>
+            )}
             <div>Icon: {option.icon}</div>
             <div>Colour: {option.colour}</div>
 
             {isEditing ? (
-              <button onClick={() => onShortcutClick(option)}>
+              <button onClick={() => onEditShortcutClick(option)}>
                 Edit Shortcut: {option.shortcut}
               </button>
             ) : (

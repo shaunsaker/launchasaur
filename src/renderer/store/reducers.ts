@@ -17,6 +17,8 @@ import { SettingsState } from "./settings/models";
 import { settingsReducer } from "./settings/reducer";
 import { EditMenuOptionShortcutModalState } from "./editMenuOptionShortcutModal/models";
 import { editMenuOptionShortcutModalReducer } from "./editMenuOptionShortcutModal/reducer";
+import { EditMenuOptionTitleModalState } from "./editMenuOptionTitleModal/models";
+import { editMenuOptionTitleModalReducer } from "./editMenuOptionTitleModal/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -28,6 +30,7 @@ export interface ApplicationState {
   editMenuModal: EditMenuModalState;
   editAppShortcutModal: EditAppShortcutModalState;
   editMenuOptionShortcutModal: EditMenuOptionShortcutModalState;
+  editMenuOptionTitleModal: EditMenuOptionTitleModalState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -41,6 +44,7 @@ export const createRootReducer = (history_: History) =>
     editMenuModal: editMenuModalReducer,
     editAppShortcutModal: editAppShortcutModalReducer,
     editMenuOptionShortcutModal: editMenuOptionShortcutModalReducer,
+    editMenuOptionTitleModal: editMenuOptionTitleModalReducer,
   });
 
 export const initialState = {

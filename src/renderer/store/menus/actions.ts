@@ -72,3 +72,11 @@ export const setMenuOptionShortcut = createStandardAction(
   menuOptionId: MenuOptionId;
   shortcut: Shortcut;
 }>();
+
+export const setMenuOptionTitle = createStandardAction(
+  "MENUS/setMenuOptionTitle",
+)<{
+  menuId: MenuId;
+  menuOptionId: MenuOptionId;
+  title: string;
+}>();
