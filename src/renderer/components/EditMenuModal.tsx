@@ -20,11 +20,17 @@ export const EditMenuModal = (): ReactElement => {
     dispatch(hideEditMenuModal());
   }, [dispatch, value]);
 
+  const onCloseClick = useCallback(() => {
+    dispatch(hideEditMenuModal());
+  }, [dispatch]);
+
   return (
     <div>
       <input value={value} onChange={onChange} />
 
-      <div onClick={onSubmitClick}>Submit</div>
+      <button onClick={onSubmitClick}>Submit</button>
+
+      <button onClick={onCloseClick}>Close</button>
     </div>
   );
 };

@@ -28,7 +28,15 @@ export const EditMenuOptionShortcutModal = (): ReactElement => {
     [dispatch, menuId, menuOptionId],
   );
 
+  const onClose = useCallback(() => {
+    dispatch(hideEditMenuOptionShortcutModal());
+  }, [dispatch]);
+
   return (
-    <EditShortcutModal shortcut={menuOptionShortcut} handleSubmit={onSubmit} />
+    <EditShortcutModal
+      shortcut={menuOptionShortcut}
+      handleSubmit={onSubmit}
+      handleClose={onClose}
+    />
   );
 };

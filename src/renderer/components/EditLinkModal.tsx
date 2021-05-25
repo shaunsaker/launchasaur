@@ -38,6 +38,10 @@ export const EditLinkModal = (): ReactElement => {
     dispatch(hideMenuActionsModal());
   }, [dispatch, value, menuId, menuOptionId]);
 
+  const onCloseClick = useCallback(() => {
+    dispatch(hideEditLinkModal());
+  }, [dispatch]);
+
   return (
     <div>
       <input value={value} onChange={onChange} />
@@ -45,6 +49,8 @@ export const EditLinkModal = (): ReactElement => {
       <button onClick={onSubmitClick} disabled={!isValid}>
         Submit
       </button>
+
+      <button onClick={onCloseClick}>Close</button>
     </div>
   );
 };

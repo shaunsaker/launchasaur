@@ -1,5 +1,6 @@
 import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { hideEditAppShortcutModal } from "../store/editAppShortcutModal/actions";
 import { settingsSetAppShortcut } from "../store/settings/actions";
 import { selectSettingsAppShortcut } from "../store/settings/selectors";
 import { EditShortcutModal } from "./EditShortcutModal";
@@ -15,5 +16,15 @@ export const EditAppShortcutModal = (): ReactElement => {
     [dispatch],
   );
 
-  return <EditShortcutModal shortcut={appShortcut} handleSubmit={onSubmit} />;
+  const onClose = useCallback(() => {
+    dispatch(hideEditAppShortcutModal());
+  }, [dispatch]);
+
+  return (
+    <EditShortcutModal
+      shortcut={appShortcut}
+      handleSubmit={onSubmit}
+      handleClose={onClose}
+    />
+  );
 };

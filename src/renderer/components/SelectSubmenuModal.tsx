@@ -39,25 +39,31 @@ export const SelectSubmenuModal = (): ReactElement => {
     [dispatch, menuId, menuOptionId],
   );
 
-  if (!hasSubmenus) {
-    return (
-      <div>
-        <div>No submenus</div>
-
-        <div onClick={onAddSubmenuClick}>Add Submenu</div>
-      </div>
-    );
-  }
+  const onCloseClick = useCallback(() => {
+    dispatch(hideSelectSubmenuModal());
+  }, [dispatch]);
 
   return (
     <div>
-      <div>Select a submenu</div>
+      {!hasSubmenus ? (
+        <div>
+          <div>No submenus</div>
 
-      {submenus.map((menu) => (
-        <div key={menu.id} onClick={() => onSubmenuClick(menu)}>
-          {menu.title}
+          <div onClick={onAddSubmenuClick}>Add Submenu</div>
         </div>
-      ))}
+      ) : (
+        <div>
+          <div>Select a submenu</div>
+
+          {submenus.map((menu) => (
+            <div key={menu.id} onClick={() => onSubmenuClick(menu)}>
+              {menu.title}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <button onClick={onCloseClick}>Close</button>
     </div>
   );
 };
