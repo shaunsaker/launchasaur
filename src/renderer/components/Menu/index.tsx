@@ -2,6 +2,7 @@ import React, { ReactElement, useCallback, MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { showEditMenuOptionColourModal } from "../../store/editMenuOptionColourModal/actions";
 import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
 import { showEditMenuOptionTitleModal } from "../../store/editMenuOptionTitleModal/actions";
 import { showEditMenuTitleModal } from "../../store/editMenuTitleModal/actions";
@@ -135,6 +136,18 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     );
   }, [dispatch, menu.id]);
 
+  const onEditColourClick = useCallback(
+    (option: MenuOptionData) => {
+      dispatch(
+        showEditMenuOptionColourModal({
+          menuId: menu.id,
+          menuOptionId: option.id,
+        }),
+      );
+    },
+    [dispatch, menu.id],
+  );
+
   return (
     <div>
       <button onClick={onEditMenuTitleClick}>{menu.title}</button>
@@ -155,7 +168,13 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
                 <div>Title: {option.title}</div>
               )}
               <div>Icon: {option.icon}</div>
-              <div>Colour: {option.colour}</div>
+              {isEditing ? (
+                <button onClick={() => onEditColourClick(option)}>
+                  Edit Colour: {option.colour}
+                </button>
+              ) : (
+                <div>Colour: {option.colour}</div>
+              )}
 
               {isEditing ? (
                 <button onClick={() => onEditShortcutClick(option)}>
