@@ -52,7 +52,7 @@ function* registerMenuOptionShortcutListener(): SagaIterator {
   );
 }
 
-function* registerShortcutsSaga(): SagaIterator {
+function* registerMenuOptionsShortcutsSaga(): SagaIterator {
   Mousetrap.reset();
 
   // select the current menu
@@ -75,21 +75,21 @@ function* registerShortcutsSaga(): SagaIterator {
   yield all(actions);
 }
 
-function* registerShortcutsListener(): SagaIterator {
+function* registerMenuOptionsShortcutsListener(): SagaIterator {
   // when the menu changes
   yield takeLatest(LOCATION_CHANGE, function* (): SagaIterator {
     const { pathname } = yield* select(selectNavigationLocation);
 
     if (pathname.includes("menu") || pathname === Routes.root) {
-      yield call(registerShortcutsSaga);
+      yield call(registerMenuOptionsShortcutsSaga);
     }
   });
 
   // when we change a shortcut
-  yield takeLatest(setMenuOptionShortcut, registerShortcutsSaga);
+  yield takeLatest(setMenuOptionShortcut, registerMenuOptionsShortcutsSaga);
 }
 
 export function* shortcutsSagas(): SagaIterator {
-  yield fork(registerShortcutsListener);
+  yield fork(registerMenuOptionsShortcutsListener);
   yield fork(registerMenuOptionShortcutListener);
 }
