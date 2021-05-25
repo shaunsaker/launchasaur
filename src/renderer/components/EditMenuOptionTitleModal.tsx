@@ -6,12 +6,17 @@ import {
   selectEditMenuOptionTitleModalMenuOptionId,
 } from "../store/editMenuOptionTitleModal/selectors";
 import { setMenuOptionTitle } from "../store/menus/actions";
+import { selectMenuOption } from "../store/menus/selectors";
+import { ApplicationState } from "../store/reducers";
 
 export const EditMenuOptionTitleModal = (): ReactElement => {
   const dispatch = useDispatch();
   const menuId = useSelector(selectEditMenuOptionTitleModalMenuId);
   const menuOptionId = useSelector(selectEditMenuOptionTitleModalMenuOptionId);
-  const [value, setValue] = useState("");
+  const menuOption = useSelector((state: ApplicationState) =>
+    selectMenuOption(state, { menuId, menuOptionId }),
+  );
+  const [value, setValue] = useState(menuOption.title);
 
   const onChange = useCallback(
     (event: FormEvent<HTMLInputElement>) => {
