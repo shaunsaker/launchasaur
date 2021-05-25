@@ -1,5 +1,4 @@
 import {
-  app,
   BrowserWindow,
   globalShortcut,
   ipcMain,
