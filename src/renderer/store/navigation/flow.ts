@@ -2,7 +2,11 @@ import { goBack, push } from "connected-react-router";
 import { eventChannel, SagaIterator } from "redux-saga";
 import { call, fork, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { ActionType, getType } from "typesafe-actions";
+import { select } from "../../utils/select";
+import { hideWindowSaga } from "../ipc/flow";
 import { navigateTo } from "./actions";
+import { Routes } from "./routes";
+import { selectNavigationLocation } from "./selectors";
 
 function* navigateToSaga(): SagaIterator {
   yield takeLatest(
@@ -28,7 +32,14 @@ function* backHandlerSaga(): SagaIterator {
   const channel = yield call(createKeyListenerChannel, "Escape");
 
   yield takeEvery(channel, function* () {
-    yield put(goBack());
+    const { pathname } = yield* select(selectNavigationLocation);
+    const isRoot = pathname === Routes.root;
+
+    if (isRoot) {
+      yield call(hideWindowSaga);
+    } else {
+      yield put(goBack());
+    }
   });
 }
 
