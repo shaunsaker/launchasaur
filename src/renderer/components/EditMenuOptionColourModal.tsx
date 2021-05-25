@@ -8,7 +8,8 @@ import {
 import { setMenuOptionColour } from "../store/menus/actions";
 import { selectMenuOption } from "../store/menus/selectors";
 import { ApplicationState } from "../store/reducers";
-import { EditColourModal } from "./EditColourModal";
+
+const COLORS = ["blue", "red"];
 
 export const EditMenuOptionColourModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -19,14 +20,17 @@ export const EditMenuOptionColourModal = (): ReactElement => {
   );
   const [value, setValue] = useState(menuOption.colour);
 
-  const onChange = useCallback(() => {
-    setValue();
-  }, [setValue]);
+  const onSelectColor = useCallback(
+    (color: string) => {
+      setValue(color);
+    },
+    [setValue],
+  );
 
   const onSubmitClick = useCallback(() => {
     dispatch(setMenuOptionColour({ menuId, menuOptionId, colour: value }));
     dispatch(hideEditMenuOptionColourModal());
-  }, [dispatch, menuId, menuOptionId]);
+  }, [dispatch, menuId, menuOptionId, value]);
 
   const onCloseClick = useCallback(() => {
     dispatch(hideEditMenuOptionColourModal());
@@ -34,7 +38,18 @@ export const EditMenuOptionColourModal = (): ReactElement => {
 
   return (
     <div>
-      <div />
+      {COLORS.map((color) => (
+        <div
+          key={color}
+          style={{
+            width: 50,
+            height: 50,
+            backgroundColor: color,
+            border: `1px solid ${value === color ? "white" : "transparent"}`,
+          }}
+          onClick={() => onSelectColor(color)}
+        />
+      ))}
 
       <button onClick={onSubmitClick}>Submit</button>
 

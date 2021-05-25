@@ -86,3 +86,11 @@ export const setMenuTitle =
     menuId: MenuId;
     title: string;
   }>();
+
+export const setMenuOptionColour = createStandardAction(
+  "MENUS/setMenuOptionColour",
+)<{
+  menuId: MenuId;
+  menuOptionId: MenuOptionId;
+  colour: string;
+}>();
