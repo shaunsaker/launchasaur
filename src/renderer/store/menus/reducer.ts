@@ -10,6 +10,7 @@ import {
   addMenu,
   setMenuOptionShortcut,
   setMenuOptionTitle,
+  setMenuTitle,
 } from "./actions";
 import { makeMenuData, makeMenuOptionData } from "./data";
 import { REHYDRATE } from "redux-persist/es/constants";
@@ -23,6 +24,7 @@ const reducerActions = {
   addMenu,
   setMenuOptionShortcut,
   setMenuOptionTitle,
+  setMenuTitle,
 };
 
 // create the initial menu
@@ -36,6 +38,10 @@ const rehydrateReducer = (
   state: MenusState,
   action: { payload: { menus: MenusState } },
 ) => {
+  if (!action.payload) {
+    return state;
+  }
+
   // reset all menu options isEditing state
   const menus = action.payload.menus.data;
 
@@ -238,6 +244,24 @@ const setMenuOptionTitleReducer = (
   };
 };
 
+const setMenuTitleReducer = (
+  state: MenusState,
+  action: ActionType<typeof setMenuTitle>,
+): MenusState => {
+  const { menuId, title } = action.payload;
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [menuId]: {
+        ...state.data[menuId],
+        title,
+      },
+    },
+  };
+};
+
 export const menusReducer: Reducer<MenusState> = (
   state = initialState,
   action:
@@ -271,6 +295,9 @@ export const menusReducer: Reducer<MenusState> = (
 
     case getType(setMenuOptionTitle):
       return setMenuOptionTitleReducer(state, action);
+
+    case getType(setMenuTitle):
+      return setMenuTitleReducer(state, action);
 
     default: {
       return state;

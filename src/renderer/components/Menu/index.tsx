@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
 import { showEditMenuOptionTitleModal } from "../../store/editMenuOptionTitleModal/actions";
+import { showEditMenuTitleModal } from "../../store/editMenuTitleModal/actions";
 import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
 import {
   addMenuOption,
@@ -126,80 +127,95 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     [dispatch, menu.id],
   );
 
+  const onEditMenuTitleClick = useCallback(() => {
+    dispatch(
+      showEditMenuTitleModal({
+        menuId: menu.id,
+      }),
+    );
+  }, [dispatch, menu.id]);
+
   return (
-    <Container>
-      {objectToArray(menu?.options).map((option) => {
-        const { isEditing } = option;
+    <div>
+      <button onClick={onEditMenuTitleClick}>{menu.title}</button>
 
-        return (
-          <MenuOption key={option.id} onClick={() => onMenuOptionClick(option)}>
-            {isEditing ? (
-              <button onClick={() => onEditTitleClick(option)}>
-                Edit Title: {option.title}
-              </button>
-            ) : (
-              <div>Title: {option.title}</div>
-            )}
-            <div>Icon: {option.icon}</div>
-            <div>Colour: {option.colour}</div>
+      <Container>
+        {objectToArray(menu?.options).map((option) => {
+          const { isEditing } = option;
 
-            {isEditing ? (
-              <button onClick={() => onEditShortcutClick(option)}>
-                Edit Shortcut: {option.shortcut}
-              </button>
-            ) : (
-              <div>Shortcut: {option.shortcut}</div>
-            )}
+          return (
+            <MenuOption
+              key={option.id}
+              onClick={() => onMenuOptionClick(option)}>
+              {isEditing ? (
+                <button onClick={() => onEditTitleClick(option)}>
+                  Edit Title: {option.title}
+                </button>
+              ) : (
+                <div>Title: {option.title}</div>
+              )}
+              <div>Icon: {option.icon}</div>
+              <div>Colour: {option.colour}</div>
 
-            <div>
-              <div>Actions:</div>
+              {isEditing ? (
+                <button onClick={() => onEditShortcutClick(option)}>
+                  Edit Shortcut: {option.shortcut}
+                </button>
+              ) : (
+                <div>Shortcut: {option.shortcut}</div>
+              )}
 
-              {objectToArray(option.actions).map((action) => (
-                <div key={action.id}>
-                  <div>Type: {action.action}</div>
-                  <div>Resource: {action.resource}</div>
+              <div>
+                <div>Actions:</div>
 
-                  {isEditing && (
-                    <button onClick={() => onDeleteActionClick(option, action)}>
-                      Delete Action
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
+                {objectToArray(option.actions).map((action) => (
+                  <div key={action.id}>
+                    <div>Type: {action.action}</div>
+                    <div>Resource: {action.resource}</div>
 
-            {isEditing && (
-              <button onClick={() => onAddActionClick(option)}>
-                Add Action
-              </button>
-            )}
+                    {isEditing && (
+                      <button
+                        onClick={() => onDeleteActionClick(option, action)}>
+                        Delete Action
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
 
-            {!isEditing ? (
-              <button
-                onClick={(event: MouseEvent<HTMLButtonElement>) =>
-                  onEditMenuOptionClick(event, option)
-                }>
-                Edit
-              </button>
-            ) : (
-              <button onClick={() => onCloseEditMenuOptionClick(option)}>
-                Close Edit
-              </button>
-            )}
+              {isEditing && (
+                <button onClick={() => onAddActionClick(option)}>
+                  Add Action
+                </button>
+              )}
 
-            {isEditing && (
-              <button onClick={() => onDeleteMenuOptionClick(option)}>
-                Delete
-              </button>
-            )}
-          </MenuOption>
-        );
-      })}
+              {!isEditing ? (
+                <button
+                  onClick={(event: MouseEvent<HTMLButtonElement>) =>
+                    onEditMenuOptionClick(event, option)
+                  }>
+                  Edit
+                </button>
+              ) : (
+                <button onClick={() => onCloseEditMenuOptionClick(option)}>
+                  Close Edit
+                </button>
+              )}
 
-      <button onClick={onAddMenuOptionClick}>Add Menu Option</button>
+              {isEditing && (
+                <button onClick={() => onDeleteMenuOptionClick(option)}>
+                  Delete
+                </button>
+              )}
+            </MenuOption>
+          );
+        })}
 
-      {isSubmenuRoute() && <Link to={Routes.root}>Go Back</Link>}
-    </Container>
+        <button onClick={onAddMenuOptionClick}>Add Menu Option</button>
+
+        {isSubmenuRoute() && <Link to={Routes.root}>Go Back</Link>}
+      </Container>
+    </div>
   );
 };
 

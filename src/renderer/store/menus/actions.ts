@@ -80,3 +80,9 @@ export const setMenuOptionTitle = createStandardAction(
   menuOptionId: MenuOptionId;
   title: string;
 }>();
+
+export const setMenuTitle =
+  createStandardAction("MENUS/setMenuTitle")<{
+    menuId: MenuId;
+    title: string;
+  }>();

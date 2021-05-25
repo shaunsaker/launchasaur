@@ -18,8 +18,8 @@ export const Home = (): ReactElement => {
 
   return (
     <div>
-      Home
       <Menu menu={menu} />
+
       <Link to={Routes.settings}>Settings</Link>
     </div>
   );

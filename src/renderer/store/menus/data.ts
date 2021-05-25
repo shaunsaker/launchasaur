@@ -46,7 +46,7 @@ export const makeMenuData = ({
 
   return {
     id: id || uuid(),
-    title: title || "",
+    title: title || "Default",
     options: {
       [menuOptionId]: makeMenuOptionData({ id: menuOptionId }),
     },
