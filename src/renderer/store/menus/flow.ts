@@ -128,9 +128,10 @@ function* triggerMenuOptionSaga(): SagaIterator {
       const { actions } = yield* select((state: ApplicationState) =>
         selectMenuOption(state, { menuId, menuOptionId }),
       );
+      const arrayActions = objectToArray(actions);
 
       // trigger the actions as appropriate
-      const actionsArray = objectToArray(actions).map((action) => {
+      const actionsArray = arrayActions.map((action) => {
         if (action.action === MenuAction.OpenFile) {
           return call(openFileSaga, action.resource);
         }
@@ -152,7 +153,12 @@ function* triggerMenuOptionSaga(): SagaIterator {
 
       yield put(triggerMenuOption.success());
 
-      yield call(hideWindowSaga);
+      const isOpeningSubmenu = arrayActions.some(
+        (action) => action.action === MenuAction.OpenSubmenu,
+      );
+      if (!isOpeningSubmenu) {
+        yield call(hideWindowSaga);
+      }
     },
   );
 }
