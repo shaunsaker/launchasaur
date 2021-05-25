@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import { enableAutoLaunch } from "./autoLaunch";
 import { startIPC } from "./ipc";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -28,6 +29,8 @@ const start = (): void => {
   // mainWindow.webContents.openDevTools({ mode: "detach" });
 
   startIPC(mainWindow);
+
+  enableAutoLaunch();
 };
 
 // This method will be called when Electron has finished
