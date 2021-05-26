@@ -94,3 +94,11 @@ export const setMenuOptionColour = createStandardAction(
   menuOptionId: MenuOptionId;
   colour: string;
 }>();
+
+export const setMenuOptionIcon = createStandardAction(
+  "MENUS/setMenuOptionIcon",
+)<{
+  menuId: MenuId;
+  menuOptionId: MenuOptionId;
+  icon: string;
+}>();

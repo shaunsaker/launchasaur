@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { showEditMenuOptionColourModal } from "../../store/editMenuOptionColourModal/actions";
+import { showEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
 import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
 import { showEditMenuOptionTitleModal } from "../../store/editMenuOptionTitleModal/actions";
 import { showEditMenuTitleModal } from "../../store/editMenuTitleModal/actions";
@@ -136,6 +137,18 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     );
   }, [dispatch, menu.id]);
 
+  const onEditIconClick = useCallback(
+    (option: MenuOptionData) => {
+      dispatch(
+        showEditMenuOptionIconModal({
+          menuId: menu.id,
+          menuOptionId: option.id,
+        }),
+      );
+    },
+    [dispatch, menu.id],
+  );
+
   const onEditColourClick = useCallback(
     (option: MenuOptionData) => {
       dispatch(
@@ -167,7 +180,15 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
               ) : (
                 <div>Title: {option.title}</div>
               )}
-              <div>Icon: {option.icon}</div>
+
+              {isEditing ? (
+                <button onClick={() => onEditIconClick(option)}>
+                  Edit Icon: {option.icon}
+                </button>
+              ) : (
+                <div>Icon: {option.icon}</div>
+              )}
+
               {isEditing ? (
                 <button onClick={() => onEditColourClick(option)}>
                   Edit Colour: {option.colour}
@@ -208,6 +229,12 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
                 </button>
               )}
 
+              {isEditing && (
+                <button onClick={() => onDeleteMenuOptionClick(option)}>
+                  Delete Menu Option
+                </button>
+              )}
+
               {!isEditing ? (
                 <button
                   onClick={(event: MouseEvent<HTMLButtonElement>) =>
@@ -218,12 +245,6 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
               ) : (
                 <button onClick={() => onCloseEditMenuOptionClick(option)}>
                   Close Edit
-                </button>
-              )}
-
-              {isEditing && (
-                <button onClick={() => onDeleteMenuOptionClick(option)}>
-                  Delete
                 </button>
               )}
             </MenuOption>

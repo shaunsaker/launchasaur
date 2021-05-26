@@ -12,6 +12,7 @@ import {
   setMenuOptionTitle,
   setMenuTitle,
   setMenuOptionColour,
+  setMenuOptionIcon,
 } from "./actions";
 import { makeMenuData, makeMenuOptionData } from "./data";
 import { REHYDRATE } from "redux-persist/es/constants";
@@ -27,6 +28,7 @@ const reducerActions = {
   setMenuOptionTitle,
   setMenuTitle,
   setMenuOptionColour,
+  setMenuOptionIcon,
 };
 
 // create the initial menu
@@ -288,6 +290,30 @@ const setMenuOptionColourReducer = (
   };
 };
 
+const setMenuOptionIconReducer = (
+  state: MenusState,
+  action: ActionType<typeof setMenuOptionIcon>,
+): MenusState => {
+  const { menuId, menuOptionId, icon } = action.payload;
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [menuId]: {
+        ...state.data[menuId],
+        options: {
+          ...state.data[menuId].options,
+          [menuOptionId]: {
+            ...state.data[menuId].options[menuOptionId],
+            icon,
+          },
+        },
+      },
+    },
+  };
+};
+
 export const menusReducer: Reducer<MenusState> = (
   state = initialState,
   action:
@@ -327,6 +353,9 @@ export const menusReducer: Reducer<MenusState> = (
 
     case getType(setMenuOptionColour):
       return setMenuOptionColourReducer(state, action);
+
+    case getType(setMenuOptionIcon):
+      return setMenuOptionIconReducer(state, action);
 
     default: {
       return state;
