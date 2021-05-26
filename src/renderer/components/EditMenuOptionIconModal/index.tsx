@@ -1,13 +1,14 @@
 import React, { ReactElement, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hideEditMenuOptionIconModal } from "../store/editMenuOptionIconModal/actions";
+import { hideEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
 import {
   selectEditMenuOptionIconModalMenuId,
   selectEditMenuOptionIconModalMenuOptionId,
-} from "../store/editMenuOptionIconModal/selectors";
-import { setMenuOptionIcon } from "../store/menus/actions";
-import { selectMenuOption } from "../store/menus/selectors";
-import { ApplicationState } from "../store/reducers";
+} from "../../store/editMenuOptionIconModal/selectors";
+import { setMenuOptionIcon } from "../../store/menus/actions";
+import { selectMenuOption } from "../../store/menus/selectors";
+import { ApplicationState } from "../../store/reducers";
+import { IconPicker } from "./IconPicker";
 
 export const EditMenuOptionIconModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -34,10 +35,10 @@ export const EditMenuOptionIconModal = (): ReactElement => {
     dispatch(hideEditMenuOptionIconModal());
   }, [dispatch]);
 
-  // TODO: list all icons for selection
-
   return (
     <div>
+      <IconPicker selected={value} onSelect={onSelectIcon} />
+
       <button onClick={onSubmitClick}>Submit</button>
 
       <button onClick={onCloseClick}>Close</button>
