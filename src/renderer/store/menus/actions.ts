@@ -36,7 +36,7 @@ export const addMenuOptionAction = createAsyncAction(
     action: MenuAction;
   },
   { menuId: MenuId; menuOptionId: MenuOptionId; actionData: ActionData },
-  Error
+  void
 >();
 
 export const deleteMenuOptionAction = createStandardAction(

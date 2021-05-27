@@ -1,19 +1,13 @@
-import {
-  all,
-  call,
-  fork,
-  put,
-  take,
-  takeLatest,
-} from "@redux-saga/core/effects";
+import { all, call, fork, put, takeLatest } from "@redux-saga/core/effects";
+import { OpenDialogReturnValue } from "electron";
 import { SagaIterator } from "redux-saga";
 import { ActionType, getType } from "typesafe-actions";
 import { objectToArray } from "../../utils/objectToArray";
 import { select } from "../../utils/select";
 import { showEditLinkModal } from "../editLinkModal/actions";
-import { getFilepath } from "../ipc/actions";
 import {
   closeFileSaga,
+  getFilepathSaga,
   hideWindowSaga,
   openFileSaga,
   openLinkSaga,
@@ -30,22 +24,15 @@ import { selectMenuOption } from "./selectors";
 function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addMenuOptionAction.request>,
 ): SagaIterator {
-  yield put(getFilepath.request());
+  const response: OpenDialogReturnValue = yield call(getFilepathSaga);
 
-  const getFilepathAction:
-    | ActionType<typeof getFilepath.success>
-    | ActionType<typeof getFilepath.failure> = yield take([
-    getType(getFilepath.success),
-    getType(getFilepath.failure),
-  ]);
-
-  if (getFilepathAction.type === getType(getFilepath.success)) {
+  if (response) {
     // if the file system dialog was closed, do nothing
-    if (getFilepathAction.payload.canceled) {
+    if (response.canceled) {
       return;
     }
 
-    const filepath = getFilepathAction.payload.filePaths[0]; // we only allow a single selection
+    const filepath = response.filePaths[0]; // we only allow a single selection
 
     // create the menu action and add it to the menu
     const actionData = makeActionData({
@@ -64,7 +51,7 @@ function* handleAddOpenOrCloseFileActionSaga(
     yield put(hideMenuActionsModal());
   } else {
     // failure
-    yield put(addMenuOptionAction.failure(getFilepathAction.payload));
+    yield put(addMenuOptionAction.failure());
   }
 }
 
@@ -101,7 +88,13 @@ function* addMenuActionSaga(): SagaIterator {
       const { action: menuAction } = action.payload;
 
       switch (menuAction) {
+        case MenuAction.OpenApp:
+          yield call(handleAddOpenOrCloseFileActionSaga, action);
+          break;
         case MenuAction.OpenFile:
+          yield call(handleAddOpenOrCloseFileActionSaga, action);
+          break;
+        case MenuAction.CloseApp:
           yield call(handleAddOpenOrCloseFileActionSaga, action);
           break;
         case MenuAction.CloseFile:
