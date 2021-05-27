@@ -1,17 +1,8 @@
-import React, { ReactElement, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
-import { showEditAppShortcutModal } from "../store/editAppShortcutModal/actions";
-import { selectSettingsAppShortcut } from "../store/settings/selectors";
+import { EditAppShortcut } from "../components/EditAppShortcut";
 
 export const Settings = (): ReactElement => {
-  const dispatch = useDispatch();
-  const appShortcut = useSelector(selectSettingsAppShortcut);
-
-  const onAppShortcutClick = useCallback(() => {
-    dispatch(showEditAppShortcutModal());
-  }, [dispatch]);
-
   return (
     <div>
       Settings
@@ -19,9 +10,7 @@ export const Settings = (): ReactElement => {
         <button type="button">Back</button>
       </Link>
       <div>
-        <button onClick={onAppShortcutClick}>
-          App Shortcut: {appShortcut}
-        </button>
+        <EditAppShortcut />
       </div>
     </div>
   );
