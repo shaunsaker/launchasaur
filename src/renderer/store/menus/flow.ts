@@ -88,13 +88,7 @@ function* addMenuActionSaga(): SagaIterator {
       const { action: menuAction } = action.payload;
 
       switch (menuAction) {
-        case MenuAction.OpenApp:
-          yield call(handleAddOpenOrCloseFileActionSaga, action);
-          break;
         case MenuAction.OpenFile:
-          yield call(handleAddOpenOrCloseFileActionSaga, action);
-          break;
-        case MenuAction.CloseApp:
           yield call(handleAddOpenOrCloseFileActionSaga, action);
           break;
         case MenuAction.CloseFile:

@@ -1,6 +1,6 @@
 export enum MenuAction {
-  OpenFile = "Open a File",
-  CloseFile = "Close a File",
+  OpenFile = "Open an App or File",
+  CloseFile = "Close an App or File",
   OpenLink = "Open a Link",
   OpenSubmenu = "Open a Submenu",
 }

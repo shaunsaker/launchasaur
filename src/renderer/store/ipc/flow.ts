@@ -1,4 +1,4 @@
-import { call, fork, put } from "@redux-saga/core/effects";
+import { call, put } from "@redux-saga/core/effects";
 import { ipcRenderer } from "electron";
 import { SagaIterator } from "redux-saga";
 import { IPC } from "../../../main/ipc/models";
