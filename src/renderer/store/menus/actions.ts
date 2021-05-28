@@ -102,3 +102,7 @@ export const setMenuOptionIcon = createStandardAction(
   menuOptionId: MenuOptionId;
   icon: string;
 }>();
+
+export const deleteSubmenu = createStandardAction("MENUS/deleteSubmenu")<{
+  menuId: MenuId;
+}>();

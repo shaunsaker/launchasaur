@@ -13,6 +13,7 @@ import {
   setMenuTitle,
   setMenuOptionColour,
   setMenuOptionIcon,
+  deleteSubmenu,
 } from "./actions";
 import { makeMenuData, makeMenuOptionData } from "./data";
 import { REHYDRATE } from "redux-persist/es/constants";
@@ -29,6 +30,7 @@ const reducerActions = {
   setMenuTitle,
   setMenuOptionColour,
   setMenuOptionIcon,
+  deleteSubmenu,
 };
 
 // create the initial menu
@@ -314,6 +316,23 @@ const setMenuOptionIconReducer = (
   };
 };
 
+const deleteSubmenuReducer = (
+  state: MenusState,
+  action: ActionType<typeof deleteSubmenu>,
+): MenusState => {
+  const { menuId } = action.payload;
+  const menus = {
+    ...state.data,
+  };
+
+  delete menus[menuId];
+
+  return {
+    ...state,
+    data: menus,
+  };
+};
+
 export const menusReducer: Reducer<MenusState> = (
   state = initialState,
   action:
@@ -356,6 +375,9 @@ export const menusReducer: Reducer<MenusState> = (
 
     case getType(setMenuOptionIcon):
       return setMenuOptionIconReducer(state, action);
+
+    case getType(deleteSubmenu):
+      return deleteSubmenuReducer(state, action);
 
     default: {
       return state;

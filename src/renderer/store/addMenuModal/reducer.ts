@@ -1,11 +1,11 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { showEditMenuModal, hideEditMenuModal } from "./actions";
+import { showAddMenuModal, hideAddMenuModal } from "./actions";
 import { EditMenuModalState } from "./models";
 
 const reducerActions = {
-  showEditMenuModal,
-  hideEditMenuModal,
+  showAddMenuModal,
+  hideAddMenuModal,
 };
 
 export const initialState: EditMenuModalState = {
@@ -17,12 +17,12 @@ export const editMenuModalReducer: Reducer<EditMenuModalState> = (
   action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
-    case getType(showEditMenuModal):
+    case getType(showAddMenuModal):
       return {
         ...state,
         isShown: true,
       };
-    case getType(hideEditMenuModal):
+    case getType(hideAddMenuModal):
       return initialState;
 
     default: {

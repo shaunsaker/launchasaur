@@ -1,6 +1,6 @@
 import React, { FormEvent, ReactElement, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { hideEditMenuModal } from "../store/editMenuModal/actions";
+import { hideAddMenuModal } from "../store/addMenuModal/actions";
 import { addMenu } from "../store/menus/actions";
 
 export const EditMenuModal = (): ReactElement => {
@@ -17,11 +17,11 @@ export const EditMenuModal = (): ReactElement => {
 
   const onSubmitClick = useCallback(() => {
     dispatch(addMenu({ title: value }));
-    dispatch(hideEditMenuModal());
+    dispatch(hideAddMenuModal());
   }, [dispatch, value]);
 
   const onCloseClick = useCallback(() => {
-    dispatch(hideEditMenuModal());
+    dispatch(hideAddMenuModal());
   }, [dispatch]);
 
   return (

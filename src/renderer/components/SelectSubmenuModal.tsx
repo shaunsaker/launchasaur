@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showEditMenuModal } from "../store/editMenuModal/actions";
+import { showAddMenuModal } from "../store/addMenuModal/actions";
 import { hideMenuActionsModal } from "../store/menuActionsModal/actions";
 import { addMenuOptionAction } from "../store/menus/actions";
 import { makeActionData } from "../store/menus/data";
@@ -20,7 +20,7 @@ export const SelectSubmenuModal = (): ReactElement => {
   const hasSubmenus = submenus.length;
 
   const onAddSubmenuClick = useCallback(() => {
-    dispatch(showEditMenuModal());
+    dispatch(showAddMenuModal());
   }, [dispatch]);
 
   const onSubmenuClick = useCallback(

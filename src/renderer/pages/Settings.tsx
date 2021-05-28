@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { EditAppShortcut } from "../components/EditAppShortcut";
+import { EditMenus } from "../components/EditMenus";
 
 export const Settings = (): ReactElement => {
   return (
@@ -11,6 +12,8 @@ export const Settings = (): ReactElement => {
       </Link>
       <div>
         <EditAppShortcut />
+
+        <EditMenus />
       </div>
     </div>
   );

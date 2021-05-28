@@ -17,7 +17,7 @@ import { Settings } from "../pages/Settings";
 import { history } from "../store";
 import { selectEditAppShortcutModalIsShown } from "../store/editAppShortcutModal/selectors";
 import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
-import { selectEditMenuModalIsShown } from "../store/editMenuModal/selectors";
+import { selectEditMenuModalIsShown } from "../store/addMenuModal/selectors";
 import { selectEditMenuOptionColourModalIsShown } from "../store/editMenuOptionColourModal/selectors";
 import { selectEditMenuOptionIconModalIsShown } from "../store/editMenuOptionIconModal/selectors";
 import { selectEditMenuOptionShortcutModalIsShown } from "../store/editMenuOptionShortcutModal/selectors";
