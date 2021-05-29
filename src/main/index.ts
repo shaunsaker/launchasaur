@@ -16,6 +16,8 @@ const start = (): void => {
     height: 600,
     width: 1200,
     // fullscreen: true,
+    // frame: false,
+    // transparent: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

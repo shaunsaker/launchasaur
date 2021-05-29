@@ -6,7 +6,6 @@ import { showEditMenuOptionColourModal } from "../../store/editMenuOptionColourM
 import { showEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
 import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
 import { showEditMenuOptionTitleModal } from "../../store/editMenuOptionTitleModal/actions";
-import { showEditMenuTitleModal } from "../../store/editMenuTitleModal/actions";
 import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
 import {
   addMenuOption,
@@ -129,14 +128,6 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     [dispatch, menu.id],
   );
 
-  const onEditMenuTitleClick = useCallback(() => {
-    dispatch(
-      showEditMenuTitleModal({
-        menuId: menu.id,
-      }),
-    );
-  }, [dispatch, menu.id]);
-
   const onEditIconClick = useCallback(
     (option: MenuOptionData) => {
       dispatch(
@@ -163,8 +154,6 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
 
   return (
     <div>
-      <button onClick={onEditMenuTitleClick}>{menu.title}</button>
-
       <Container>
         {objectToArray(menu?.options).map((option) => {
           const { isEditing } = option;
