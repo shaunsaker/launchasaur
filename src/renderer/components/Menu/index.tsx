@@ -19,6 +19,8 @@ import { Routes } from "../../store/navigation/routes";
 import { isSubmenuRoute } from "../../store/navigation/utils";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
+import { LogoButton } from "./LogoButton";
+import { RadialMenu } from "./RadialMenu";
 
 interface MenuProps {
   menu: MenuData;
@@ -150,6 +152,10 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
       );
     },
     [dispatch, menu.id],
+  );
+
+  return (
+    <RadialMenu render={(diameter) => <LogoButton diameter={diameter} />} />
   );
 
   return (

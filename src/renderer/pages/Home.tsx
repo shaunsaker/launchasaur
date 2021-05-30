@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Menu } from "../components/Menu";
 import { selectMenu } from "../store/menus/selectors";
-import { Routes } from "../store/navigation/routes";
 import { ApplicationState } from "../store/reducers";
 
 export interface HomeRouteParams {
@@ -16,11 +15,5 @@ export const Home = (): ReactElement => {
     selectMenu(state, menuId),
   );
 
-  return (
-    <div>
-      <Menu menu={menu} />
-
-      <Link to={Routes.settings}>Settings</Link>
-    </div>
-  );
+  return <Menu menu={menu} />;
 };
