@@ -1,6 +1,9 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
+import { navigateTo } from "../../store/navigation/actions";
+import { Routes } from "../../store/navigation/routes";
 import { borderWidth, shadowCSS, theme, transitionCSS } from "../../theme";
 
 interface LogoButtonProps {
@@ -8,11 +11,20 @@ interface LogoButtonProps {
 }
 
 export const LogoButton = ({ diameter }: LogoButtonProps): ReactElement => {
+  const dispatch = useDispatch();
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
+  const onClick = useCallback(() => {
+    dispatch(navigateTo({ to: Routes.settings }));
+  }, [dispatch]);
+
   return (
-    <Container ref={hoverRef} diameter={diameter} hovered={isHovered}>
-      <div>LOGO</div>
+    <Container
+      ref={hoverRef}
+      diameter={diameter}
+      hovered={isHovered}
+      onClick={onClick}>
+      LOGO
     </Container>
   );
 };
