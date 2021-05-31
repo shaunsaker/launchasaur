@@ -14,13 +14,14 @@ import {
   editMenuOption,
   triggerMenuOption,
 } from "../../store/menus/actions";
+import { makeMenuOptionData } from "../../store/menus/data";
 import { ActionData, MenuData, MenuOptionData } from "../../store/menus/models";
 import { Routes } from "../../store/navigation/routes";
 import { isSubmenuRoute } from "../../store/navigation/utils";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
 import { LogoButton } from "./LogoButton";
-import { RadialMenu } from "./RadialMenu";
+import { MenuBase } from "./MenuBase";
 
 interface MenuProps {
   menu: MenuData;
@@ -155,7 +156,15 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
   );
 
   return (
-    <RadialMenu render={(diameter) => <LogoButton diameter={diameter} />} />
+    <MenuBase
+      options={[
+        makeMenuOptionData({}),
+        makeMenuOptionData({}),
+        makeMenuOptionData({}),
+        makeMenuOptionData({}),
+      ]}
+      render={(diameter) => <LogoButton diameter={diameter} />}
+    />
   );
 
   return (

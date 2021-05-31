@@ -41,7 +41,7 @@ const Container = styled.div<ContainerProps>`
   border-radius: ${({ diameter }) => diameter / 2}px;
   border-width: ${borderWidth}px;
   border-style: solid;
-  border-color: ${({ hovered }) => (hovered ? theme.accent : theme.black)};
+  border-color: ${theme.black};
   background-color: ${({ hovered }) =>
     hovered ? theme.backgroundLight : theme.backgroundDark};
   ${({ hovered }) => (hovered ? "" : boxShadowCSS)}
