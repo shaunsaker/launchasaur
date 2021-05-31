@@ -4,33 +4,29 @@ import { EndAngle, StartAngle, Thickness } from "./models";
 
 interface MakeArcSvgProps {
   innerRadius: number;
-  thickness: Thickness;
+  outerRadius: Thickness;
   startAngle: StartAngle;
   endAngle: EndAngle;
   cornerRadius?: number;
 }
 
-// TODO: type return type correctly
-export const makeSvgArc = ({
+export const makeSvgArcPath = ({
   innerRadius,
-  thickness,
+  outerRadius,
   startAngle,
   endAngle,
   cornerRadius,
-}: MakeArcSvgProps) => {
-  const outerRadius = innerRadius + thickness;
+}: MakeArcSvgProps): string => {
   const startAngleRadians = degreesToRadians(startAngle);
   const endAngleRadians = degreesToRadians(endAngle);
-  const arc = d3
-    .arc()
-    .innerRadius(innerRadius)
-    .outerRadius(outerRadius)
-    .startAngle(startAngleRadians)
-    .endAngle(endAngleRadians);
 
-  if (cornerRadius) {
-    arc.cornerRadius(cornerRadius);
-  }
+  const arcGenerator = d3.arc().cornerRadius(cornerRadius);
+  const path = arcGenerator({
+    innerRadius,
+    outerRadius,
+    startAngle: startAngleRadians,
+    endAngle: endAngleRadians,
+  });
 
-  return arc;
+  return path;
 };

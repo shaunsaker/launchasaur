@@ -7,7 +7,9 @@ export const theme = {
   accent: "#3BAC98",
 };
 
-export const shadowCSS = "box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);";
+const shadowCSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";
+export const dropShadowCSS = `filter: drop-shadow(${shadowCSS});`;
+export const boxShadowCSS = `box-shadow: ${shadowCSS};`;
 
 export const transitionCSS = `${MAGIC_NUMBER}s ease-in-out;`;
 

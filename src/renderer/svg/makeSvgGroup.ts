@@ -6,7 +6,7 @@ interface MakeSvgProps {
   size: number;
 }
 
-export const makeSvg = ({ selector, size }: MakeSvgProps) => {
+export const makeSvgGroup = ({ selector, size }: MakeSvgProps) => {
   const center = size / 2;
   const svg = d3
     .select(selector)
