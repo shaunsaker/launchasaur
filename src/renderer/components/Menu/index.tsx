@@ -158,10 +158,9 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
   return (
     <MenuBase
       options={[
-        makeMenuOptionData({}),
-        makeMenuOptionData({}),
-        makeMenuOptionData({}),
-        makeMenuOptionData({}),
+        ...objectToArray(menu?.options),
+        makeMenuOptionData({ title: "PLACEHOLDER" }),
+        makeMenuOptionData({ title: "Add New Item" }),
       ]}
       render={(diameter) => <LogoButton diameter={diameter} />}
     />

@@ -1,13 +1,13 @@
 import * as d3 from "d3";
 import { degreesToRadians } from "./degreesToRadians";
-import { EndAngle, StartAngle, Thickness } from "./models";
 
 interface MakeArcSvgProps {
   innerRadius: number;
-  outerRadius: Thickness;
-  startAngle: StartAngle;
-  endAngle: EndAngle;
-  cornerRadius?: number;
+  outerRadius: number;
+  startAngle: number;
+  endAngle: number;
+  cornerRadius: number;
+  padAngle: number;
 }
 
 export const makeSvgArcPath = ({
@@ -16,9 +16,11 @@ export const makeSvgArcPath = ({
   startAngle,
   endAngle,
   cornerRadius,
+  padAngle,
 }: MakeArcSvgProps): string => {
   const startAngleRadians = degreesToRadians(startAngle);
   const endAngleRadians = degreesToRadians(endAngle);
+  const padAngleRadians = degreesToRadians(padAngle);
 
   const arcGenerator = d3.arc().cornerRadius(cornerRadius);
   const path = arcGenerator({
@@ -26,6 +28,7 @@ export const makeSvgArcPath = ({
     outerRadius,
     startAngle: startAngleRadians,
     endAngle: endAngleRadians,
+    padAngle: padAngleRadians,
   });
 
   return path;

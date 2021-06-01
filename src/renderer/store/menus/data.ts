@@ -23,13 +23,15 @@ export const makeActionData = ({
 
 export const makeMenuOptionData = ({
   id,
+  title,
 }: {
   id?: string;
+  title?: string;
 }): MenuOptionData => ({
   id: id || uuid(),
-  title: "",
+  title,
   icon: "",
-  colour: "",
+  colour: "", // TODO: get random colour
   actions: {},
   shortcut: "",
   isEditing: false,

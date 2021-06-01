@@ -1,25 +1,33 @@
-import React, { ReactElement, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import {
-  rhythm,
-  borderWidth,
-  theme,
-  dropShadowCSS,
-  transitionCSS,
-} from "../../theme";
-import { makeSvgArcPath } from "../../svg/makeSvgArcPath";
 import { useHover } from "use-hooks";
-import { MenuOptionData } from "../../store/menus/models";
+import { makeSvgArcPath } from "../../../svg/makeSvgArcPath";
+import {
+  borderWidth,
+  dropShadowCSS,
+  rhythm,
+  theme,
+  transitionCSS,
+  magicNumber,
+} from "../../../theme";
 
-const SIZE = 640;
-const INNER_CIRCLE_DIAMETER = 128;
+export const MENU_SIZE = 640;
+export const MENU_INNER_CIRCLE_DIAMETER = 128;
 
 interface MenuBaseOptionProps {
   index: number;
   itemCount: number;
+  colour: string;
 }
 
-const MenuBaseOption = ({ index, itemCount }: MenuBaseOptionProps) => {
+// TODO: figure out how to display text, icon, edit buttons etc.
+// ideally this menu is just a background with things overlayed on top
+// so maybe get the absolute position of each svg group and overlay it in MenuBase
+export const MenuBaseOption = ({
+  index,
+  itemCount,
+  colour,
+}: MenuBaseOptionProps) => {
   const [hoverRef, isHovered] = useHover<SVGSVGElement>();
   const arcPathRef = useRef<SVGPathElement>();
   const colourPathRef = useRef<SVGPathElement>();
@@ -29,9 +37,10 @@ const MenuBaseOption = ({ index, itemCount }: MenuBaseOptionProps) => {
     const sectionDegrees = 360 / itemCount;
     const startAngle = index * sectionDegrees;
     const endAngle = startAngle + sectionDegrees;
-    const innerRadius = INNER_CIRCLE_DIAMETER / 2 + rhythm;
-    const outerRadius = SIZE / 2 - rhythm * 2;
+    const innerRadius = MENU_INNER_CIRCLE_DIAMETER / 2 + rhythm;
+    const outerRadius = MENU_SIZE / 2 - rhythm * 2;
     const cornerRadius = rhythm;
+    const padAngle = magicNumber * 2;
 
     const path = makeSvgArcPath({
       innerRadius,
@@ -39,6 +48,7 @@ const MenuBaseOption = ({ index, itemCount }: MenuBaseOptionProps) => {
       startAngle,
       endAngle,
       cornerRadius,
+      padAngle,
     });
 
     // add the arc path to the dom
@@ -52,6 +62,7 @@ const MenuBaseOption = ({ index, itemCount }: MenuBaseOptionProps) => {
       startAngle,
       endAngle,
       cornerRadius,
+      padAngle,
     });
 
     // add the colour path to the dom
@@ -62,61 +73,26 @@ const MenuBaseOption = ({ index, itemCount }: MenuBaseOptionProps) => {
     <StyledGroup ref={hoverRef} hovered={isHovered}>
       <StyledPath ref={arcPathRef} hovered={isHovered} />
 
-      <StyledColourPath ref={colourPathRef} hovered={isHovered} />
+      <StyledColourPath
+        ref={colourPathRef}
+        hovered={isHovered}
+        colour={colour}
+      />
     </StyledGroup>
   );
 };
 
-interface MenuBaseProps {
-  options: MenuOptionData[];
-  render: (diameter: number) => ReactElement; // renders in the center of the menu, e.g. Logo
-}
-
-export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
-  return (
-    <Container>
-      <StyledSvg width={SIZE} height={SIZE}>
-        {options.map((option, index) => (
-          <MenuBaseOption
-            key={option.id}
-            index={index}
-            itemCount={options.length}
-          />
-        ))}
-      </StyledSvg>
-
-      <ChildrenContainer>{render(INNER_CIRCLE_DIAMETER)}</ChildrenContainer>
-    </Container>
-  );
-};
-
-const Container = styled.div`
-  width: 100%;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-`;
-
-const StyledSvg = styled.svg``;
-
-interface StyledGroupProps {
+interface HoveredProps {
   hovered: boolean;
 }
 
-const CENTER_POINT = SIZE / 2;
-const StyledGroup = styled.g<StyledGroupProps>`
+const CENTER_POINT = MENU_SIZE / 2;
+const StyledGroup = styled.g<HoveredProps>`
   cursor: pointer;
   transform: translate(${CENTER_POINT}px, ${CENTER_POINT}px);
-  transition: transform ${transitionCSS};
 `;
 
-interface StyledPathProps {
-  hovered: boolean;
-}
-
-const StyledPath = styled.path<StyledPathProps>`
+const StyledPath = styled.path<HoveredProps>`
   stroke: ${theme.black};
   stroke-width: ${borderWidth};
   fill: ${({ hovered }) =>
@@ -125,21 +101,14 @@ const StyledPath = styled.path<StyledPathProps>`
   transition: all ${transitionCSS};
 `;
 
-interface StyledColourPathProps {
-  hovered: boolean;
+interface StyledColourPathProps extends HoveredProps {
+  colour: string;
 }
 
 const StyledColourPath = styled.path<StyledColourPathProps>`
   stroke: ${theme.black};
   stroke-width: ${borderWidth};
-  fill: red;
+  fill: ${({ colour }) => colour};
   ${({ hovered }) => (hovered ? "" : dropShadowCSS)};
   transition: all ${transitionCSS};
-`;
-
-const ChildrenContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
