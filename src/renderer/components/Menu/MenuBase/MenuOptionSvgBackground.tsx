@@ -14,7 +14,7 @@ import {
 export const MENU_SIZE = 640;
 export const MENU_INNER_CIRCLE_DIAMETER = 128;
 
-interface MenuBaseOptionProps {
+interface MenuOptionSvgBackgroundProps {
   index: number;
   itemCount: number;
   colour: string;
@@ -23,11 +23,11 @@ interface MenuBaseOptionProps {
 // TODO: figure out how to display text, icon, edit buttons etc.
 // ideally this menu is just a background with things overlayed on top
 // so maybe get the absolute position of each svg group and overlay it in MenuBase
-export const MenuBaseOption = ({
+export const MenuOptionSvgBackground = ({
   index,
   itemCount,
   colour,
-}: MenuBaseOptionProps) => {
+}: MenuOptionSvgBackgroundProps) => {
   const [hoverRef, isHovered] = useHover<SVGSVGElement>();
   const arcPathRef = useRef<SVGPathElement>();
   const colourPathRef = useRef<SVGPathElement>();

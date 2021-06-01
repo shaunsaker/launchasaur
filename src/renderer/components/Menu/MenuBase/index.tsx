@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { MenuOptionData } from "../../../store/menus/models";
 import { absoluteCenterCSS } from "../../../theme";
 import {
-  MenuBaseOption,
+  MenuOptionSvgBackground,
   MENU_INNER_CIRCLE_DIAMETER,
   MENU_SIZE,
-} from "./MenuBaseOption";
+} from "./MenuOptionSvgBackground";
 
 interface MenuBaseProps {
   options: MenuOptionData[];
@@ -18,7 +18,7 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
     <Container>
       <StyledSvg>
         {options.map((option, index) => (
-          <MenuBaseOption
+          <MenuOptionSvgBackground
             key={option.id}
             index={index}
             itemCount={options.length}
