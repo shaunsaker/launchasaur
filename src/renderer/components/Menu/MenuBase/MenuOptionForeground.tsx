@@ -50,7 +50,7 @@ export const MenuOptionForeground = ({
     }
   }, [svgBackgroundHasMounted, index]);
 
-  const onMouseEnter = useCallback(() => {
+  const onMouseOver = useCallback(() => {
     onHover(index);
   }, [onHover, index]);
 
@@ -61,7 +61,7 @@ export const MenuOptionForeground = ({
   return (
     <Container
       layout={layout}
-      onMouseEnter={onMouseEnter}
+      onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
       <IconContainer>
         <Icon icon={icon} />
