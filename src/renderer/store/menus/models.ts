@@ -1,3 +1,5 @@
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
+
 export enum MenuAction {
   OpenFile = "Open an App or File",
   CloseFile = "Close an App or File",
@@ -28,7 +30,7 @@ export type Shortcut = string;
 export interface MenuOptionData {
   id: MenuOptionId;
   title: string;
-  icon: string;
+  icon: IconName;
   colour: string;
   actions: Record<ActionId, ActionData>;
   shortcut: Shortcut;

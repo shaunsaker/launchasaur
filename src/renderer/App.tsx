@@ -5,7 +5,7 @@ import { store, persistor } from "./store";
 import { Router } from "./router";
 import { loadIcons } from "./icons";
 import styled from "styled-components";
-import { theme } from "./theme";
+import { flexCenterCSS, theme } from "./theme";
 
 loadIcons();
 
@@ -24,9 +24,6 @@ export const App = (): ReactElement => {
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: ${theme.backgroundDark};
+  ${flexCenterCSS}
 `;

@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
 import { MenuOptionData } from "../../../store/menus/models";
-import { absoluteCenterCSS } from "../../../theme";
+import { absoluteCenterCSS, flexCenterCSS } from "../../../theme";
 import { MenuOptionForeground } from "./MenuOptionForeground";
 import {
   MenuOptionSvgBackground,
@@ -51,6 +51,7 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
             svgBackgroundHasMounted={svgBackgroundHasMounted}
             icon={option.icon}
             title={option.title}
+            shortcut={option.shortcut}
             onHover={onHoverMenuOptionForeground}
           />
         ))}
@@ -66,10 +67,8 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
 const Container = styled.div`
   width: 100%;
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
+  ${flexCenterCSS}
 `;
 
 const SvgBackgroundContainer = styled.svg`

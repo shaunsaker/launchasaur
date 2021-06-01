@@ -3,13 +3,14 @@ export const magicNumber = 0.167; // nothing special, I just like it
 // colours
 export const theme = {
   black: "#000000",
+  white: "#FFFFFF",
   backgroundDark: "rgba(0, 0, 0, 0.67)",
   backgroundLight: `rgba(255, 255, 255, ${magicNumber})`,
   accent: "#3BAC98",
 };
 
 // constants
-export const borderWidth = 2;
+export const borderWidth = 3;
 
 export const rhythm = 16;
 
@@ -33,4 +34,11 @@ export const absoluteStretchCSS = `
   right: 0;
   bottom: 0;
   left: 0;
+`;
+
+export const flexCenterCSS = `
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

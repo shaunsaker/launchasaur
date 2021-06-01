@@ -4,7 +4,13 @@ import styled from "styled-components";
 import { useHover } from "use-hooks";
 import { navigateTo } from "../../store/navigation/actions";
 import { Routes } from "../../store/navigation/routes";
-import { borderWidth, boxShadowCSS, theme, transitionCSS } from "../../theme";
+import {
+  borderWidth,
+  boxShadowCSS,
+  flexCenterCSS,
+  theme,
+  transitionCSS,
+} from "../../theme";
 
 interface LogoButtonProps {
   diameter: number;
@@ -24,7 +30,7 @@ export const LogoButton = ({ diameter }: LogoButtonProps): ReactElement => {
       diameter={diameter}
       hovered={isHovered}
       onClick={onClick}>
-      LOGO
+      LOGO ICON
     </Container>
   );
 };
@@ -47,7 +53,6 @@ const Container = styled.div<ContainerProps>`
   ${({ hovered }) => (hovered ? "" : boxShadowCSS)}
   transition: all ${transitionCSS};
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: ${theme.white};
+  ${flexCenterCSS}
 `;

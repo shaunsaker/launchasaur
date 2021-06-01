@@ -1,3 +1,4 @@
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { uuid } from "../../utils/uuid";
 import {
   ActionData,
@@ -23,17 +24,21 @@ export const makeActionData = ({
 
 export const makeMenuOptionData = ({
   id,
+  icon,
   title,
+  shortcut,
 }: {
   id?: string;
+  icon?: IconName;
   title?: string;
+  shortcut?: string;
 }): MenuOptionData => ({
   id: id || uuid(),
   title,
-  icon: "",
+  icon: icon || "question",
   colour: "", // TODO: get random colour
   actions: {},
-  shortcut: "",
+  shortcut: shortcut || "",
   isEditing: false,
 });
 

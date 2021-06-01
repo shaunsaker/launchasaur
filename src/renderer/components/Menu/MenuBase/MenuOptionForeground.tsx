@@ -1,12 +1,16 @@
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { SVG_BACKGROUND_ID } from ".";
+import { flexCenterCSS, rhythm, theme } from "../../../theme";
+import { Icon } from "../../Icon";
 
 interface MenuOptionForegroundProps {
   index: number;
   svgBackgroundHasMounted: boolean;
-  icon: string;
+  icon: IconName;
   title: string;
+  shortcut: string;
   onHover: (index: number) => void;
 }
 
@@ -22,6 +26,7 @@ export const MenuOptionForeground = ({
   svgBackgroundHasMounted,
   icon,
   title,
+  shortcut,
   onHover,
 }: MenuOptionForegroundProps) => {
   const [layout, setLayout] = useState<LayoutState>({
@@ -57,8 +62,15 @@ export const MenuOptionForeground = ({
     <Container
       layout={layout}
       onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    />
+      onMouseLeave={onMouseLeave}>
+      <IconContainer>
+        <Icon icon={icon} />
+      </IconContainer>
+
+      <Text>{title || "What am I?"}</Text>
+
+      {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+    </Container>
   );
 };
 
@@ -72,9 +84,22 @@ const Container = styled.div<ContainerProps>`
   left: ${({ layout }) => layout.left}px;
   width: ${({ layout }) => layout.width}px;
   height: ${({ layout }) => layout.height}px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
+  ${flexCenterCSS}
+`;
+
+const IconContainer = styled.div`
+  margin-bottom: ${rhythm}px;
+`;
+
+const Text = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${theme.white};
+`;
+
+const ShortcutText = styled.div`
+  font-size: 12px;
+  color: ${theme.white};
+  margin-top: ${rhythm / 2}px;
 `;
