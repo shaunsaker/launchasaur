@@ -1,6 +1,5 @@
 import isAccelerator from "electron-is-accelerator";
 import React, { ReactElement, useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useListenForKeyboardShortcutCombination } from "./useListenForKeyboardShortcutCombination";
 
 interface EditShortcutModalProps {

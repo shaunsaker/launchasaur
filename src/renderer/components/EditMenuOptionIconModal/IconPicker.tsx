@@ -3,7 +3,7 @@ import React, { FormEvent, ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
 import FlatList from "flatlist-react";
 import { getIconList } from "../../icons";
-import { IconName } from "@fortawesome/fontawesome-common-types";
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 
 interface IconPickerProps {
   selected: string;

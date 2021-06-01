@@ -1,5 +1,6 @@
-import { IconName, library } from "@fortawesome/fontawesome-svg-core";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 
 export const loadIcons = () => {
   library.add(fas);
