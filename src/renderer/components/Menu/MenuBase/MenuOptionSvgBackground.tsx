@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useHover } from "use-hooks";
 import { makeSvgArcPath } from "../../../svg/makeSvgArcPath";
 import {
   borderWidth,
@@ -18,17 +17,17 @@ interface MenuOptionSvgBackgroundProps {
   index: number;
   itemCount: number;
   colour: string;
+  isHovered: boolean;
+  onMount: () => void;
 }
 
-// TODO: figure out how to display text, icon, edit buttons etc.
-// ideally this menu is just a background with things overlayed on top
-// so maybe get the absolute position of each svg group and overlay it in MenuBase
 export const MenuOptionSvgBackground = ({
   index,
   itemCount,
   colour,
+  isHovered,
+  onMount,
 }: MenuOptionSvgBackgroundProps) => {
-  const [hoverRef, isHovered] = useHover<SVGSVGElement>();
   const arcPathRef = useRef<SVGPathElement>();
   const colourPathRef = useRef<SVGPathElement>();
 
@@ -67,10 +66,12 @@ export const MenuOptionSvgBackground = ({
 
     // add the colour path to the dom
     colourPathRef.current.setAttribute("d", colourPath);
-  }, [arcPathRef, colourPathRef, index, itemCount]);
+
+    onMount();
+  }, [arcPathRef, colourPathRef, index, itemCount, onMount]);
 
   return (
-    <StyledGroup ref={hoverRef} hovered={isHovered}>
+    <StyledGroup>
       <StyledPath ref={arcPathRef} hovered={isHovered} />
 
       <StyledColourPath
@@ -87,8 +88,7 @@ interface HoveredProps {
 }
 
 const CENTER_POINT = MENU_SIZE / 2;
-const StyledGroup = styled.g<HoveredProps>`
-  cursor: pointer;
+const StyledGroup = styled.g`
   transform: translate(${CENTER_POINT}px, ${CENTER_POINT}px);
 `;
 

@@ -1,12 +1,15 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
 import { MenuOptionData } from "../../../store/menus/models";
 import { absoluteCenterCSS } from "../../../theme";
+import { MenuOptionForeground } from "./MenuOptionForeground";
 import {
   MenuOptionSvgBackground,
   MENU_INNER_CIRCLE_DIAMETER,
   MENU_SIZE,
 } from "./MenuOptionSvgBackground";
+
+export const SVG_BACKGROUND_ID = "menu";
 
 interface MenuBaseProps {
   options: MenuOptionData[];
@@ -14,18 +17,44 @@ interface MenuBaseProps {
 }
 
 export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
+  const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
+  const [menuOptionIndexHovered, setMenuOptionIndexHovered] = useState(null);
+
+  const onMountSvgBackground = useCallback(() => {
+    setSvgBackgroundHasMounted(true);
+  }, []);
+
+  const onHoverMenuOptionForeground = useCallback((index: number) => {
+    setMenuOptionIndexHovered(index);
+  }, []);
+
   return (
     <Container>
-      <StyledSvg>
+      <SvgBackgroundContainer id={SVG_BACKGROUND_ID}>
         {options.map((option, index) => (
           <MenuOptionSvgBackground
             key={option.id}
             index={index}
             itemCount={options.length}
             colour={option.colour}
+            isHovered={menuOptionIndexHovered === index}
+            onMount={onMountSvgBackground}
           />
         ))}
-      </StyledSvg>
+      </SvgBackgroundContainer>
+
+      <ForegroundContainer>
+        {options.map((option, index) => (
+          <MenuOptionForeground
+            key={option.id}
+            index={index}
+            svgBackgroundHasMounted={svgBackgroundHasMounted}
+            icon={option.icon}
+            title={option.title}
+            onHover={onHoverMenuOptionForeground}
+          />
+        ))}
+      </ForegroundContainer>
 
       <ChildrenContainer>
         {render(MENU_INNER_CIRCLE_DIAMETER)}
@@ -43,10 +72,12 @@ const Container = styled.div`
   position: relative;
 `;
 
-const StyledSvg = styled.svg`
+const SvgBackgroundContainer = styled.svg`
   width: ${MENU_SIZE}px;
   height: ${MENU_SIZE}px;
 `;
+
+const ForegroundContainer = styled.div``;
 
 const ChildrenContainer = styled.div`
   ${absoluteCenterCSS}
