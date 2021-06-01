@@ -1,3 +1,4 @@
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import React, { ReactElement, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
@@ -20,7 +21,7 @@ export const EditMenuOptionIconModal = (): ReactElement => {
   const [value, setValue] = useState(menuOption.icon);
 
   const onSelectIcon = useCallback(
-    (icon: string) => {
+    (icon: IconName) => {
       setValue(icon);
     },
     [setValue],

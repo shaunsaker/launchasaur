@@ -7,7 +7,7 @@ import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disa
 
 interface IconPickerProps {
   selected: string;
-  onSelect: (icon: string) => void;
+  onSelect: (icon: IconName) => void;
 }
 
 export const IconPicker = ({
@@ -21,7 +21,7 @@ export const IconPicker = ({
   const [filter, setFilter] = useState("");
 
   const onIconClick = useCallback(
-    (icon: string) => {
+    (icon: IconName) => {
       onSelect(icon);
     },
     [onSelect],

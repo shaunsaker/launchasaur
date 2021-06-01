@@ -1,3 +1,4 @@
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { createAsyncAction, createStandardAction } from "typesafe-actions";
 import {
   MenuAction,
@@ -100,7 +101,7 @@ export const setMenuOptionIcon = createStandardAction(
 )<{
   menuId: MenuId;
   menuOptionId: MenuOptionId;
-  icon: string;
+  icon: IconName;
 }>();
 
 export const deleteSubmenu = createStandardAction("MENUS/deleteSubmenu")<{
