@@ -6,7 +6,10 @@ import { flexCenterCSS, rhythm, theme } from "../../../theme";
 import { Icon } from "../../Icon";
 
 interface MenuOptionForegroundProps {
+  diameter: number;
+  innerDiameter: number;
   index: number;
+  itemCount: number;
   svgBackgroundHasMounted: boolean;
   icon: IconName;
   title: string;
@@ -22,7 +25,11 @@ interface LayoutState {
 }
 
 export const MenuOptionForeground = ({
+  diameter,
+  innerDiameter,
   index,
+  itemCount,
+
   svgBackgroundHasMounted,
   icon,
   title,
@@ -46,9 +53,14 @@ export const MenuOptionForeground = ({
         .item(index);
       const clientRect = element.getClientRects().item(0);
 
-      setLayout(clientRect);
+      setLayout({
+        top: clientRect.top,
+        left: clientRect.left,
+        width: clientRect.width,
+        height: clientRect.height,
+      });
     }
-  }, [svgBackgroundHasMounted, index]);
+  }, [svgBackgroundHasMounted, diameter, innerDiameter, index, itemCount]);
 
   const onMouseOver = useCallback(() => {
     onHover(index);
@@ -57,6 +69,10 @@ export const MenuOptionForeground = ({
   const onMouseLeave = useCallback(() => {
     onHover(null);
   }, [onHover]);
+
+  if (!svgBackgroundHasMounted) {
+    return null;
+  }
 
   return (
     <Container
@@ -79,7 +95,7 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  position: fixed; // we could also calculate the relative positions
+  position: absolute;
   top: ${({ layout }) => layout.top}px;
   left: ${({ layout }) => layout.left}px;
   width: ${({ layout }) => layout.width}px;

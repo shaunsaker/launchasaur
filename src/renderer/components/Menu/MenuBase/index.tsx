@@ -3,12 +3,10 @@ import styled from "styled-components";
 import { MenuOptionData } from "../../../store/menus/models";
 import { absoluteCenterCSS, flexCenterCSS } from "../../../theme";
 import { MenuOptionForeground } from "./MenuOptionForeground";
-import {
-  MenuOptionSvgBackground,
-  MENU_INNER_CIRCLE_DIAMETER,
-  MENU_SIZE,
-} from "./MenuOptionSvgBackground";
+import { MenuOptionSvgBackground } from "./MenuOptionSvgBackground";
 
+const MENU_DIAMETER = 640;
+const MENU_INNER_DIAMETER = 128;
 export const SVG_BACKGROUND_ID = "menu";
 
 interface MenuBaseProps {
@@ -19,6 +17,7 @@ interface MenuBaseProps {
 export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
   const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
   const [menuOptionIndexHovered, setMenuOptionIndexHovered] = useState(null);
+  const itemCount = options.length;
 
   const onMountSvgBackground = useCallback(() => {
     setSvgBackgroundHasMounted(true);
@@ -34,8 +33,10 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
         {options.map((option, index) => (
           <MenuOptionSvgBackground
             key={option.id}
+            diameter={MENU_DIAMETER}
+            innerDiameter={MENU_INNER_DIAMETER}
             index={index}
-            itemCount={options.length}
+            itemCount={itemCount}
             colour={option.colour}
             isHovered={menuOptionIndexHovered === index}
             onMount={onMountSvgBackground}
@@ -47,7 +48,10 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
         {options.map((option, index) => (
           <MenuOptionForeground
             key={option.id}
+            diameter={MENU_DIAMETER}
+            innerDiameter={MENU_INNER_DIAMETER}
             index={index}
+            itemCount={itemCount}
             svgBackgroundHasMounted={svgBackgroundHasMounted}
             icon={option.icon}
             title={option.title}
@@ -57,9 +61,7 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
         ))}
       </ForegroundContainer>
 
-      <ChildrenContainer>
-        {render(MENU_INNER_CIRCLE_DIAMETER)}
-      </ChildrenContainer>
+      <ChildrenContainer>{render(MENU_INNER_DIAMETER)}</ChildrenContainer>
     </Container>
   );
 };
@@ -67,13 +69,12 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
 const Container = styled.div`
   width: 100%;
   flex: 1;
-  position: relative;
   ${flexCenterCSS}
 `;
 
 const SvgBackgroundContainer = styled.svg`
-  width: ${MENU_SIZE}px;
-  height: ${MENU_SIZE}px;
+  width: ${MENU_DIAMETER}px;
+  height: ${MENU_DIAMETER}px;
 `;
 
 const ForegroundContainer = styled.div``;

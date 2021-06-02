@@ -7,13 +7,12 @@ import {
   rhythm,
   theme,
   transitionCSS,
-  magicNumber,
 } from "../../../theme";
-
-export const MENU_SIZE = 640;
-export const MENU_INNER_CIRCLE_DIAMETER = 128;
+import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface MenuOptionSvgBackgroundProps {
+  diameter: number;
+  innerDiameter: number;
   index: number;
   itemCount: number;
   colour: string;
@@ -22,6 +21,8 @@ interface MenuOptionSvgBackgroundProps {
 }
 
 export const MenuOptionSvgBackground = ({
+  diameter,
+  innerDiameter,
   index,
   itemCount,
   colour,
@@ -33,45 +34,41 @@ export const MenuOptionSvgBackground = ({
 
   useEffect(() => {
     // create the arc path
-    const sectionDegrees = 360 / itemCount;
-    const startAngle = index * sectionDegrees;
-    const endAngle = startAngle + sectionDegrees;
-    const innerRadius = MENU_INNER_CIRCLE_DIAMETER / 2 + rhythm;
-    const outerRadius = MENU_SIZE / 2 - rhythm * 2;
-    const cornerRadius = rhythm;
-    const padAngle = magicNumber * 2;
-
-    const path = makeSvgArcPath({
-      innerRadius,
-      outerRadius,
-      startAngle,
-      endAngle,
-      cornerRadius,
-      padAngle,
+    const svgArcProps = makeSvgArcProps({
+      diameter,
+      innerDiameter,
+      index,
+      itemCount,
     });
+    const path = makeSvgArcPath(svgArcProps);
 
     // add the arc path to the dom
     arcPathRef.current.setAttribute("d", path);
 
     // create the colour path
-    const colourPathInnerRadius = outerRadius + rhythm;
+    const colourPathInnerRadius = svgArcProps.outerRadius + rhythm;
     const colourPath = makeSvgArcPath({
+      ...svgArcProps,
       innerRadius: colourPathInnerRadius,
       outerRadius: colourPathInnerRadius + rhythm / 2,
-      startAngle,
-      endAngle,
-      cornerRadius,
-      padAngle,
     });
 
     // add the colour path to the dom
     colourPathRef.current.setAttribute("d", colourPath);
 
     onMount();
-  }, [arcPathRef, colourPathRef, index, itemCount, onMount]);
+  }, [
+    arcPathRef,
+    colourPathRef,
+    diameter,
+    innerDiameter,
+    index,
+    itemCount,
+    onMount,
+  ]);
 
   return (
-    <StyledGroup>
+    <StyledGroup menuDiameter={diameter}>
       <StyledPath ref={arcPathRef} hovered={isHovered} />
 
       <StyledColourPath
@@ -83,14 +80,20 @@ export const MenuOptionSvgBackground = ({
   );
 };
 
+interface StyledGroupProps {
+  menuDiameter: number;
+}
+
+const StyledGroup = styled.g<StyledGroupProps>`
+  transform: translate(
+    ${({ menuDiameter }) => menuDiameter / 2}px,
+    ${({ menuDiameter }) => menuDiameter / 2}px
+  );
+`;
+
 interface HoveredProps {
   hovered: boolean;
 }
-
-const CENTER_POINT = MENU_SIZE / 2;
-const StyledGroup = styled.g`
-  transform: translate(${CENTER_POINT}px, ${CENTER_POINT}px);
-`;
 
 const StyledPath = styled.path<HoveredProps>`
   stroke: ${theme.black};
