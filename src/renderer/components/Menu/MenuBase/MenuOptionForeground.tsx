@@ -1,6 +1,7 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useWindowSize } from "use-hooks";
 import { SVG_BACKGROUND_ID } from ".";
 import { getSvgArcCentroid } from "../../../svg/getSvgArcCentroid";
 import { flexCenterCSS, rhythm, theme } from "../../../theme";
@@ -48,6 +49,7 @@ export const MenuOptionForeground = ({
     contentTranslateX: 0,
     contentTranslateY: 0,
   });
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   useEffect(() => {
     // when the svg background has mounted we need to get the corresponding svg group
@@ -79,7 +81,6 @@ export const MenuOptionForeground = ({
         clientRect.x + clientRect.width / 2,
         clientRect.y + clientRect.height / 2,
       ];
-      const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
       const centerCoordsOfWindow = [windowWidth / 2, windowHeight / 2];
       const arcCentroidRelativeToWindow = [
         arcCentroid[0] + centerCoordsOfWindow[0],
@@ -101,7 +102,15 @@ export const MenuOptionForeground = ({
         contentTranslateY: contentTranslateRequired[1],
       });
     }
-  }, [svgBackgroundHasMounted, diameter, innerDiameter, index, itemCount]);
+  }, [
+    svgBackgroundHasMounted,
+    diameter,
+    innerDiameter,
+    index,
+    itemCount,
+    windowWidth,
+    windowHeight,
+  ]);
 
   const onMouseOver = useCallback(() => {
     onHover(index);
