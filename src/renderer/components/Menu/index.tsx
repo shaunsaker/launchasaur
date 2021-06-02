@@ -1,6 +1,5 @@
-import React, { ReactElement, useCallback, MouseEvent } from "react";
+import React, { ReactElement, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { showEditMenuOptionColourModal } from "../../store/editMenuOptionColourModal/actions";
 import { showEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
@@ -16,8 +15,6 @@ import {
 } from "../../store/menus/actions";
 import { makeMenuOptionData } from "../../store/menus/data";
 import { ActionData, MenuData, MenuOptionData } from "../../store/menus/models";
-import { Routes } from "../../store/navigation/routes";
-import { isSubmenuRoute } from "../../store/navigation/utils";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
 import { LogoButton } from "./LogoButton";
@@ -64,23 +61,6 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
           menuId: menu.id,
           menuOptionId: option.id,
           actionId: action.id,
-        }),
-      );
-    },
-    [dispatch, menu.id],
-  );
-
-  const onEditMenuOptionClick = useCallback(
-    (event: MouseEvent<HTMLButtonElement>, option: MenuOptionData) => {
-      // stop propogation of the event to the menu option container
-      // otherwise we will trigger it's actions
-      event.stopPropagation();
-
-      dispatch(
-        editMenuOption({
-          menuId: menu.id,
-          menuOptionId: option.id,
-          isEditing: true,
         }),
       );
     },
@@ -166,7 +146,6 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
         }),
       ]}
       render={(diameter) => <LogoButton diameter={diameter} />}
-      onEditClick={onEditMenuOptionClick}
     />
   );
 };

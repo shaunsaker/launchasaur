@@ -6,7 +6,7 @@ import { SVG_BACKGROUND_ID } from ".";
 import { getSvgArcCentroid } from "../../../svg/getSvgArcCentroid";
 import { flexCenterCSS, rhythm, theme } from "../../../theme";
 import { Icon } from "../../Icon";
-import { SmallButton } from "../../SmallButton";
+import { SmallButton, SMALL_BUTTON_HEIGHT } from "../../SmallButton";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface MenuOptionForegroundProps {
@@ -20,7 +20,6 @@ interface MenuOptionForegroundProps {
   shortcut: string;
   isHovered: boolean;
   onHover: (index: number) => void;
-  onEditClick: (event: any) => void;
 }
 
 interface LayoutState {
@@ -43,7 +42,6 @@ export const MenuOptionForeground = ({
   shortcut,
   isHovered,
   onHover,
-  onEditClick,
 }: MenuOptionForegroundProps) => {
   const [layout, setLayout] = useState<LayoutState>({
     top: 0,
@@ -54,6 +52,7 @@ export const MenuOptionForeground = ({
     contentTranslateY: 0,
   });
   const { width: windowWidth, height: windowHeight } = useWindowSize();
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     // when the svg background has mounted we need to get the corresponding svg group
@@ -124,6 +123,10 @@ export const MenuOptionForeground = ({
     onHover(null);
   }, [onHover]);
 
+  const onEditClick = useCallback(() => {
+    setIsEditing(true);
+  }, []);
+
   if (!svgBackgroundHasMounted) {
     return null;
   }
@@ -144,12 +147,26 @@ export const MenuOptionForeground = ({
 
         {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
 
-        {isHovered && (
-          <EditButtonContainer>
-            <SmallButton icon="edit" onClick={onEditClick}>
-              EDIT
-            </SmallButton>
-          </EditButtonContainer>
+        {(isEditing || isHovered) && (
+          <EditButtonsContainer editing={isEditing}>
+            {isEditing ? (
+              <>
+                <EditButtonContainer>
+                  <SmallButton icon="save" primary onClick={onEditClick}>
+                    SAVE
+                  </SmallButton>
+                </EditButtonContainer>
+
+                <SmallButton icon="address-book" onClick={onEditClick}>
+                  CLOSE
+                </SmallButton>
+              </>
+            ) : (
+              <SmallButton icon="edit" onClick={onEditClick}>
+                EDIT
+              </SmallButton>
+            )}
+          </EditButtonsContainer>
         )}
       </ContentContainer>
     </Container>
@@ -199,8 +216,18 @@ const ShortcutText = styled.div`
   margin-top: ${rhythm / 2}px;
 `;
 
-const EditButtonContainer = styled.div`
+interface EditButtonsContainerProps {
+  editing: boolean;
+}
+
+const EDIT_BUTTON_MARGIN = rhythm;
+
+const EditButtonsContainer = styled.div<EditButtonsContainerProps>`
   position: absolute;
-  bottom: -${24 + rhythm}px;
+  bottom: -${({ editing }) => (editing ? (SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN) * 2 : SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN)}px;
   ${flexCenterCSS}
+`;
+
+const EditButtonContainer = styled.div`
+  margin-bottom: ${EDIT_BUTTON_MARGIN}px;
 `;
