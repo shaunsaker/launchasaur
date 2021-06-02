@@ -56,7 +56,6 @@ export const MenuOptionForeground = ({
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   useEffect(() => {
-    console.log("TRIGGERED");
     // when the svg background has mounted we need to get the corresponding svg group
     // using the index and copy it's layout
     // we also position the inner content container so that it's center point
