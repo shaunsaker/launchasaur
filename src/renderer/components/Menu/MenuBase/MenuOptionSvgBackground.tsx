@@ -31,6 +31,7 @@ export const MenuOptionSvgBackground = ({
 }: MenuOptionSvgBackgroundProps) => {
   const arcPathRef = useRef<SVGPathElement>();
   const colourPathRef = useRef<SVGPathElement>();
+  const centerArcRef = useRef<SVGPathElement>();
 
   useEffect(() => {
     // create the arc path
@@ -46,7 +47,7 @@ export const MenuOptionSvgBackground = ({
     arcPathRef.current.setAttribute("d", path);
 
     // create the colour path
-    const colourPathInnerRadius = svgArcProps.outerRadius + rhythm;
+    const colourPathInnerRadius = svgArcProps.outerRadius + rhythm / 2;
     const colourPath = makeSvgArcPath({
       ...svgArcProps,
       innerRadius: colourPathInnerRadius,
@@ -76,6 +77,8 @@ export const MenuOptionSvgBackground = ({
         hovered={isHovered}
         colour={colour}
       />
+
+      <StyledPath ref={centerArcRef} hovered={isHovered} />
     </StyledGroup>
   );
 };

@@ -2,8 +2,10 @@ import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disa
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { SVG_BACKGROUND_ID } from ".";
+import { getSvgArcCentroid } from "../../../svg/getSvgArcCentroid";
 import { flexCenterCSS, rhythm, theme } from "../../../theme";
 import { Icon } from "../../Icon";
+import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface MenuOptionForegroundProps {
   diameter: number;
@@ -22,6 +24,8 @@ interface LayoutState {
   left: number;
   width: number;
   height: number;
+  contentTranslateX: number;
+  contentTranslateY: number;
 }
 
 export const MenuOptionForeground = ({
@@ -41,12 +45,29 @@ export const MenuOptionForeground = ({
     left: 0,
     width: 0,
     height: 0,
+    contentTranslateX: 0,
+    contentTranslateY: 0,
   });
 
   useEffect(() => {
     // when the svg background has mounted we need to get the corresponding svg group
     // using the index and copy it's layout
+    // we also position the inner content container so that it's center point
+    // is exactly between the inner and outer arcs
     if (svgBackgroundHasMounted) {
+      const svgArcProps = makeSvgArcProps({
+        diameter,
+        innerDiameter,
+        itemCount,
+        index,
+      });
+      const centerRadius =
+        (diameter / 2 - rhythm * 2 + innerDiameter / 2 + rhythm / 2) / 2;
+      const arcCentroid = getSvgArcCentroid({
+        ...svgArcProps,
+        innerRadius: centerRadius,
+        outerRadius: centerRadius,
+      });
       const element = document
         .getElementById(SVG_BACKGROUND_ID)
         .getElementsByTagName("g")
@@ -54,12 +75,30 @@ export const MenuOptionForeground = ({
         .getElementsByTagName("path")
         .item(0);
       const clientRect = element.getClientRects().item(0);
+      const centerCoordsOfContainerRelativeToWindow = [
+        clientRect.x + clientRect.width / 2,
+        clientRect.y + clientRect.height / 2,
+      ];
+      const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
+      const centerCoordsOfWindow = [windowWidth / 2, windowHeight / 2];
+      const arcCentroidRelativeToWindow = [
+        arcCentroid[0] + centerCoordsOfWindow[0],
+        arcCentroid[1] + centerCoordsOfWindow[1],
+      ];
+      const contentTranslateRequired = [
+        arcCentroidRelativeToWindow[0] -
+          centerCoordsOfContainerRelativeToWindow[0],
+        arcCentroidRelativeToWindow[1] -
+          centerCoordsOfContainerRelativeToWindow[1],
+      ];
 
       setLayout({
         top: clientRect.top,
         left: clientRect.left,
         width: clientRect.width,
         height: clientRect.height,
+        contentTranslateX: contentTranslateRequired[0],
+        contentTranslateY: contentTranslateRequired[1],
       });
     }
   }, [svgBackgroundHasMounted, diameter, innerDiameter, index, itemCount]);
@@ -81,7 +120,9 @@ export const MenuOptionForeground = ({
       layout={layout}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
-      <ContentContainer>
+      <ContentContainer
+        translateX={layout.contentTranslateX}
+        translateY={layout.contentTranslateY}>
         <IconContainer>
           <Icon icon={icon} />
         </IconContainer>
@@ -108,7 +149,14 @@ const Container = styled.div<ContainerProps>`
   ${flexCenterCSS}
 `;
 
-const ContentContainer = styled.div`
+interface ContentContainerProps {
+  translateX: number;
+  translateY: number;
+}
+
+const ContentContainer = styled.div<ContentContainerProps>`
+  transform: ${({ translateX, translateY }) =>
+    `translate(${translateX}px, ${translateY}px)`};
   ${flexCenterCSS}
 `;
 
