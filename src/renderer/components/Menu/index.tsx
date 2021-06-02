@@ -166,6 +166,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
         }),
       ]}
       render={(diameter) => <LogoButton diameter={diameter} />}
+      onEditClick={onEditMenuOptionClick}
     />
   );
 };

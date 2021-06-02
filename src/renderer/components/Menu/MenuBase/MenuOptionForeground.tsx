@@ -20,6 +20,7 @@ interface MenuOptionForegroundProps {
   shortcut: string;
   isHovered: boolean;
   onHover: (index: number) => void;
+  onEditClick: (event: any) => void;
 }
 
 interface LayoutState {
@@ -42,6 +43,7 @@ export const MenuOptionForeground = ({
   shortcut,
   isHovered,
   onHover,
+  onEditClick,
 }: MenuOptionForegroundProps) => {
   const [layout, setLayout] = useState<LayoutState>({
     top: 0,
@@ -54,6 +56,7 @@ export const MenuOptionForeground = ({
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   useEffect(() => {
+    console.log("TRIGGERED");
     // when the svg background has mounted we need to get the corresponding svg group
     // using the index and copy it's layout
     // we also position the inner content container so that it's center point
@@ -144,7 +147,9 @@ export const MenuOptionForeground = ({
 
         {isHovered && (
           <EditButtonContainer>
-            <SmallButton icon="edit">EDIT</SmallButton>
+            <SmallButton icon="edit" onClick={onEditClick}>
+              EDIT
+            </SmallButton>
           </EditButtonContainer>
         )}
       </ContentContainer>

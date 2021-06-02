@@ -14,16 +14,18 @@ import {
 interface SmallButtonProps {
   icon: IconName;
   children: string;
+  onClick: () => void;
 }
 
 export const SmallButton = ({
   icon,
   children,
+  onClick,
 }: SmallButtonProps): ReactElement => {
   const [hoverRef, hovered] = useHover<HTMLDivElement>();
 
   return (
-    <Container ref={hoverRef} hovered={hovered}>
+    <Container ref={hoverRef} hovered={hovered} onClick={onClick}>
       <StyledIcon icon={icon} />
 
       <Text>{children}</Text>

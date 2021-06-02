@@ -12,9 +12,14 @@ export const SVG_BACKGROUND_ID = "menu";
 interface MenuBaseProps {
   options: MenuOptionData[];
   render: (diameter: number) => ReactElement; // renders in the center of the menu, e.g. Logo
+  onEditClick: (event: any, option: MenuOptionData) => void;
 }
 
-export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
+export const MenuBase = ({
+  options,
+  render,
+  onEditClick,
+}: MenuBaseProps): ReactElement => {
   const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
   const [menuOptionIndexHovered, setMenuOptionIndexHovered] = useState(null);
   const itemCount = options.length;
@@ -58,6 +63,7 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
             shortcut={option.shortcut}
             isHovered={menuOptionIndexHovered === index}
             onHover={onHoverMenuOptionForeground}
+            onEditClick={(event: any) => onEditClick(event, option)}
           />
         ))}
       </ForegroundContainer>
