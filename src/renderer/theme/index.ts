@@ -14,6 +14,8 @@ export const borderWidth = 3;
 
 export const rhythm = 16;
 
+export const borderRadius = rhythm;
+
 // css
 const shadowCSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";
 export const dropShadowCSS = `filter: drop-shadow(${shadowCSS});`;

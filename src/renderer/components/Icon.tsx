@@ -1,17 +1,21 @@
-import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
+import {
+  IconName,
+  // @ts-expect-error it exists
+  FontAwesomeIconProps,
+} from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
-import { flexCenterCSS, theme } from "../theme";
+import { boxShadowCSS, flexCenterCSS, theme } from "../theme";
 
-interface IconProps {
+interface IconProps extends FontAwesomeIconProps {
   icon: IconName;
 }
 
-export const Icon = ({ icon }: IconProps) => {
+export const Icon = ({ icon, ...props }: IconProps) => {
   return (
     <Container>
-      <StyledIcon icon={icon || "question"} />
+      <StyledIcon icon={icon || "question"} {...props} />
     </Container>
   );
 };
@@ -23,6 +27,7 @@ const Container = styled.div`
   border-radius: ${SIZE / 2}px;
   background-color: ${theme.backgroundDark};
   ${flexCenterCSS}
+  ${boxShadowCSS}
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`

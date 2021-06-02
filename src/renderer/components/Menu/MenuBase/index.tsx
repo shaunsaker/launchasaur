@@ -56,6 +56,7 @@ export const MenuBase = ({ options, render }: MenuBaseProps): ReactElement => {
             icon={option.icon}
             title={option.title}
             shortcut={option.shortcut}
+            isHovered={menuOptionIndexHovered === index}
             onHover={onHoverMenuOptionForeground}
           />
         ))}

@@ -6,6 +6,7 @@ import { SVG_BACKGROUND_ID } from ".";
 import { getSvgArcCentroid } from "../../../svg/getSvgArcCentroid";
 import { flexCenterCSS, rhythm, theme } from "../../../theme";
 import { Icon } from "../../Icon";
+import { SmallButton } from "../../SmallButton";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface MenuOptionForegroundProps {
@@ -17,6 +18,7 @@ interface MenuOptionForegroundProps {
   icon: IconName;
   title: string;
   shortcut: string;
+  isHovered: boolean;
   onHover: (index: number) => void;
 }
 
@@ -34,11 +36,11 @@ export const MenuOptionForeground = ({
   innerDiameter,
   index,
   itemCount,
-
   svgBackgroundHasMounted,
   icon,
   title,
   shortcut,
+  isHovered,
   onHover,
 }: MenuOptionForegroundProps) => {
   const [layout, setLayout] = useState<LayoutState>({
@@ -139,6 +141,12 @@ export const MenuOptionForeground = ({
         <Text>{title || "What am I?"}</Text>
 
         {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+
+        {isHovered && (
+          <EditButtonContainer>
+            <SmallButton icon="edit">EDIT</SmallButton>
+          </EditButtonContainer>
+        )}
       </ContentContainer>
     </Container>
   );
@@ -166,11 +174,13 @@ interface ContentContainerProps {
 const ContentContainer = styled.div<ContentContainerProps>`
   transform: ${({ translateX, translateY }) =>
     `translate(${translateX}px, ${translateY}px)`};
+  position: relative;
   ${flexCenterCSS}
 `;
 
 const IconContainer = styled.div`
   margin-bottom: ${rhythm}px;
+  position: relative;
 `;
 
 const Text = styled.div`
@@ -183,4 +193,10 @@ const ShortcutText = styled.div`
   font-size: 12px;
   color: ${theme.white};
   margin-top: ${rhythm / 2}px;
+`;
+
+const EditButtonContainer = styled.div`
+  position: absolute;
+  bottom: -${24 + rhythm}px;
+  ${flexCenterCSS}
 `;

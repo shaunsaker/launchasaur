@@ -159,11 +159,6 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
     <MenuBase
       options={[
         ...objectToArray(menu?.options),
-        makeMenuOptionData({}),
-        makeMenuOptionData({}),
-        makeMenuOptionData({}),
-        makeMenuOptionData({}),
-        makeMenuOptionData({}),
         makeMenuOptionData({
           title: "Add New Item",
           icon: "plus",
