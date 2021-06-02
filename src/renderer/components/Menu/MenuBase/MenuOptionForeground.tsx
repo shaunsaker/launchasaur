@@ -50,7 +50,9 @@ export const MenuOptionForeground = ({
       const element = document
         .getElementById(SVG_BACKGROUND_ID)
         .getElementsByTagName("g")
-        .item(index);
+        .item(index)
+        .getElementsByTagName("path")
+        .item(0);
       const clientRect = element.getClientRects().item(0);
 
       setLayout({
@@ -79,13 +81,15 @@ export const MenuOptionForeground = ({
       layout={layout}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}>
-      <IconContainer>
-        <Icon icon={icon} />
-      </IconContainer>
+      <ContentContainer>
+        <IconContainer>
+          <Icon icon={icon} />
+        </IconContainer>
 
-      <Text>{title || "What am I?"}</Text>
+        <Text>{title || "What am I?"}</Text>
 
-      {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+        {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+      </ContentContainer>
     </Container>
   );
 };
@@ -101,6 +105,10 @@ const Container = styled.div<ContainerProps>`
   width: ${({ layout }) => layout.width}px;
   height: ${({ layout }) => layout.height}px;
   cursor: pointer;
+  ${flexCenterCSS}
+`;
+
+const ContentContainer = styled.div`
   ${flexCenterCSS}
 `;
 
