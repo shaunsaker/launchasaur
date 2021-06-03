@@ -19,7 +19,9 @@ interface MenuOptionForegroundProps {
   title: string;
   shortcut: string;
   isHovered: boolean;
-  onHover: (index: number) => void;
+  isEditing: boolean;
+  onHover: (index: number | null) => void;
+  onEdit: (index: number | null) => void;
 }
 
 interface LayoutState {
@@ -41,7 +43,9 @@ export const MenuOptionForeground = ({
   title,
   shortcut,
   isHovered,
+  isEditing,
   onHover,
+  onEdit,
 }: MenuOptionForegroundProps) => {
   const [layout, setLayout] = useState<LayoutState>({
     top: 0,
@@ -52,7 +56,6 @@ export const MenuOptionForeground = ({
     contentTranslateY: 0,
   });
   const { width: windowWidth, height: windowHeight } = useWindowSize();
-  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     // when the svg background has mounted we need to get the corresponding svg group
@@ -124,8 +127,12 @@ export const MenuOptionForeground = ({
   }, [onHover]);
 
   const onEditClick = useCallback(() => {
-    setIsEditing(true);
-  }, []);
+    onEdit(index);
+  }, [onEdit, index]);
+
+  const onCloseClick = useCallback(() => {
+    onEdit(null);
+  }, [onEdit]);
 
   if (!svgBackgroundHasMounted) {
     return null;
@@ -151,14 +158,8 @@ export const MenuOptionForeground = ({
           <EditButtonsContainer editing={isEditing}>
             {isEditing ? (
               <>
-                <EditButtonContainer>
-                  <SmallButton icon="save" primary onClick={onEditClick}>
-                    SAVE
-                  </SmallButton>
-                </EditButtonContainer>
-
-                <SmallButton icon="times" onClick={onEditClick}>
-                  CANCEL
+                <SmallButton primary icon="times" onClick={onCloseClick}>
+                  CLOSE
                 </SmallButton>
               </>
             ) : (
@@ -224,10 +225,6 @@ const EDIT_BUTTON_MARGIN = rhythm;
 
 const EditButtonsContainer = styled.div<EditButtonsContainerProps>`
   position: absolute;
-  bottom: -${({ editing }) => (editing ? SMALL_BUTTON_HEIGHT * 2 + EDIT_BUTTON_MARGIN * 1.5 : SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN)}px;
+  bottom: -${SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN}px;
   ${flexCenterCSS}
-`;
-
-const EditButtonContainer = styled.div`
-  margin-bottom: ${EDIT_BUTTON_MARGIN / 2}px;
 `;
