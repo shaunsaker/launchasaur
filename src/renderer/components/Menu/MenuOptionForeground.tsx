@@ -157,12 +157,12 @@ export const MenuOptionForeground = ({
                   </SmallButton>
                 </EditButtonContainer>
 
-                <SmallButton icon="address-book" onClick={onEditClick}>
-                  CLOSE
+                <SmallButton icon="times" onClick={onEditClick}>
+                  CANCEL
                 </SmallButton>
               </>
             ) : (
-              <SmallButton icon="edit" onClick={onEditClick}>
+              <SmallButton primary icon="edit" onClick={onEditClick}>
                 EDIT
               </SmallButton>
             )}
@@ -224,10 +224,10 @@ const EDIT_BUTTON_MARGIN = rhythm;
 
 const EditButtonsContainer = styled.div<EditButtonsContainerProps>`
   position: absolute;
-  bottom: -${({ editing }) => (editing ? (SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN) * 2 : SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN)}px;
+  bottom: -${({ editing }) => (editing ? SMALL_BUTTON_HEIGHT * 2 + EDIT_BUTTON_MARGIN * 1.5 : SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN)}px;
   ${flexCenterCSS}
 `;
 
 const EditButtonContainer = styled.div`
-  margin-bottom: ${EDIT_BUTTON_MARGIN}px;
+  margin-bottom: ${EDIT_BUTTON_MARGIN / 2}px;
 `;

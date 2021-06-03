@@ -6,7 +6,6 @@ import { useHover } from "use-hooks";
 import {
   borderRadius,
   borderWidth,
-  boxShadowCSS,
   rhythm,
   theme,
   transitionCSS,
@@ -48,29 +47,28 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
+  width: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: ${SMALL_BUTTON_HEIGHT}px;
-  padding: 0 ${rhythm / 2}px;
-  background-color: ${({ hovered, primary }) =>
-    hovered || primary ? theme.accent : theme.backgroundDark};
+  background-color: ${({ hovered }) =>
+    hovered ? theme.accent : theme.backgroundDark};
   border-radius: ${borderRadius}px;
   transition: all ${transitionCSS};
   box-sizing: border-box;
   border: ${borderWidth}px solid
-    ${({ hovered }) => (hovered ? theme.backgroundDark : "transparent")};
-  ${({ hovered }) => (hovered ? "" : boxShadowCSS)}
+    ${({ primary }) => (primary ? theme.accent : "transparent")};
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 12px;
   color: ${theme.white};
-  margin-right: ${rhythm / 4}px;
+  margin-right: ${rhythm / 2}px;
 `;
 
 const Text = styled.div`
-  font-size: 12px;
+  font-size: 11px;
   color: ${theme.white};
   font-weight: bold;
 `;
