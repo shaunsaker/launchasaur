@@ -3,10 +3,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useWindowSize } from "use-hooks";
 import { SVG_BACKGROUND_ID } from ".";
-import { getSvgArcCentroid } from "../../../svg/getSvgArcCentroid";
-import { flexCenterCSS, rhythm, theme } from "../../../theme";
-import { Icon } from "../../Icon";
-import { SmallButton, SMALL_BUTTON_HEIGHT } from "../../SmallButton";
+import { getSvgArcCentroid } from "../../svg/getSvgArcCentroid";
+import { flexCenterCSS, rhythm, theme } from "../../theme";
+import { Icon } from "../Icon";
+import { SmallButton, SMALL_BUTTON_HEIGHT } from "../SmallButton";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface MenuOptionForegroundProps {

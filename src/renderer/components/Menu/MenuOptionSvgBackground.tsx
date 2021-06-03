@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { makeSvgArcPath } from "../../../svg/makeSvgArcPath";
+import { makeSvgArcPath } from "../../svg/makeSvgArcPath";
 import {
   borderWidth,
   dropShadowCSS,
   rhythm,
   theme,
   transitionCSS,
-} from "../../../theme";
+} from "../../theme";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface MenuOptionSvgBackgroundProps {
