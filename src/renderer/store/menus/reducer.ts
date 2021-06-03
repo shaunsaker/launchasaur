@@ -40,32 +40,6 @@ export const initialState: MenusState = {
   },
 };
 
-const rehydrateReducer = (
-  state: MenusState,
-  action: { payload: { menus: MenusState } },
-) => {
-  if (!action.payload) {
-    return state;
-  }
-
-  // reset all menu options isEditing state
-  const menus = action.payload.menus.data;
-
-  Object.keys(menus).forEach((menuId) => {
-    const options = menus[menuId].options;
-
-    Object.keys(options).forEach((optionId) => {
-      const option = options[optionId];
-      option.isEditing = false;
-    });
-  });
-
-  return {
-    ...state,
-    data: menus,
-  };
-};
-
 const addMenuOptionReducer = (
   state: MenusState,
   action: ActionType<typeof addMenuOption>,
@@ -82,30 +56,6 @@ const addMenuOptionReducer = (
         options: {
           ...state.data[menuId].options,
           [menuOptionId]: newMenuOptionData,
-        },
-      },
-    },
-  };
-};
-
-const editMenuOptionReducer = (
-  state: MenusState,
-  action: ActionType<typeof editMenuOption>,
-): MenusState => {
-  const { menuId, menuOptionId, isEditing } = action.payload;
-
-  return {
-    ...state,
-    data: {
-      ...state.data,
-      [menuId]: {
-        ...state.data[menuId],
-        options: {
-          ...state.data[menuId].options,
-          [menuOptionId]: {
-            ...state.data[menuId].options[menuOptionId],
-            isEditing,
-          },
         },
       },
     },
@@ -340,14 +290,8 @@ export const menusReducer: Reducer<MenusState> = (
     | { type: typeof REHYDRATE; payload: { menus: MenusState } },
 ) => {
   switch (action.type) {
-    case REHYDRATE:
-      return rehydrateReducer(state, action);
-
     case getType(addMenuOption):
       return addMenuOptionReducer(state, action);
-
-    case getType(editMenuOption):
-      return editMenuOptionReducer(state, action);
 
     case getType(deleteMenuOption):
       return deleteMenuOptionReducer(state, action);

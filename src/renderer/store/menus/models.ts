@@ -34,7 +34,7 @@ export interface MenuOptionData {
   colour: string;
   actions: Record<ActionId, ActionData>;
   shortcut: Shortcut;
-  isEditing: boolean;
+  isEditable: boolean;
 }
 
 export type MenuOptionId = string;

@@ -41,6 +41,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
       title: "Add New Item",
       icon: "plus",
       shortcut: "Ctrl + R",
+      isEditable: false,
     }),
   ];
   const itemCount = options.length;
@@ -199,6 +200,7 @@ export const Menu = ({ menu }: MenuProps): ReactElement => {
             shortcut={option.shortcut}
             isHovered={menuOptionIndexHovered === index}
             isEditing={menuOptionIndexEditing === index}
+            isEditable={option.isEditable}
             onHover={onHoverMenuOption}
             onEdit={onEditMenuOption}
           />

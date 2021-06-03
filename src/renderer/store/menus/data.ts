@@ -27,11 +27,13 @@ export const makeMenuOptionData = ({
   icon,
   title,
   shortcut,
+  isEditable,
 }: {
   id?: string;
   icon?: IconName;
   title?: string;
   shortcut?: string;
+  isEditable?: boolean;
 }): MenuOptionData => ({
   id: id || uuid(),
   title,
@@ -39,7 +41,7 @@ export const makeMenuOptionData = ({
   colour: "", // TODO: get random colour
   actions: {},
   shortcut: shortcut || "",
-  isEditing: false,
+  isEditable: isEditable === false ? false : true,
 });
 
 export const makeMenuData = ({

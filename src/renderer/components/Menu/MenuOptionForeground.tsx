@@ -20,6 +20,7 @@ interface MenuOptionForegroundProps {
   shortcut: string;
   isHovered: boolean;
   isEditing: boolean;
+  isEditable: boolean;
   onHover: (index: number | null) => void;
   onEdit: (index: number | null) => void;
 }
@@ -44,6 +45,7 @@ export const MenuOptionForeground = ({
   shortcut,
   isHovered,
   isEditing,
+  isEditable,
   onHover,
   onEdit,
 }: MenuOptionForegroundProps) => {
@@ -154,7 +156,7 @@ export const MenuOptionForeground = ({
 
         {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
 
-        {(isEditing || isHovered) && (
+        {isEditable && (isEditing || isHovered) && (
           <EditButtonsContainer editing={isEditing}>
             {isEditing ? (
               <>
