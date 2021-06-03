@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import { makeSvgArcPath } from "../../svg/makeSvgArcPath";
 import {
@@ -33,7 +33,7 @@ export const MenuOptionSvgBackground = ({
   const colourPathRef = useRef<SVGPathElement>();
   const centerArcRef = useRef<SVGPathElement>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // create the arc path
     const svgArcProps = makeSvgArcProps({
       diameter,

@@ -1,5 +1,5 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import { useWindowSize } from "use-hooks";
 import { SVG_BACKGROUND_ID } from ".";
@@ -59,7 +59,7 @@ export const MenuOptionForeground = ({
   });
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // when the svg background has mounted we need to get the corresponding svg group
     // using the index and copy it's layout
     // we also position the inner content container so that it's center point

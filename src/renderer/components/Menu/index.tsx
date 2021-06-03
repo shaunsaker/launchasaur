@@ -1,6 +1,8 @@
 import React, { ReactElement, useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { HomeRouteParams } from "../../pages/Home";
 import { showEditMenuOptionColourModal } from "../../store/editMenuOptionColourModal/actions";
 import { showEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
 import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
@@ -14,7 +16,9 @@ import {
   triggerMenuOption,
 } from "../../store/menus/actions";
 import { makeMenuOptionData } from "../../store/menus/data";
-import { ActionData, MenuData, MenuOptionData } from "../../store/menus/models";
+import { ActionData, MenuOptionData } from "../../store/menus/models";
+import { selectMenu } from "../../store/menus/selectors";
+import { ApplicationState } from "../../store/reducers";
 import { absoluteCenterCSS, flexCenterCSS } from "../../theme";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
@@ -26,11 +30,11 @@ const MENU_DIAMETER = 640;
 const MENU_INNER_DIAMETER = 128;
 export const SVG_BACKGROUND_ID = "menu";
 
-interface MenuProps {
-  menu: MenuData;
-}
-
-export const Menu = ({ menu }: MenuProps): ReactElement => {
+export const Menu = (): ReactElement => {
+  const { menuId } = useParams<HomeRouteParams>();
+  const menu = useSelector((state: ApplicationState) =>
+    selectMenu(state, menuId),
+  );
   const dispatch = useDispatch();
   const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
   const [menuOptionIndexHovered, setMenuOptionIndexHovered] = useState(null);
