@@ -52,13 +52,12 @@ const Container = styled.div<ContainerProps>`
   justify-content: center;
   align-items: center;
   height: ${SMALL_BUTTON_HEIGHT}px;
-  background-color: ${({ hovered }) =>
-    hovered ? theme.accent : theme.backgroundDark};
+  background-color: ${theme.backgroundDark};
   border-radius: ${borderRadius}px;
   transition: all ${transitionCSS};
   box-sizing: border-box;
   border: ${borderWidth}px solid
-    ${({ primary }) => (primary ? theme.accent : "transparent")};
+    ${({ hovered }) => (hovered ? theme.accent : "transparent")};
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
