@@ -51,3 +51,5 @@ export interface MenusState {
 }
 
 export const defaultMenuId = "default";
+
+export const ADD_ITEM_TITLE = "Add New Item";

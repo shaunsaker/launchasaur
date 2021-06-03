@@ -1,23 +1,45 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, {
+  MouseEvent,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useWindowSize } from "use-hooks";
 import { SVG_BACKGROUND_ID } from ".";
+import { showEditMenuOptionColourModal } from "../../store/editMenuOptionColourModal/actions";
+import { showEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
+import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
+import { showEditMenuOptionTitleModal } from "../../store/editMenuOptionTitleModal/actions";
+import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
+import {
+  addMenuOption,
+  deleteMenuOption,
+  deleteMenuOptionAction,
+  triggerMenuOption,
+} from "../../store/menus/actions";
+import {
+  ActionData,
+  ADD_ITEM_TITLE,
+  MenuId,
+  MenuOptionData,
+} from "../../store/menus/models";
 import { getSvgArcCentroid } from "../../svg/getSvgArcCentroid";
 import { flexCenterCSS, rhythm, theme } from "../../theme";
+import { uuid } from "../../utils/uuid";
 import { Icon } from "../Icon";
 import { SmallButton, SMALL_BUTTON_HEIGHT } from "../SmallButton";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
-interface MenuOptionForegroundProps {
+interface MenuOptionForegroundProps extends MenuOptionData {
   diameter: number;
   innerDiameter: number;
   index: number;
   itemCount: number;
+  menuId: MenuId;
   svgBackgroundHasMounted: boolean;
-  icon: IconName;
-  title: string;
-  shortcut: string;
   isHovered: boolean;
   isEditing: boolean;
   isEditable: boolean;
@@ -39,7 +61,9 @@ export const MenuOptionForeground = ({
   innerDiameter,
   index,
   itemCount,
+  menuId,
   svgBackgroundHasMounted,
+  id,
   icon,
   title,
   shortcut,
@@ -49,6 +73,7 @@ export const MenuOptionForeground = ({
   onHover,
   onEdit,
 }: MenuOptionForegroundProps) => {
+  const dispatch = useDispatch();
   const [layout, setLayout] = useState<LayoutState>({
     top: 0,
     left: 0,
@@ -128,15 +153,95 @@ export const MenuOptionForeground = ({
     onHover(null);
   }, [onHover]);
 
-  const onEditClick = useCallback(() => {
-    onEdit(index);
-  }, [onEdit, index]);
+  const onClick = useCallback(() => {
+    if (!isEditing) {
+      const isAddItem = title === ADD_ITEM_TITLE;
 
-  const onCloseClick = useCallback(() => {
+      if (isAddItem) {
+        dispatch(addMenuOption({ menuId, menuOptionId: uuid() }));
+      } else {
+        dispatch(
+          triggerMenuOption.request({
+            menuId: menuId,
+            menuOptionId: id,
+          }),
+        );
+      }
+    }
+  }, [dispatch, menuId, id, isEditing, title]);
+
+  const onEditClick = useCallback(
+    (event: MouseEvent<HTMLDivElement>) => {
+      event.stopPropagation();
+
+      onEdit(index);
+    },
+    [onEdit, index],
+  );
+
+  const onCloseEditClick = useCallback(() => {
     onEdit(null);
   }, [onEdit]);
 
-  const onIconClick = useCallback(() => {}, []);
+  const onDeleteMenuOptionClick = useCallback(() => {
+    dispatch(deleteMenuOption({ menuId: menuId, menuOptionId: id }));
+
+    // reset the editing state
+    onEdit(null);
+  }, [dispatch, menuId, id, onEdit]);
+
+  const onEditIconClick = useCallback(() => {
+    dispatch(
+      showEditMenuOptionIconModal({
+        menuId: menuId,
+        menuOptionId: id,
+      }),
+    );
+  }, [dispatch, menuId, id]);
+
+  const onEditTitleClick = useCallback(() => {
+    dispatch(
+      showEditMenuOptionTitleModal({
+        menuId: menuId,
+        menuOptionId: id,
+      }),
+    );
+  }, [dispatch, menuId, id]);
+
+  const onEditShortcutClick = useCallback(() => {
+    dispatch(
+      showEditMenuOptionShortcutModal({
+        menuId: menuId,
+        menuOptionId: id,
+      }),
+    );
+  }, [dispatch, menuId, id]);
+
+  const onEditColourClick = useCallback(() => {
+    dispatch(
+      showEditMenuOptionColourModal({
+        menuId: menuId,
+        menuOptionId: id,
+      }),
+    );
+  }, [dispatch, menuId, id]);
+
+  const onAddActionClick = useCallback(() => {
+    dispatch(showMenuActionsModal({ menuId: menuId, menuOptionId: id }));
+  }, [dispatch, menuId, id]);
+
+  const onDeleteActionClick = useCallback(
+    (option: MenuOptionData, action: ActionData) => {
+      dispatch(
+        deleteMenuOptionAction({
+          menuId: menuId,
+          menuOptionId: id,
+          actionId: action.id,
+        }),
+      );
+    },
+    [dispatch, menuId, id],
+  );
 
   if (!svgBackgroundHasMounted) {
     return null;
@@ -146,28 +251,37 @@ export const MenuOptionForeground = ({
     <Container
       layout={layout}
       onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}>
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}>
       <ContentContainer
         translateX={layout.contentTranslateX}
         translateY={layout.contentTranslateY}>
         <IconContainer>
-          <Icon icon={icon} isClickable={isEditing} onClick={onIconClick} />
+          <Icon icon={icon} isClickable={isEditing} onClick={onEditIconClick} />
         </IconContainer>
 
         <Text>{title || "What am I?"}</Text>
 
-        {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+        <ShortcutText>
+          {shortcut || (isEditing ? "Set Shortcut" : "")}
+        </ShortcutText>
 
         {isEditable && (isEditing || isHovered) && (
           <EditButtonsContainer editing={isEditing}>
             {isEditing ? (
               <>
-                <SmallButton primary icon="times" onClick={onCloseClick}>
+                <SmallButton icon="times" onClick={onCloseEditClick}>
                   CLOSE
                 </SmallButton>
+
+                <EditButtonContainer>
+                  <SmallButton icon="trash" onClick={onDeleteMenuOptionClick}>
+                    DELETE
+                  </SmallButton>
+                </EditButtonContainer>
               </>
             ) : (
-              <SmallButton primary icon="edit" onClick={onEditClick}>
+              <SmallButton icon="edit" onClick={onEditClick}>
                 EDIT
               </SmallButton>
             )}
@@ -215,8 +329,10 @@ const Text = styled.div`
   color: ${theme.white};
 `;
 
+const SHORTCUT_TEXT_SIZE = 12;
 const ShortcutText = styled.div`
-  font-size: 12px;
+  font-size: ${SHORTCUT_TEXT_SIZE}px;
+  height: ${SHORTCUT_TEXT_SIZE}px; // allows us to have empty text with the same layout
   color: ${theme.white};
   margin-top: ${rhythm / 2}px;
 `;
@@ -231,4 +347,12 @@ const EditButtonsContainer = styled.div<EditButtonsContainerProps>`
   position: absolute;
   bottom: -${SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN}px;
   ${flexCenterCSS}
+`;
+
+const EditButtonContainer = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(${SMALL_BUTTON_HEIGHT + rhythm}px);
 `;

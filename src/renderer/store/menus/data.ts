@@ -40,7 +40,7 @@ export const makeMenuOptionData = ({
   icon: icon || "question",
   colour: "", // TODO: get random colour
   actions: {},
-  shortcut: shortcut || "",
+  shortcut: shortcut || "Ctrl + Shift + 1",
   isEditable: isEditable === false ? false : true,
 });
 

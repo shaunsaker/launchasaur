@@ -1,6 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ReactElement } from "react";
+import React, { MouseEvent, ReactElement } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
@@ -17,7 +17,7 @@ interface SmallButtonProps {
   icon: IconName;
   primary?: boolean;
   children: string;
-  onClick: () => void;
+  onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const SmallButton = ({
