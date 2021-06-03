@@ -136,6 +136,8 @@ export const MenuOptionForeground = ({
     onEdit(null);
   }, [onEdit]);
 
+  const onIconClick = useCallback(() => {}, []);
+
   if (!svgBackgroundHasMounted) {
     return null;
   }
@@ -149,7 +151,7 @@ export const MenuOptionForeground = ({
         translateX={layout.contentTranslateX}
         translateY={layout.contentTranslateY}>
         <IconContainer>
-          <Icon icon={icon} />
+          <Icon icon={icon} isClickable={isEditing} onClick={onIconClick} />
         </IconContainer>
 
         <Text>{title || "What am I?"}</Text>

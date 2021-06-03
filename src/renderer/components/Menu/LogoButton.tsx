@@ -43,7 +43,6 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
   width: ${({ diameter }) => diameter}px;
   height: ${({ diameter }) => diameter}px;
-  box-sizing: border-box;
   border-radius: ${({ diameter }) => diameter / 2}px;
   border-width: ${borderWidth}px;
   border-style: solid;

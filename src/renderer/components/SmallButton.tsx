@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
   borderRadius,
-  borderWidth,
+  smallBorderWidth,
   rhythm,
   theme,
   transitionCSS,
@@ -54,10 +54,9 @@ const Container = styled.div<ContainerProps>`
   height: ${SMALL_BUTTON_HEIGHT}px;
   background-color: ${theme.backgroundDark};
   border-radius: ${borderRadius}px;
-  transition: all ${transitionCSS};
-  box-sizing: border-box;
-  border: ${borderWidth}px solid
+  border: ${smallBorderWidth}px solid
     ${({ hovered }) => (hovered ? theme.accent : "transparent")};
+  transition: all ${transitionCSS};
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`

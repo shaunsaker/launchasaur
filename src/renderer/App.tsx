@@ -26,4 +26,8 @@ const AppContainer = styled.div`
   height: 100vh;
   background-color: ${theme.backgroundDark};
   ${flexCenterCSS}
+
+  & * {
+    box-sizing: border-box;
+  }
 `;
