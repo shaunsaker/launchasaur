@@ -29,8 +29,8 @@ import {
 import { getSvgArcCentroid } from "../../svg/getSvgArcCentroid";
 import { flexCenterCSS, rhythm, theme } from "../../theme";
 import { uuid } from "../../utils/uuid";
+import { ContextMenu } from "../ContextMenu";
 import { Icon } from "../Icon";
-import { SmallButton, SMALL_BUTTON_HEIGHT } from "../SmallButton";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface MenuOptionForegroundProps extends MenuOptionData {
@@ -265,29 +265,9 @@ export const MenuOptionForeground = ({
         <ShortcutText>
           {shortcut || (isEditing ? "Set Shortcut" : "")}
         </ShortcutText>
-
-        {isEditable && (isEditing || isHovered) && (
-          <EditButtonsContainer editing={isEditing}>
-            {isEditing ? (
-              <>
-                <SmallButton icon="times" onClick={onCloseEditClick}>
-                  CLOSE
-                </SmallButton>
-
-                <EditButtonContainer>
-                  <SmallButton icon="trash" onClick={onDeleteMenuOptionClick}>
-                    DELETE
-                  </SmallButton>
-                </EditButtonContainer>
-              </>
-            ) : (
-              <SmallButton icon="edit" onClick={onEditClick}>
-                EDIT
-              </SmallButton>
-            )}
-          </EditButtonsContainer>
-        )}
       </ContentContainer>
+
+      {isEditable && isHovered && <ContextMenu />}
     </Container>
   );
 };
@@ -335,24 +315,4 @@ const ShortcutText = styled.div`
   height: ${SHORTCUT_TEXT_SIZE}px; // allows us to have empty text with the same layout
   color: ${theme.white};
   margin-top: ${rhythm / 2}px;
-`;
-
-interface EditButtonsContainerProps {
-  editing: boolean;
-}
-
-const EDIT_BUTTON_MARGIN = rhythm;
-
-const EditButtonsContainer = styled.div<EditButtonsContainerProps>`
-  position: absolute;
-  bottom: -${SMALL_BUTTON_HEIGHT + EDIT_BUTTON_MARGIN}px;
-  ${flexCenterCSS}
-`;
-
-const EditButtonContainer = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transform: translateY(${SMALL_BUTTON_HEIGHT + rhythm}px);
 `;

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { makeSvgArcPath } from "../../svg/makeSvgArcPath";
 import {
   borderWidth,
-  dropShadowCSS,
   rhythm,
+  smallBorderWidth,
   theme,
   transitionCSS,
 } from "../../theme";
@@ -103,7 +103,6 @@ const StyledPath = styled.path<HoveredProps>`
   stroke-width: ${borderWidth};
   fill: ${({ hovered }) =>
     hovered ? theme.backgroundLight : theme.backgroundDark};
-  ${({ hovered }) => (hovered ? "" : dropShadowCSS)};
   transition: all ${transitionCSS};
 `;
 
@@ -112,9 +111,8 @@ interface StyledColourPathProps extends HoveredProps {
 }
 
 const StyledColourPath = styled.path<StyledColourPathProps>`
-  stroke: ${theme.black};
-  stroke-width: ${borderWidth};
+  stroke: ${({ hovered }) => (hovered ? theme.white : theme.black)};
+  stroke-width: ${smallBorderWidth};
   fill: ${({ colour }) => colour};
-  ${({ hovered }) => (hovered ? "" : dropShadowCSS)};
   transition: all ${transitionCSS};
 `;
