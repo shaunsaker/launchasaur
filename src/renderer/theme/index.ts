@@ -10,11 +10,9 @@ export const theme = {
 };
 
 // constants
-export const borderWidth = 3;
-export const smallBorderWidth = 2;
-
-export const rhythm = 16;
-
+export const rhythm = 20;
+export const borderWidth = rhythm / 5;
+export const smallBorderWidth = rhythm / 10;
 export const borderRadius = rhythm;
 
 // css
