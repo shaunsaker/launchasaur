@@ -56,7 +56,7 @@ const Container = styled.div<ContainerProps>`
   border-radius: ${borderRadius}px;
   border: ${smallBorderWidth}px solid
     ${({ hovered }) => (hovered ? theme.accent : "transparent")};
-  transition: all ${transitionCSS};
+  transition: border ${transitionCSS};
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`

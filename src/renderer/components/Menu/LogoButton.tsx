@@ -4,13 +4,7 @@ import styled from "styled-components";
 import { useHover } from "use-hooks";
 import { navigateTo } from "../../store/navigation/actions";
 import { Routes } from "../../store/navigation/routes";
-import {
-  borderWidth,
-  boxShadowCSS,
-  flexCenterCSS,
-  theme,
-  transitionCSS,
-} from "../../theme";
+import { borderWidth, flexCenterCSS, theme, transitionCSS } from "../../theme";
 
 interface LogoButtonProps {
   diameter: number;
@@ -49,8 +43,7 @@ const Container = styled.div<ContainerProps>`
   border-color: ${theme.black};
   background-color: ${({ hovered }) =>
     hovered ? theme.backgroundLight : theme.backgroundDark};
-  ${({ hovered }) => (hovered ? "" : boxShadowCSS)}
-  transition: all ${transitionCSS};
+  transition: background-color ${transitionCSS};
   cursor: pointer;
   color: ${theme.white};
   ${flexCenterCSS}

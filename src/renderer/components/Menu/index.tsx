@@ -24,7 +24,6 @@ export const Menu = (): ReactElement => {
   );
   const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
   const [menuOptionIndexHovered, setMenuOptionIndexHovered] = useState(null);
-  const [menuOptionIndexEditing, setMenuOptionIndexEditing] = useState(null);
   const options = [
     ...objectToArray(menu?.options),
     makeMenuOptionData({
@@ -44,10 +43,6 @@ export const Menu = (): ReactElement => {
     setMenuOptionIndexHovered(index);
   }, []);
 
-  const onEditMenuOption = useCallback((index: number) => {
-    setMenuOptionIndexEditing(index);
-  }, []);
-
   return (
     <Container>
       <SvgBackgroundContainer id={SVG_BACKGROUND_ID}>
@@ -59,10 +54,7 @@ export const Menu = (): ReactElement => {
             index={index}
             itemCount={itemCount}
             colour={option.colour}
-            isHovered={
-              menuOptionIndexHovered === index ||
-              menuOptionIndexEditing === index
-            }
+            isHovered={menuOptionIndexHovered === index}
             onMount={onMountSvgBackground}
           />
         ))}
@@ -80,10 +72,8 @@ export const Menu = (): ReactElement => {
             menuId={menu.id}
             svgBackgroundHasMounted={svgBackgroundHasMounted}
             isHovered={menuOptionIndexHovered === index}
-            isEditing={menuOptionIndexEditing === index}
             isEditable={option.isEditable}
             onHover={onHoverMenuOption}
-            onEdit={onEditMenuOption}
           />
         ))}
       </ForegroundContainer>

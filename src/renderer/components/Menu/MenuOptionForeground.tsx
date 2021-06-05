@@ -1,27 +1,11 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
-import React, {
-  MouseEvent,
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useWindowSize } from "use-hooks";
 import { SVG_BACKGROUND_ID } from ".";
-import { showEditMenuOptionColourModal } from "../../store/editMenuOptionColourModal/actions";
-import { showEditMenuOptionIconModal } from "../../store/editMenuOptionIconModal/actions";
-import { showEditMenuOptionShortcutModal } from "../../store/editMenuOptionShortcutModal/actions";
-import { showEditMenuOptionTitleModal } from "../../store/editMenuOptionTitleModal/actions";
-import { showMenuActionsModal } from "../../store/menuActionsModal/actions";
+import { addMenuOption, triggerMenuOption } from "../../store/menus/actions";
 import {
-  addMenuOption,
-  deleteMenuOption,
-  deleteMenuOptionAction,
-  triggerMenuOption,
-} from "../../store/menus/actions";
-import {
-  ActionData,
   ADD_ITEM_TITLE,
   MenuId,
   MenuOptionData,
@@ -29,7 +13,7 @@ import {
 import { getSvgArcCentroid } from "../../svg/getSvgArcCentroid";
 import { flexCenterCSS, rhythm, theme } from "../../theme";
 import { uuid } from "../../utils/uuid";
-import { ContextMenu } from "../ContextMenu";
+import { ContextMenu } from "./ContextMenu";
 import { Icon } from "../Icon";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
@@ -41,10 +25,8 @@ interface MenuOptionForegroundProps extends MenuOptionData {
   menuId: MenuId;
   svgBackgroundHasMounted: boolean;
   isHovered: boolean;
-  isEditing: boolean;
   isEditable: boolean;
   onHover: (index: number | null) => void;
-  onEdit: (index: number | null) => void;
 }
 
 interface LayoutState {
@@ -68,10 +50,8 @@ export const MenuOptionForeground = ({
   title,
   shortcut,
   isHovered,
-  isEditing,
   isEditable,
   onHover,
-  onEdit,
 }: MenuOptionForegroundProps) => {
   const dispatch = useDispatch();
   const [layout, setLayout] = useState<LayoutState>({
@@ -154,94 +134,19 @@ export const MenuOptionForeground = ({
   }, [onHover]);
 
   const onClick = useCallback(() => {
-    if (!isEditing) {
-      const isAddItem = title === ADD_ITEM_TITLE;
+    const isAddItem = title === ADD_ITEM_TITLE;
 
-      if (isAddItem) {
-        dispatch(addMenuOption({ menuId, menuOptionId: uuid() }));
-      } else {
-        dispatch(
-          triggerMenuOption.request({
-            menuId: menuId,
-            menuOptionId: id,
-          }),
-        );
-      }
-    }
-  }, [dispatch, menuId, id, isEditing, title]);
-
-  const onEditClick = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
-      event.stopPropagation();
-
-      onEdit(index);
-    },
-    [onEdit, index],
-  );
-
-  const onCloseEditClick = useCallback(() => {
-    onEdit(null);
-  }, [onEdit]);
-
-  const onDeleteMenuOptionClick = useCallback(() => {
-    dispatch(deleteMenuOption({ menuId: menuId, menuOptionId: id }));
-
-    // reset the editing state
-    onEdit(null);
-  }, [dispatch, menuId, id, onEdit]);
-
-  const onEditIconClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionIconModal({
-        menuId: menuId,
-        menuOptionId: id,
-      }),
-    );
-  }, [dispatch, menuId, id]);
-
-  const onEditTitleClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionTitleModal({
-        menuId: menuId,
-        menuOptionId: id,
-      }),
-    );
-  }, [dispatch, menuId, id]);
-
-  const onEditShortcutClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionShortcutModal({
-        menuId: menuId,
-        menuOptionId: id,
-      }),
-    );
-  }, [dispatch, menuId, id]);
-
-  const onEditColourClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionColourModal({
-        menuId: menuId,
-        menuOptionId: id,
-      }),
-    );
-  }, [dispatch, menuId, id]);
-
-  const onAddActionClick = useCallback(() => {
-    dispatch(showMenuActionsModal({ menuId: menuId, menuOptionId: id }));
-  }, [dispatch, menuId, id]);
-
-  const onDeleteActionClick = useCallback(
-    (option: MenuOptionData, action: ActionData) => {
+    if (isAddItem) {
+      dispatch(addMenuOption({ menuId, menuOptionId: uuid() }));
+    } else {
       dispatch(
-        deleteMenuOptionAction({
+        triggerMenuOption.request({
           menuId: menuId,
           menuOptionId: id,
-          actionId: action.id,
         }),
       );
-    },
-    [dispatch, menuId, id],
-  );
+    }
+  }, [dispatch, menuId, id, title]);
 
   if (!svgBackgroundHasMounted) {
     return null;
@@ -257,17 +162,17 @@ export const MenuOptionForeground = ({
         translateX={layout.contentTranslateX}
         translateY={layout.contentTranslateY}>
         <IconContainer>
-          <Icon icon={icon} isClickable={isEditing} onClick={onEditIconClick} />
+          <Icon icon={icon} />
         </IconContainer>
 
         <Text>{title || "What am I?"}</Text>
 
-        <ShortcutText>
-          {shortcut || (isEditing ? "Set Shortcut" : "")}
-        </ShortcutText>
+        <ShortcutText>{shortcut || ""}</ShortcutText>
       </ContentContainer>
 
-      {isEditable && isHovered && <ContextMenu />}
+      {isEditable && isHovered && (
+        <ContextMenu menuId={menuId} menuOptionId={id} />
+      )}
     </Container>
   );
 };
