@@ -18,6 +18,8 @@ export const useContextMenu = () => {
   );
 
   const handleClick = useCallback(() => {
+    // TODO: stop event propagation
+
     showMenu && setShowMenu(false);
   }, [showMenu]);
 
