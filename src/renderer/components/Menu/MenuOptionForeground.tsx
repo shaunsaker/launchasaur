@@ -15,7 +15,7 @@ import { flexCenterCSS, rhythm, theme } from "../../theme";
 import { uuid } from "../../utils/uuid";
 import { ContextMenu } from "./ContextMenu";
 import { Icon } from "../Icon";
-import { makeSvgArcProps } from "./makeSvgArcProps";
+import { makeSvgArcProps } from "./index/makeSvgArcProps";
 
 interface MenuOptionForegroundProps extends MenuOptionData {
   diameter: number;

@@ -1,4 +1,4 @@
-import { magicNumber, rhythm } from "../../theme";
+import { magicNumber, rhythm } from "../../../theme";
 
 interface MakeSvgArcProps {
   diameter: number;

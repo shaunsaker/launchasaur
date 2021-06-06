@@ -11,7 +11,7 @@ import { absoluteCenterCSS, flexCenterCSS } from "../../theme";
 import { objectToArray } from "../../utils/objectToArray";
 import { LogoButton } from "./LogoButton";
 import { MenuOptionForeground } from "./MenuOptionForeground";
-import { MenuOptionSvgBackground } from "./MenuOptionSvgBackground";
+import { MenuOptionSvgBackground } from "./index/MenuOptionSvgBackground";
 
 const MENU_DIAMETER = 640;
 const MENU_INNER_DIAMETER = 128;
