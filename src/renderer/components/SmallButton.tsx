@@ -53,7 +53,7 @@ const Container = styled.div<ContainerProps>`
   align-items: center;
   height: ${SMALL_BUTTON_HEIGHT}px;
   background-color: ${theme.backgroundDark};
-  border-radius: ${borderRadius}px;
+  border-radius: ${borderRadius / 2}px;
   border: ${smallBorderWidth}px solid
     ${({ hovered }) => (hovered ? theme.accent : "transparent")};
   transition: border ${transitionCSS};

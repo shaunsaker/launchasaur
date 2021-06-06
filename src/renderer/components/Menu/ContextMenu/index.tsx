@@ -1,10 +1,6 @@
-import React, { useCallback } from "react";
+import React, { MouseEvent, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { showEditMenuOptionColourModal } from "../../../store/editMenuOptionColourModal/actions";
-import { showEditMenuOptionIconModal } from "../../../store/editMenuOptionIconModal/actions";
-import { showEditMenuOptionShortcutModal } from "../../../store/editMenuOptionShortcutModal/actions";
-import { showEditMenuOptionTitleModal } from "../../../store/editMenuOptionTitleModal/actions";
 import { deleteMenuOption } from "../../../store/menus/actions";
 import {
   borderRadius,
@@ -22,64 +18,29 @@ interface ContextMenuProps {
 
 export const ContextMenu = ({ menuId, menuOptionId }: ContextMenuProps) => {
   const dispatch = useDispatch();
-  const { xPos, yPos, showMenu } = useContextMenu();
+  const { xPos, yPos, showMenu, setShowMenu } = useContextMenu();
 
-  const onEditIconClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionIconModal({
-        menuId,
-        menuOptionId,
-      }),
-    );
-  }, [dispatch, menuId, menuOptionId]);
+  const onEditClick = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation(); // don't trigger the actions
 
-  const onEditTitleClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionTitleModal({
-        menuId,
-        menuOptionId,
-      }),
-    );
-  }, [dispatch, menuId, menuOptionId]);
+      setShowMenu(false);
 
-  const onEditShortcutClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionShortcutModal({
-        menuId,
-        menuOptionId,
-      }),
-    );
-  }, [dispatch, menuId, menuOptionId]);
+      // TODO:
+    },
+    [setShowMenu],
+  );
 
-  const onEditColourClick = useCallback(() => {
-    dispatch(
-      showEditMenuOptionColourModal({
-        menuId,
-        menuOptionId,
-      }),
-    );
-  }, [dispatch, menuId, menuOptionId]);
+  const onDeleteClick = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation(); // don't trigger the actions
 
-  // const onAddActionClick = useCallback(() => {
-  //   dispatch(showMenuActionsModal({ menuId: menuId, menuOptionId: id }));
-  // }, [dispatch, menuId, id]);
+      dispatch(deleteMenuOption({ menuId, menuOptionId }));
 
-  // const onDeleteActionClick = useCallback(
-  //   (option: MenuOptionData, action: ActionData) => {
-  //     dispatch(
-  //       deleteMenuOptionAction({
-  //         menuId: menuId,
-  //         menuOptionId: id,
-  //         actionId: action.id,
-  //       }),
-  //     );
-  //   },
-  //   [dispatch, menuId, id],
-  // );
-
-  const onDeleteMenuOptionClick = useCallback(() => {
-    dispatch(deleteMenuOption({ menuId, menuOptionId }));
-  }, [dispatch, menuId, menuOptionId]);
+      setShowMenu(false);
+    },
+    [dispatch, menuId, menuOptionId, setShowMenu],
+  );
 
   if (!showMenu) {
     return null;
@@ -88,40 +49,25 @@ export const ContextMenu = ({ menuId, menuOptionId }: ContextMenuProps) => {
   const menuItems: ContextMenuItemProps[] = [
     {
       icon: "edit",
-      children: "Edit Icon",
-      onClick: onEditIconClick,
+      children: "Edit",
+      onClick: onEditClick,
     },
-    {
-      icon: "edit",
-      children: "Edit Title",
-      onClick: onEditTitleClick,
-    },
-    {
-      icon: "edit",
-      children: "Edit Shortcut",
-      onClick: onEditShortcutClick,
-    },
-    {
-      icon: "edit",
-      children: "Edit Colour",
-      onClick: onEditColourClick,
-    },
-    // {
-    //   icon: "edit",
-    //   children: "Edit Actions",
-    //   onClick: onEditIconClick,
-    // },
     {
       icon: "trash",
       children: "Delete",
-      onClick: onDeleteMenuOptionClick,
+      onClick: onDeleteClick,
     },
   ];
 
   return (
     <ContextMenuContainer x={xPos} y={yPos}>
       {menuItems.map((menuItem) => (
-        <ContextMenuItem key={menuItem.children} {...menuItem} />
+        <ContextMenuItem
+          key={menuItem.children}
+          icon={menuItem.icon}
+          children={menuItem.children}
+          onClick={menuItem.onClick}
+        />
       ))}
     </ContextMenuContainer>
   );
@@ -134,11 +80,11 @@ interface ContextMenuContainerProps {
 
 const ContextMenuContainer = styled.div<ContextMenuContainerProps>`
   position: fixed;
-  top: ${({ x }) => x}px;
   top: ${({ y }) => y}px;
+  left: ${({ x }) => x}px;
   background-color: ${theme.backgroundDark};
   border: ${smallBorderWidth}px solid ${theme.black};
-  border-radius: ${borderRadius}px;
+  border-radius: ${borderRadius / 2}px;
   ${boxShadowCSS};
   overflow: hidden;
 `;

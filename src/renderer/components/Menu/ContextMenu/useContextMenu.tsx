@@ -7,25 +7,17 @@ export const useContextMenu = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const handleContextMenu = useCallback(
-    (e) => {
-      e.preventDefault();
+    (event) => {
+      event.preventDefault();
 
-      setXPos(e.pageX);
-      setYPos(e.pageY);
+      setXPos(event.pageX);
+      setYPos(event.pageY);
       setShowMenu(true);
     },
     [setXPos, setYPos],
   );
 
-  const handleClick = useCallback(() => {
-    // TODO: stop event propagation
-
-    showMenu && setShowMenu(false);
-  }, [showMenu]);
-
-  useEventListener("click", handleClick);
-
   useEventListener("contextmenu", handleContextMenu);
 
-  return { xPos, yPos, showMenu };
+  return { xPos, yPos, showMenu, setShowMenu };
 };

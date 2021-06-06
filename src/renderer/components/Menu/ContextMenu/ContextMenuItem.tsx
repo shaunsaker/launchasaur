@@ -1,6 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ReactElement } from "react";
+import React, { MouseEvent, ReactElement } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import { rhythm, theme, transitionCSS } from "../../../theme";
@@ -8,7 +8,7 @@ import { rhythm, theme, transitionCSS } from "../../../theme";
 export interface ContextMenuItemProps {
   icon: IconName;
   children: string;
-  onClick: () => void;
+  onClick: (event: MouseEvent) => void;
 }
 
 export const ContextMenuItem = ({
@@ -34,7 +34,7 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
-  padding: ${rhythm / 2}px ${rhythm}px;
+  padding: ${rhythm / 2}px;
   background-color: ${({ hovered }) =>
     hovered ? theme.backgroundLight : theme.backgroundDark};
   transition: background-color ${transitionCSS};
