@@ -26,6 +26,8 @@ import { selectEditMenuTitleModalIsShown } from "../store/editMenuTitleModal/sel
 import { selectMenuActionsModalIsShown } from "../store/menuActionsModal/selectors";
 import { Routes } from "../store/navigation/routes";
 import { selectSelectSubmenuModalIsShown } from "../store/selectSubmenuModal/selectors";
+import { selectEditMenuOptionModalIsShown } from "../store/editMenuOptionModal/selectors";
+import { EditMenuOptionModal } from "../components/EditMenuOptionModal";
 
 export const Router = (): ReactElement => {
   const menuActionsModalIsShown = useSelector(selectMenuActionsModalIsShown);
@@ -49,6 +51,9 @@ export const Router = (): ReactElement => {
   );
   const editMenuOptionIconModalIsShown = useSelector(
     selectEditMenuOptionIconModalIsShown,
+  );
+  const editMenuOptionModalIsShown = useSelector(
+    selectEditMenuOptionModalIsShown,
   );
 
   return (
@@ -85,6 +90,8 @@ export const Router = (): ReactElement => {
         {editMenuOptionColourModalIsShown && <EditMenuOptionColourModal />}
 
         {editMenuOptionIconModalIsShown && <EditMenuOptionIconModal />}
+
+        {editMenuOptionModalIsShown && <EditMenuOptionModal />}
       </HashRouter>
     </ConnectedRouter>
   );

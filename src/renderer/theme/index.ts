@@ -5,6 +5,7 @@ export const theme = {
   black: "#000000",
   white: "#FFFFFF",
   backgroundDark: "rgba(0, 0, 0, 0.67)",
+  backgroundDarkOpaque: "#1E2524",
   backgroundLight: `rgba(255, 255, 255, ${magicNumber})`,
   accent: "#3BAC98",
 };
@@ -19,6 +20,8 @@ export const borderRadius = rhythm;
 const shadowCSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";
 export const dropShadowCSS = `filter: drop-shadow(${shadowCSS});`;
 export const boxShadowCSS = `box-shadow: ${shadowCSS};`;
+
+export const animationDuration = magicNumber * 1000; // ms
 
 export const transitionCSS = `${magicNumber}s ease-in-out;`;
 

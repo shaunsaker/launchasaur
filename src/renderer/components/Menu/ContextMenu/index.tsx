@@ -9,6 +9,7 @@ import {
   smallBorderWidth,
   theme,
 } from "../../../theme";
+import { FadeIn } from "../../FadeIn";
 import { ContextMenuItem, ContextMenuItemProps } from "./ContextMenuItem";
 import { useContextMenu } from "./useContextMenu";
 
@@ -61,16 +62,18 @@ export const ContextMenu = ({ menuId, menuOptionId }: ContextMenuProps) => {
   ];
 
   return (
-    <ContextMenuContainer x={xPos} y={yPos}>
-      {menuItems.map((menuItem) => (
-        <ContextMenuItem
-          key={menuItem.children}
-          icon={menuItem.icon}
-          children={menuItem.children}
-          onClick={menuItem.onClick}
-        />
-      ))}
-    </ContextMenuContainer>
+    <FadeIn>
+      <ContextMenuContainer x={xPos} y={yPos}>
+        {menuItems.map((menuItem) => (
+          <ContextMenuItem
+            key={menuItem.children}
+            icon={menuItem.icon}
+            children={menuItem.children}
+            onClick={menuItem.onClick}
+          />
+        ))}
+      </ContextMenuContainer>
+    </FadeIn>
   );
 };
 
@@ -83,7 +86,7 @@ const ContextMenuContainer = styled.div<ContextMenuContainerProps>`
   position: fixed;
   top: ${({ y }) => y}px;
   left: ${({ x }) => x}px;
-  background-color: ${theme.backgroundDark};
+  background-color: ${theme.backgroundDarkOpaque};
   border: ${smallBorderWidth}px solid ${theme.black};
   border-radius: ${borderRadius / 2}px;
   ${boxShadowCSS};
