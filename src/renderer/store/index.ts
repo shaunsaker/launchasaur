@@ -47,6 +47,7 @@ const persistConfig: PersistConfig<ApplicationState> = {
     "editMenuTitleModal",
     "editMenuOptionColourModal",
     "editMenuOptionIconModal",
+    "editMenuOptionModal",
   ],
 };
 

@@ -1,6 +1,7 @@
 import React, { MouseEvent, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { showEditMenuOptionModal } from "../../../store/editMenuOptionModal/actions";
 import { deleteMenuOption } from "../../../store/menus/actions";
 import {
   borderRadius,
@@ -24,11 +25,11 @@ export const ContextMenu = ({ menuId, menuOptionId }: ContextMenuProps) => {
     (event: MouseEvent) => {
       event.stopPropagation(); // don't trigger the actions
 
-      setShowMenu(false);
+      dispatch(showEditMenuOptionModal({ menuId, menuOptionId }));
 
-      // TODO:
+      setShowMenu(false);
     },
-    [setShowMenu],
+    [dispatch, menuId, menuOptionId, setShowMenu],
   );
 
   const onDeleteClick = useCallback(

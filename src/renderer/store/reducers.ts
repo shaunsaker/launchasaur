@@ -25,6 +25,8 @@ import { EditMenuOptionColourModalState } from "./editMenuOptionColourModal/mode
 import { editMenuOptionColourModalReducer } from "./editMenuOptionColourModal/reducer";
 import { editMenuOptionIconModalReducer } from "./editMenuOptionIconModal/reducer";
 import { EditMenuOptionIconModalState } from "./editMenuOptionIconModal/models";
+import { EditMenuOptionModalState } from "./editMenuOptionModal/models";
+import { editMenuOptionModalReducer } from "./editMenuOptionModal/reducers";
 
 export interface ApplicationState {
   router: RouterState;
@@ -40,6 +42,7 @@ export interface ApplicationState {
   editMenuTitleModal: EditMenuTitleModalState;
   editMenuOptionColourModal: EditMenuOptionColourModalState;
   editMenuOptionIconModal: EditMenuOptionIconModalState;
+  editMenuOptionModal: EditMenuOptionModalState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -57,6 +60,7 @@ export const createRootReducer = (history_: History) =>
     editMenuTitleModal: editMenuTitleModalReducer,
     editMenuOptionColourModal: editMenuOptionColourModalReducer,
     editMenuOptionIconModal: editMenuOptionIconModalReducer,
+    editMenuOptionModal: editMenuOptionModalReducer,
   });
 
 export const initialState = {
