@@ -3,11 +3,11 @@ import { ApplicationState } from "../reducers";
 export const selectEditLinkModalIsShown = (state: ApplicationState) =>
   state.editLinkModal.isShown;
 
-export const selectEditLinkModalMenuId = (state: ApplicationState) =>
-  state.editLinkModal.menuId;
+export const selectEditLinkModalLaunchStationId = (state: ApplicationState) =>
+  state.editLinkModal.launchStationId;
 
-export const selectEditLinkModalMenuOptionId = (state: ApplicationState) =>
-  state.editLinkModal.menuOptionId;
+export const selectEditLinkModalLauncherId = (state: ApplicationState) =>
+  state.editLinkModal.launcherId;
 
 export const selectEditLinkModalActionId = (state: ApplicationState) =>
   state.editLinkModal.actionId;

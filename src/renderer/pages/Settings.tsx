@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { EditAppShortcut } from "../components/EditAppShortcut";
-import { EditMenus } from "../components/EditMenus";
+import { EditLaunchStations } from "../components/EditLaunchStations";
 
 export const Settings = (): ReactElement => {
   return (
@@ -13,7 +13,7 @@ export const Settings = (): ReactElement => {
       <div>
         <EditAppShortcut />
 
-        <EditMenus />
+        <EditLaunchStations />
       </div>
     </div>
   );

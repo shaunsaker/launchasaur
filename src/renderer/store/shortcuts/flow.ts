@@ -5,13 +5,20 @@ import { eventChannel, SagaIterator } from "redux-saga";
 import { put, takeEvery } from "redux-saga/effects";
 import { objectToArray } from "../../utils/objectToArray";
 import { select } from "../../utils/select";
-import { setMenuOptionShortcut, triggerMenuOption } from "../menus/actions";
-import { MenuId, MenuOptionId, Shortcut } from "../menus/models";
-import { selectMenu } from "../menus/selectors";
-import { Routes } from "../navigation/routes";
+import {
+  setLauncherShortcut,
+  triggerLauncher,
+} from "../launchStations/actions";
+import {
+  LaunchStationId,
+  LauncherId,
+  Shortcut,
+} from "../launchStations/models";
+import { selectLaunchStation } from "../launchStations/selectors";
+import { launchStationBase, Routes } from "../navigation/routes";
 import { selectNavigationLocation } from "../navigation/selectors";
-import { getMenuIdFromRoute } from "../navigation/utils";
-import { registerMenuOptionShortcut } from "./actions";
+import { getLaunchStationIdFromRoute } from "../navigation/utils";
+import { registerLauncherShortcut } from "./actions";
 
 const createShortcutListenerChannel = (shortcut: string) =>
   eventChannel((emit) => {
@@ -22,52 +29,52 @@ const createShortcutListenerChannel = (shortcut: string) =>
     return () => {};
   });
 
-export function* registerMenuOptionShortcutSaga({
-  menuId,
-  menuOptionId,
+export function* registerLauncherShortcutSaga({
+  launchStationId,
+  launcherId,
   shortcut,
 }: {
-  menuId: MenuId;
-  menuOptionId: MenuOptionId;
+  launchStationId: LaunchStationId;
+  launcherId: LauncherId;
   shortcut: Shortcut;
 }): SagaIterator {
   const channel = yield call(createShortcutListenerChannel, shortcut);
 
   yield takeEvery(channel, function* (): SagaIterator {
-    yield put(triggerMenuOption.request({ menuId, menuOptionId }));
+    yield put(triggerLauncher.request({ launchStationId, launcherId }));
   });
 
-  yield put(registerMenuOptionShortcut.success());
+  yield put(registerLauncherShortcut.success());
 
   // TODO: when to close the channel?
   // channel.close()
 }
 
-function* registerMenuOptionShortcutListener(): SagaIterator {
+function* registerLauncherShortcutListener(): SagaIterator {
   yield takeEvery(
-    registerMenuOptionShortcut.request,
+    registerLauncherShortcut.request,
     function* (action): SagaIterator {
-      yield call(registerMenuOptionShortcutSaga, action.payload);
+      yield call(registerLauncherShortcutSaga, action.payload);
     },
   );
 }
 
-function* registerMenuOptionsShortcutsSaga(): SagaIterator {
+function* registerLaunchStationShortcutsSaga(): SagaIterator {
   Mousetrap.reset();
 
-  // select the current menu
-  const menuId = getMenuIdFromRoute();
-  const menu = yield* select(selectMenu, menuId);
+  // select the current launch station
+  const launchStationId = getLaunchStationIdFromRoute();
+  const launchStation = yield* select(selectLaunchStation, launchStationId);
 
-  // for the currently selected menu, register it's keyboard shortcuts
-  const actions = objectToArray(menu.options)
-    .filter((option) => option.shortcut)
-    .map((option) =>
+  // for the currently selected launch station, register it's keyboard shortcuts
+  const actions = objectToArray(launchStation.launchers)
+    .filter((launcher) => launcher.shortcut)
+    .map((launcher) =>
       put(
-        registerMenuOptionShortcut.request({
-          menuId: menu.id,
-          menuOptionId: option.id,
-          shortcut: option.shortcut,
+        registerLauncherShortcut.request({
+          launchStationId: launchStation.id,
+          launcherId: launcher.id,
+          shortcut: launcher.shortcut,
         }),
       ),
     );
@@ -75,21 +82,21 @@ function* registerMenuOptionsShortcutsSaga(): SagaIterator {
   yield all(actions);
 }
 
-function* registerMenuOptionsShortcutsListener(): SagaIterator {
-  // when the menu changes
+function* registerLaunchStationShortcutsListener(): SagaIterator {
+  // when the launch station changes
   yield takeLatest(LOCATION_CHANGE, function* (): SagaIterator {
     const { pathname } = yield* select(selectNavigationLocation);
 
-    if (pathname.includes("menu") || pathname === Routes.root) {
-      yield call(registerMenuOptionsShortcutsSaga);
+    if (pathname.includes(launchStationBase) || pathname === Routes.root) {
+      yield call(registerLaunchStationShortcutsSaga);
     }
   });
 
   // when we change a shortcut
-  yield takeLatest(setMenuOptionShortcut, registerMenuOptionsShortcutsSaga);
+  yield takeLatest(setLauncherShortcut, registerLaunchStationShortcutsSaga);
 }
 
 export function* shortcutsSagas(): SagaIterator {
-  yield fork(registerMenuOptionsShortcutsListener);
-  yield fork(registerMenuOptionShortcutListener);
+  yield fork(registerLaunchStationShortcutsListener);
+  yield fork(registerLauncherShortcutListener);
 }

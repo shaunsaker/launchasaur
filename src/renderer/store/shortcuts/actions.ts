@@ -1,7 +1,11 @@
 import { createAsyncAction } from "typesafe-actions";
 
-export const registerMenuOptionShortcut = createAsyncAction(
-  "SHORTCUTS/registerMenuOptionShortcutRequest",
-  "SHORTCUTS/registerMenuOptionShortcutSuccess",
-  "SHORTCUTS/registerMenuOptionShortcutFailure",
-)<{ menuId: string; menuOptionId: string; shortcut: string }, void, Error>();
+export const registerLauncherShortcut = createAsyncAction(
+  "SHORTCUTS/registerLauncherShortcutRequest",
+  "SHORTCUTS/registerLauncherShortcutSuccess",
+  "SHORTCUTS/registerLauncherShortcutFailure",
+)<
+  { launchStationId: string; launcherId: string; shortcut: string },
+  void,
+  Error
+>();

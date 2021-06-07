@@ -1,7 +1,8 @@
-export const menuIdParam = ":menuId";
+export const launchStationBase = "launch-station";
+export const launchStationIdParam = ":launchStationId";
 
 export const Routes = {
   root: "/",
-  submenu: `/menu/${menuIdParam}`,
+  launchStation: `/${launchStationBase}/${launchStationIdParam}`,
   settings: "/settings",
 };

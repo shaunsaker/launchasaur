@@ -1,6 +1,6 @@
 export interface EditLinkModalState {
   isShown: boolean;
-  menuId: string;
-  menuOptionId: string;
+  launchStationId: string;
+  launcherId: string;
   actionId?: string; // if not supplied, we are adding a new link action
 }

@@ -10,8 +10,8 @@ const reducerActions = {
 
 export const initialState: EditLinkModalState = {
   isShown: false,
-  menuId: "",
-  menuOptionId: "",
+  launchStationId: "",
+  launcherId: "",
   actionId: "",
 };
 
@@ -24,8 +24,8 @@ export const editLinkModalReducer: Reducer<EditLinkModalState> = (
       return {
         ...state,
         isShown: true,
-        menuId: action.payload.menuId,
-        menuOptionId: action.payload.menuOptionId,
+        launchStationId: action.payload.launchStationId,
+        launcherId: action.payload.launcherId,
         actionId: action.payload.actionId,
       };
     case getType(hideEditLinkModal):

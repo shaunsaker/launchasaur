@@ -2,20 +2,20 @@ import React, { FormEvent, ReactElement, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideEditLinkModal } from "../store/editLinkModal/actions";
 import {
-  selectEditLinkModalMenuId,
-  selectEditLinkModalMenuOptionId,
+  selectEditLinkModalLaunchStationId,
+  selectEditLinkModalLauncherId,
 } from "../store/editLinkModal/selectors";
-import { hideMenuActionsModal } from "../store/menuActionsModal/actions";
-import { addMenuOptionAction } from "../store/menus/actions";
-import { makeActionData } from "../store/menus/data";
-import { MenuAction } from "../store/menus/models";
+import { hideLauncherActionsModal } from "../store/launcherActionsModal/actions";
+import { addLauncherAction } from "../store/launchStations/actions";
+import { makeActionData } from "../store/launchStations/data";
+import { LaunchStationAction } from "../store/launchStations/models";
 import { uuid } from "../utils/uuid";
 import { validateUrl } from "../utils/validateUrl";
 
 export const EditLinkModal = (): ReactElement => {
   const dispatch = useDispatch();
-  const menuId = useSelector(selectEditLinkModalMenuId);
-  const menuOptionId = useSelector(selectEditLinkModalMenuOptionId);
+  const launchStationId = useSelector(selectEditLinkModalLaunchStationId);
+  const launcherId = useSelector(selectEditLinkModalLauncherId);
   const [value, setValue] = useState("");
   const isValid = validateUrl(value);
 
@@ -29,14 +29,16 @@ export const EditLinkModal = (): ReactElement => {
   const onSubmitClick = useCallback(() => {
     const actionData = makeActionData({
       id: uuid(),
-      action: MenuAction.OpenLink,
+      action: LaunchStationAction.OpenLink,
       resource: value,
     });
 
-    dispatch(addMenuOptionAction.success({ menuId, menuOptionId, actionData }));
+    dispatch(
+      addLauncherAction.success({ launchStationId, launcherId, actionData }),
+    );
     dispatch(hideEditLinkModal());
-    dispatch(hideMenuActionsModal());
-  }, [dispatch, value, menuId, menuOptionId]);
+    dispatch(hideLauncherActionsModal());
+  }, [dispatch, value, launchStationId, launcherId]);
 
   const onCloseClick = useCallback(() => {
     dispatch(hideEditLinkModal());

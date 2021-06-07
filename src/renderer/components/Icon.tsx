@@ -12,7 +12,7 @@ import { boxShadowCSS, flexCenterCSS, theme } from "../theme";
 interface IconProps extends FontAwesomeIconProps {
   icon: IconName;
   isClickable?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const Icon = ({ icon, isClickable, onClick, ...props }: IconProps) => {

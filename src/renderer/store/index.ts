@@ -37,17 +37,17 @@ const persistConfig: PersistConfig<ApplicationState> = {
   // TODO: type this
   blacklist: [
     "router",
-    "menuActionsModal",
+    "launcherActionsModal",
     "editLinkModal",
-    "selectSubmenuModal",
-    "editMenuModal",
+    "selectLaunchStationModal",
+    "editLaunchStationModal",
     "editAppShortcutModal",
-    "editMenuOptionShortcutModal",
-    "editMenuOptionTitleModal",
-    "editMenuTitleModal",
-    "editMenuOptionColourModal",
-    "editMenuOptionIconModal",
-    "editMenuOptionModal",
+    "editLauncherShortcutModal",
+    "editLauncherTitleModal",
+    "editLaunchStationTitleModal",
+    "editLauncherColourModal",
+    "editLauncherIconModal",
+    "editLauncherModal",
   ],
 };
 

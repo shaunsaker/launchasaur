@@ -1,66 +1,66 @@
 import { combineReducers } from "redux";
-import { menusReducer } from "./menus/reducer";
-import { MenusState } from "./menus/models";
-import { MenuActionsModalState } from "./menuActionsModal/models";
-import { menuActionsModalReducer } from "./menuActionsModal/reducer";
+import { launchstationsReducer } from "./launchStations/reducer";
+import { LaunchStationsState } from "./launchStations/models";
+import { LauncherActionsModalState } from "./launcherActionsModal/models";
+import { launcherActionsModalReducer } from "./launcherActionsModal/reducer";
 import { EditLinkModalState } from "./editLinkModal/models";
 import { editLinkModalReducer } from "./editLinkModal/reducer";
-import { SelectSubmenuModalState } from "./selectSubmenuModal/models";
-import { selectSubmenuModalReducer } from "./selectSubmenuModal/reducer";
-import { EditMenuModalState } from "./addMenuModal/models";
-import { editMenuModalReducer } from "./addMenuModal/reducer";
+import { SelectLaunchStationModalState } from "./selectLaunchStationModal/models";
+import { selectLaunchStationModalReducer } from "./selectLaunchStationModal/reducer";
+import { EditLaunchStationModalState } from "./addLaunchStationModal/models";
+import { editLaunchStationModalReducer } from "./addLaunchStationModal/reducer";
 import { connectRouter, RouterState } from "connected-react-router";
 import { History } from "history";
 import { EditAppShortcutModalState } from "./editAppShortcutModal/models";
 import { editAppShortcutModalReducer } from "./editAppShortcutModal/reducer";
 import { SettingsState } from "./settings/models";
 import { settingsReducer } from "./settings/reducer";
-import { EditMenuOptionShortcutModalState } from "./editMenuOptionShortcutModal/models";
-import { editMenuOptionShortcutModalReducer } from "./editMenuOptionShortcutModal/reducer";
-import { EditMenuOptionTitleModalState } from "./editMenuOptionTitleModal/models";
-import { editMenuOptionTitleModalReducer } from "./editMenuOptionTitleModal/reducer";
-import { EditMenuTitleModalState } from "./editMenuTitleModal/models";
-import { editMenuTitleModalReducer } from "./editMenuTitleModal/reducer";
-import { EditMenuOptionColourModalState } from "./editMenuOptionColourModal/models";
-import { editMenuOptionColourModalReducer } from "./editMenuOptionColourModal/reducer";
-import { editMenuOptionIconModalReducer } from "./editMenuOptionIconModal/reducer";
-import { EditMenuOptionIconModalState } from "./editMenuOptionIconModal/models";
-import { EditMenuOptionModalState } from "./editMenuOptionModal/models";
-import { editMenuOptionModalReducer } from "./editMenuOptionModal/reducers";
+import { EditLauncherShortcutModalState } from "./editLauncherShortcutModal/models";
+import { editLauncherShortcutModalReducer } from "./editLauncherShortcutModal/reducer";
+import { EditLauncherTitleModalState } from "./editLauncherTitleModal/models";
+import { editLauncherTitleModalReducer } from "./editLauncherTitleModal/reducer";
+import { EditLaunchStationTitleModalState } from "./editLaunchStationTitleModal/models";
+import { editLaunchStationTitleModalReducer } from "./editLaunchStationTitleModal/reducer";
+import { EditLauncherColourModalState } from "./editLauncherColourModal/models";
+import { editLauncherColourModalReducer } from "./editLauncherColourModal/reducer";
+import { editLauncherIconModalReducer } from "./editLauncherIconModal/reducer";
+import { EditLauncherIconModalState } from "./editLauncherIconModal/models";
+import { EditLauncherModalState } from "./editLauncherModal/models";
+import { editLauncherModalReducer } from "./editLauncherModal/reducers";
 
 export interface ApplicationState {
   router: RouterState;
   settings: SettingsState;
-  menus: MenusState;
-  menuActionsModal: MenuActionsModalState;
+  launchStations: LaunchStationsState;
+  launcherActionsModal: LauncherActionsModalState;
   editLinkModal: EditLinkModalState;
-  selectSubmenuModal: SelectSubmenuModalState;
-  editMenuModal: EditMenuModalState;
+  selectLaunchStationModal: SelectLaunchStationModalState;
+  editLaunchStationModal: EditLaunchStationModalState;
   editAppShortcutModal: EditAppShortcutModalState;
-  editMenuOptionShortcutModal: EditMenuOptionShortcutModalState;
-  editMenuOptionTitleModal: EditMenuOptionTitleModalState;
-  editMenuTitleModal: EditMenuTitleModalState;
-  editMenuOptionColourModal: EditMenuOptionColourModalState;
-  editMenuOptionIconModal: EditMenuOptionIconModalState;
-  editMenuOptionModal: EditMenuOptionModalState;
+  editLauncherShortcutModal: EditLauncherShortcutModalState;
+  editLauncherTitleModal: EditLauncherTitleModalState;
+  editLaunchStationTitleModal: EditLaunchStationTitleModalState;
+  editLauncherColourModal: EditLauncherColourModalState;
+  editLauncherIconModal: EditLauncherIconModalState;
+  editLauncherModal: EditLauncherModalState;
 }
 
 export const createRootReducer = (history_: History) =>
   combineReducers({
     router: connectRouter(history_),
     settings: settingsReducer,
-    menus: menusReducer,
-    menuActionsModal: menuActionsModalReducer,
+    launchStations: launchstationsReducer,
+    launcherActionsModal: launcherActionsModalReducer,
     editLinkModal: editLinkModalReducer,
-    selectSubmenuModal: selectSubmenuModalReducer,
-    editMenuModal: editMenuModalReducer,
+    selectLaunchStationModal: selectLaunchStationModalReducer,
+    editLaunchStationModal: editLaunchStationModalReducer,
     editAppShortcutModal: editAppShortcutModalReducer,
-    editMenuOptionShortcutModal: editMenuOptionShortcutModalReducer,
-    editMenuOptionTitleModal: editMenuOptionTitleModalReducer,
-    editMenuTitleModal: editMenuTitleModalReducer,
-    editMenuOptionColourModal: editMenuOptionColourModalReducer,
-    editMenuOptionIconModal: editMenuOptionIconModalReducer,
-    editMenuOptionModal: editMenuOptionModalReducer,
+    editLauncherShortcutModal: editLauncherShortcutModalReducer,
+    editLauncherTitleModal: editLauncherTitleModalReducer,
+    editLaunchStationTitleModal: editLaunchStationTitleModalReducer,
+    editLauncherColourModal: editLauncherColourModalReducer,
+    editLauncherIconModal: editLauncherIconModalReducer,
+    editLauncherModal: editLauncherModalReducer,
   });
 
 export const initialState = {

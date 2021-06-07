@@ -4,57 +4,61 @@ import { useSelector } from "react-redux";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { EditAppShortcutModal } from "../components/EditAppShortcutModal";
 import { EditLinkModal } from "../components/EditLinkModal";
-import { EditMenuModal } from "../components/EditMenuModal";
-import { EditMenuOptionColourModal } from "../components/EditMenuOptionColourModal";
-import { EditMenuOptionIconModal } from "../components/EditMenuOptionIconModal";
-import { EditMenuOptionShortcutModal } from "../components/EditMenuOptionShortcutModal";
-import { EditMenuOptionTitleModal } from "../components/EditMenuOptionTitleModal";
-import { EditMenuTitleModal } from "../components/EditMenuTitleModal";
-import { MenuActionsModal } from "../components/MenuActionsModal";
-import { SelectSubmenuModal } from "../components/SelectSubmenuModal";
+import { EditLaunchStationModal } from "../components/EditLaunchStationModal";
+import { EditLauncherColourModal } from "../components/EditLauncherColourModal";
+import { EditLauncherIconModal } from "../components/EditLauncherIconModal";
+import { EditLauncherShortcutModal } from "../components/EditLauncherShortcutModal";
+import { EditLauncherTitleModal } from "../components/EditLauncherTitleModal";
+import { EditLaunchStationTitleModal } from "../components/EditLaunchStationTitleModal";
+import { LauncherActionsModal } from "../components/LauncherActionsModal";
+import { SelectLaunchStationModal } from "../components/SelectLaunchStationModal";
 import { Home } from "../pages/Home";
 import { Settings } from "../pages/Settings";
 import { history } from "../store";
 import { selectEditAppShortcutModalIsShown } from "../store/editAppShortcutModal/selectors";
 import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
-import { selectEditMenuModalIsShown } from "../store/addMenuModal/selectors";
-import { selectEditMenuOptionColourModalIsShown } from "../store/editMenuOptionColourModal/selectors";
-import { selectEditMenuOptionIconModalIsShown } from "../store/editMenuOptionIconModal/selectors";
-import { selectEditMenuOptionShortcutModalIsShown } from "../store/editMenuOptionShortcutModal/selectors";
-import { selectEditMenuOptionTitleModalIsShown } from "../store/editMenuOptionTitleModal/selectors";
-import { selectEditMenuTitleModalIsShown } from "../store/editMenuTitleModal/selectors";
-import { selectMenuActionsModalIsShown } from "../store/menuActionsModal/selectors";
+import { selectEditLaunchStationModalIsShown } from "../store/addLaunchStationModal/selectors";
+import { selectEditLauncherColourModalIsShown } from "../store/editLauncherColourModal/selectors";
+import { selectEditLauncherIconModalIsShown } from "../store/editLauncherIconModal/selectors";
+import { selectEditLauncherShortcutModalIsShown } from "../store/editLauncherShortcutModal/selectors";
+import { selectEditLauncherTitleModalIsShown } from "../store/editLauncherTitleModal/selectors";
+import { selectEditLaunchStationTitleModalIsShown } from "../store/editLaunchStationTitleModal/selectors";
+import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal/selectors";
 import { Routes } from "../store/navigation/routes";
-import { selectSelectSubmenuModalIsShown } from "../store/selectSubmenuModal/selectors";
-import { selectEditMenuOptionModalIsShown } from "../store/editMenuOptionModal/selectors";
-import { EditMenuOptionModal } from "../components/EditMenuOptionModal";
+import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
+import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
+import { EditLauncherModal } from "../components/EditLauncherModal";
 
 export const Router = (): ReactElement => {
-  const menuActionsModalIsShown = useSelector(selectMenuActionsModalIsShown);
+  const launcherActionsModalIsShown = useSelector(
+    selectLauncherActionsModalIsShown,
+  );
   const editLinkModalIsShown = useSelector(selectEditLinkModalIsShown);
-  const submenuModalIsShown = useSelector(selectSelectSubmenuModalIsShown);
-  const editMenuModalIsShown = useSelector(selectEditMenuModalIsShown);
+  const launchStationSelectorModalIsShown = useSelector(
+    selectLaunchStationModalIsShown,
+  );
+  const editLaunchStationModalIsShown = useSelector(
+    selectEditLaunchStationModalIsShown,
+  );
   const editAppShortcutModalIsShown = useSelector(
     selectEditAppShortcutModalIsShown,
   );
-  const editMenuOptionShortcutModalIsShown = useSelector(
-    selectEditMenuOptionShortcutModalIsShown,
+  const editLauncherShortcutModalIsShown = useSelector(
+    selectEditLauncherShortcutModalIsShown,
   );
-  const editMenuOptionTitleModalIsShown = useSelector(
-    selectEditMenuOptionTitleModalIsShown,
+  const editLauncherTitleModalIsShown = useSelector(
+    selectEditLauncherTitleModalIsShown,
   );
-  const editMenuTitleModalIsShown = useSelector(
-    selectEditMenuTitleModalIsShown,
+  const editLaunchStationTitleModalIsShown = useSelector(
+    selectEditLaunchStationTitleModalIsShown,
   );
-  const editMenuOptionColourModalIsShown = useSelector(
-    selectEditMenuOptionColourModalIsShown,
+  const editLauncherColourModalIsShown = useSelector(
+    selectEditLauncherColourModalIsShown,
   );
-  const editMenuOptionIconModalIsShown = useSelector(
-    selectEditMenuOptionIconModalIsShown,
+  const editLauncherIconModalIsShown = useSelector(
+    selectEditLauncherIconModalIsShown,
   );
-  const editMenuOptionModalIsShown = useSelector(
-    selectEditMenuOptionModalIsShown,
-  );
+  const editLauncherModalIsShown = useSelector(selectEditLauncherModalIsShown);
 
   return (
     <ConnectedRouter history={history}>
@@ -63,7 +67,7 @@ export const Router = (): ReactElement => {
           <Route path={Routes.settings}>
             <Settings />
           </Route>
-          <Route path={Routes.submenu}>
+          <Route path={Routes.launchStation}>
             <Home />
           </Route>
           <Route exact path={Routes.root}>
@@ -71,27 +75,27 @@ export const Router = (): ReactElement => {
           </Route>
         </Switch>
 
-        {menuActionsModalIsShown && <MenuActionsModal />}
+        {launcherActionsModalIsShown && <LauncherActionsModal />}
 
         {editLinkModalIsShown && <EditLinkModal />}
 
-        {submenuModalIsShown && <SelectSubmenuModal />}
+        {launchStationSelectorModalIsShown && <SelectLaunchStationModal />}
 
-        {editMenuModalIsShown && <EditMenuModal />}
+        {editLaunchStationModalIsShown && <EditLaunchStationModal />}
 
         {editAppShortcutModalIsShown && <EditAppShortcutModal />}
 
-        {editMenuOptionShortcutModalIsShown && <EditMenuOptionShortcutModal />}
+        {editLauncherShortcutModalIsShown && <EditLauncherShortcutModal />}
 
-        {editMenuOptionTitleModalIsShown && <EditMenuOptionTitleModal />}
+        {editLauncherTitleModalIsShown && <EditLauncherTitleModal />}
 
-        {editMenuTitleModalIsShown && <EditMenuTitleModal />}
+        {editLaunchStationTitleModalIsShown && <EditLaunchStationTitleModal />}
 
-        {editMenuOptionColourModalIsShown && <EditMenuOptionColourModal />}
+        {editLauncherColourModalIsShown && <EditLauncherColourModal />}
 
-        {editMenuOptionIconModalIsShown && <EditMenuOptionIconModal />}
+        {editLauncherIconModalIsShown && <EditLauncherIconModal />}
 
-        {editMenuOptionModalIsShown && <EditMenuOptionModal />}
+        {editLauncherModalIsShown && <EditLauncherModal />}
       </HashRouter>
     </ConnectedRouter>
   );

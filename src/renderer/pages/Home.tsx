@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react";
-import { Menu } from "../components/Menu";
+import { LaunchStation } from "../components/LaunchStation";
 
 export interface HomeRouteParams {
-  menuId: string | undefined;
+  launchStationId: string | undefined;
 }
 
 export const Home = (): ReactElement => {
-  return <Menu />;
+  return <LaunchStation />;
 };

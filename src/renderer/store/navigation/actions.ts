@@ -1,6 +1,6 @@
 import { createStandardAction } from "typesafe-actions";
-import { MenuId } from "../menus/models";
-import { menuIdParam, Routes } from "./routes";
+import { LaunchStationId } from "../launchStations/models";
+import { launchStationIdParam, Routes } from "./routes";
 
 export const navigateTo = createStandardAction("NAVIGATION/navigateTo").map(
   (payload: { to: string }) => ({
@@ -8,7 +8,12 @@ export const navigateTo = createStandardAction("NAVIGATION/navigateTo").map(
   }),
 );
 
-export const navigateToSubmenu = (props: { menuId?: MenuId }) =>
+export const navigateToLaunchStation = (props: {
+  launchStationId?: LaunchStationId;
+}) =>
   navigateTo({
-    to: Routes.submenu.replace(menuIdParam, props.menuId),
+    to: Routes.launchStation.replace(
+      launchStationIdParam,
+      props.launchStationId,
+    ),
   });
