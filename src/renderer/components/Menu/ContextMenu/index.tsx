@@ -3,12 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { showEditMenuOptionModal } from "../../../store/editMenuOptionModal/actions";
 import { deleteMenuOption } from "../../../store/menus/actions";
-import {
-  borderRadius,
-  boxShadowCSS,
-  smallBorderWidth,
-  theme,
-} from "../../../theme";
+import { borderRadius, borderWidth, boxShadowCSS, theme } from "../../../theme";
 import { FadeIn } from "../../FadeIn";
 import { ContextMenuItem, ContextMenuItemProps } from "./ContextMenuItem";
 import { useContextMenu } from "./useContextMenu";
@@ -87,7 +82,7 @@ const ContextMenuContainer = styled.div<ContextMenuContainerProps>`
   top: ${({ y }) => y}px;
   left: ${({ x }) => x}px;
   background-color: ${theme.backgroundDarkOpaque};
-  border: ${smallBorderWidth}px solid ${theme.black};
+  border: ${borderWidth}px solid ${theme.accent};
   border-radius: ${borderRadius / 2}px;
   ${boxShadowCSS};
   overflow: hidden;

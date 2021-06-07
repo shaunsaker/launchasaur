@@ -15,6 +15,7 @@ export const rhythm = 20;
 export const borderWidth = rhythm / 5;
 export const smallBorderWidth = rhythm / 10;
 export const borderRadius = rhythm;
+export const smallBorderRadius = borderRadius / 2;
 
 // css
 const shadowCSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";
