@@ -90,7 +90,7 @@ export const LauncherForeground = ({
         .getElementsByTagName("g")
         .item(index)
         .getElementsByTagName("path")
-        .item(0);
+        .item(1);
       const clientRect = element.getClientRects().item(0);
       const centerCoordsOfContainerRelativeToWindow = [
         clientRect.x + clientRect.width / 2,
