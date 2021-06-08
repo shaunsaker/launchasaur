@@ -13,7 +13,7 @@ import {
   LauncherData,
 } from "../../store/launchStations/models";
 import { getSvgArcCentroid } from "../../svg/getSvgArcCentroid";
-import { flexCenterCSS, rhythm, theme } from "../../theme";
+import { FLEX_CENTER_CSS, RHYTHM, theme } from "../../theme";
 import { uuid } from "../../utils/uuid";
 import { ContextMenu } from "./ContextMenu";
 import { Icon } from "../Icon";
@@ -79,7 +79,7 @@ export const LauncherForeground = ({
         index,
       });
       const centerRadius =
-        (diameter / 2 - rhythm * 2 + innerDiameter / 2 + rhythm / 2) / 2;
+        (diameter / 2 - RHYTHM * 2 + innerDiameter / 2 + RHYTHM / 2) / 2;
       const arcCentroid = getSvgArcCentroid({
         ...svgArcProps,
         innerRadius: centerRadius,
@@ -191,7 +191,7 @@ const Container = styled.div<ContainerProps>`
   width: ${({ layout }) => layout.width}px;
   height: ${({ layout }) => layout.height}px;
   cursor: pointer;
-  ${flexCenterCSS}
+  ${FLEX_CENTER_CSS}
 `;
 
 interface ContentContainerProps {
@@ -203,11 +203,11 @@ const ContentContainer = styled.div<ContentContainerProps>`
   transform: ${({ translateX, translateY }) =>
     `translate(${translateX}px, ${translateY}px)`};
   position: relative;
-  ${flexCenterCSS}
+  ${FLEX_CENTER_CSS}
 `;
 
 const IconContainer = styled.div`
-  margin-bottom: ${rhythm}px;
+  margin-bottom: ${RHYTHM}px;
   position: relative;
 `;
 
@@ -222,5 +222,5 @@ const ShortcutText = styled.div`
   font-size: ${SHORTCUT_TEXT_SIZE}px;
   height: ${SHORTCUT_TEXT_SIZE}px; // allows us to have empty text with the same layout
   color: ${theme.white};
-  margin-top: ${rhythm / 2}px;
+  margin-top: ${RHYTHM / 2}px;
 `;

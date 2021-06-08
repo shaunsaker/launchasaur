@@ -5,7 +5,7 @@ interface UseTimerProps {
   onDurationEnd: () => void;
 }
 
-const useTimer = ({ duration, onDurationEnd }: UseTimerProps) => {
+export const useTimer = ({ duration, onDurationEnd }: UseTimerProps) => {
   const callback = useRef<() => void>();
 
   useEffect(() => {
@@ -29,5 +29,3 @@ const useTimer = ({ duration, onDurationEnd }: UseTimerProps) => {
     }
   }, [duration]);
 };
-
-export { useTimer };

@@ -4,17 +4,18 @@ import React, { MouseEvent, ReactElement } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
-  borderRadius,
-  smallBorderWidth,
-  rhythm,
+  BORDER_RADIUS,
+  SMALL_BORDER_WIDTH,
+  RHYTHM,
   theme,
-  transitionCSS,
+  TRANSITION_CSS,
+  BOX_SHADOW_CSS,
 } from "../theme";
 
-export const SMALL_BUTTON_HEIGHT = 29;
+export const SMALL_BUTTON_HEIGHT = 30;
 
 interface SmallButtonProps {
-  icon: IconName;
+  icon?: IconName;
   primary?: boolean;
   children: string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
@@ -34,7 +35,7 @@ export const SmallButton = ({
       hovered={hovered}
       primary={primary}
       onClick={onClick}>
-      <StyledIcon icon={icon} />
+      {icon && <StyledIcon icon={icon} />}
 
       <Text>{children}</Text>
     </Container>
@@ -43,26 +44,41 @@ export const SmallButton = ({
 
 interface ContainerProps {
   hovered: boolean;
-  primary: boolean;
+  primary?: boolean;
 }
 
 const Container = styled.div<ContainerProps>`
-  width: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 ${RHYTHM}px;
   height: ${SMALL_BUTTON_HEIGHT}px;
-  background-color: ${theme.backgroundDark};
-  border-radius: ${borderRadius / 2}px;
-  border: ${smallBorderWidth}px solid
-    ${({ hovered }) => (hovered ? theme.accent : "transparent")};
-  transition: border ${transitionCSS};
+  background-color: ${({ primary, hovered }) =>
+    hovered && primary
+      ? theme.accent67
+      : primary
+      ? theme.accent
+      : theme.backgroundDark};
+  border-radius: ${BORDER_RADIUS / 2}px;
+  border: ${SMALL_BORDER_WIDTH}px solid
+    ${({ hovered, primary }) =>
+      primary
+        ? theme.black
+        : hovered
+        ? theme.accent
+        : primary
+        ? theme.black
+        : "transparent"};
+  transition: all ${TRANSITION_CSS};
+  ${BOX_SHADOW_CSS};
+  cursor: pointer;
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 12px;
   color: ${theme.white};
-  margin-right: ${rhythm / 2}px;
+  margin-right: ${RHYTHM / 2}px;
+  margin-bottom: 2px;
 `;
 
 const Text = styled.div`

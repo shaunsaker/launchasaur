@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { MouseEvent, ReactElement } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
-import { rhythm, theme, transitionCSS } from "../../../theme";
+import { RHYTHM, theme, TRANSITION_CSS } from "../../../theme";
 
 export interface ContextMenuItemProps {
   icon: IconName;
@@ -34,16 +34,17 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
-  padding: ${rhythm / 2}px;
+  padding: ${RHYTHM / 2}px;
   background-color: ${({ hovered }) =>
     hovered ? theme.backgroundLight : theme.backgroundDark};
-  transition: background-color ${transitionCSS};
+  transition: background-color ${TRANSITION_CSS};
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 14px;
   color: ${theme.white};
-  margin-right: ${rhythm / 2}px;
+  margin-right: ${RHYTHM / 2}px;
+  margin-bottom: 2px;
 `;
 
 const Text = styled.div`

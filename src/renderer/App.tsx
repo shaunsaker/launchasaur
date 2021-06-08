@@ -5,7 +5,13 @@ import { store, persistor } from "./store";
 import { Router } from "./router";
 import { loadIcons } from "./icons";
 import styled from "styled-components";
-import { flexCenterCSS, theme } from "./theme";
+import {
+  BORDER_RADIUS,
+  FLEX_CENTER_CSS,
+  RHYTHM,
+  SCROLLBAR_WIDTH,
+  theme,
+} from "./theme";
 
 loadIcons();
 
@@ -25,9 +31,38 @@ const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${theme.backgroundDark};
-  ${flexCenterCSS}
+  ${FLEX_CENTER_CSS}
 
   & * {
     box-sizing: border-box;
+  }
+
+  & ::-webkit-scrollbar {
+    width: ${SCROLLBAR_WIDTH}px;
+  }
+
+  &::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  & ::-webkit-scrollbar-track,
+  & ::-webkit-scrollbar-track-piece {
+    background: transparent;
+  }
+
+  & ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  & :hover::-webkit-scrollbar-thumb {
+    background: ${theme.backgroundLight};
+    border-radius: ${BORDER_RADIUS}px;
+    min-height: ${RHYTHM}px;
+  }
+
+  & ::-webkit-scrollbar-corner {
+    background-color: transparent;
   }
 `;

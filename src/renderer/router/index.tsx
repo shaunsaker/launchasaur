@@ -75,6 +75,10 @@ export const Router = (): ReactElement => {
           </Route>
         </Switch>
 
+        {editLauncherModalIsShown && <EditLauncherModal />}
+
+        {editLauncherIconModalIsShown && <EditLauncherIconModal />}
+
         {launcherActionsModalIsShown && <LauncherActionsModal />}
 
         {editLinkModalIsShown && <EditLinkModal />}
@@ -92,10 +96,6 @@ export const Router = (): ReactElement => {
         {editLaunchStationTitleModalIsShown && <EditLaunchStationTitleModal />}
 
         {editLauncherColourModalIsShown && <EditLauncherColourModal />}
-
-        {editLauncherIconModalIsShown && <EditLauncherIconModal />}
-
-        {editLauncherModalIsShown && <EditLauncherModal />}
       </HashRouter>
     </ConnectedRouter>
   );

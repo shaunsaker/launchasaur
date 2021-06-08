@@ -1,4 +1,4 @@
-import { magicNumber, rhythm } from "../../../theme";
+import { MAGIC_NUMBER, RHYTHM } from "../../../theme";
 
 interface MakeSvgArcProps {
   diameter: number;
@@ -16,10 +16,10 @@ export const makeSvgArcProps = ({
   const sectionDegrees = 360 / itemCount;
   const startAngle = index * sectionDegrees;
   const endAngle = startAngle + sectionDegrees;
-  const innerRadius = innerDiameter / 2 + rhythm / 2;
-  const outerRadius = diameter / 2 - rhythm * 2;
-  const cornerRadius = rhythm;
-  const padAngle = magicNumber * 4;
+  const innerRadius = innerDiameter / 2 + RHYTHM / 2;
+  const outerRadius = diameter / 2 - RHYTHM * 2;
+  const cornerRadius = RHYTHM;
+  const padAngle = MAGIC_NUMBER * 4;
 
   return {
     innerRadius,

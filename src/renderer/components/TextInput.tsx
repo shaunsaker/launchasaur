@@ -1,6 +1,13 @@
-import React, { ChangeEvent, ReactElement, useCallback } from "react";
+import React, { ChangeEvent, ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
-import { borderWidth, rhythm, smallBorderRadius, theme } from "../theme";
+import {
+  BORDER_WIDTH,
+  RHYTHM,
+  SMALL_BORDER_RADIUS,
+  SMALL_BORDER_WIDTH,
+  theme,
+  TRANSITION_CSS,
+} from "../theme";
 import { FieldLabel } from "./FieldLabel";
 
 interface TextInputProps {
@@ -16,6 +23,16 @@ export const TextInput = ({
   value,
   onChangeText,
 }: TextInputProps): ReactElement => {
+  const [isFocussed, setIsFocussed] = useState(false);
+
+  const onFocus = useCallback(() => {
+    setIsFocussed(true);
+  }, []);
+
+  const onBlur = useCallback(() => {
+    setIsFocussed(false);
+  }, []);
+
   const onChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       onChangeText(event.target.value);
@@ -27,21 +44,34 @@ export const TextInput = ({
     <Container>
       <FieldLabel>{label}</FieldLabel>
 
-      <Input placeholder={placeholder} value={value} onChange={onChange} />
+      <Input
+        focussed={isFocussed}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
     </Container>
   );
 };
 
 const Container = styled.div``;
 
-const Input = styled.input`
+interface InputProps {
+  focussed: boolean;
+}
+
+const Input = styled.input<InputProps>`
   width: 320px;
-  border: ${borderWidth}px solid ${theme.black};
-  border-radius: ${smallBorderRadius}px;
+  border: ${SMALL_BORDER_WIDTH}px solid
+    ${({ focussed }) => (focussed ? theme.accent : theme.black)};
+  transition: border-color ${TRANSITION_CSS};
+  border-radius: ${SMALL_BORDER_RADIUS}px;
   background-color: ${theme.backgroundDark};
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bold;
   color: ${theme.white};
   outline: none;
-  padding: ${rhythm / 2}px;
-  text-align: center;
+  padding: ${RHYTHM / 2}px;
 `;

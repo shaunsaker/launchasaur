@@ -7,7 +7,7 @@ import { makeLauncherData } from "../../store/launchStations/data";
 import { ADD_ITEM_TITLE } from "../../store/launchStations/models";
 import { selectLaunchStation } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
-import { absoluteCenterCSS, flexCenterCSS } from "../../theme";
+import { ABSOLUTE_CENTER_CSS, FLEX_CENTER_CSS } from "../../theme";
 import { objectToArray } from "../../utils/objectToArray";
 import { LogoButton } from "./LogoButton";
 import { LauncherForeground } from "./LauncherForeground";
@@ -87,7 +87,7 @@ export const LaunchStation = (): ReactElement => {
 const Container = styled.div`
   width: 100%;
   flex: 1;
-  ${flexCenterCSS}
+  ${FLEX_CENTER_CSS}
 `;
 
 const SvgBackgroundContainer = styled.svg`
@@ -98,5 +98,5 @@ const SvgBackgroundContainer = styled.svg`
 const ForegroundContainer = styled.div``;
 
 const LogoButtonContainer = styled.div`
-  ${absoluteCenterCSS}
+  ${ABSOLUTE_CENTER_CSS}
 `;

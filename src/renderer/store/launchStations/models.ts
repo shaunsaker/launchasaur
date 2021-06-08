@@ -52,4 +52,4 @@ export interface LaunchStationsState {
 
 export const defaultLaunchStationId = "default";
 
-export const ADD_ITEM_TITLE = "Add New Launcher";
+export const ADD_ITEM_TITLE = "Add Launcher";

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { animationDuration } from "../theme";
+import { ANIMATION_DURATION } from "../theme";
 import { AnimationTypes, Animator } from "./Animator";
 
 interface FadeInProps {
@@ -13,7 +13,7 @@ export const FadeIn = ({ children }: FadeInProps): ReactElement => {
       initialValue={0}
       finalValue={1}
       animateIn
-      duration={animationDuration}>
+      duration={ANIMATION_DURATION}>
       {children}
     </Animator>
   );

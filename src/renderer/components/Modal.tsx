@@ -2,11 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import {
-  borderRadius,
-  borderWidth,
-  boxShadowCSS,
-  flexCenterCSS,
-  rhythm,
+  BORDER_RADIUS,
+  BORDER_WIDTH,
+  BOX_SHADOW_CSS,
+  FLEX_CENTER_CSS,
+  modalPadding,
+  modalWidth,
+  RHYTHM,
   theme,
 } from "../theme";
 import { FadeIn } from "./FadeIn";
@@ -46,26 +48,33 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   background-color: ${theme.backgroundDark};
-  ${flexCenterCSS};
+  ${FLEX_CENTER_CSS};
 `;
+
+export const MODAL_WIDTH = 480;
+export const MODAL_PADDING = RHYTHM;
+export const MODAL_BORDER_WIDTH = BORDER_WIDTH;
 
 const ContentContainer = styled.div`
-  border: ${borderWidth}px solid ${theme.accent};
-  border-radius: ${borderRadius}px;
+  border: ${MODAL_BORDER_WIDTH}px solid ${theme.black};
+  border-radius: ${BORDER_RADIUS}px;
   background-color: ${theme.backgroundDarkOpaque};
-  padding: ${rhythm}px;
-  ${boxShadowCSS};
+  ${BOX_SHADOW_CSS};
   position: relative;
+  width: ${MODAL_WIDTH}px;
+  padding: ${MODAL_PADDING}px;
 `;
 
+const CLOSE_ICON_SIZE = 24;
+const CLOSE_ICON_PADDING = RHYTHM;
+
 const TitleText = styled.div`
-  font-size: 16px;
+  font-size: 24px;
+  line-height: 1.5;
   font-weight: bold;
   color: ${theme.white};
-  text-align: center;
-  width: 100%;
-  margin-top: 4px;
-  margin-bottom: ${rhythm * 2}px;
+  margin-bottom: ${RHYTHM * 1.5}px;
+  margin-right: ${CLOSE_ICON_SIZE + CLOSE_ICON_PADDING}px;
 `;
 
 const CloseIconContainer = styled.div`
@@ -73,7 +82,8 @@ const CloseIconContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  padding: ${rhythm}px;
+  padding: ${RHYTHM}px;
+  margin-top: 5px;
 `;
 
 const StyledCloseIcon = styled(FontAwesomeIcon)`

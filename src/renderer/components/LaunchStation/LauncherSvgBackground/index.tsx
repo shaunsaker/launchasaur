@@ -2,11 +2,11 @@ import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import { makeSvgArcPath } from "../../../svg/makeSvgArcPath";
 import {
-  borderWidth,
-  rhythm,
-  smallBorderWidth,
+  BORDER_WIDTH,
+  RHYTHM,
+  SMALL_BORDER_WIDTH,
   theme,
-  transitionCSS,
+  TRANSITION_CSS,
 } from "../../../theme";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
@@ -47,11 +47,11 @@ export const LauncherSvgBackground = ({
     arcPathRef.current.setAttribute("d", path);
 
     // create the colour path
-    const colourPathInnerRadius = svgArcProps.outerRadius + rhythm / 2;
+    const colourPathInnerRadius = svgArcProps.outerRadius + RHYTHM / 2;
     const colourPath = makeSvgArcPath({
       ...svgArcProps,
       innerRadius: colourPathInnerRadius,
-      outerRadius: colourPathInnerRadius + rhythm / 2,
+      outerRadius: colourPathInnerRadius + RHYTHM / 2,
     });
 
     // add the colour path to the dom
@@ -100,10 +100,10 @@ interface HoveredProps {
 
 const StyledPath = styled.path<HoveredProps>`
   stroke: ${theme.black};
-  stroke-width: ${borderWidth};
+  stroke-width: ${BORDER_WIDTH};
   fill: ${({ hovered }) =>
     hovered ? theme.backgroundLight : theme.backgroundDark};
-  transition: all ${transitionCSS};
+  transition: all ${TRANSITION_CSS};
 `;
 
 interface StyledColourPathProps extends HoveredProps {
@@ -112,7 +112,7 @@ interface StyledColourPathProps extends HoveredProps {
 
 const StyledColourPath = styled.path<StyledColourPathProps>`
   stroke: ${({ hovered }) => (hovered ? theme.white : theme.black)};
-  stroke-width: ${smallBorderWidth};
+  stroke-width: ${SMALL_BORDER_WIDTH};
   fill: ${({ colour }) => colour};
-  transition: all ${transitionCSS};
+  transition: all ${TRANSITION_CSS};
 `;
