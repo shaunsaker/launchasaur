@@ -111,7 +111,7 @@ interface StyledColourPathProps extends HoveredProps {
 }
 
 const StyledColourPath = styled.path<StyledColourPathProps>`
-  stroke: ${({ hovered }) => (hovered ? theme.white : theme.black)};
+  stroke: ${theme.black};
   stroke-width: ${SMALL_BORDER_WIDTH};
   fill: ${({ colour }) => colour};
   transition: all ${TRANSITION_CSS};
