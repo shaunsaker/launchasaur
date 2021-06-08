@@ -26,6 +26,10 @@ export const ShortcutEditor = ({
     setIsListening(true);
   }, []);
 
+  const onStopClick = useCallback(() => {
+    setIsListening(false);
+  }, []);
+
   const onChangeShortcut = useCallback(
     (newShortcut: string) => {
       setIsListening(false);
@@ -46,13 +50,19 @@ export const ShortcutEditor = ({
       {isListening ? "Listening..." : shortcut}
 
       <ButtonsContainer>
-        <ButtonContainer>
-          <SmallButton danger onClick={onClearClick}>
-            CLEAR
-          </SmallButton>
-        </ButtonContainer>
+        {isListening ? (
+          <SmallButton onClick={onStopClick}>STOP</SmallButton>
+        ) : (
+          <>
+            <ButtonContainer>
+              <SmallButton danger onClick={onClearClick}>
+                CLEAR
+              </SmallButton>
+            </ButtonContainer>
 
-        <SmallButton onClick={onEditClick}>EDIT</SmallButton>
+            <SmallButton onClick={onEditClick}>EDIT</SmallButton>
+          </>
+        )}
       </ButtonsContainer>
     </Container>
   );
