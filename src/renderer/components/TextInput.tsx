@@ -73,5 +73,5 @@ const Input = styled.input<InputProps>`
   font-weight: bold;
   color: ${theme.white};
   outline: none;
-  padding: ${RHYTHM / 2}px;
+  padding: ${RHYTHM / 2}px ${RHYTHM}px;
 `;

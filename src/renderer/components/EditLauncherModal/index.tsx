@@ -7,6 +7,7 @@ import {
   selectEditLauncherModalLaunchStationId,
   selectEditLauncherModalLauncherId,
 } from "../../store/editLauncherModal/selectors";
+import { setLauncherTitle } from "../../store/launchStations/actions";
 import { selectLauncher } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
 import { RHYTHM } from "../../theme";
@@ -33,6 +34,13 @@ export const EditLauncherModal = (): ReactElement => {
     dispatch(showEditLauncherIconModal({ launchStationId, launcherId }));
   }, [dispatch, launchStationId, launcherId]);
 
+  const onChangeTitle = useCallback(
+    (text: string) => {
+      dispatch(setLauncherTitle({ launchStationId, launcherId, title: text }));
+    },
+    [dispatch, launchStationId, launcherId],
+  );
+
   return (
     <Modal
       title={`Editing ${launcher.title || "Launcher"}`}
@@ -54,8 +62,8 @@ export const EditLauncherModal = (): ReactElement => {
           <TextInput
             label="Title"
             placeholder="What should we call your Launcher?"
-            value=""
-            onChangeText={() => {}}
+            value={launcher.title}
+            onChangeText={onChangeTitle}
           />
         </FieldContainer>
 
@@ -70,6 +78,12 @@ export const EditLauncherModal = (): ReactElement => {
         <FieldContainer>
           <FieldLabel>Actions</FieldLabel>
         </FieldContainer>
+
+        <SubmitButtonContainer>
+          <SmallButton primary onClick={onCloseClick}>
+            DONE
+          </SmallButton>
+        </SubmitButtonContainer>
       </Container>
     </Modal>
   );
@@ -84,4 +98,9 @@ const IconContainer = styled.div`
 
 const IconButtonContainer = styled.div`
   margin-left: ${RHYTHM}px;
+`;
+
+const SubmitButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
