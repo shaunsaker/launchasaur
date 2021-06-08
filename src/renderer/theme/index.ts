@@ -6,6 +6,7 @@ export const theme = {
   white: "#FFFFFF",
   white50: "rgba(255, 255, 255, 0.50)",
   backgroundDark: "rgba(0, 0, 0, 0.67)",
+  backgroundDark33: "rgba(0, 0, 0, 0.33)",
   backgroundDarkOpaque: "#1E2524",
   backgroundLight: `rgba(255, 255, 255, ${MAGIC_NUMBER})`,
   accent: "#3BAC98",

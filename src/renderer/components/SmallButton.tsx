@@ -56,6 +56,7 @@ const getContainerBackgroundColor = ({
   danger,
   hovered,
 }: ContainerProps): string => {
+  ``;
   if (hovered) {
     if (primary) {
       return theme.accent67;
@@ -74,7 +75,7 @@ const getContainerBackgroundColor = ({
     return theme.danger;
   }
 
-  return theme.backgroundDark;
+  return theme.backgroundDark33;
 };
 
 const getContainerBorderColor = ({
@@ -83,18 +84,12 @@ const getContainerBorderColor = ({
   hovered,
 }: ContainerProps): string => {
   if (hovered) {
-    if (primary || danger) {
-      return theme.black;
+    if (!primary && !danger) {
+      return theme.accent;
     }
-
-    return theme.accent;
   }
 
-  if (primary) {
-    return theme.black;
-  }
-
-  return "transparent";
+  return theme.black;
 };
 
 const Container = styled.div<ContainerProps>`

@@ -8,6 +8,7 @@ import {
   selectEditLauncherModalLauncherId,
 } from "../../store/editLauncherModal/selectors";
 import {
+  setLauncherColour,
   setLauncherShortcut,
   setLauncherTitle,
 } from "../../store/launchStations/actions";
@@ -21,6 +22,7 @@ import { Icon } from "../Icon";
 import { Modal } from "../Modal";
 import { SmallButton } from "../SmallButton";
 import { TextInput } from "../TextInput";
+import { ColourEditor } from "../ColourEditor";
 
 export const EditLauncherModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -48,6 +50,13 @@ export const EditLauncherModal = (): ReactElement => {
   const onChangeShortcut = useCallback(
     (shortcut: string) => {
       dispatch(setLauncherShortcut({ launchStationId, launcherId, shortcut }));
+    },
+    [dispatch, launchStationId, launcherId],
+  );
+
+  const onChangeColour = useCallback(
+    (colour: string) => {
+      dispatch(setLauncherColour({ launchStationId, launcherId, colour }));
     },
     [dispatch, launchStationId, launcherId],
   );
@@ -89,6 +98,8 @@ export const EditLauncherModal = (): ReactElement => {
 
         <FieldContainer>
           <FieldLabel>Colour</FieldLabel>
+
+          <ColourEditor colour={launcher.colour} onChange={onChangeColour} />
         </FieldContainer>
 
         <FieldContainer>
