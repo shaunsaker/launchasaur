@@ -17,8 +17,8 @@ import { FieldContainer } from "../FieldContainer";
 import { TextInput } from "../TextInput";
 
 const COLOURS = [
-  "#1a1333",
-  "#262949",
+  "#ffffff",
+  "#4d5284",
   "#045459",
   "#087353",
   "#15c286",
@@ -28,7 +28,7 @@ const COLOURS = [
   "#ec0f47",
   "#a02c5d",
   "#700460",
-  "#022c7a",
+  "#000000",
 ];
 
 export const EditLauncherColourModal = (): ReactElement => {
