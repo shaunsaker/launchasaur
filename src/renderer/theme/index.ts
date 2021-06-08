@@ -10,6 +10,8 @@ export const theme = {
   backgroundLight: `rgba(255, 255, 255, ${MAGIC_NUMBER})`,
   accent: "#3BAC98",
   accent67: "rgba(59,172,152, 0.67)",
+  danger: "#AC3B42",
+  danger67: "rgba(172,59,66,0.67)",
 };
 
 // constants

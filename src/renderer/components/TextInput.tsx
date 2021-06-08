@@ -1,14 +1,7 @@
 import React, { ChangeEvent, ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
-import {
-  BORDER_WIDTH,
-  RHYTHM,
-  SMALL_BORDER_RADIUS,
-  SMALL_BORDER_WIDTH,
-  theme,
-  TRANSITION_CSS,
-} from "../theme";
 import { FieldLabel } from "./FieldLabel";
+import { inputCSS } from "./InputCSS";
 
 interface TextInputProps {
   label: string;
@@ -58,20 +51,7 @@ export const TextInput = ({
 
 const Container = styled.div``;
 
-interface InputProps {
-  focussed: boolean;
-}
-
-const Input = styled.input<InputProps>`
-  width: 320px;
-  border: ${SMALL_BORDER_WIDTH}px solid
-    ${({ focussed }) => (focussed ? theme.accent : theme.black)};
-  transition: border-color ${TRANSITION_CSS};
-  border-radius: ${SMALL_BORDER_RADIUS}px;
-  background-color: ${theme.backgroundDark};
-  font-size: 14px;
-  font-weight: bold;
-  color: ${theme.white};
+const Input = styled.input`
+  ${inputCSS};
   outline: none;
-  padding: ${RHYTHM / 2}px ${RHYTHM}px;
 `;

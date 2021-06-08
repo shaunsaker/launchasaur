@@ -17,6 +17,7 @@ export const SMALL_BUTTON_HEIGHT = 30;
 interface SmallButtonProps {
   icon?: IconName;
   primary?: boolean;
+  danger?: boolean;
   children: string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
@@ -24,6 +25,7 @@ interface SmallButtonProps {
 export const SmallButton = ({
   icon,
   primary,
+  danger,
   children,
   onClick,
 }: SmallButtonProps): ReactElement => {
@@ -34,6 +36,7 @@ export const SmallButton = ({
       ref={hoverRef}
       hovered={hovered}
       primary={primary}
+      danger={danger}
       onClick={onClick}>
       {icon && <StyledIcon icon={icon} />}
 
@@ -45,7 +48,54 @@ export const SmallButton = ({
 interface ContainerProps {
   hovered: boolean;
   primary?: boolean;
+  danger?: boolean;
 }
+
+const getContainerBackgroundColor = ({
+  primary,
+  danger,
+  hovered,
+}: ContainerProps): string => {
+  if (hovered) {
+    if (primary) {
+      return theme.accent67;
+    }
+
+    if (danger) {
+      return theme.danger67;
+    }
+  }
+
+  if (primary) {
+    return theme.accent;
+  }
+
+  if (danger) {
+    return theme.danger;
+  }
+
+  return theme.backgroundDark;
+};
+
+const getContainerBorderColor = ({
+  primary,
+  danger,
+  hovered,
+}: ContainerProps): string => {
+  if (hovered) {
+    if (primary || danger) {
+      return theme.black;
+    }
+
+    return theme.accent;
+  }
+
+  if (primary) {
+    return theme.black;
+  }
+
+  return "transparent";
+};
 
 const Container = styled.div<ContainerProps>`
   display: flex;
@@ -53,22 +103,9 @@ const Container = styled.div<ContainerProps>`
   align-items: center;
   padding: 0 ${RHYTHM}px;
   height: ${SMALL_BUTTON_HEIGHT}px;
-  background-color: ${({ primary, hovered }) =>
-    hovered && primary
-      ? theme.accent67
-      : primary
-      ? theme.accent
-      : theme.backgroundDark};
+  background-color: ${getContainerBackgroundColor};
   border-radius: ${BORDER_RADIUS / 2}px;
-  border: ${SMALL_BORDER_WIDTH}px solid
-    ${({ hovered, primary }) =>
-      primary
-        ? theme.black
-        : hovered
-        ? theme.accent
-        : primary
-        ? theme.black
-        : "transparent"};
+  border: ${SMALL_BORDER_WIDTH}px solid ${getContainerBorderColor};
   transition: all ${TRANSITION_CSS};
   ${BOX_SHADOW_CSS};
   cursor: pointer;

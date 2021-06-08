@@ -7,7 +7,6 @@ import { EditLinkModal } from "../components/EditLinkModal";
 import { EditLaunchStationModal } from "../components/EditLaunchStationModal";
 import { EditLauncherColourModal } from "../components/EditLauncherColourModal";
 import { EditLauncherIconModal } from "../components/EditLauncherIconModal";
-import { EditLauncherShortcutModal } from "../components/EditLauncherShortcutModal";
 import { EditLauncherTitleModal } from "../components/EditLauncherTitleModal";
 import { EditLaunchStationTitleModal } from "../components/EditLaunchStationTitleModal";
 import { LauncherActionsModal } from "../components/LauncherActionsModal";
@@ -20,7 +19,6 @@ import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
 import { selectEditLaunchStationModalIsShown } from "../store/addLaunchStationModal/selectors";
 import { selectEditLauncherColourModalIsShown } from "../store/editLauncherColourModal/selectors";
 import { selectEditLauncherIconModalIsShown } from "../store/editLauncherIconModal/selectors";
-import { selectEditLauncherShortcutModalIsShown } from "../store/editLauncherShortcutModal/selectors";
 import { selectEditLauncherTitleModalIsShown } from "../store/editLauncherTitleModal/selectors";
 import { selectEditLaunchStationTitleModalIsShown } from "../store/editLaunchStationTitleModal/selectors";
 import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal/selectors";
@@ -42,9 +40,6 @@ export const Router = (): ReactElement => {
   );
   const editAppShortcutModalIsShown = useSelector(
     selectEditAppShortcutModalIsShown,
-  );
-  const editLauncherShortcutModalIsShown = useSelector(
-    selectEditLauncherShortcutModalIsShown,
   );
   const editLauncherTitleModalIsShown = useSelector(
     selectEditLauncherTitleModalIsShown,
@@ -88,8 +83,6 @@ export const Router = (): ReactElement => {
         {editLaunchStationModalIsShown && <EditLaunchStationModal />}
 
         {editAppShortcutModalIsShown && <EditAppShortcutModal />}
-
-        {editLauncherShortcutModalIsShown && <EditLauncherShortcutModal />}
 
         {editLauncherTitleModalIsShown && <EditLauncherTitleModal />}
 

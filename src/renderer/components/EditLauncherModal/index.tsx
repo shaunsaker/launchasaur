@@ -7,10 +7,14 @@ import {
   selectEditLauncherModalLaunchStationId,
   selectEditLauncherModalLauncherId,
 } from "../../store/editLauncherModal/selectors";
-import { setLauncherTitle } from "../../store/launchStations/actions";
+import {
+  setLauncherShortcut,
+  setLauncherTitle,
+} from "../../store/launchStations/actions";
 import { selectLauncher } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
 import { RHYTHM } from "../../theme";
+import { ShortcutEditor } from "../ShortcutEditor";
 import { FieldContainer } from "../FieldContainer";
 import { FieldLabel } from "../FieldLabel";
 import { Icon } from "../Icon";
@@ -37,6 +41,13 @@ export const EditLauncherModal = (): ReactElement => {
   const onChangeTitle = useCallback(
     (text: string) => {
       dispatch(setLauncherTitle({ launchStationId, launcherId, title: text }));
+    },
+    [dispatch, launchStationId, launcherId],
+  );
+
+  const onChangeShortcut = useCallback(
+    (shortcut: string) => {
+      dispatch(setLauncherShortcut({ launchStationId, launcherId, shortcut }));
     },
     [dispatch, launchStationId, launcherId],
   );
@@ -69,6 +80,11 @@ export const EditLauncherModal = (): ReactElement => {
 
         <FieldContainer>
           <FieldLabel>Shortcut</FieldLabel>
+
+          <ShortcutEditor
+            shortcut={launcher.shortcut}
+            onChange={onChangeShortcut}
+          />
         </FieldContainer>
 
         <FieldContainer>
