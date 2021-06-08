@@ -12,7 +12,12 @@ import { selectLauncher } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
 import { Modal } from "../Modal";
 import { SmallButton } from "../SmallButton";
-import { IconPicker } from "./IconPicker";
+import { Picker } from "../Picker";
+import { FieldContainer } from "../FieldContainer";
+import { TextInput } from "../TextInput";
+import { getIconList } from "../../icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ICON_SIZE, theme } from "../../theme";
 
 export const EditLauncherIconModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -24,6 +29,18 @@ export const EditLauncherIconModal = (): ReactElement => {
     selectLauncher(state, { launchStationId, launcherId }),
   );
   const [value, setValue] = useState(launcher.icon);
+  const [iconList] = useState(getIconList());
+  const [filter, setFilter] = useState("");
+  const filteredIcons = iconList.filter((icon) =>
+    icon.includes(filter.toLowerCase()),
+  );
+
+  const onChangeFilter = useCallback(
+    (value: string) => {
+      setFilter(value);
+    },
+    [setFilter],
+  );
 
   const onSelectIcon = useCallback(
     (icon: IconName) => {
@@ -41,9 +58,29 @@ export const EditLauncherIconModal = (): ReactElement => {
     dispatch(hideEditLauncherIconModal());
   }, [dispatch]);
 
+  const renderIcon = useCallback(
+    (icon: IconName) => <StyledIcon icon={icon} />,
+    [],
+  );
+
   return (
     <Modal title="Select an Icon" onClose={onCloseClick}>
-      <IconPicker selected={value} onSelect={onSelectIcon} />
+      <FieldContainer>
+        <TextInput
+          label="Search for an Icon"
+          placeholder="Filter by name..."
+          value={filter}
+          onChangeText={onChangeFilter}
+        />
+      </FieldContainer>
+
+      <Picker
+        data={filteredIcons}
+        selected={value}
+        rowsToRender={4}
+        renderItem={renderIcon}
+        onSelect={onSelectIcon}
+      />
 
       <SubmitButtonContainer>
         <SmallButton primary onClick={onSubmitClick}>
@@ -53,6 +90,11 @@ export const EditLauncherIconModal = (): ReactElement => {
     </Modal>
   );
 };
+
+const StyledIcon = styled(FontAwesomeIcon)`
+  font-size: ${ICON_SIZE}px;
+  color: ${theme.white};
+`;
 
 const SubmitButtonContainer = styled.div`
   display: flex;

@@ -8,7 +8,6 @@ import {
   selectEditLauncherModalLauncherId,
 } from "../../store/editLauncherModal/selectors";
 import {
-  setLauncherColour,
   setLauncherShortcut,
   setLauncherTitle,
 } from "../../store/launchStations/actions";
@@ -22,7 +21,8 @@ import { Icon } from "../Icon";
 import { Modal } from "../Modal";
 import { SmallButton } from "../SmallButton";
 import { TextInput } from "../TextInput";
-import { ColourEditor } from "../ColourEditor";
+import { Circle } from "../Circle";
+import { showEditLauncherColourModal } from "../../store/editLauncherColourModal/actions";
 
 export const EditLauncherModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -54,12 +54,9 @@ export const EditLauncherModal = (): ReactElement => {
     [dispatch, launchStationId, launcherId],
   );
 
-  const onChangeColour = useCallback(
-    (colour: string) => {
-      dispatch(setLauncherColour({ launchStationId, launcherId, colour }));
-    },
-    [dispatch, launchStationId, launcherId],
-  );
+  const onEditColourClick = useCallback(() => {
+    dispatch(showEditLauncherColourModal({ launchStationId, launcherId }));
+  }, [dispatch, launchStationId, launcherId]);
 
   return (
     <Modal
@@ -69,13 +66,13 @@ export const EditLauncherModal = (): ReactElement => {
         <FieldContainer>
           <FieldLabel>Icon</FieldLabel>
 
-          <IconContainer>
+          <WithEditButtonContainer>
             <Icon icon={launcher.icon} />
 
-            <IconButtonContainer>
+            <SmallButtonContainer>
               <SmallButton onClick={onEditIconClick}>EDIT</SmallButton>
-            </IconButtonContainer>
-          </IconContainer>
+            </SmallButtonContainer>
+          </WithEditButtonContainer>
         </FieldContainer>
 
         <FieldContainer>
@@ -99,7 +96,13 @@ export const EditLauncherModal = (): ReactElement => {
         <FieldContainer>
           <FieldLabel>Colour</FieldLabel>
 
-          <ColourEditor colour={launcher.colour} onChange={onChangeColour} />
+          <WithEditButtonContainer>
+            <Circle colour={launcher.colour} />
+
+            <SmallButtonContainer>
+              <SmallButton onClick={onEditColourClick}>EDIT</SmallButton>
+            </SmallButtonContainer>
+          </WithEditButtonContainer>
         </FieldContainer>
 
         <FieldContainer>
@@ -118,12 +121,12 @@ export const EditLauncherModal = (): ReactElement => {
 
 const Container = styled.div``;
 
-const IconContainer = styled.div`
+const WithEditButtonContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const IconButtonContainer = styled.div`
+const SmallButtonContainer = styled.div`
   margin-left: ${RHYTHM}px;
 `;
 

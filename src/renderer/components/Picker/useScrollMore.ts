@@ -22,7 +22,6 @@ export const useScrollMore = <T>({
       const isBottom = scrollHeight - scrollTop === clientHeight;
 
       if (isBottom) {
-        // TODO: check the diff
         setNumberOfItemsToDisplay(numberOfItemsToDisplay + scrollMoreAmount);
       }
     },
@@ -36,7 +35,7 @@ export const useScrollMore = <T>({
     return () => refCopy.removeEventListener("scroll", onScroll);
   }, [onScroll]);
 
-  const dataToDisplay = data.slice(0, numberOfItemsToDisplay);
+  const dataToRender = data.slice(0, numberOfItemsToDisplay);
 
-  return { scrollRef: ref, data: dataToDisplay };
+  return { scrollRef: ref, dataToRender };
 };

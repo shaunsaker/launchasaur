@@ -1,6 +1,4 @@
-import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
@@ -10,21 +8,20 @@ import {
   SCROLLBAR_WIDTH,
   theme,
   TRANSITION_CSS,
-  ICON_SIZE,
-} from "../../../theme";
-import { MODAL_BORDER_WIDTH, MODAL_PADDING, MODAL_WIDTH } from "../../Modal";
+} from "../../theme";
+import { MODAL_BORDER_WIDTH, MODAL_PADDING, MODAL_WIDTH } from "../Modal";
 
-interface IconContainerProps {
-  icon: IconName;
+interface ItemContainerProps {
   active: boolean;
+  children: ReactNode;
   onClick: () => void;
 }
 
-export const IconContainer = ({
-  icon,
+export const ItemContainer = ({
   active,
+  children,
   onClick,
-}: IconContainerProps): ReactElement => {
+}: ItemContainerProps): ReactElement => {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
   return (
@@ -33,15 +30,15 @@ export const IconContainer = ({
       active={active}
       hovered={isHovered}
       onClick={onClick}>
-      <StyledIcon icon={icon} />
+      {children}
     </Container>
   );
 };
 
-export const ICONS_PER_ROW = 6;
-export const ICON_CONTAINER_SIZE =
+export const ITEMS_PER_ROW = 6;
+export const ITEM_CONTAINER_SIZE =
   (MODAL_WIDTH - MODAL_PADDING * 2 - MODAL_BORDER_WIDTH * 2 - SCROLLBAR_WIDTH) /
-  ICONS_PER_ROW;
+  ITEMS_PER_ROW;
 
 interface ContainerProps {
   active: boolean;
@@ -49,8 +46,8 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  width: ${ICON_CONTAINER_SIZE}px;
-  height: ${ICON_CONTAINER_SIZE}px;
+  width: ${ITEM_CONTAINER_SIZE}px;
+  height: ${ITEM_CONTAINER_SIZE}px;
   border: ${SMALL_BORDER_WIDTH}px solid
     ${({ active, hovered }) =>
       active || hovered ? theme.accent : "transparent"};
@@ -58,9 +55,4 @@ const Container = styled.div<ContainerProps>`
   transition: border-color ${TRANSITION_CSS};
   ${FLEX_CENTER_CSS};
   cursor: pointer;
-`;
-
-const StyledIcon = styled(FontAwesomeIcon)`
-  font-size: ${ICON_SIZE}px;
-  color: ${theme.white};
 `;
