@@ -5,7 +5,6 @@ import { showEditLauncherModal } from "../../../store/editLauncherModal/actions"
 import { deleteLauncher } from "../../../store/launchStations/actions";
 import {
   BORDER_RADIUS,
-  BORDER_WIDTH,
   BOX_SHADOW_CSS,
   SMALL_BORDER_WIDTH,
   theme,
