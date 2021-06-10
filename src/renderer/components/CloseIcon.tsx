@@ -13,7 +13,7 @@ export const CloseIcon = ({ onClick }: CloseIconProps) => {
 
   return (
     <CloseIconContainer ref={hoverRef} onClick={onClick}>
-      <StyledCloseIcon icon="times" hovered={isHovered} />
+      <StyledCloseIcon icon="times" $isHovered={isHovered} />
     </CloseIconContainer>
   );
 };
@@ -27,11 +27,11 @@ const CloseIconContainer = styled.div`
 `;
 
 interface StyledCloseIconProps {
-  hovered: boolean;
+  $isHovered: boolean;
 }
 
 const StyledCloseIcon = styled(FontAwesomeIcon)<StyledCloseIconProps>`
   font-size: ${CLOSE_ICON_SIZE}px;
-  color: ${({ hovered }) => (hovered ? theme.accent : theme.white)};
+  color: ${({ $isHovered }) => ($isHovered ? theme.accent : theme.white)};
   transition: color ${TRANSITION_CSS};
 `;

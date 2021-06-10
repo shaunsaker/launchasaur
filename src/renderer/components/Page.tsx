@@ -21,4 +21,6 @@ const PageContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: ${theme.backgroundDarkOpaque};
+  display: flex;
+  flex-direction: column;
 `;
