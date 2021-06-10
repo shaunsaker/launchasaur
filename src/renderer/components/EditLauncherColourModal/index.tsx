@@ -10,7 +10,7 @@ import { setLauncherColour } from "../../store/launchStations/actions";
 import { selectLauncher } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
 import { Modal } from "../Modal";
-import { SmallButton } from "../SmallButton";
+import { Button } from "../Button";
 import { Picker } from "../Picker";
 import { Circle } from "../Circle";
 import { FieldContainer } from "../FieldContainer";
@@ -87,9 +87,9 @@ export const EditLauncherColourModal = (): ReactElement => {
       </FieldContainer>
 
       <SubmitButtonContainer>
-        <SmallButton primary onClick={onSubmitClick}>
+        <Button primary large onClick={onSubmitClick}>
           DONE
-        </SmallButton>
+        </Button>
       </SubmitButtonContainer>
     </Modal>
   );

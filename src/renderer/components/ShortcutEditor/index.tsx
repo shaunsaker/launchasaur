@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
 import { RHYTHM } from "../../theme";
 import { inputCSS } from "../InputCSS";
-import { SmallButton } from "../SmallButton";
+import { Button } from "../Button";
 import { useListenForKeyboardShortcutCombination } from "./useListenForKeyboardShortcutCombination";
 
 interface EditShortcutModalProps {
@@ -51,16 +51,16 @@ export const ShortcutEditor = ({
 
       <ButtonsContainer>
         {isListening ? (
-          <SmallButton onClick={onStopClick}>STOP</SmallButton>
+          <Button onClick={onStopClick}>STOP</Button>
         ) : (
           <>
             <ButtonContainer>
-              <SmallButton danger onClick={onClearClick}>
+              <Button danger onClick={onClearClick}>
                 CLEAR
-              </SmallButton>
+              </Button>
             </ButtonContainer>
 
-            <SmallButton onClick={onEditClick}>EDIT</SmallButton>
+            <Button onClick={onEditClick}>EDIT</Button>
           </>
         )}
       </ButtonsContainer>

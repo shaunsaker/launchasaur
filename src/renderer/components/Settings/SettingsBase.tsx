@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from "react";
+import styled from "styled-components";
 import { Page } from "../Page";
 import { SettingsNavigationMenu } from "./SettingsNavigationMenu";
 
@@ -9,9 +10,16 @@ interface SettingsBaseProps {
 export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   return (
     <Page>
-      <SettingsNavigationMenu />
+      <Container>
+        <SettingsNavigationMenu />
 
-      {children}
+        {children}
+      </Container>
     </Page>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex: 1;
+`;

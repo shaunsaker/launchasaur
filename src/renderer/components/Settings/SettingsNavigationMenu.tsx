@@ -7,15 +7,15 @@ import { SideMenu, SideMenuOption } from "../SideMenu";
 
 const mainSettingsRoutes = [
   {
-    value: "Launch Stations",
+    key: "Launch Stations",
     route: Routes.settingsLaunchStations,
   },
   {
-    value: "My Account",
+    key: "My Account",
     route: Routes.settingsAccount,
   },
   {
-    value: "App Settings",
+    key: "App Settings",
     route: Routes.settingsAppSettingsAppShortcut,
   },
 ];
@@ -23,16 +23,21 @@ const mainSettingsRoutes = [
 export const SettingsNavigationMenu = (): ReactElement => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const options = mainSettingsRoutes.map((route) => {
+  const options: SideMenuOption[] = mainSettingsRoutes.map((route) => {
     return {
-      ...route,
+      id: route.key,
+      title: route.key,
       selected: location.pathname === route.route,
     };
   });
 
   const onSideMenuOptionClick = useCallback(
     (option: SideMenuOption) => {
-      dispatch(navigateTo({ to: option.route }));
+      const { route } = mainSettingsRoutes.find(
+        (item) => item.key === option.id,
+      );
+
+      dispatch(navigateTo({ to: route }));
     },
     [dispatch],
   );

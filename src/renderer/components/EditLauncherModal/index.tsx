@@ -19,7 +19,7 @@ import { FieldContainer } from "../FieldContainer";
 import { FieldLabel } from "../FieldLabel";
 import { Icon } from "../Icon";
 import { Modal } from "../Modal";
-import { SmallButton } from "../SmallButton";
+import { Button } from "../Button";
 import { TextInput } from "../TextInput";
 import { Circle } from "../Circle";
 import { showEditLauncherColourModal } from "../../store/editLauncherColourModal/actions";
@@ -70,7 +70,7 @@ export const EditLauncherModal = (): ReactElement => {
             <Icon icon={launcher.icon} />
 
             <SmallButtonContainer>
-              <SmallButton onClick={onEditIconClick}>EDIT</SmallButton>
+              <Button onClick={onEditIconClick}>EDIT</Button>
             </SmallButtonContainer>
           </WithEditButtonContainer>
         </FieldContainer>
@@ -100,7 +100,7 @@ export const EditLauncherModal = (): ReactElement => {
             <Circle colour={launcher.colour} />
 
             <SmallButtonContainer>
-              <SmallButton onClick={onEditColourClick}>EDIT</SmallButton>
+              <Button onClick={onEditColourClick}>EDIT</Button>
             </SmallButtonContainer>
           </WithEditButtonContainer>
         </FieldContainer>
@@ -110,9 +110,9 @@ export const EditLauncherModal = (): ReactElement => {
         </FieldContainer>
 
         <SubmitButtonContainer>
-          <SmallButton primary onClick={onCloseClick}>
+          <Button primary large onClick={onCloseClick}>
             DONE
-          </SmallButton>
+          </Button>
         </SubmitButtonContainer>
       </Container>
     </Modal>

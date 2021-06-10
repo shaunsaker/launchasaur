@@ -11,7 +11,7 @@ import { setLauncherIcon } from "../../store/launchStations/actions";
 import { selectLauncher } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
 import { Modal } from "../Modal";
-import { SmallButton } from "../SmallButton";
+import { Button } from "../Button";
 import { Picker } from "../Picker";
 import { FieldContainer } from "../FieldContainer";
 import { TextInput } from "../TextInput";
@@ -83,9 +83,9 @@ export const EditLauncherIconModal = (): ReactElement => {
       />
 
       <SubmitButtonContainer>
-        <SmallButton primary onClick={onSubmitClick}>
+        <Button primary large onClick={onSubmitClick}>
           DONE
-        </SmallButton>
+        </Button>
       </SubmitButtonContainer>
     </Modal>
   );

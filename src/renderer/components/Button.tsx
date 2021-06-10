@@ -10,22 +10,23 @@ import {
   TRANSITION_CSS,
   BOX_SHADOW_CSS,
   BORDER_WIDTH,
+  SMALL_BORDER_WIDTH,
 } from "../theme";
-
-export const SMALL_BUTTON_HEIGHT = 30;
 
 interface SmallButtonProps {
   icon?: IconName;
   primary?: boolean;
   danger?: boolean;
+  large?: boolean;
   children: string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
-export const SmallButton = ({
+export const Button = ({
   icon,
   primary,
   danger,
+  large,
   children,
   onClick,
 }: SmallButtonProps): ReactElement => {
@@ -37,10 +38,11 @@ export const SmallButton = ({
       hovered={hovered}
       primary={primary}
       danger={danger}
+      large={large}
       onClick={onClick}>
       {icon && <StyledIcon icon={icon} />}
 
-      <Text>{children}</Text>
+      <Text large={large}>{children}</Text>
     </Container>
   );
 };
@@ -49,6 +51,7 @@ interface ContainerProps {
   hovered: boolean;
   primary?: boolean;
   danger?: boolean;
+  large?: boolean;
 }
 
 const getContainerBackgroundColor = ({
@@ -96,11 +99,12 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 ${RHYTHM}px;
-  height: ${SMALL_BUTTON_HEIGHT}px;
+  padding: 0 ${({ large }) => (large ? RHYTHM : RHYTHM / 2)}px;
+  height: ${({ large }) => (large ? 40 : 26)}px;
   background-color: ${getContainerBackgroundColor};
   border-radius: ${BORDER_RADIUS / 2}px;
-  border: ${BORDER_WIDTH}px solid ${getContainerBorderColor};
+  border: ${({ large }) => (large ? BORDER_WIDTH : SMALL_BORDER_WIDTH)}px solid
+    ${getContainerBorderColor};
   transition: all ${TRANSITION_CSS};
   ${BOX_SHADOW_CSS};
   cursor: pointer;
@@ -113,8 +117,12 @@ const StyledIcon = styled(FontAwesomeIcon)`
   margin-bottom: 2px;
 `;
 
-const Text = styled.div`
-  font-size: 11px;
+interface TextProps {
+  large?: boolean;
+}
+
+const Text = styled.div<TextProps>`
+  font-size: ${({ large }) => (large ? 13 : 11)}px;
   color: ${theme.white};
   font-weight: bold;
 `;
