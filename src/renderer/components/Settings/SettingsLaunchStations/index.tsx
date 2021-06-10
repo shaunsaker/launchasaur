@@ -12,7 +12,9 @@ import { Button } from "../../Button";
 import { SettingsBase } from "../SettingsBase";
 import { defaultLaunchStationId } from "../../../store/launchStations/models";
 import { RHYTHM } from "../../../theme";
-import { showAddLaunchStationModal } from "../../../store/addLaunchStationModal/actions";
+import { addLaunchStation } from "../../../store/launchStations/actions";
+import { uuid } from "../../../utils/uuid";
+import { LaunchStationEditor } from "./LaunchStationEditor";
 
 export const SettingsLaunchStations = (): ReactElement => {
   const dispatch = useDispatch();
@@ -23,6 +25,9 @@ export const SettingsLaunchStations = (): ReactElement => {
     title: launchStation.title,
     selected: selected === launchStation.id,
   }));
+  const selectedLaunchStation = launchStations.find(
+    (launchStation) => launchStation.id === selected,
+  );
 
   useLayoutEffect(() => {
     setSelected(defaultLaunchStationId);
@@ -33,7 +38,10 @@ export const SettingsLaunchStations = (): ReactElement => {
   }, []);
 
   const onAddLaunchStationClick = useCallback(() => {
-    dispatch(showAddLaunchStationModal());
+    const id = uuid();
+
+    setSelected(id);
+    dispatch(addLaunchStation({ id, title: "What am I?" }));
   }, [dispatch]);
 
   return (
@@ -49,6 +57,10 @@ export const SettingsLaunchStations = (): ReactElement => {
             </Button>
           </AddButtonContainer>
         </SideMenu>
+
+        {selectedLaunchStation && (
+          <LaunchStationEditor launchStation={selectedLaunchStation} />
+        )}
       </Container>
     </SettingsBase>
   );

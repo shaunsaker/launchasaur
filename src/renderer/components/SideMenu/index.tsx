@@ -28,7 +28,7 @@ export const SideMenu = ({
 
       {options.map((option) => (
         <SideMenuOption
-          key={option.title}
+          key={option.id}
           selected={option.selected}
           onClick={() => onOptionClick(option)}>
           {option.title}

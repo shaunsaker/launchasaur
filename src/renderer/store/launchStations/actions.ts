@@ -59,6 +59,7 @@ export const deleteLauncherAction = createStandardAction(
 export const addLaunchStation = createStandardAction(
   "LAUNCH_STATIONS/addLaunchStation",
 )<{
+  id?: string;
   title: LaunchStationTitle;
 }>();
 
