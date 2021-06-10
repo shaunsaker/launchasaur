@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import {
@@ -6,11 +5,10 @@ import {
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
   FLEX_CENTER_CSS,
-  modalPadding,
-  modalWidth,
   RHYTHM,
   theme,
 } from "../theme";
+import { CloseIcon, CLOSE_ICON_PADDING, CLOSE_ICON_SIZE } from "./CloseIcon";
 import { FadeIn } from "./FadeIn";
 
 interface ModalProps {
@@ -32,8 +30,8 @@ export const Modal = ({
 
           {children}
 
-          <CloseIconContainer onClick={onClose}>
-            <StyledCloseIcon icon="times" />
+          <CloseIconContainer>
+            <CloseIcon onClick={onClose} />
           </CloseIconContainer>
         </ContentContainer>
       </Container>
@@ -65,9 +63,6 @@ const ContentContainer = styled.div`
   padding: ${MODAL_PADDING}px;
 `;
 
-const CLOSE_ICON_SIZE = 24;
-const CLOSE_ICON_PADDING = RHYTHM;
-
 const TitleText = styled.div`
   font-size: 24px;
   line-height: 1.5;
@@ -78,15 +73,8 @@ const TitleText = styled.div`
 `;
 
 const CloseIconContainer = styled.div`
-  cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
-  padding: ${RHYTHM}px;
   margin-top: 5px;
-`;
-
-const StyledCloseIcon = styled(FontAwesomeIcon)`
-  font-size: 24px;
-  color: ${theme.white};
 `;

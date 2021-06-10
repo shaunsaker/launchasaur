@@ -17,3 +17,5 @@ export const navigateToLaunchStation = (props: {
       props.launchStationId,
     ),
   });
+
+export const navigateBack = createStandardAction("NAVIGATION/navigateBack")();

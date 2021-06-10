@@ -4,7 +4,7 @@ import { call, fork, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { ActionType, getType } from "typesafe-actions";
 import { select } from "../../utils/select";
 import { hideWindowSaga } from "../ipc/flow";
-import { navigateTo } from "./actions";
+import { navigateBack, navigateTo } from "./actions";
 import { Routes } from "./routes";
 import { selectNavigationLocation } from "./selectors";
 
@@ -15,6 +15,12 @@ function* navigateToSaga(): SagaIterator {
       yield put(push(action.payload.to));
     },
   );
+}
+
+function* navigateBackSaga(): SagaIterator {
+  yield takeLatest(getType(navigateBack), function* (): SagaIterator {
+    yield put(goBack());
+  });
 }
 
 const createKeyListenerChannel = (key: string) =>
@@ -45,5 +51,6 @@ function* backHandlerSaga(): SagaIterator {
 
 export function* navigationSagas(): SagaIterator {
   yield fork(navigateToSaga);
+  yield fork(navigateBackSaga);
   yield fork(backHandlerSaga);
 }
