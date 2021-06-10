@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
-
-import { Page } from "../components/Page";
+import { Page } from "../Page";
 
 export const Settings = (): ReactElement => {
   return (

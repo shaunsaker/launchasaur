@@ -2,7 +2,6 @@ import React, { ReactElement, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { HomeRouteParams } from "../../pages/Home";
 import { makeLauncherData } from "../../store/launchStations/data";
 import { ADD_ITEM_TITLE } from "../../store/launchStations/models";
 import { selectLaunchStation } from "../../store/launchStations/selectors";
@@ -16,7 +15,11 @@ import { LauncherSvgBackground } from "./LauncherSvgBackground";
 const LAUNCH_STATION_DIAMETER = 640;
 const LAUNCH_STATION_INNER_DIAMETER = 128;
 
-export const LaunchStation = (): ReactElement => {
+export interface HomeRouteParams {
+  launchStationId: string | undefined;
+}
+
+export const Home = (): ReactElement => {
   const { launchStationId } = useParams<HomeRouteParams>();
   const launchStation = useSelector((state: ApplicationState) =>
     selectLaunchStation(state, launchStationId),

@@ -11,8 +11,6 @@ import { EditLauncherTitleModal } from "../components/EditLauncherTitleModal";
 import { EditLaunchStationTitleModal } from "../components/EditLaunchStationTitleModal";
 import { LauncherActionsModal } from "../components/LauncherActionsModal";
 import { SelectLaunchStationModal } from "../components/SelectLaunchStationModal";
-import { Home } from "../pages/Home";
-import { Settings } from "../pages/Settings";
 import { history } from "../store";
 import { selectEditAppShortcutModalIsShown } from "../store/editAppShortcutModal/selectors";
 import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
@@ -26,6 +24,8 @@ import { Routes } from "../store/navigation/routes";
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
 import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
 import { EditLauncherModal } from "../components/EditLauncherModal";
+import { Home } from "../components/Home";
+import { Settings } from "../components/Settings";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
