@@ -5,11 +5,11 @@ import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
   BORDER_RADIUS,
-  SMALL_BORDER_WIDTH,
   RHYTHM,
   theme,
   TRANSITION_CSS,
   BOX_SHADOW_CSS,
+  BORDER_WIDTH,
 } from "../theme";
 
 export const SMALL_BUTTON_HEIGHT = 30;
@@ -100,7 +100,7 @@ const Container = styled.div<ContainerProps>`
   height: ${SMALL_BUTTON_HEIGHT}px;
   background-color: ${getContainerBackgroundColor};
   border-radius: ${BORDER_RADIUS / 2}px;
-  border: ${SMALL_BORDER_WIDTH}px solid ${getContainerBorderColor};
+  border: ${BORDER_WIDTH}px solid ${getContainerBorderColor};
   transition: all ${TRANSITION_CSS};
   ${BOX_SHADOW_CSS};
   cursor: pointer;

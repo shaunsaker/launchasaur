@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
   SMALL_BORDER_RADIUS,
-  SMALL_BORDER_WIDTH,
+  BORDER_WIDTH,
   FLEX_CENTER_CSS,
   SCROLLBAR_WIDTH,
   theme,
@@ -48,7 +48,7 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
   width: ${ITEM_CONTAINER_SIZE}px;
   height: ${ITEM_CONTAINER_SIZE}px;
-  border: ${SMALL_BORDER_WIDTH}px solid
+  border: ${BORDER_WIDTH}px solid
     ${({ active, hovered }) =>
       active || hovered ? theme.accent : "transparent"};
   border-radius: ${SMALL_BORDER_RADIUS}px;
