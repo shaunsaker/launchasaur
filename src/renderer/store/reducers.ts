@@ -15,10 +15,6 @@ import { EditAppShortcutModalState } from "./editAppShortcutModal/models";
 import { editAppShortcutModalReducer } from "./editAppShortcutModal/reducer";
 import { SettingsState } from "./settings/models";
 import { settingsReducer } from "./settings/reducer";
-import { EditLauncherTitleModalState } from "./editLauncherTitleModal/models";
-import { editLauncherTitleModalReducer } from "./editLauncherTitleModal/reducer";
-import { EditLaunchStationTitleModalState } from "./editLaunchStationTitleModal/models";
-import { editLaunchStationTitleModalReducer } from "./editLaunchStationTitleModal/reducer";
 import { EditLauncherColourModalState } from "./editLauncherColourModal/models";
 import { editLauncherColourModalReducer } from "./editLauncherColourModal/reducer";
 import { editLauncherIconModalReducer } from "./editLauncherIconModal/reducer";
@@ -35,8 +31,6 @@ export interface ApplicationState {
   selectLaunchStationModal: SelectLaunchStationModalState;
   editLaunchStationModal: EditLaunchStationModalState;
   editAppShortcutModal: EditAppShortcutModalState;
-  editLauncherTitleModal: EditLauncherTitleModalState;
-  editLaunchStationTitleModal: EditLaunchStationTitleModalState;
   editLauncherColourModal: EditLauncherColourModalState;
   editLauncherIconModal: EditLauncherIconModalState;
   editLauncherModal: EditLauncherModalState;
@@ -52,8 +46,6 @@ export const createRootReducer = (history_: History) =>
     selectLaunchStationModal: selectLaunchStationModalReducer,
     editLaunchStationModal: editLaunchStationModalReducer,
     editAppShortcutModal: editAppShortcutModalReducer,
-    editLauncherTitleModal: editLauncherTitleModalReducer,
-    editLaunchStationTitleModal: editLaunchStationTitleModalReducer,
     editLauncherColourModal: editLauncherColourModalReducer,
     editLauncherIconModal: editLauncherIconModalReducer,
     editLauncherModal: editLauncherModalReducer,

@@ -7,8 +7,6 @@ import { EditLinkModal } from "../components/EditLinkModal";
 import { EditLaunchStationModal } from "../components/EditLaunchStationModal";
 import { EditLauncherColourModal } from "../components/EditLauncherColourModal";
 import { EditLauncherIconModal } from "../components/EditLauncherIconModal";
-import { EditLauncherTitleModal } from "../components/EditLauncherTitleModal";
-import { EditLaunchStationTitleModal } from "../components/EditLaunchStationTitleModal";
 import { LauncherActionsModal } from "../components/LauncherActionsModal";
 import { SelectLaunchStationModal } from "../components/SelectLaunchStationModal";
 import { history } from "../store";
@@ -42,12 +40,6 @@ export const Router = (): ReactElement => {
   );
   const editAppShortcutModalIsShown = useSelector(
     selectEditAppShortcutModalIsShown,
-  );
-  const editLauncherTitleModalIsShown = useSelector(
-    selectEditLauncherTitleModalIsShown,
-  );
-  const editLaunchStationTitleModalIsShown = useSelector(
-    selectEditLaunchStationTitleModalIsShown,
   );
   const editLauncherColourModalIsShown = useSelector(
     selectEditLauncherColourModalIsShown,
@@ -95,10 +87,6 @@ export const Router = (): ReactElement => {
         {editLaunchStationModalIsShown && <EditLaunchStationModal />}
 
         {editAppShortcutModalIsShown && <EditAppShortcutModal />}
-
-        {editLauncherTitleModalIsShown && <EditLauncherTitleModal />}
-
-        {editLaunchStationTitleModalIsShown && <EditLaunchStationTitleModal />}
 
         {editLauncherColourModalIsShown && <EditLauncherColourModal />}
       </HashRouter>
