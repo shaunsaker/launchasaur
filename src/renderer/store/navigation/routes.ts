@@ -4,5 +4,7 @@ export const launchStationIdParam = ":launchStationId";
 export const Routes = {
   root: "/",
   launchStation: `/${launchStationBase}/${launchStationIdParam}`,
-  settings: "/settings",
+  settingsLaunchStations: "/settings/launch-stations",
+  settingsAccount: "/settings/account",
+  settingsAppSettingsAppShortcut: "/settings/app-settings/app-shortcut",
 };

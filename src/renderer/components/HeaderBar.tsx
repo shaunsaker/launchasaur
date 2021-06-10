@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { navigateBack, navigateTo } from "../store/navigation/actions";
+import { navigateTo } from "../store/navigation/actions";
+import { Routes } from "../store/navigation/routes";
 import { BORDER_WIDTH, BOX_SHADOW_CSS, RHYTHM, theme } from "../theme";
 import { CloseIcon } from "./CloseIcon";
 
@@ -11,7 +12,7 @@ export const HeaderBar = ({}: HeaderBarProps) => {
   const dispatch = useDispatch();
 
   const onCloseClick = useCallback(() => {
-    dispatch(navigateBack());
+    dispatch(navigateTo({ to: Routes.root }));
   }, [dispatch]);
 
   return (

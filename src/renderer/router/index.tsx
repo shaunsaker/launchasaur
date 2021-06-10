@@ -25,7 +25,9 @@ import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationMod
 import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
 import { EditLauncherModal } from "../components/EditLauncherModal";
 import { Home } from "../components/Home";
-import { Settings } from "../components/Settings";
+import { SettingsLaunchStations } from "../components/Settings/SettingsLaunchStations";
+import { SettingsAccount } from "../components/Settings/SettingsAccount";
+import { SettingsAppSettingsAppShortcut } from "../components/Settings/SettingsAppSettingsAppShortcut";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -59,14 +61,24 @@ export const Router = (): ReactElement => {
     <ConnectedRouter history={history}>
       <HashRouter>
         <Switch>
-          <Route path={Routes.settings}>
-            <Settings />
+          <Route exact path={Routes.root}>
+            <Home />
           </Route>
+
           <Route path={Routes.launchStation}>
             <Home />
           </Route>
-          <Route exact path={Routes.root}>
-            <Home />
+
+          <Route path={Routes.settingsLaunchStations}>
+            <SettingsLaunchStations />
+          </Route>
+
+          <Route path={Routes.settingsAccount}>
+            <SettingsAccount />
+          </Route>
+
+          <Route path={Routes.settingsAppSettingsAppShortcut}>
+            <SettingsAppSettingsAppShortcut />
           </Route>
         </Switch>
 

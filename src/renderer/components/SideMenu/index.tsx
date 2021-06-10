@@ -3,15 +3,16 @@ import styled from "styled-components";
 import { BORDER_WIDTH, RHYTHM, theme } from "../../theme";
 import { SideMenuOption } from "./SideMenuOption";
 
-interface Option {
+export interface SideMenuOption {
   value: string;
   selected: boolean;
+  route: string;
 }
 
 interface SideMenuProps {
   title?: string;
-  options: Option[];
-  onOptionClick: (option: Option) => void;
+  options: SideMenuOption[];
+  onOptionClick: (option: SideMenuOption) => void;
   children?: ReactNode;
 }
 

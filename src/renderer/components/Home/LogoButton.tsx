@@ -20,7 +20,7 @@ export const LogoButton = ({ diameter }: LogoButtonProps): ReactElement => {
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
   const onClick = useCallback(() => {
-    dispatch(navigateTo({ to: Routes.settings }));
+    dispatch(navigateTo({ to: Routes.settingsLaunchStations }));
   }, [dispatch]);
 
   return (

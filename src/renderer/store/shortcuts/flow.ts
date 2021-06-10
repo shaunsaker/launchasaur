@@ -97,6 +97,7 @@ function* registerLaunchStationShortcutsListener(): SagaIterator {
 }
 
 export function* shortcutsSagas(): SagaIterator {
-  yield fork(registerLaunchStationShortcutsListener);
-  yield fork(registerLauncherShortcutListener);
+  // TODO: fix these
+  // yield fork(registerLaunchStationShortcutsListener);
+  // yield fork(registerLauncherShortcutListener);
 }
