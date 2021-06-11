@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { EditAppShortcutModal } from "../components/EditAppShortcutModal";
 import { EditLinkModal } from "../components/EditLinkModal";
-import { EditLaunchStationModal } from "../components/EditLaunchStationModal";
 import { EditLauncherColourModal } from "../components/EditLauncherColourModal";
 import { EditLauncherIconModal } from "../components/EditLauncherIconModal";
 import { LauncherActionsModal } from "../components/LauncherActionsModal";
@@ -12,11 +11,8 @@ import { SelectLaunchStationModal } from "../components/SelectLaunchStationModal
 import { history } from "../store";
 import { selectEditAppShortcutModalIsShown } from "../store/editAppShortcutModal/selectors";
 import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
-import { selectEditLaunchStationModalIsShown } from "../store/addLaunchStationModal/selectors";
 import { selectEditLauncherColourModalIsShown } from "../store/editLauncherColourModal/selectors";
 import { selectEditLauncherIconModalIsShown } from "../store/editLauncherIconModal/selectors";
-import { selectEditLauncherTitleModalIsShown } from "../store/editLauncherTitleModal/selectors";
-import { selectEditLaunchStationTitleModalIsShown } from "../store/editLaunchStationTitleModal/selectors";
 import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal/selectors";
 import { Routes } from "../store/navigation/routes";
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
@@ -34,9 +30,6 @@ export const Router = (): ReactElement => {
   const editLinkModalIsShown = useSelector(selectEditLinkModalIsShown);
   const launchStationSelectorModalIsShown = useSelector(
     selectLaunchStationModalIsShown,
-  );
-  const editLaunchStationModalIsShown = useSelector(
-    selectEditLaunchStationModalIsShown,
   );
   const editAppShortcutModalIsShown = useSelector(
     selectEditAppShortcutModalIsShown,
@@ -83,8 +76,6 @@ export const Router = (): ReactElement => {
         {editLinkModalIsShown && <EditLinkModal />}
 
         {launchStationSelectorModalIsShown && <SelectLaunchStationModal />}
-
-        {editLaunchStationModalIsShown && <EditLaunchStationModal />}
 
         {editAppShortcutModalIsShown && <EditAppShortcutModal />}
 

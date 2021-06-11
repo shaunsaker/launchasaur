@@ -50,6 +50,6 @@ export interface LaunchStationsState {
   data: Record<LaunchStationId, LaunchStationData>;
 }
 
-export const defaultLaunchStationId = "default";
+export const DEFAULT_LAUNCH_STATION_ID = "default";
 
 export const ADD_ITEM_TITLE = "Add Launcher";

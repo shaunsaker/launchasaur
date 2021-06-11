@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { navigateTo } from "../store/navigation/actions";
 import { Routes } from "../store/navigation/routes";
-import { BORDER_WIDTH, BOX_SHADOW_CSS, RHYTHM, theme } from "../theme";
+import { BORDER_WIDTH, RHYTHM, theme } from "../theme";
 import { CloseIcon } from "./CloseIcon";
 
 interface HeaderBarProps {}
@@ -26,15 +26,17 @@ export const HeaderBar = ({}: HeaderBarProps) => {
   );
 };
 
+const HZ_MARGIN = RHYTHM / 2;
+
 const HeaderBarContainer = styled.div`
-  padding-left: ${RHYTHM}px;
-  border-bottom-width: ${BORDER_WIDTH}px;
+  padding-left: ${HZ_MARGIN}px;
+  border-bottom-width: ${BORDER_WIDTH / 2}px;
   border-bottom-style: solid;
   border-bottom-color: ${theme.black};
-  ${BOX_SHADOW_CSS};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 40px;
 `;
 
 const LogoText = styled.div`
@@ -43,4 +45,6 @@ const LogoText = styled.div`
   color: ${theme.white};
 `;
 
-const CloseIconContainer = styled.div``;
+const CloseIconContainer = styled.div`
+  margin-right: ${-HZ_MARGIN}px;
+`;

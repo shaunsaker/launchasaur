@@ -1,7 +1,7 @@
 import { objectToArray } from "../../utils/objectToArray";
 import { ApplicationState } from "../reducers";
 import {
-  defaultLaunchStationId,
+  DEFAULT_LAUNCH_STATION_ID,
   LaunchStationAction,
   LaunchStationId,
   LauncherId,
@@ -10,10 +10,10 @@ import {
 export const selectLaunchStation = (
   state: ApplicationState,
   launchStationId?: string,
-) => state.launchStations.data[launchStationId || defaultLaunchStationId];
+) => state.launchStations.data[launchStationId || DEFAULT_LAUNCH_STATION_ID];
 
 export const selectIsLaunchStationLaunchStation = (launchStationId: string) =>
-  launchStationId !== defaultLaunchStationId;
+  launchStationId !== DEFAULT_LAUNCH_STATION_ID;
 
 // TODO: in some instances only show the ones that aren't the default
 export const selectLaunchStations = (state: ApplicationState) =>

@@ -168,7 +168,7 @@ export const LauncherForeground = ({
           <Icon icon={icon} />
         </IconContainer>
 
-        <Text>{title || "What am I?"}</Text>
+        <Text>{title}</Text>
 
         <ShortcutText>{shortcut || ""}</ShortcutText>
       </ContentContainer>

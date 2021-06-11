@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showAddLaunchStationModal } from "../store/addLaunchStationModal/actions";
 import { hideLauncherActionsModal } from "../store/launcherActionsModal/actions";
 import { addLauncherAction } from "../store/launchStations/actions";
 import { makeActionData } from "../store/launchStations/data";
@@ -25,7 +24,7 @@ export const SelectLaunchStationModal = (): ReactElement => {
   const hasLaunchStations = launchStations.length;
 
   const onAddLaunchStationClick = useCallback(() => {
-    dispatch(showAddLaunchStationModal());
+    // TODO: how to handle this
   }, [dispatch]);
 
   const onLaunchStationClick = useCallback(

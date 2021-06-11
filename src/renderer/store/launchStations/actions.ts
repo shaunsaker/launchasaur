@@ -60,7 +60,6 @@ export const addLaunchStation = createStandardAction(
   "LAUNCH_STATIONS/addLaunchStation",
 )<{
   id?: string;
-  title: LaunchStationTitle;
 }>();
 
 export const triggerLauncher = createAsyncAction(

@@ -36,7 +36,7 @@ export const makeLauncherData = ({
   isEditable?: boolean;
 }): LauncherData => ({
   id: id || uuid(),
-  title,
+  title: title || "What am I?", // TODO: get random word
   icon: icon || "question",
   colour: "", // TODO: get random colour
   actions: {},
@@ -55,7 +55,7 @@ export const makeLaunchStationData = ({
 
   return {
     id: id || uuid(),
-    title: title || "Default",
+    title: title || "What am I?", // TODO: get random word
     launchers: {
       [launcherId]: makeLauncherData({ id: launcherId }),
     },

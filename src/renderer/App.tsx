@@ -31,7 +31,7 @@ const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${theme.backgroundDark};
-  ${FLEX_CENTER_CSS}
+  ${FLEX_CENTER_CSS};
 
   & * {
     box-sizing: border-box;

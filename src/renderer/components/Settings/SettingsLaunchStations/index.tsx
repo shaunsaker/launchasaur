@@ -10,7 +10,7 @@ import { selectLaunchStations } from "../../../store/launchStations/selectors";
 import { SideMenu, SideMenuOption } from "../../SideMenu";
 import { Button } from "../../Button";
 import { SettingsBase } from "../SettingsBase";
-import { defaultLaunchStationId } from "../../../store/launchStations/models";
+import { DEFAULT_LAUNCH_STATION_ID } from "../../../store/launchStations/models";
 import { RHYTHM } from "../../../theme";
 import { addLaunchStation } from "../../../store/launchStations/actions";
 import { uuid } from "../../../utils/uuid";
@@ -30,7 +30,7 @@ export const SettingsLaunchStations = (): ReactElement => {
   );
 
   useLayoutEffect(() => {
-    setSelected(defaultLaunchStationId);
+    setSelected(DEFAULT_LAUNCH_STATION_ID);
   }, []);
 
   const onLaunchStationClick = useCallback((option: SideMenuOption) => {
@@ -41,7 +41,7 @@ export const SettingsLaunchStations = (): ReactElement => {
     const id = uuid();
 
     setSelected(id);
-    dispatch(addLaunchStation({ id, title: "What am I?" }));
+    dispatch(addLaunchStation({ id }));
   }, [dispatch]);
 
   return (

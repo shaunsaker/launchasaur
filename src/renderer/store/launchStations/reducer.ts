@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { defaultLaunchStationId, LaunchStationsState } from "./models";
+import { DEFAULT_LAUNCH_STATION_ID, LaunchStationsState } from "./models";
 import {
   addLauncherAction,
   addLauncher,
@@ -35,8 +35,8 @@ const reducerActions = {
 
 export const initialState: LaunchStationsState = {
   data: {
-    [defaultLaunchStationId]: makeLaunchStationData({
-      id: defaultLaunchStationId,
+    [DEFAULT_LAUNCH_STATION_ID]: makeLaunchStationData({
+      id: DEFAULT_LAUNCH_STATION_ID,
     }),
   },
 };

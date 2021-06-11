@@ -103,8 +103,7 @@ const Container = styled.div<ContainerProps>`
   height: ${({ large }) => (large ? 40 : 26)}px;
   background-color: ${getContainerBackgroundColor};
   border-radius: ${BORDER_RADIUS / 2}px;
-  border: ${({ large }) => (large ? BORDER_WIDTH : SMALL_BORDER_WIDTH)}px solid
-    ${getContainerBorderColor};
+  border: ${SMALL_BORDER_WIDTH}px solid ${getContainerBorderColor};
   transition: all ${TRANSITION_CSS};
   ${BOX_SHADOW_CSS};
   cursor: pointer;
