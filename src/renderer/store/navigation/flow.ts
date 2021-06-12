@@ -1,4 +1,5 @@
-import { goBack, push } from "connected-react-router";
+import { goBack, push, replace } from "connected-react-router";
+import { REHYDRATE } from "redux-persist/es/constants";
 import { eventChannel, SagaIterator } from "redux-saga";
 import { call, fork, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { ActionType, getType } from "typesafe-actions";
@@ -12,7 +13,11 @@ function* navigateToSaga(): SagaIterator {
   yield takeLatest(
     getType(navigateTo),
     function* (action: ActionType<typeof navigateTo>): SagaIterator {
-      yield put(push(action.payload.to));
+      yield put(
+        action.payload.replace
+          ? replace(action.payload.to)
+          : push(action.payload.to),
+      );
     },
   );
 }
@@ -49,8 +54,16 @@ function* backHandlerSaga(): SagaIterator {
   });
 }
 
+function* onAppLoadSaga(): SagaIterator {
+  // on app load, redirect to the index route, replacing the route stack
+  yield takeLatest(REHYDRATE, function* (): SagaIterator {
+    yield put(navigateTo({ to: Routes.root, replace: true }));
+  });
+}
+
 export function* navigationSagas(): SagaIterator {
   yield fork(navigateToSaga);
   yield fork(navigateBackSaga);
   yield fork(backHandlerSaga);
+  yield fork(onAppLoadSaga);
 }

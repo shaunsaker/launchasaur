@@ -16,12 +16,11 @@ import { selectEditLauncherIconModalIsShown } from "../store/editLauncherIconMod
 import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal/selectors";
 import { Routes } from "../store/navigation/routes";
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
-import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
-import { EditLauncherModal } from "../components/EditLauncherModal";
 import { Home } from "../components/Home";
 import { SettingsLaunchStations } from "../components/Settings/SettingsLaunchStations";
 import { SettingsAccount } from "../components/Settings/SettingsAccount";
 import { SettingsAppSettingsAppShortcut } from "../components/Settings/SettingsAppSettingsAppShortcut";
+import { SettingsLauncher } from "../components/Settings/SettingsLauncher";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -40,7 +39,6 @@ export const Router = (): ReactElement => {
   const editLauncherIconModalIsShown = useSelector(
     selectEditLauncherIconModalIsShown,
   );
-  const editLauncherModalIsShown = useSelector(selectEditLauncherModalIsShown);
 
   return (
     <ConnectedRouter history={history}>
@@ -58,6 +56,14 @@ export const Router = (): ReactElement => {
             <SettingsLaunchStations />
           </Route>
 
+          <Route path={Routes.settingsLaunchStations}>
+            <SettingsLaunchStations />
+          </Route>
+
+          <Route path={Routes.settingsLauncher}>
+            <SettingsLauncher />
+          </Route>
+
           <Route path={Routes.settingsAccount}>
             <SettingsAccount />
           </Route>
@@ -66,8 +72,6 @@ export const Router = (): ReactElement => {
             <SettingsAppSettingsAppShortcut />
           </Route>
         </Switch>
-
-        {editLauncherModalIsShown && <EditLauncherModal />}
 
         {editLauncherIconModalIsShown && <EditLauncherIconModal />}
 

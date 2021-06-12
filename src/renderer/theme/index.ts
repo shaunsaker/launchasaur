@@ -24,6 +24,7 @@ export const BORDER_RADIUS = RHYTHM;
 export const SMALL_BORDER_RADIUS = BORDER_RADIUS / 2;
 export const SCROLLBAR_WIDTH = RHYTHM / 2;
 export const ICON_SIZE = RHYTHM;
+export const CONTENT_CONTAINER_WIDTH = 536;
 
 // css
 const SHADOW_CSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";

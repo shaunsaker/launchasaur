@@ -12,6 +12,7 @@ export const HeaderBar = ({}: HeaderBarProps) => {
   const dispatch = useDispatch();
 
   const onCloseClick = useCallback(() => {
+    // TODO: how to handle navigate back
     dispatch(navigateTo({ to: Routes.root }));
   }, [dispatch]);
 

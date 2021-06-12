@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { showEditLauncherModal } from "../../../store/editLauncherModal/actions";
 import {
   addLauncher,
   deleteLauncher,
@@ -13,11 +12,19 @@ import {
   LauncherData,
   LaunchStationData,
 } from "../../../store/launchStations/models";
+import {
+  navigateTo,
+  navigateToSettingsLauncher,
+} from "../../../store/navigation/actions";
+import { Routes } from "../../../store/navigation/routes";
 import { RHYTHM, theme } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { uuid } from "../../../utils/uuid";
 import { Button } from "../../Button";
+import { FieldContainer } from "../../FieldContainer";
 import { FieldLabel } from "../../FieldLabel";
+import { PageContentContainer } from "../../PageContentContainer";
+import { PageTitleText } from "../../PageTitleText";
 import { SIDE_MENU_OPTION_MARGIN } from "../../SideMenu/SideMenuOption";
 import { TextInput } from "../../TextInput";
 import { LauncherItem } from "./LauncherItem";
@@ -61,7 +68,7 @@ export const LaunchStationEditor = ({
   const onLauncherEditClick = useCallback(
     (launcher: LauncherData) => {
       dispatch(
-        showEditLauncherModal({
+        navigateToSettingsLauncher({
           launchStationId: launchStation.id,
           launcherId: launcher.id,
         }),
@@ -82,17 +89,17 @@ export const LaunchStationEditor = ({
   }, [dispatch, launchStation.id]);
 
   return (
-    <LaunchStationEditorContainer>
+    <Container>
       <TitleText>{launchStation.title} Launch Station</TitleText>
 
-      <TitleInputContainer>
+      <FieldContainer>
         <TextInput
           label="Title"
           placeholder="Add a Title"
           value={launchStation.title}
           onChangeText={onChangeTitle}
         />
-      </TitleInputContainer>
+      </FieldContainer>
 
       <LaunchersContainer>
         <FieldLabel>Launchers</FieldLabel>
@@ -123,28 +130,14 @@ export const LaunchStationEditor = ({
           </Button>
         </DeleteButtonContainer>
       )}
-    </LaunchStationEditorContainer>
+    </Container>
   );
 };
 
-const LaunchStationEditorContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: ${RHYTHM}px;
-  background-color: ${theme.white5};
-`;
+const Container = styled(PageContentContainer)``;
 
-const TitleText = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-  color: ${theme.white};
+const TitleText = styled(PageTitleText)`
   margin-top: ${SIDE_MENU_OPTION_MARGIN}px;
-  margin-bottom: ${RHYTHM * 2}px;
-`;
-
-const TitleInputContainer = styled.div`
-  margin-bottom: ${RHYTHM * 2}px;
 `;
 
 const LaunchersContainer = styled.div`
