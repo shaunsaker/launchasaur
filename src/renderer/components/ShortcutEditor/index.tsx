@@ -15,7 +15,6 @@ export const ShortcutEditor = ({
   shortcut,
   onChange,
 }: EditShortcutModalProps): ReactElement => {
-  console.log({ shortcut, onChange });
   const [isListening, setIsListening] = useState(false);
 
   const onClearClick = useCallback(() => {

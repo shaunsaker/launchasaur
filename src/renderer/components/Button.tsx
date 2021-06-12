@@ -31,20 +31,23 @@ export const Button = ({
   children,
   onClick,
 }: SmallButtonProps): ReactElement => {
+  // TODO: handle tooltip and show one if need be (e.g. disabled buttons)
   const [hoverRef, hovered] = useHover<HTMLDivElement>();
 
   return (
     <Container
       ref={hoverRef}
-      hovered={hovered}
+      hovered={!disabled && hovered}
       primary={primary}
       danger={danger}
       large={large}
       disabled={disabled}
-      onClick={onClick}>
+      onClick={!disabled ? onClick : undefined}>
       {icon && <StyledIcon icon={icon} />}
 
-      <Text large={large}>{children}</Text>
+      <Text $disabled={disabled} $large={large}>
+        {children}
+      </Text>
     </Container>
   );
 };
@@ -93,7 +96,12 @@ const getContainerBorderColor = ({
   primary,
   danger,
   hovered,
+  disabled,
 }: ContainerProps): string => {
+  if (disabled) {
+    return theme.white5;
+  }
+
   if (hovered) {
     if (!primary && !danger) {
       return theme.accent;
@@ -114,7 +122,7 @@ const Container = styled.div<ContainerProps>`
   border: ${SMALL_BORDER_WIDTH}px solid ${getContainerBorderColor};
   transition: all ${TRANSITION_CSS};
   ${BOX_SHADOW_CSS};
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "unset" : "pointer")};
   max-width: 320px;
 `;
 
@@ -126,11 +134,12 @@ const StyledIcon = styled(FontAwesomeIcon)`
 `;
 
 interface TextProps {
-  large?: boolean;
+  $large?: boolean;
+  $disabled?: boolean;
 }
 
 const Text = styled.div<TextProps>`
-  font-size: ${({ large }) => (large ? 13 : 11)}px;
-  color: ${theme.white};
+  font-size: ${({ $large }) => ($large ? 13 : 11)}px;
+  color: ${({ $disabled }) => ($disabled ? theme.white50 : theme.white)};
   font-weight: bold;
 `;
