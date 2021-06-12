@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { CONTENT_CONTAINER_WIDTH, RHYTHM, theme } from "../theme";
+import {
+  BOX_SHADOW_CSS,
+  CONTENT_CONTAINER_WIDTH,
+  RHYTHM,
+  theme,
+} from "../theme";
 
 export const PageContentContainer = styled.div`
   display: flex;
@@ -8,4 +13,5 @@ export const PageContentContainer = styled.div`
   height: 100%;
   padding: ${RHYTHM}px;
   background-color: ${theme.white5};
+  ${BOX_SHADOW_CSS};
 `;

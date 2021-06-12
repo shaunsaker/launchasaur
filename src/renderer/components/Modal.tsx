@@ -4,7 +4,6 @@ import {
   BORDER_RADIUS,
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
-  CONTENT_CONTAINER_WIDTH,
   FLEX_CENTER_CSS,
   RHYTHM,
   theme,
@@ -50,7 +49,7 @@ const Container = styled.div`
   ${FLEX_CENTER_CSS};
 `;
 
-export const MODAL_WIDTH = CONTENT_CONTAINER_WIDTH;
+export const MODAL_WIDTH = 480;
 export const MODAL_PADDING = RHYTHM;
 export const MODAL_BORDER_WIDTH = BORDER_WIDTH;
 

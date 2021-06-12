@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { showEditLauncherIconModal } from "../../../store/editLauncherIconModal/actions";
 import {
+  deleteLauncherAction,
   setLauncherShortcut,
   setLauncherTitle,
 } from "../../../store/launchStations/actions";
@@ -22,6 +23,12 @@ import { useParams } from "react-router-dom";
 import { navigateBack } from "../../../store/navigation/actions";
 import { PageTitleText } from "../../PageTitleText";
 import { PageContentContainer } from "../../PageContentContainer";
+import { objectToArray } from "../../../utils/objectToArray";
+import { ActionItem } from "./ActionItem";
+import { ActionData } from "../../../store/launchStations/models";
+import { showLauncherActionsModal } from "../../../store/launcherActionsModal/actions";
+import { BlankState } from "../../BlankState";
+import { ErrorPage } from "../../ErrorPage";
 
 interface SettingsLauncherRouteParams {
   launchStationId: string | undefined;
@@ -35,6 +42,8 @@ export const SettingsLauncher = (): ReactElement => {
   const launcher = useSelector((state: ApplicationState) =>
     selectLauncher(state, { launchStationId, launcherId }),
   );
+  const actions = objectToArray(launcher.actions);
+  const hasActions = actions.length;
 
   const onDoneClick = useCallback(() => {
     dispatch(navigateBack());
@@ -62,16 +71,40 @@ export const SettingsLauncher = (): ReactElement => {
     dispatch(showEditLauncherColourModal({ launchStationId, launcherId }));
   }, [dispatch, launchStationId, launcherId]);
 
+  const onAddActionClick = useCallback(() => {
+    dispatch(showLauncherActionsModal({ launchStationId, launcherId }));
+  }, [dispatch, launchStationId, launcherId]);
+
+  const onDeleteAction = useCallback(
+    (action: ActionData) => {
+      dispatch(
+        deleteLauncherAction({
+          launchStationId,
+          launcherId,
+          actionId: action.id,
+        }),
+      );
+    },
+    [dispatch, launchStationId, launcherId],
+  );
+
   if (!launcher) {
     // shouldn't happen but it's better than a crash
-    // TODO: show some blank state
-    return null;
+    return <ErrorPage />;
   }
+
+  const addActionButton = (
+    <AddActionButtonContainer>
+      <Button primary onClick={onAddActionClick}>
+        ADD ACTION
+      </Button>
+    </AddActionButtonContainer>
+  );
 
   return (
     <Page>
       <Container>
-        <PageTitleText>Editing {launcher.title} Launcher</PageTitleText>
+        <PageTitleText>{launcher.title} Launcher</PageTitleText>
 
         <FieldContainer>
           <FieldLabel>Icon</FieldLabel>
@@ -118,14 +151,36 @@ export const SettingsLauncher = (): ReactElement => {
         <ActionsContainer>
           <FieldContainer>
             <FieldLabel>Actions</FieldLabel>
+
+            {hasActions ? (
+              <>
+                {actions.map((action) => (
+                  <ActionItemContainer key={action.id}>
+                    <ActionItem
+                      action={action}
+                      onDelete={() => onDeleteAction(action)}
+                    />
+                  </ActionItemContainer>
+                ))}
+
+                {addActionButton}
+              </>
+            ) : (
+              <BlankState
+                icon="rocket"
+                title="You have no actions"
+                description="Add an action so that you can start launching things!">
+                {addActionButton}
+              </BlankState>
+            )}
           </FieldContainer>
         </ActionsContainer>
 
-        <SubmitButtonContainer>
+        <DoneButtonContainer>
           <Button primary large onClick={onDoneClick}>
             DONE
           </Button>
-        </SubmitButtonContainer>
+        </DoneButtonContainer>
       </Container>
     </Page>
   );
@@ -149,7 +204,16 @@ const ActionsContainer = styled.div`
   flex: 1;
 `;
 
-const SubmitButtonContainer = styled.div`
+const ActionItemContainer = styled.div`
+  margin-bottom: ${RHYTHM}px;
+`;
+
+const AddActionButtonContainer = styled.div`
+  display: flex;
+  margin-top: ${RHYTHM}px;
+`;
+
+const DoneButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;

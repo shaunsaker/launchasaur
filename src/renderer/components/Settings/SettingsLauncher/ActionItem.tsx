@@ -1,41 +1,31 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
 import React, { ReactElement } from "react";
 import styled from "styled-components";
+import { ActionData } from "../../../store/launchStations/models";
 import { RHYTHM, theme } from "../../../theme";
 import { Button } from "../../Button";
-import { Icon } from "../../Icon";
 import { ListItemContainer } from "../../ListItemContainer";
 
-interface LauncherItemProps {
-  icon: IconName;
-  colour: string;
-  title: string;
+interface ActionItemProps {
+  action: ActionData;
   onDelete: () => void;
-  onEdit: () => void;
 }
 
-export const LauncherItem = ({
-  icon,
-  colour,
-  title,
+export const ActionItem = ({
+  action,
   onDelete,
-  onEdit,
-}: LauncherItemProps): ReactElement => {
-  return (
-    <Container $colour={colour}>
-      <Icon icon={icon} />
+}: ActionItemProps): ReactElement => {
+  const title = `${action.action} - ${action.resource}`;
 
+  return (
+    <Container>
       <TitleText>{title}</TitleText>
 
-      <ButtonsContainer>
-        <ButtonContainer>
-          <Button danger onClick={onDelete}>
-            DELETE
-          </Button>
-        </ButtonContainer>
-
-        <Button onClick={onEdit}>EDIT</Button>
-      </ButtonsContainer>
+      <DeleteButtonContainer>
+        <Button danger onClick={onDelete}>
+          DELETE
+        </Button>
+      </DeleteButtonContainer>
     </Container>
   );
 };
@@ -49,13 +39,9 @@ const TitleText = styled.div`
   margin: 0 ${RHYTHM / 2}px;
 `;
 
-const ButtonsContainer = styled.div`
+const DeleteButtonContainer = styled.div`
   display: flex;
   flex: 1;
   justify-content: flex-end;
   align-items: center;
-`;
-
-const ButtonContainer = styled.div`
-  margin-right: ${RHYTHM / 2}px;
 `;
