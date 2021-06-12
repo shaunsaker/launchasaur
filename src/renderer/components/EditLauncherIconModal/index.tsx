@@ -17,7 +17,8 @@ import { FieldContainer } from "../FieldContainer";
 import { TextInput } from "../TextInput";
 import { getIconList } from "../../icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ICON_SIZE, theme } from "../../theme";
+import { ICON_SIZE, RHYTHM, TEXT_ELLIPSIS_CSS, theme } from "../../theme";
+import { PICKER_ITEM_CONTAINER_SIZE } from "../Picker/ItemContainer";
 
 export const EditLauncherIconModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ export const EditLauncherIconModal = (): ReactElement => {
   const onSelectIcon = useCallback(
     (icon: IconName) => {
       setValue(icon);
+      setFilter(icon);
     },
     [setValue],
   );
@@ -59,7 +61,13 @@ export const EditLauncherIconModal = (): ReactElement => {
   }, [dispatch]);
 
   const renderIcon = useCallback(
-    (icon: IconName) => <StyledIcon icon={icon} />,
+    (icon: IconName) => (
+      <IconContainer>
+        <StyledIcon icon={icon} />
+
+        <IconText>{icon}</IconText>
+      </IconContainer>
+    ),
     [],
   );
 
@@ -91,9 +99,26 @@ export const EditLauncherIconModal = (): ReactElement => {
   );
 };
 
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const StyledIcon = styled(FontAwesomeIcon)`
   font-size: ${ICON_SIZE}px;
   color: ${theme.white};
+  margin-bottom: ${RHYTHM / 2}px;
+`;
+
+const ICON_TEXT_HZ_MARGIN = 4;
+
+const IconText = styled.div`
+  font-size: 11px;
+  color: ${theme.white};
+  ${TEXT_ELLIPSIS_CSS};
+  width: ${PICKER_ITEM_CONTAINER_SIZE - ICON_TEXT_HZ_MARGIN}px;
+  text-align: center;
 `;
 
 const SubmitButtonContainer = styled.div`

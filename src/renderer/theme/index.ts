@@ -56,3 +56,9 @@ export const FLEX_CENTER_CSS = `
   justify-content: center;
   align-items: center;
 `;
+
+export const TEXT_ELLIPSIS_CSS = `
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;

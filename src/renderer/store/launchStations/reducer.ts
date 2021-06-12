@@ -144,7 +144,6 @@ const addLaunchStationReducer = (
 ): LaunchStationsState => {
   const newLaunchStation = makeLaunchStationData({
     id: action.payload.id,
-    title: action.payload.title,
   });
 
   return {

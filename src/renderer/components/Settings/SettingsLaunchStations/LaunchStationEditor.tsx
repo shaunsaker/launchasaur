@@ -12,22 +12,18 @@ import {
   LauncherData,
   LaunchStationData,
 } from "../../../store/launchStations/models";
-import {
-  navigateTo,
-  navigateToSettingsLauncher,
-} from "../../../store/navigation/actions";
-import { Routes } from "../../../store/navigation/routes";
-import { RHYTHM, theme } from "../../../theme";
+import { navigateToSettingsLauncher } from "../../../store/navigation/actions";
+import { RHYTHM } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { uuid } from "../../../utils/uuid";
 import { Button } from "../../Button";
 import { FieldContainer } from "../../FieldContainer";
 import { FieldLabel } from "../../FieldLabel";
+import { ListItem } from "../../ListItem";
 import { PageContentContainer } from "../../PageContentContainer";
 import { PageTitleText } from "../../PageTitleText";
 import { SIDE_MENU_OPTION_MARGIN } from "../../SideMenu/SideMenuOption";
 import { TextInput } from "../../TextInput";
-import { LauncherItem } from "./LauncherItem";
 
 interface LaunchStationEditorProps {
   launchStation: LaunchStationData;
@@ -106,7 +102,7 @@ export const LaunchStationEditor = ({
 
         {objectToArray(launchStation.launchers).map((launcher) => (
           <LaunchItemContainer key={launcher.id}>
-            <LauncherItem
+            <ListItem
               icon={launcher.icon}
               colour={launcher.colour}
               title={launcher.title}

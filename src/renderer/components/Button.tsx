@@ -9,7 +9,6 @@ import {
   theme,
   TRANSITION_CSS,
   BOX_SHADOW_CSS,
-  BORDER_WIDTH,
   SMALL_BORDER_WIDTH,
 } from "../theme";
 
@@ -18,6 +17,7 @@ interface SmallButtonProps {
   primary?: boolean;
   danger?: boolean;
   large?: boolean;
+  disabled?: boolean;
   children: string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
@@ -27,6 +27,7 @@ export const Button = ({
   primary,
   danger,
   large,
+  disabled,
   children,
   onClick,
 }: SmallButtonProps): ReactElement => {
@@ -39,6 +40,7 @@ export const Button = ({
       primary={primary}
       danger={danger}
       large={large}
+      disabled={disabled}
       onClick={onClick}>
       {icon && <StyledIcon icon={icon} />}
 
@@ -52,14 +54,20 @@ interface ContainerProps {
   primary?: boolean;
   danger?: boolean;
   large?: boolean;
+  disabled?: boolean;
 }
 
 const getContainerBackgroundColor = ({
   primary,
   danger,
   hovered,
+  disabled,
 }: ContainerProps): string => {
   ``;
+  if (disabled) {
+    return theme.white5;
+  }
+
   if (hovered) {
     if (primary) {
       return theme.accent67;
@@ -107,6 +115,7 @@ const Container = styled.div<ContainerProps>`
   transition: all ${TRANSITION_CSS};
   ${BOX_SHADOW_CSS};
   cursor: pointer;
+  max-width: 320px;
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`

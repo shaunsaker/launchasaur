@@ -9,7 +9,7 @@ import {
 } from "../../../store/launchStations/actions";
 import { selectLauncher } from "../../../store/launchStations/selectors";
 import { ApplicationState } from "../../../store/reducers";
-import { CONTENT_CONTAINER_WIDTH, RHYTHM, theme } from "../../../theme";
+import { CONTENT_CONTAINER_WIDTH, RHYTHM } from "../../../theme";
 import { ShortcutEditor } from "../../ShortcutEditor";
 import { FieldContainer } from "../../FieldContainer";
 import { FieldLabel } from "../../FieldLabel";
@@ -24,11 +24,11 @@ import { navigateBack } from "../../../store/navigation/actions";
 import { PageTitleText } from "../../PageTitleText";
 import { PageContentContainer } from "../../PageContentContainer";
 import { objectToArray } from "../../../utils/objectToArray";
-import { ActionItem } from "./ActionItem";
 import { ActionData } from "../../../store/launchStations/models";
 import { showLauncherActionsModal } from "../../../store/launcherActionsModal/actions";
 import { BlankState } from "../../BlankState";
 import { ErrorPage } from "../../ErrorPage";
+import { ActionItem } from "./ActionItem";
 
 interface SettingsLauncherRouteParams {
   launchStationId: string | undefined;
@@ -154,14 +154,16 @@ export const SettingsLauncher = (): ReactElement => {
 
             {hasActions ? (
               <>
-                {actions.map((action) => (
-                  <ActionItemContainer key={action.id}>
-                    <ActionItem
-                      action={action}
-                      onDelete={() => onDeleteAction(action)}
-                    />
-                  </ActionItemContainer>
-                ))}
+                {actions.map((action) => {
+                  return (
+                    <ActionItemContainer key={action.id}>
+                      <ActionItem
+                        action={action}
+                        onDelete={() => onDeleteAction(action)}
+                      />
+                    </ActionItemContainer>
+                  );
+                })}
 
                 {addActionButton}
               </>

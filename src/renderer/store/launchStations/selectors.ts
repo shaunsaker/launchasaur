@@ -5,7 +5,9 @@ import {
   LaunchStationAction,
   LaunchStationId,
   LauncherId,
+  ActionData,
 } from "./models";
+import { getPrettyFilename, getPrettyLink } from "./utils";
 
 export const selectLaunchStation = (
   state: ApplicationState,
@@ -44,4 +46,28 @@ export const selectLauncherHasOpenLaunchStationAction = (
   return objectToArray(launcher.actions).some(
     (actionData) => actionData.action === LaunchStationAction.OpenLaunchStation,
   );
+};
+
+export const selectPrettyAction = (
+  state: ApplicationState,
+  { action }: { action: ActionData },
+): string => {
+  if (action.action === LaunchStationAction.OpenFile) {
+    return `Open ${getPrettyFilename(action.resource)}`;
+  }
+
+  if (action.action === LaunchStationAction.CloseFile) {
+    return `Close ${getPrettyFilename(action.resource)}`;
+  }
+
+  if (action.action === LaunchStationAction.OpenLink) {
+    return `Browse to ${getPrettyLink(action.resource)}`;
+  }
+
+  if (action.action === LaunchStationAction.OpenLaunchStation) {
+    // the resource is the launchStationId so we need to get it's title
+    const launchStation = selectLaunchStation(state, action.resource);
+
+    return `Open Launch Station: ${launchStation.title}`;
+  }
 };

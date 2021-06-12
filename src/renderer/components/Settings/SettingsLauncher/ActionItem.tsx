@@ -1,10 +1,10 @@
-import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
 import React, { ReactElement } from "react";
-import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { ActionData } from "../../../store/launchStations/models";
-import { RHYTHM, theme } from "../../../theme";
-import { Button } from "../../Button";
-import { ListItemContainer } from "../../ListItemContainer";
+import { selectPrettyAction } from "../../../store/launchStations/selectors";
+import { getActionIcon } from "../../../store/launchStations/utils";
+import { ApplicationState } from "../../../store/reducers";
+import { ListItem } from "../../ListItem";
 
 interface ActionItemProps {
   action: ActionData;
@@ -15,33 +15,11 @@ export const ActionItem = ({
   action,
   onDelete,
 }: ActionItemProps): ReactElement => {
-  const title = `${action.action} - ${action.resource}`;
-
-  return (
-    <Container>
-      <TitleText>{title}</TitleText>
-
-      <DeleteButtonContainer>
-        <Button danger onClick={onDelete}>
-          DELETE
-        </Button>
-      </DeleteButtonContainer>
-    </Container>
+  // TODO: show file icon
+  const icon = getActionIcon(action.action);
+  const title = useSelector((state: ApplicationState) =>
+    selectPrettyAction(state, { action }),
   );
+
+  return <ListItem icon={icon} title={title} onDelete={onDelete} />;
 };
-
-const Container = styled(ListItemContainer)``;
-
-const TitleText = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  color: ${theme.white};
-  margin: 0 ${RHYTHM / 2}px;
-`;
-
-const DeleteButtonContainer = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-  align-items: center;
-`;

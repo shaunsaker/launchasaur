@@ -7,6 +7,7 @@ import {
   LaunchStationData,
   LauncherData,
 } from "./models";
+import { getActionIcon } from "./utils";
 
 export const makeActionData = ({
   id,
@@ -20,6 +21,7 @@ export const makeActionData = ({
   id: id || uuid(),
   action,
   resource,
+  icon: getActionIcon(action),
 });
 
 export const makeLauncherData = ({

@@ -22,6 +22,7 @@ export interface ActionData {
   id: ActionId;
   action: LaunchStationAction;
   resource: ActionDataResource;
+  icon: IconName;
 }
 
 export type ActionId = string;

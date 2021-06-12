@@ -6,7 +6,7 @@ import { RHYTHM } from "../../theme";
 import {
   ItemContainer,
   ITEMS_PER_ROW,
-  ITEM_CONTAINER_SIZE,
+  PICKER_ITEM_CONTAINER_SIZE,
 } from "./ItemContainer";
 
 interface PickerProps<T> {
@@ -24,7 +24,8 @@ export const Picker = ({
   renderItem,
   onSelect,
 }: PickerProps<any>): ReactElement => {
-  const CONTAINER_SIZE = ITEM_CONTAINER_SIZE * rowsToRender;
+  // TODO: when two rows, they fill the space
+  const CONTAINER_SIZE = PICKER_ITEM_CONTAINER_SIZE * rowsToRender;
   const INITIAL_AMOUNT_TO_RENDER = rowsToRender * ITEMS_PER_ROW * 2;
   const SCROLL_MORE_AMOUNT = INITIAL_AMOUNT_TO_RENDER;
 

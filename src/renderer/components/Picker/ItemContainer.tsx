@@ -36,7 +36,7 @@ export const ItemContainer = ({
 };
 
 export const ITEMS_PER_ROW = 6;
-export const ITEM_CONTAINER_SIZE =
+export const PICKER_ITEM_CONTAINER_SIZE =
   (MODAL_WIDTH - MODAL_PADDING * 2 - MODAL_BORDER_WIDTH * 2 - SCROLLBAR_WIDTH) /
   ITEMS_PER_ROW;
 
@@ -46,8 +46,8 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  width: ${ITEM_CONTAINER_SIZE}px;
-  height: ${ITEM_CONTAINER_SIZE}px;
+  width: ${PICKER_ITEM_CONTAINER_SIZE}px;
+  height: ${PICKER_ITEM_CONTAINER_SIZE}px;
   border: ${BORDER_WIDTH}px solid
     ${({ active, hovered }) =>
       active || hovered ? theme.accent : "transparent"};
