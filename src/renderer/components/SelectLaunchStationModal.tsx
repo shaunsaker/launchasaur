@@ -25,7 +25,7 @@ export const SelectLaunchStationModal = (): ReactElement => {
 
   const onAddLaunchStationClick = useCallback(() => {
     // TODO: how to handle this
-  }, [dispatch]);
+  }, []);
 
   const onLaunchStationClick = useCallback(
     (launchStation: LaunchStationData) => {

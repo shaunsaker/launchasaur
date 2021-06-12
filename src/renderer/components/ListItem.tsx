@@ -70,7 +70,10 @@ const TitleText = styled.div`
   flex: 1;
 `;
 
-const ButtonsContainer = styled.div``;
+const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const EditButtonContainer = styled.div`
   margin-left: ${RHYTHM / 2}px;

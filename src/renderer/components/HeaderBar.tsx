@@ -6,9 +6,7 @@ import { Routes } from "../store/navigation/routes";
 import { BORDER_WIDTH, RHYTHM, theme } from "../theme";
 import { CloseIcon } from "./CloseIcon";
 
-interface HeaderBarProps {}
-
-export const HeaderBar = ({}: HeaderBarProps) => {
+export const HeaderBar = () => {
   const dispatch = useDispatch();
 
   const onCloseClick = useCallback(() => {
