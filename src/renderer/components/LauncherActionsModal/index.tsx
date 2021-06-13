@@ -51,6 +51,7 @@ export const LauncherActionsModal = (): ReactElement => {
           <Button
             icon={getActionIcon(action)}
             large
+            fullWidth
             disabled={
               // don't allow multiple open launch station actions
               action === LaunchStationAction.OpenLaunchStation &&
@@ -66,6 +67,5 @@ export const LauncherActionsModal = (): ReactElement => {
 };
 
 const ButtonContainer = styled.div`
-  width: 320px;
-  margin: 20px auto 0;
+  margin-top: 20px;
 `;

@@ -17,6 +17,7 @@ interface SmallButtonProps {
   primary?: boolean;
   danger?: boolean;
   large?: boolean;
+  fullWidth?: boolean;
   disabled?: boolean;
   children: string;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
@@ -27,6 +28,7 @@ export const Button = ({
   primary,
   danger,
   large,
+  fullWidth,
   disabled,
   children,
   onClick,
@@ -41,6 +43,7 @@ export const Button = ({
       primary={primary}
       danger={danger}
       large={large}
+      $fullWidth={fullWidth}
       disabled={disabled}
       onClick={!disabled ? onClick : undefined}>
       {icon && <StyledIcon icon={icon} />}
@@ -57,6 +60,7 @@ interface ContainerProps {
   primary?: boolean;
   danger?: boolean;
   large?: boolean;
+  $fullWidth?: boolean;
   disabled?: boolean;
 }
 
@@ -111,6 +115,8 @@ const getContainerBorderColor = ({
   return theme.black;
 };
 
+const MAX_WIDTH = 320;
+
 const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: center;
@@ -123,7 +129,9 @@ const Container = styled.div<ContainerProps>`
   transition: all ${TRANSITION_CSS};
   ${BOX_SHADOW_CSS};
   cursor: ${({ disabled }) => (disabled ? "unset" : "pointer")};
-  max-width: 320px;
+  max-width: ${MAX_WIDTH}px;
+  width: ${({ $fullWidth }) => ($fullWidth ? `${MAX_WIDTH}px` : "initial")};
+  margin: ${({ $fullWidth }) => ($fullWidth ? "0 auto" : "initial")};
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`

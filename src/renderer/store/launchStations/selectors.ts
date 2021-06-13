@@ -14,12 +14,13 @@ export const selectLaunchStation = (
   launchStationId?: string,
 ) => state.launchStations.data[launchStationId || DEFAULT_LAUNCH_STATION_ID];
 
-export const selectIsLaunchStationLaunchStation = (launchStationId: string) =>
-  launchStationId !== DEFAULT_LAUNCH_STATION_ID;
-
-// TODO: in some instances only show the ones that aren't the default
 export const selectLaunchStations = (state: ApplicationState) =>
   objectToArray(state.launchStations.data);
+
+export const selectNonDefaultLaunchStations = (state: ApplicationState) =>
+  objectToArray(state.launchStations.data).filter(
+    (launchStation) => launchStation.id !== DEFAULT_LAUNCH_STATION_ID,
+  );
 
 export const selectLauncher = (
   state: ApplicationState,
