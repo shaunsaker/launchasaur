@@ -2,14 +2,12 @@ import { ConnectedRouter } from "connected-react-router";
 import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { HashRouter, Switch, Route } from "react-router-dom";
-import { EditAppShortcutModal } from "../components/EditAppShortcutModal";
 import { EditLinkModal } from "../components/EditLinkModal";
 import { EditLauncherColourModal } from "../components/EditLauncherColourModal";
 import { EditLauncherIconModal } from "../components/EditLauncherIconModal";
 import { SelectLauncherActionModal } from "../components/SelectLauncherActionModal";
 import { SelectLaunchStationModal } from "../components/SelectLaunchStationModal";
 import { history } from "../store";
-import { selectEditAppShortcutModalIsShown } from "../store/editAppShortcutModal/selectors";
 import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
 import { selectEditLauncherColourModalIsShown } from "../store/editLauncherColourModal/selectors";
 import { selectEditLauncherIconModalIsShown } from "../store/editLauncherIconModal/selectors";
@@ -29,9 +27,6 @@ export const Router = (): ReactElement => {
   const editLinkModalIsShown = useSelector(selectEditLinkModalIsShown);
   const launchStationSelectorModalIsShown = useSelector(
     selectLaunchStationModalIsShown,
-  );
-  const editAppShortcutModalIsShown = useSelector(
-    selectEditAppShortcutModalIsShown,
   );
   const editLauncherColourModalIsShown = useSelector(
     selectEditLauncherColourModalIsShown,
@@ -80,8 +75,6 @@ export const Router = (): ReactElement => {
         {editLinkModalIsShown && <EditLinkModal />}
 
         {launchStationSelectorModalIsShown && <SelectLaunchStationModal />}
-
-        {editAppShortcutModalIsShown && <EditAppShortcutModal />}
 
         {editLauncherColourModalIsShown && <EditLauncherColourModal />}
       </HashRouter>

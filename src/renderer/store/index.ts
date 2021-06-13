@@ -34,20 +34,14 @@ const middleware = applyMiddleware(...middlewares);
 const persistConfig: PersistConfig<ApplicationState> = {
   key: "root",
   storage,
-  // TODO: type this
+  // TODO: type this and should be dynamic
   blacklist: [
     "router",
     "launcherActionsModal",
     "editLinkModal",
     "selectLaunchStationModal",
-    "editLaunchStationModal",
-    "editAppShortcutModal",
-    "editLauncherShortcutModal",
-    "editLauncherTitleModal",
-    "editLaunchStationTitleModal",
     "editLauncherColourModal",
     "editLauncherIconModal",
-    "editLauncherModal",
   ],
 };
 

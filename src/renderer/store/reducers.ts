@@ -9,8 +9,6 @@ import { SelectLaunchStationModalState } from "./selectLaunchStationModal/models
 import { selectLaunchStationModalReducer } from "./selectLaunchStationModal/reducer";
 import { connectRouter, RouterState } from "connected-react-router";
 import { History } from "history";
-import { EditAppShortcutModalState } from "./editAppShortcutModal/models";
-import { editAppShortcutModalReducer } from "./editAppShortcutModal/reducer";
 import { SettingsState } from "./settings/models";
 import { settingsReducer } from "./settings/reducer";
 import { EditLauncherColourModalState } from "./editLauncherColourModal/models";
@@ -25,7 +23,6 @@ export interface ApplicationState {
   launcherActionsModal: LauncherActionsModalState;
   editLinkModal: EditLinkModalState;
   selectLaunchStationModal: SelectLaunchStationModalState;
-  editAppShortcutModal: EditAppShortcutModalState;
   editLauncherColourModal: EditLauncherColourModalState;
   editLauncherIconModal: EditLauncherIconModalState;
 }
@@ -38,7 +35,6 @@ export const createRootReducer = (history_: History) =>
     launcherActionsModal: launcherActionsModalReducer,
     editLinkModal: editLinkModalReducer,
     selectLaunchStationModal: selectLaunchStationModalReducer,
-    editAppShortcutModal: editAppShortcutModalReducer,
     editLauncherColourModal: editLauncherColourModalReducer,
     editLauncherIconModal: editLauncherIconModalReducer,
   });
