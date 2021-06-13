@@ -6,7 +6,7 @@ import { EditAppShortcutModal } from "../components/EditAppShortcutModal";
 import { EditLinkModal } from "../components/EditLinkModal";
 import { EditLauncherColourModal } from "../components/EditLauncherColourModal";
 import { EditLauncherIconModal } from "../components/EditLauncherIconModal";
-import { LauncherActionsModal } from "../components/LauncherActionsModal";
+import { SelectLauncherActionModal } from "../components/SelectLauncherActionModal";
 import { SelectLaunchStationModal } from "../components/SelectLaunchStationModal";
 import { history } from "../store";
 import { selectEditAppShortcutModalIsShown } from "../store/editAppShortcutModal/selectors";
@@ -75,7 +75,7 @@ export const Router = (): ReactElement => {
 
         {editLauncherIconModalIsShown && <EditLauncherIconModal />}
 
-        {launcherActionsModalIsShown && <LauncherActionsModal />}
+        {launcherActionsModalIsShown && <SelectLauncherActionModal />}
 
         {editLinkModalIsShown && <EditLinkModal />}
 

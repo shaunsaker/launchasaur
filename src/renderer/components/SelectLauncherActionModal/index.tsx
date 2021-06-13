@@ -17,7 +17,7 @@ import { ApplicationState } from "../../store/reducers";
 import { Button } from "../Button";
 import { Modal } from "../Modal";
 
-export const LauncherActionsModal = (): ReactElement => {
+export const SelectLauncherActionModal = (): ReactElement => {
   const dispatch = useDispatch();
   const launchStationId = useSelector(
     selectLauncherActionsModalLaunchStationId,
