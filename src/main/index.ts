@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import { isDevelopment } from "../utils/isDevelopment";
 import { enableAutoLaunch } from "./autoLaunch";
 import { startIPC } from "./ipc";
 
@@ -34,7 +35,9 @@ const start = (): void => {
 
   startIPC(mainWindow);
 
-  enableAutoLaunch();
+  if (!isDevelopment()) {
+    enableAutoLaunch();
+  }
 };
 
 // This method will be called when Electron has finished
