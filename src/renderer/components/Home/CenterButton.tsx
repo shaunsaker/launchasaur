@@ -16,7 +16,6 @@ import {
   theme,
   TRANSITION_CSS,
 } from "../../theme";
-import { CloseIcon } from "../CloseIcon";
 import { Icon } from "../Icon";
 
 interface LogoButtonProps {
