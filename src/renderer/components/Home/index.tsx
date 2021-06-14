@@ -8,7 +8,7 @@ import { selectLaunchStation } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
 import { ABSOLUTE_CENTER_CSS, FLEX_CENTER_CSS } from "../../theme";
 import { objectToArray } from "../../utils/objectToArray";
-import { LogoButton } from "./LogoButton";
+import { CenterButton } from "./CenterButton";
 import { LauncherForeground } from "./LauncherForeground";
 import { LauncherSvgBackground } from "./LauncherSvgBackground";
 
@@ -80,9 +80,9 @@ export const Home = (): ReactElement => {
         ))}
       </ForegroundContainer>
 
-      <LogoButtonContainer>
-        <LogoButton diameter={LAUNCH_STATION_INNER_DIAMETER} />
-      </LogoButtonContainer>
+      <CenterButtonContainer>
+        <CenterButton diameter={LAUNCH_STATION_INNER_DIAMETER} />
+      </CenterButtonContainer>
     </Container>
   );
 };
@@ -100,6 +100,6 @@ const SvgBackgroundContainer = styled.svg`
 
 const ForegroundContainer = styled.div``;
 
-const LogoButtonContainer = styled.div`
+const CenterButtonContainer = styled.div`
   ${ABSOLUTE_CENTER_CSS}
 `;
