@@ -1,4 +1,4 @@
-import { launchStationBase } from "./routes";
+import { launchStationBase } from "./models";
 
 export const isLaunchStationRoute = (): boolean =>
   window.location.hash.includes(launchStationBase);

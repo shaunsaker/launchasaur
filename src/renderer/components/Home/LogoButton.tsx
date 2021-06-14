@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import { navigateTo } from "../../store/navigation/actions";
-import { Routes } from "../../store/navigation/routes";
+import { Routes } from "../../store/navigation/models";
 import {
   BORDER_WIDTH,
   FLEX_CENTER_CSS,

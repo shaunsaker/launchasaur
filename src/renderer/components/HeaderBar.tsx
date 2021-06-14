@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { navigateTo } from "../store/navigation/actions";
-import { Routes } from "../store/navigation/routes";
+import { Routes } from "../store/navigation/models";
 import { BORDER_WIDTH, RHYTHM, theme } from "../theme";
 import { CloseIcon } from "./CloseIcon";
 

@@ -1,6 +1,6 @@
 import { createStandardAction } from "typesafe-actions";
 import { LauncherId, LaunchStationId } from "../launchStations/models";
-import { launcherIdParam, launchStationIdParam, Routes } from "./routes";
+import { launcherIdParam, launchStationIdParam, Routes } from "./models";
 
 export const navigateTo = createStandardAction("NAVIGATION/navigateTo").map(
   (payload: { to: string; replace?: boolean }) => ({

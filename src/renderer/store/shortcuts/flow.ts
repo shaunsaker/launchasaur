@@ -15,7 +15,7 @@ import {
   Shortcut,
 } from "../launchStations/models";
 import { selectLaunchStation } from "../launchStations/selectors";
-import { launchStationBase, Routes } from "../navigation/routes";
+import { launchStationBase, Routes } from "../navigation/models";
 import { selectNavigationLocation } from "../navigation/selectors";
 import { getLaunchStationIdFromRoute } from "../navigation/utils";
 import { registerLauncherShortcut } from "./actions";

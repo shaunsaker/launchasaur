@@ -6,7 +6,7 @@ import { ActionType, getType } from "typesafe-actions";
 import { select } from "../../utils/select";
 import { hideWindowSaga } from "../ipc/flow";
 import { navigateBack, navigateTo } from "./actions";
-import { Routes } from "./routes";
+import { Routes } from "./models";
 import { selectNavigationLocation } from "./selectors";
 
 function* navigateToSaga(): SagaIterator {

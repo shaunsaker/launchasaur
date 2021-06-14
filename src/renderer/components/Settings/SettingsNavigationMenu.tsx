@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { navigateTo } from "../../store/navigation/actions";
-import { Routes } from "../../store/navigation/routes";
+import { Routes } from "../../store/navigation/models";
 import { SideMenu, SideMenuOption } from "../SideMenu";
 
 const mainSettingsRoutes = [
