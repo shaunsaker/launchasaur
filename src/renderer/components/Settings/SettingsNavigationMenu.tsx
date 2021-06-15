@@ -2,24 +2,21 @@ import React, { ReactElement, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { navigateTo } from "../../store/navigation/actions";
-import { Routes } from "../../store/navigation/models";
 import { SideMenu, SideMenuOption } from "../SideMenu";
 
-const mainSettingsRoutes = [
-  {
-    key: "Launch Stations",
-    route: Routes.settingsLaunchStations,
-  },
-  {
-    key: "App Settings",
-    route: Routes.settingsAppSettingsAppShortcut,
-  },
-];
+interface SettingsNavigationMenuProps {
+  routes: {
+    key: string;
+    route: string; // TODO: typeof routes
+  }[];
+}
 
-export const SettingsNavigationMenu = (): ReactElement => {
+export const SettingsNavigationMenu = ({
+  routes,
+}: SettingsNavigationMenuProps): ReactElement => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const options: SideMenuOption[] = mainSettingsRoutes.map((route) => {
+  const options: SideMenuOption[] = routes.map((route) => {
     return {
       id: route.key,
       title: route.key,
@@ -29,13 +26,11 @@ export const SettingsNavigationMenu = (): ReactElement => {
 
   const onSideMenuOptionClick = useCallback(
     (option: SideMenuOption) => {
-      const { route } = mainSettingsRoutes.find(
-        (item) => item.key === option.id,
-      );
+      const { route } = routes.find((item) => item.key === option.id);
 
       dispatch(navigateTo({ to: route }));
     },
-    [dispatch],
+    [dispatch, routes],
   );
 
   return <SideMenu options={options} onOptionClick={onSideMenuOptionClick} />;

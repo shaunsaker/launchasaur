@@ -1,7 +1,19 @@
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
+import { Routes } from "../../store/navigation/models";
 import { Page } from "../Page";
 import { SettingsNavigationMenu } from "./SettingsNavigationMenu";
+
+const routes = [
+  {
+    key: "Launch Stations",
+    route: Routes.settingsLaunchStations,
+  },
+  {
+    key: "App Settings",
+    route: Routes.settingsAppSettingsAppShortcut,
+  },
+];
 
 interface SettingsBaseProps {
   children: ReactNode;
@@ -11,7 +23,7 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   return (
     <Page>
       <Container>
-        <SettingsNavigationMenu />
+        <SettingsNavigationMenu routes={routes} />
 
         {children}
       </Container>

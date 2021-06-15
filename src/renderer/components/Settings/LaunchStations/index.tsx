@@ -16,7 +16,7 @@ import { addLaunchStation } from "../../../store/launchStations/actions";
 import { uuid } from "../../../utils/uuid";
 import { LaunchStationEditor } from "./LaunchStationEditor";
 
-export const SettingsLaunchStations = (): ReactElement => {
+export const LaunchStations = (): ReactElement => {
   const dispatch = useDispatch();
   const launchStations = useSelector(selectLaunchStations);
   const [selected, setSelected] = useState("");

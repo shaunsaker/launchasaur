@@ -15,9 +15,9 @@ import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal
 import { Routes } from "../store/navigation/routes";
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
 import { Home } from "../components/Home";
-import { SettingsLaunchStations } from "../components/Settings/SettingsLaunchStations";
-import { SettingsAppSettingsAppShortcut } from "../components/Settings/SettingsAppSettingsAppShortcut";
-import { SettingsLauncher } from "../components/Settings/SettingsLauncher";
+import { LaunchStations } from "../components/Settings/LaunchStations";
+import { SettingsLauncher } from "../components/Settings/LaunchStations/SettingsLauncher";
+import { SettingsAppShortcut } from "../components/Settings/AppSettings/SettingsAppShortcut";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -47,11 +47,11 @@ export const Router = (): ReactElement => {
           </Route>
 
           <Route path={Routes.settingsLaunchStations}>
-            <SettingsLaunchStations />
+            <LaunchStations />
           </Route>
 
           <Route path={Routes.settingsLaunchStations}>
-            <SettingsLaunchStations />
+            <LaunchStations />
           </Route>
 
           <Route path={Routes.settingsLauncher}>
@@ -59,7 +59,7 @@ export const Router = (): ReactElement => {
           </Route>
 
           <Route path={Routes.settingsAppSettingsAppShortcut}>
-            <SettingsAppSettingsAppShortcut />
+            <SettingsAppShortcut />
           </Route>
         </Switch>
 
