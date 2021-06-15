@@ -17,7 +17,7 @@ import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationMod
 import { Home } from "../components/Home";
 import { LaunchStations } from "../components/Settings/LaunchStations";
 import { SettingsLauncher } from "../components/Settings/LaunchStations/SettingsLauncher";
-import { SettingsAppShortcut } from "../components/Settings/AppSettings/SettingsAppShortcut";
+import { AppShortcut } from "../components/Settings/AppSettings/AppShortcut";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -59,7 +59,7 @@ export const Router = (): ReactElement => {
           </Route>
 
           <Route path={Routes.settingsAppSettingsAppShortcut}>
-            <SettingsAppShortcut />
+            <AppShortcut />
           </Route>
         </Switch>
 

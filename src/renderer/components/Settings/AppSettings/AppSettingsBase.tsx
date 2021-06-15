@@ -19,7 +19,7 @@ export const AppSettingsBase = ({
 }: SettingsBaseProps): ReactElement => {
   return (
     <Container>
-      <SettingsNavigationMenu routes={routes} />
+      <SettingsNavigationMenu title="APP SETTINGS" routes={routes} />
 
       {children}
     </Container>

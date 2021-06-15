@@ -52,4 +52,5 @@ const TitleText = styled.div`
   font-weight: bold;
   color: ${theme.white50};
   margin-top: ${SIDE_MENU_OPTION_MARGIN}px;
+  margin-bottom: ${RHYTHM}px;
 `;

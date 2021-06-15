@@ -1,10 +1,10 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { settingsSetAppShortcut } from "./actions";
+import { setAppShortcut } from "./actions";
 import { SettingsState } from "./models";
 
 const reducerActions = {
-  settingsSetAppShortcut,
+  setAppShortcut,
 };
 
 export const initialState: SettingsState = {
@@ -16,7 +16,7 @@ export const settingsReducer: Reducer<SettingsState> = (
   action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
-    case getType(settingsSetAppShortcut.success):
+    case getType(setAppShortcut.success):
       return {
         ...state,
         appShortcut: action.payload.shortcut,

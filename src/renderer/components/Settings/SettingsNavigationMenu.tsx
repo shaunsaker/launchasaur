@@ -5,6 +5,7 @@ import { navigateTo } from "../../store/navigation/actions";
 import { SideMenu, SideMenuOption } from "../SideMenu";
 
 interface SettingsNavigationMenuProps {
+  title?: string;
   routes: {
     key: string;
     route: string; // TODO: typeof routes
@@ -12,6 +13,7 @@ interface SettingsNavigationMenuProps {
 }
 
 export const SettingsNavigationMenu = ({
+  title,
   routes,
 }: SettingsNavigationMenuProps): ReactElement => {
   const dispatch = useDispatch();
@@ -33,5 +35,11 @@ export const SettingsNavigationMenu = ({
     [dispatch, routes],
   );
 
-  return <SideMenu options={options} onOptionClick={onSideMenuOptionClick} />;
+  return (
+    <SideMenu
+      title={title}
+      options={options}
+      onOptionClick={onSideMenuOptionClick}
+    />
+  );
 };

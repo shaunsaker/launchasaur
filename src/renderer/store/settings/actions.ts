@@ -1,6 +1,6 @@
 import { createAsyncAction } from "typesafe-actions";
 
-export const settingsSetAppShortcut = createAsyncAction(
+export const setAppShortcut = createAsyncAction(
   "SETTINGS/setAppShortcutRequest",
   "SETTINGS/setAppShortcutSuccess",
   "SETTINGS/setAppShortcutFailure",

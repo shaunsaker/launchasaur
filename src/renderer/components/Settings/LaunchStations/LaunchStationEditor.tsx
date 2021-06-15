@@ -85,8 +85,10 @@ export const LaunchStationEditor = ({
   }, [dispatch, launchStation.id]);
 
   return (
-    <Container>
-      <TitleText>{launchStation.title} Launch Station</TitleText>
+    <PageContentContainer>
+      <StyledPageTitleText>
+        {launchStation.title} Launch Station
+      </StyledPageTitleText>
 
       <FieldContainer>
         <TextInput
@@ -126,13 +128,11 @@ export const LaunchStationEditor = ({
           </Button>
         </DeleteButtonContainer>
       )}
-    </Container>
+    </PageContentContainer>
   );
 };
 
-const Container = styled(PageContentContainer)``;
-
-const TitleText = styled(PageTitleText)`
+const StyledPageTitleText = styled(PageTitleText)`
   margin-top: ${SIDE_MENU_OPTION_MARGIN}px;
 `;
 

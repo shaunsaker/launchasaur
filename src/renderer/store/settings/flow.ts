@@ -7,25 +7,25 @@ import {
   registerShortcutSaga,
   unregisterShortcutSaga,
 } from "../ipc/flow";
-import { settingsSetAppShortcut } from "./actions";
+import { setAppShortcut } from "./actions";
 import { selectSettingsAppShortcut } from "./selectors";
 
 function* loadAppShortcutSaga(): SagaIterator {
   // loads the app shortcut on mount
   const shortcut = yield* select(selectSettingsAppShortcut);
 
-  yield put(settingsSetAppShortcut.request({ shortcut }));
+  yield put(setAppShortcut.request({ shortcut }));
 
   yield call(registerShortcutSaga, shortcut);
 
-  yield put(settingsSetAppShortcut.success({ shortcut }));
+  yield put(setAppShortcut.success({ shortcut }));
 }
 
 function* setAppShortcutSaga(): SagaIterator {
   yield takeLatest(
-    getType(settingsSetAppShortcut.request),
+    getType(setAppShortcut.request),
     function* (
-      action: ActionType<typeof settingsSetAppShortcut.request>,
+      action: ActionType<typeof setAppShortcut.request>,
     ): SagaIterator {
       const { shortcut } = action.payload;
 
@@ -37,7 +37,7 @@ function* setAppShortcutSaga(): SagaIterator {
 
       if (shortcutRegistered) {
         yield put(
-          settingsSetAppShortcut.failure(
+          setAppShortcut.failure(
             new Error(
               "Shortcut is already registered. Please try a different one.",
             ),
@@ -49,7 +49,7 @@ function* setAppShortcutSaga(): SagaIterator {
 
         yield call(registerShortcutSaga, shortcut);
 
-        yield put(settingsSetAppShortcut.success({ shortcut }));
+        yield put(setAppShortcut.success({ shortcut }));
       }
     },
   );
