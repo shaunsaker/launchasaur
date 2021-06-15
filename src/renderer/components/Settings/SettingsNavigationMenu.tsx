@@ -11,10 +11,6 @@ const mainSettingsRoutes = [
     route: Routes.settingsLaunchStations,
   },
   {
-    key: "My Account",
-    route: Routes.settingsAccount,
-  },
-  {
     key: "App Settings",
     route: Routes.settingsAppSettingsAppShortcut,
   },

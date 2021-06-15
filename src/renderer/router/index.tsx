@@ -16,7 +16,6 @@ import { Routes } from "../store/navigation/routes";
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
 import { Home } from "../components/Home";
 import { SettingsLaunchStations } from "../components/Settings/SettingsLaunchStations";
-import { SettingsAccount } from "../components/Settings/SettingsAccount";
 import { SettingsAppSettingsAppShortcut } from "../components/Settings/SettingsAppSettingsAppShortcut";
 import { SettingsLauncher } from "../components/Settings/SettingsLauncher";
 
@@ -57,10 +56,6 @@ export const Router = (): ReactElement => {
 
           <Route path={Routes.settingsLauncher}>
             <SettingsLauncher />
-          </Route>
-
-          <Route path={Routes.settingsAccount}>
-            <SettingsAccount />
           </Route>
 
           <Route path={Routes.settingsAppSettingsAppShortcut}>
