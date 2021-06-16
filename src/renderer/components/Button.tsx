@@ -33,7 +33,6 @@ export const Button = ({
   children,
   onClick,
 }: SmallButtonProps): ReactElement => {
-  // TODO: handle tooltip and show one if need be (e.g. disabled buttons)
   const [hoverRef, hovered] = useHover<HTMLDivElement>();
 
   return (
