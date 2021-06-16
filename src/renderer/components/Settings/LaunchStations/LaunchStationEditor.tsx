@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { LaunchStationsRouteParams } from ".";
+import { showConfirmationModal } from "../../../store/confirmationModal/actions";
 import {
   addLauncher,
   deleteLauncher,
@@ -17,7 +18,6 @@ import { selectLaunchStation } from "../../../store/launchStations/selectors";
 import {
   navigateTo,
   navigateToSettingsLauncher,
-  navigateToSettingsLaunchStation,
 } from "../../../store/navigation/actions";
 import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
@@ -59,11 +59,15 @@ export const LaunchStationEditor = () => {
 
   const onLauncherDeleteClick = useCallback(
     (launcher: LauncherData) => {
-      // TODO: we should show a confirmation modal
       dispatch(
-        deleteLauncher({
-          launchStationId: launchStationId,
-          launcherId: launcher.id,
+        showConfirmationModal({
+          title: `Are you sure you want to delete the ${launcher.title} Launcher?`,
+          actions: [
+            deleteLauncher({
+              launchStationId: launchStationId,
+              launcherId: launcher.id,
+            }),
+          ],
         }),
       );
     },
@@ -89,10 +93,16 @@ export const LaunchStationEditor = () => {
   }, [dispatch, launchStationId]);
 
   const onDeleteLaunchStationClick = useCallback(() => {
-    dispatch(deleteLaunchStation({ launchStationId: launchStationId }));
-
-    dispatch(navigateTo({ to: Routes.settingsLaunchStations }));
-  }, [dispatch, launchStationId]);
+    dispatch(
+      showConfirmationModal({
+        title: `Are you sure you want to delete the ${launchStation.title} Launch Station?`,
+        actions: [
+          deleteLaunchStation({ launchStationId: launchStationId }),
+          navigateTo({ to: Routes.settingsLaunchStations }),
+        ],
+      }),
+    );
+  }, [dispatch, launchStationId, launchStation.title]);
 
   if (!launchStation) {
     // can happen when we delete a launch station

@@ -19,6 +19,8 @@ import { SettingsLauncher } from "../components/Settings/LaunchStations/Settings
 import { AppShortcut } from "../components/Settings/AppSettings/AppShortcut";
 import { launchStationIdParam, Routes } from "../store/navigation/models";
 import { DEFAULT_LAUNCH_STATION_ID } from "../store/launchStations/models";
+import { selectConfirmationModalIsShown } from "../store/confirmationModal/selectors";
+import { ConfirmationModal } from "../components/ConfirmationModal";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -34,6 +36,7 @@ export const Router = (): ReactElement => {
   const editLauncherIconModalIsShown = useSelector(
     selectEditLauncherIconModalIsShown,
   );
+  const confirmationModalIsShown = useSelector(selectConfirmationModalIsShown);
 
   return (
     <ConnectedRouter history={history}>
@@ -78,6 +81,8 @@ export const Router = (): ReactElement => {
         {launchStationSelectorModalIsShown && <SelectLaunchStationModal />}
 
         {editLauncherColourModalIsShown && <EditLauncherColourModal />}
+
+        {confirmationModalIsShown && <ConfirmationModal />}
       </HashRouter>
     </ConnectedRouter>
   );

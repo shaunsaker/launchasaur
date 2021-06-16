@@ -42,6 +42,7 @@ const persistConfig: PersistConfig<ApplicationState> = {
     "selectLaunchStationModal",
     "editLauncherColourModal",
     "editLauncherIconModal",
+    "confirmationModal",
   ],
 };
 

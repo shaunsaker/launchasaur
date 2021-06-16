@@ -29,6 +29,7 @@ import { showLauncherActionsModal } from "../../../../store/launcherActionsModal
 import { BlankState } from "../../../BlankState";
 import { ErrorPage } from "../../../ErrorPage";
 import { ActionItem } from "./ActionItem";
+import { showConfirmationModal } from "../../../../store/confirmationModal/actions";
 
 interface SettingsLauncherRouteParams {
   launchStationId: string | undefined;
@@ -78,10 +79,15 @@ export const SettingsLauncher = (): ReactElement => {
   const onDeleteAction = useCallback(
     (action: ActionData) => {
       dispatch(
-        deleteLauncherAction({
-          launchStationId,
-          launcherId,
-          actionId: action.id,
+        showConfirmationModal({
+          title: "Are you sure you want to delete this action?",
+          actions: [
+            deleteLauncherAction({
+              launchStationId,
+              launcherId,
+              actionId: action.id,
+            }),
+          ],
         }),
       );
     },

@@ -15,6 +15,8 @@ import { EditLauncherColourModalState } from "./editLauncherColourModal/models";
 import { editLauncherColourModalReducer } from "./editLauncherColourModal/reducer";
 import { editLauncherIconModalReducer } from "./editLauncherIconModal/reducer";
 import { EditLauncherIconModalState } from "./editLauncherIconModal/models";
+import { ConfirmationModalState } from "./confirmationModal/models";
+import { confirmationModalReducer } from "./confirmationModal/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -25,6 +27,7 @@ export interface ApplicationState {
   selectLaunchStationModal: SelectLaunchStationModalState;
   editLauncherColourModal: EditLauncherColourModalState;
   editLauncherIconModal: EditLauncherIconModalState;
+  confirmationModal: ConfirmationModalState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -37,6 +40,7 @@ export const createRootReducer = (history_: History) =>
     selectLaunchStationModal: selectLaunchStationModalReducer,
     editLauncherColourModal: editLauncherColourModalReducer,
     editLauncherIconModal: editLauncherIconModalReducer,
+    confirmationModal: confirmationModalReducer,
   });
 
 export const initialState = {
