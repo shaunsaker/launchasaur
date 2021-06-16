@@ -32,9 +32,13 @@ export function* openFileSaga(filepath: string): SagaIterator {
   yield put(openFile.request({ filepath }));
 
   try {
-    yield call(() => ipcRenderer.invoke(IPC.OpenFile, filepath));
+    const error = yield call(() => ipcRenderer.invoke(IPC.OpenFile, filepath));
 
-    yield put(openFile.success());
+    if (error) {
+      yield put(openFile.failure(error));
+    } else {
+      yield put(openFile.success());
+    }
   } catch (error) {
     yield put(openFile.failure(error));
   }
@@ -46,9 +50,13 @@ export function* closeFileSaga(filepath: string): SagaIterator {
   try {
     const filename = getFilenameFromFilepath(filepath);
 
-    yield call(() => ipcRenderer.invoke(IPC.CloseFile, filename));
+    const error = yield call(() => ipcRenderer.invoke(IPC.CloseFile, filename));
 
-    yield put(closeFile.success());
+    if (error) {
+      yield put(openFile.failure(error));
+    } else {
+      yield put(closeFile.success());
+    }
   } catch (error) {
     yield put(closeFile.failure(error));
   }
