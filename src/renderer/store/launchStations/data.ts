@@ -1,4 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
+import { colours } from "../../components/EditLauncherColourModal/colours";
+import { getRandomArrayItem } from "../../utils/getRandomArrayItem";
 import { getRandomPhrase } from "../../utils/getRandomPhrase";
 import { uuid } from "../../utils/uuid";
 import {
@@ -28,12 +30,14 @@ export const makeActionData = ({
 export const makeLauncherData = ({
   id,
   icon,
+  colour,
   title,
   shortcut,
   isEditable,
 }: {
   id?: string;
   icon?: IconName;
+  colour?: string;
   title?: string;
   shortcut?: string;
   isEditable?: boolean;
@@ -41,7 +45,7 @@ export const makeLauncherData = ({
   id: id || uuid(),
   title: title || getRandomPhrase(),
   icon: icon || "question",
-  colour: "", // TODO: get random colour
+  colour: colour || getRandomArrayItem(colours),
   actions: {},
   shortcut: shortcut || "Ctrl + Shift + 1",
   isEditable: isEditable === false ? false : true,

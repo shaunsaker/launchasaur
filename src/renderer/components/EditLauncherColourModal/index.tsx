@@ -15,21 +15,7 @@ import { Picker } from "../Picker";
 import { Circle } from "../Circle";
 import { FieldContainer } from "../FieldContainer";
 import { TextInput } from "../TextInput";
-
-const COLOURS = [
-  "#ffffff",
-  "#4d5284",
-  "#045459",
-  "#087353",
-  "#15c286",
-  "#abd96d",
-  "#fbbf54",
-  "#ee6b3b",
-  "#ec0f47",
-  "#a02c5d",
-  "#700460",
-  "#000000",
-];
+import { colours } from "./colours";
 
 export const EditLauncherColourModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -70,9 +56,9 @@ export const EditLauncherColourModal = (): ReactElement => {
   return (
     <Modal title="Select an Colour" onClose={onCloseClick}>
       <Picker
-        data={COLOURS}
+        data={colours}
         selected={value}
-        rowsToRender={2}
+        rowsToRender={4}
         renderItem={renderColour}
         onSelect={onSelectColour}
       />

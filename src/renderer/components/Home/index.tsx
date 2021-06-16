@@ -31,6 +31,7 @@ export const Home = (): ReactElement => {
     makeLauncherData({
       title: ADD_ITEM_TITLE,
       icon: "plus",
+      colour: "#000000",
       shortcut: "Ctrl + R",
       isEditable: false,
     }),
