@@ -191,7 +191,7 @@ const Container = styled.div<ContainerProps>`
   width: ${({ layout }) => layout.width}px;
   height: ${({ layout }) => layout.height}px;
   cursor: pointer;
-  ${FLEX_CENTER_CSS}
+  ${FLEX_CENTER_CSS};
 `;
 
 interface ContentContainerProps {
@@ -203,11 +203,12 @@ const ContentContainer = styled.div<ContentContainerProps>`
   transform: ${({ translateX, translateY }) =>
     `translate(${translateX}px, ${translateY}px)`};
   position: relative;
-  ${FLEX_CENTER_CSS}
+  ${FLEX_CENTER_CSS};
+  padding: 0 ${RHYTHM}px;
 `;
 
 const IconContainer = styled.div`
-  margin-bottom: ${RHYTHM}px;
+  margin-bottom: ${RHYTHM / 2}px;
   position: relative;
 `;
 
@@ -215,6 +216,7 @@ const Text = styled.div`
   font-size: 16px;
   font-weight: bold;
   color: ${theme.white};
+  text-align: center;
 `;
 
 const SHORTCUT_TEXT_SIZE = 12;

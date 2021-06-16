@@ -26,15 +26,22 @@ export const Home = (): ReactElement => {
   );
   const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
   const [launcherIndexHovered, setLauncherIndexHovered] = useState(null);
-  const launchers = [
-    ...objectToArray(launchStation?.launchers),
-    makeLauncherData({
-      title: ADD_ITEM_TITLE,
-      icon: "plus",
-      colour: "#000000",
-      isEditable: false,
-    }),
-  ];
+
+  let launchers = objectToArray(launchStation?.launchers);
+
+  // allow a maximum of 7 launchers per launch station
+  if (launchers.length < 7) {
+    launchers = [
+      ...launchers,
+      makeLauncherData({
+        title: ADD_ITEM_TITLE,
+        icon: "plus",
+        colour: "#000000",
+        isEditable: false,
+      }),
+    ];
+  }
+
   const itemCount = launchers.length;
 
   const onMountSvgBackground = useCallback(() => {
