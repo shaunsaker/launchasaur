@@ -49,7 +49,7 @@ const Container = styled.div`
   ${FLEX_CENTER_CSS};
 `;
 
-export const MODAL_WIDTH = 480;
+export const MODAL_WIDTH = 640;
 export const MODAL_PADDING = RHYTHM;
 export const MODAL_BORDER_WIDTH = BORDER_WIDTH;
 

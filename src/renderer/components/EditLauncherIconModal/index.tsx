@@ -111,13 +111,11 @@ const StyledIcon = styled(FontAwesomeIcon)`
   margin-bottom: ${RHYTHM / 2}px;
 `;
 
-const ICON_TEXT_HZ_MARGIN = 4;
-
 const IconText = styled.div`
   font-size: 11px;
   color: ${theme.white};
   ${TEXT_ELLIPSIS_CSS};
-  width: ${PICKER_ITEM_CONTAINER_SIZE - ICON_TEXT_HZ_MARGIN}px;
+  width: ${PICKER_ITEM_CONTAINER_SIZE - RHYTHM}px;
   text-align: center;
 `;
 
