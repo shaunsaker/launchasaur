@@ -40,7 +40,7 @@ export const LaunchStationEditor = () => {
   const launchStation = useSelector((state: ApplicationState) =>
     selectLaunchStation(state, launchStationId),
   );
-  const launchers = objectToArray(launchStation.launchers);
+  const launchers = launchStation ? objectToArray(launchStation.launchers) : [];
   const hasLaunchers = launchers.length;
   const showDeleteLaunchStationButton =
     launchStationId !== DEFAULT_LAUNCH_STATION_ID;
@@ -102,7 +102,7 @@ export const LaunchStationEditor = () => {
         ],
       }),
     );
-  }, [dispatch, launchStationId, launchStation.title]);
+  }, [dispatch, launchStationId, launchStation]);
 
   if (!launchStation) {
     // can happen when we delete a launch station
