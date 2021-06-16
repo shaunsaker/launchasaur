@@ -97,6 +97,6 @@ const LaunchStationTitleText = styled.div<LaunchStationTitleTextProps>`
   font-weight: bold;
   color: ${theme.white};
   ${TEXT_ELLIPSIS_CSS};
-  width: ${({ $diameter }) => $diameter - RHYTHM}px;
+  width: ${({ $diameter }) => $diameter - RHYTHM * 2}px;
   text-align: center;
 `;
