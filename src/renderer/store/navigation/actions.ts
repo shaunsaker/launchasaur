@@ -20,6 +20,16 @@ export const navigateToLaunchStation = (props: {
     ),
   });
 
+export const navigateToSettingsLaunchStation = (props: {
+  launchStationId?: LaunchStationId;
+}) =>
+  navigateTo({
+    to: Routes.settingsLaunchStation.replace(
+      launchStationIdParam,
+      props.launchStationId,
+    ),
+  });
+
 export const navigateToSettingsLauncher = (props: {
   launchStationId?: LaunchStationId;
   launcherId?: LauncherId;

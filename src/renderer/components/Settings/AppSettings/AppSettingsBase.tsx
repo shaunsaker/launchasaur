@@ -1,9 +1,12 @@
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { Routes } from "../../../store/navigation/models";
-import { SettingsNavigationMenu } from "../SettingsNavigationMenu";
+import {
+  SettingsNavigationMenu,
+  SettingsNavigationMenuRoute,
+} from "../SettingsNavigationMenu";
 
-const routes = [
+const routes: SettingsNavigationMenuRoute[] = [
   {
     key: "App Shortcut",
     route: Routes.settingsAppSettingsAppShortcut,

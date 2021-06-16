@@ -1,6 +1,8 @@
 import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { LaunchStationsRouteParams } from ".";
 import {
   addLauncher,
   deleteLauncher,
@@ -10,9 +12,15 @@ import {
 import {
   DEFAULT_LAUNCH_STATION_ID,
   LauncherData,
-  LaunchStationData,
 } from "../../../store/launchStations/models";
-import { navigateToSettingsLauncher } from "../../../store/navigation/actions";
+import { selectLaunchStation } from "../../../store/launchStations/selectors";
+import {
+  navigateTo,
+  navigateToSettingsLauncher,
+  navigateToSettingsLaunchStation,
+} from "../../../store/navigation/actions";
+import { Routes } from "../../../store/navigation/models";
+import { ApplicationState } from "../../../store/reducers";
 import { RHYTHM } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { uuid } from "../../../utils/uuid";
@@ -25,27 +33,25 @@ import { PageTitleText } from "../../PageTitleText";
 import { SIDE_MENU_OPTION_MARGIN } from "../../SideMenu/SideMenuOption";
 import { TextInput } from "../../TextInput";
 
-interface LaunchStationEditorProps {
-  launchStation: LaunchStationData;
-}
-
-export const LaunchStationEditor = ({
-  launchStation,
-}: LaunchStationEditorProps) => {
+export const LaunchStationEditor = () => {
   const dispatch = useDispatch();
+  const { launchStationId } = useParams<LaunchStationsRouteParams>();
+  const launchStation = useSelector((state: ApplicationState) =>
+    selectLaunchStation(state, launchStationId),
+  );
   const showDeleteLaunchStationButton =
-    launchStation.id !== DEFAULT_LAUNCH_STATION_ID;
+    launchStationId !== DEFAULT_LAUNCH_STATION_ID;
 
   const onChangeTitle = useCallback(
     (text: string) => {
       dispatch(
         setLaunchStationTitle({
-          launchStationId: launchStation.id,
+          launchStationId: launchStationId,
           title: text,
         }),
       );
     },
-    [dispatch, launchStation.id],
+    [dispatch, launchStationId],
   );
 
   const onLauncherDeleteClick = useCallback(
@@ -53,36 +59,42 @@ export const LaunchStationEditor = ({
       // TODO: we should show a confirmation modal
       dispatch(
         deleteLauncher({
-          launchStationId: launchStation.id,
+          launchStationId: launchStationId,
           launcherId: launcher.id,
         }),
       );
     },
-    [dispatch, launchStation.id],
+    [dispatch, launchStationId],
   );
 
   const onLauncherEditClick = useCallback(
     (launcher: LauncherData) => {
       dispatch(
         navigateToSettingsLauncher({
-          launchStationId: launchStation.id,
+          launchStationId: launchStationId,
           launcherId: launcher.id,
         }),
       );
     },
-    [dispatch, launchStation.id],
+    [dispatch, launchStationId],
   );
 
   const onAddLauncherClick = useCallback(() => {
     dispatch(
-      addLauncher({ launchStationId: launchStation.id, launcherId: uuid() }),
+      addLauncher({ launchStationId: launchStationId, launcherId: uuid() }),
     );
-  }, [dispatch, launchStation.id]);
+  }, [dispatch, launchStationId]);
 
   const onDeleteLaunchStationClick = useCallback(() => {
-    dispatch(deleteLaunchStation({ launchStationId: launchStation.id }));
-    // TODO: select the default launch station, otherwise nothing is selected
-  }, [dispatch, launchStation.id]);
+    dispatch(deleteLaunchStation({ launchStationId: launchStationId }));
+
+    dispatch(navigateTo({ to: Routes.settingsLaunchStations }));
+  }, [dispatch, launchStationId]);
+
+  if (!launchStation) {
+    // can happen when we delete a launch station
+    return null;
+  }
 
   return (
     <PageContentContainer>
@@ -113,6 +125,8 @@ export const LaunchStationEditor = ({
             />
           </LaunchItemContainer>
         ))}
+
+        {/* TODO: Blank state */}
 
         <AddLauncherButtonContainer>
           <Button primary large onClick={onAddLauncherClick}>

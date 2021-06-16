@@ -2,15 +2,20 @@ import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { Routes } from "../../store/navigation/models";
 import { Page } from "../Page";
-import { SettingsNavigationMenu } from "./SettingsNavigationMenu";
+import {
+  SettingsNavigationMenu,
+  SettingsNavigationMenuRoute,
+} from "./SettingsNavigationMenu";
 
-const routes = [
+const routes: SettingsNavigationMenuRoute[] = [
   {
     key: "Launch Stations",
+    title: "Launch Stations",
     route: Routes.settingsLaunchStations,
   },
   {
     key: "App Settings",
+    title: "App Settings",
     route: Routes.settingsAppSettingsAppShortcut,
   },
 ];

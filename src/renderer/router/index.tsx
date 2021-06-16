@@ -1,7 +1,7 @@
 import { ConnectedRouter } from "connected-react-router";
 import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import { EditLinkModal } from "../components/EditLinkModal";
 import { EditLauncherColourModal } from "../components/EditLauncherColourModal";
 import { EditLauncherIconModal } from "../components/EditLauncherIconModal";
@@ -12,12 +12,13 @@ import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
 import { selectEditLauncherColourModalIsShown } from "../store/editLauncherColourModal/selectors";
 import { selectEditLauncherIconModalIsShown } from "../store/editLauncherIconModal/selectors";
 import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal/selectors";
-import { Routes } from "../store/navigation/routes";
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
 import { Home } from "../components/Home";
 import { LaunchStations } from "../components/Settings/LaunchStations";
 import { SettingsLauncher } from "../components/Settings/LaunchStations/SettingsLauncher";
 import { AppShortcut } from "../components/Settings/AppSettings/AppShortcut";
+import { launchStationIdParam, Routes } from "../store/navigation/models";
+import { DEFAULT_LAUNCH_STATION_ID } from "../store/launchStations/models";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -47,10 +48,15 @@ export const Router = (): ReactElement => {
           </Route>
 
           <Route path={Routes.settingsLaunchStations}>
-            <LaunchStations />
+            <Redirect
+              to={Routes.settingsLaunchStation.replace(
+                launchStationIdParam,
+                DEFAULT_LAUNCH_STATION_ID,
+              )}
+            />
           </Route>
 
-          <Route path={Routes.settingsLaunchStations}>
+          <Route path={Routes.settingsLaunchStation}>
             <LaunchStations />
           </Route>
 

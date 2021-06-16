@@ -12,6 +12,7 @@ import {
   LaunchStationData,
 } from "../../store/launchStations/models";
 import { selectNonDefaultLaunchStations } from "../../store/launchStations/selectors";
+import { navigateToSettingsLaunchStation } from "../../store/navigation/actions";
 import { hideSelectLaunchStationModal } from "../../store/selectLaunchStationModal/actions";
 import {
   selectSelectLaunchStationModalLaunchStationId,
@@ -34,8 +35,11 @@ export const SelectLaunchStationModal = (): ReactElement => {
 
   const onAddLaunchStationClick = useCallback(() => {
     const id = uuid();
+
     dispatch(addLaunchStation({ id }));
-    // TODO: navigate to settingsLaunchStation to edit the launch station
+    dispatch(hideSelectLaunchStationModal());
+    dispatch(hideLauncherActionsModal());
+    dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
   }, [dispatch]);
 
   const onLaunchStationClick = useCallback(

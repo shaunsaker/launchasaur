@@ -1,66 +1,58 @@
-import React, {
-  ReactElement,
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectLaunchStations } from "../../../store/launchStations/selectors";
-import { SideMenu, SideMenuOption } from "../../SideMenu";
 import { Button } from "../../Button";
 import { SettingsBase } from "../SettingsBase";
-import { DEFAULT_LAUNCH_STATION_ID } from "../../../store/launchStations/models";
 import { RHYTHM } from "../../../theme";
 import { addLaunchStation } from "../../../store/launchStations/actions";
 import { uuid } from "../../../utils/uuid";
 import { LaunchStationEditor } from "./LaunchStationEditor";
+import {
+  SettingsNavigationMenu,
+  SettingsNavigationMenuRoute,
+} from "../SettingsNavigationMenu";
+import { launchStationIdParam, Routes } from "../../../store/navigation/models";
+import { navigateToSettingsLaunchStation } from "../../../store/navigation/actions";
+
+export interface LaunchStationsRouteParams {
+  launchStationId: string | undefined;
+}
 
 export const LaunchStations = (): ReactElement => {
   const dispatch = useDispatch();
   const launchStations = useSelector(selectLaunchStations);
-  const [selected, setSelected] = useState("");
-  const options: SideMenuOption[] = launchStations.map((launchStation) => ({
-    id: launchStation.id,
-    title: launchStation.title,
-    selected: selected === launchStation.id,
-  }));
-  const selectedLaunchStation = launchStations.find(
-    (launchStation) => launchStation.id === selected,
+  const routes: SettingsNavigationMenuRoute[] = launchStations.map(
+    (launchStation) => ({
+      key: launchStation.id,
+      title: launchStation.title,
+      route: Routes.settingsLaunchStation.replace(
+        launchStationIdParam,
+        launchStation.id,
+      ),
+    }),
   );
-
-  useLayoutEffect(() => {
-    setSelected(DEFAULT_LAUNCH_STATION_ID);
-  }, []);
-
-  const onLaunchStationClick = useCallback((option: SideMenuOption) => {
-    setSelected(option.id);
-  }, []);
 
   const onAddLaunchStationClick = useCallback(() => {
     const id = uuid();
 
-    setSelected(id);
     dispatch(addLaunchStation({ id }));
+
+    dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
   }, [dispatch]);
 
   return (
     <SettingsBase>
       <Container>
-        <SideMenu
-          title="LAUNCH STATIONS"
-          options={options}
-          onOptionClick={onLaunchStationClick}>
+        <SettingsNavigationMenu title="LAUNCH STATIONS" routes={routes}>
           <AddButtonContainer>
             <Button primary large onClick={onAddLaunchStationClick}>
               ADD LAUNCH STATION
             </Button>
           </AddButtonContainer>
-        </SideMenu>
+        </SettingsNavigationMenu>
 
-        {selectedLaunchStation && (
-          <LaunchStationEditor launchStation={selectedLaunchStation} />
-        )}
+        <LaunchStationEditor />
       </Container>
     </SettingsBase>
   );
