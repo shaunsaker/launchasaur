@@ -45,4 +45,4 @@ export const createRootReducer = (history_: History) =>
 
 export const initialState = {
   router: {},
-}; // TODO: fix this
+};

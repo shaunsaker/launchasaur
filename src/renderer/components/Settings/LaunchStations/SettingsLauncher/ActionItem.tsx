@@ -15,7 +15,6 @@ export const ActionItem = ({
   action,
   onDelete,
 }: ActionItemProps): ReactElement => {
-  // TODO: show file icon
   const icon = getActionIcon(action.action);
   const title = useSelector((state: ApplicationState) =>
     selectPrettyAction(state, { action }),
