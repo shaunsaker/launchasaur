@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import { HomeRouteParams } from ".";
+import { DEFAULT_LAUNCH_STATION_ID } from "../../store/launchStations/models";
 import { selectLaunchStation } from "../../store/launchStations/selectors";
 import { navigateBack, navigateTo } from "../../store/navigation/actions";
 import { Routes } from "../../store/navigation/models";
@@ -25,10 +26,8 @@ interface LogoButtonProps {
 export const CenterButton = ({ diameter }: LogoButtonProps): ReactElement => {
   const dispatch = useDispatch();
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
-
-  // if launchStationId is in the route params, a sub menu is being shown
   const { launchStationId } = useParams<HomeRouteParams>();
-  const isSubmenuShown = Boolean(launchStationId);
+  const isSubmenuShown = launchStationId !== DEFAULT_LAUNCH_STATION_ID;
   const launchStation = useSelector((state: ApplicationState) =>
     selectLaunchStation(state, launchStationId),
   );

@@ -8,7 +8,7 @@ const reducerActions = {
 };
 
 export const initialState: SettingsState = {
-  appShortcut: "Ctrl+~",
+  appShortcut: "Ctrl+Shift+~",
 };
 
 export const settingsReducer: Reducer<SettingsState> = (

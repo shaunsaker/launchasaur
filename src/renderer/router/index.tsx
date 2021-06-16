@@ -43,7 +43,12 @@ export const Router = (): ReactElement => {
       <HashRouter>
         <Switch>
           <Route exact path={Routes.root}>
-            <Home />
+            <Redirect
+              to={Routes.launchStation.replace(
+                launchStationIdParam,
+                DEFAULT_LAUNCH_STATION_ID,
+              )}
+            />
           </Route>
 
           <Route path={Routes.launchStation}>

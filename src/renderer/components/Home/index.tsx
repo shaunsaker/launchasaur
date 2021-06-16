@@ -32,7 +32,6 @@ export const Home = (): ReactElement => {
       title: ADD_ITEM_TITLE,
       icon: "plus",
       colour: "#000000",
-      shortcut: "Ctrl + R",
       isEditable: false,
     }),
   ];

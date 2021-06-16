@@ -6,6 +6,7 @@ import { put, takeEvery } from "redux-saga/effects";
 import { objectToArray } from "../../utils/objectToArray";
 import { select } from "../../utils/select";
 import {
+  addLauncher,
   setLauncherShortcut,
   triggerLauncher,
 } from "../launchStations/actions";
@@ -15,7 +16,7 @@ import {
   Shortcut,
 } from "../launchStations/models";
 import { selectLaunchStation } from "../launchStations/selectors";
-import { launchStationBase, Routes } from "../navigation/models";
+import { launchStationBase } from "../navigation/models";
 import { selectNavigationLocation } from "../navigation/selectors";
 import { getLaunchStationIdFromRoute } from "../navigation/utils";
 import { registerLauncherShortcut } from "./actions";
@@ -45,9 +46,6 @@ export function* registerLauncherShortcutSaga({
   });
 
   yield put(registerLauncherShortcut.success());
-
-  // TODO: when to close the channel?
-  // channel.close()
 }
 
 function* registerLauncherShortcutListener(): SagaIterator {
@@ -60,6 +58,7 @@ function* registerLauncherShortcutListener(): SagaIterator {
 }
 
 function* registerLaunchStationShortcutsSaga(): SagaIterator {
+  // reset all shortcut listeners
   Mousetrap.reset();
 
   // select the current launch station
@@ -84,10 +83,12 @@ function* registerLaunchStationShortcutsSaga(): SagaIterator {
 
 function* registerLaunchStationShortcutsListener(): SagaIterator {
   // when the launch station changes
-  yield takeLatest(LOCATION_CHANGE, function* (): SagaIterator {
+  yield takeLatest([LOCATION_CHANGE, addLauncher], function* (): SagaIterator {
     const { pathname } = yield* select(selectNavigationLocation);
+    const isLaunchStationRoute =
+      pathname.includes(launchStationBase) && !pathname.includes("settings");
 
-    if (pathname.includes(launchStationBase) || pathname === Routes.root) {
+    if (isLaunchStationRoute) {
       yield call(registerLaunchStationShortcutsSaga);
     }
   });
@@ -97,7 +98,6 @@ function* registerLaunchStationShortcutsListener(): SagaIterator {
 }
 
 export function* shortcutsSagas(): SagaIterator {
-  // TODO: fix these
-  // yield fork(registerLaunchStationShortcutsListener);
-  // yield fork(registerLauncherShortcutListener);
+  yield fork(registerLaunchStationShortcutsListener);
+  yield fork(registerLauncherShortcutListener);
 }

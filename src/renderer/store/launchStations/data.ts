@@ -47,7 +47,7 @@ export const makeLauncherData = ({
   icon: icon || "question",
   colour: colour || getRandomArrayItem(colours),
   actions: {},
-  shortcut: shortcut || "Ctrl + Shift + 1",
+  shortcut,
   isEditable: isEditable === false ? false : true,
 });
 
@@ -64,7 +64,10 @@ export const makeLaunchStationData = ({
     id: id || uuid(),
     title: title || getRandomPhrase(),
     launchers: {
-      [launcherId]: makeLauncherData({ id: launcherId }),
+      [launcherId]: makeLauncherData({
+        id: launcherId,
+        shortcut: "Ctrl+Shift+1",
+      }),
     },
   };
 };
