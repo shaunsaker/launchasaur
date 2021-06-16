@@ -24,6 +24,7 @@ import { ApplicationState } from "../../../store/reducers";
 import { RHYTHM } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { uuid } from "../../../utils/uuid";
+import { BlankState } from "../../BlankState";
 import { Button } from "../../Button";
 import { FieldContainer } from "../../FieldContainer";
 import { FieldLabel } from "../../FieldLabel";
@@ -39,6 +40,8 @@ export const LaunchStationEditor = () => {
   const launchStation = useSelector((state: ApplicationState) =>
     selectLaunchStation(state, launchStationId),
   );
+  const launchers = objectToArray(launchStation.launchers);
+  const hasLaunchers = launchers.length;
   const showDeleteLaunchStationButton =
     launchStationId !== DEFAULT_LAUNCH_STATION_ID;
 
@@ -96,6 +99,14 @@ export const LaunchStationEditor = () => {
     return null;
   }
 
+  const addLauncherButton = (
+    <AddLauncherButtonContainer>
+      <Button primary onClick={onAddLauncherClick}>
+        ADD LAUNCHER
+      </Button>
+    </AddLauncherButtonContainer>
+  );
+
   return (
     <PageContentContainer>
       <StyledPageTitleText>
@@ -114,25 +125,30 @@ export const LaunchStationEditor = () => {
       <LaunchersContainer>
         <FieldLabel>Launchers</FieldLabel>
 
-        {objectToArray(launchStation.launchers).map((launcher) => (
-          <LaunchItemContainer key={launcher.id}>
-            <ListItem
-              icon={launcher.icon}
-              colour={launcher.colour}
-              title={launcher.title}
-              onDelete={() => onLauncherDeleteClick(launcher)}
-              onEdit={() => onLauncherEditClick(launcher)}
-            />
-          </LaunchItemContainer>
-        ))}
+        {hasLaunchers ? (
+          <>
+            {objectToArray(launchStation.launchers).map((launcher) => (
+              <LaunchItemContainer key={launcher.id}>
+                <ListItem
+                  icon={launcher.icon}
+                  colour={launcher.colour}
+                  title={launcher.title}
+                  onDelete={() => onLauncherDeleteClick(launcher)}
+                  onEdit={() => onLauncherEditClick(launcher)}
+                />
+              </LaunchItemContainer>
+            ))}
 
-        {/* TODO: Blank state */}
-
-        <AddLauncherButtonContainer>
-          <Button primary large onClick={onAddLauncherClick}>
-            ADD LAUNCHER
-          </Button>
-        </AddLauncherButtonContainer>
+            {addLauncherButton}
+          </>
+        ) : (
+          <BlankState
+            icon="rocket"
+            title="You have no Launchers"
+            description="Add a Launcher so that you can start launching things!">
+            {addLauncherButton}
+          </BlankState>
+        )}
       </LaunchersContainer>
 
       {showDeleteLaunchStationButton && (
@@ -161,6 +177,7 @@ const LaunchItemContainer = styled.div`
 
 const AddLauncherButtonContainer = styled.div`
   display: flex;
+  margin-top: ${RHYTHM}px;
 `;
 
 const DeleteButtonContainer = styled.div`

@@ -24,7 +24,7 @@ const isRouteSelected = (route: string, pathname: string): boolean => {
 export interface SettingsNavigationMenuRoute {
   key: string;
   title: string;
-  route: string; // TODO: typeof routes
+  route: string;
 }
 
 interface SettingsNavigationMenuProps {
