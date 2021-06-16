@@ -56,6 +56,6 @@ function* setAppShortcutSaga(): SagaIterator {
 }
 
 export function* settingsSagas(): SagaIterator {
-  // yield fork(loadAppShortcutSaga);
-  // yield fork(setAppShortcutSaga);
+  yield fork(loadAppShortcutSaga);
+  yield fork(setAppShortcutSaga);
 }
