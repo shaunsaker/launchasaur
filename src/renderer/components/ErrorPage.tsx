@@ -6,8 +6,6 @@ import { Page } from "./Page";
 import { PageContentContainer } from "./PageContentContainer";
 
 export const ErrorPage = (): ReactElement => {
-  // TODO: add contact support button
-
   return (
     <Page>
       <Container>
