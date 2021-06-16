@@ -1,16 +1,16 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { theme } from "../theme";
-import { HeaderBar } from "./HeaderBar";
+import { HeaderBar, HeaderBarProps } from "./HeaderBar";
 
-interface PageProps {
+interface PageProps extends HeaderBarProps {
   children: ReactNode;
 }
 
-export const Page = ({ children }: PageProps) => {
+export const Page = ({ goBack, children }: PageProps) => {
   return (
     <PageContainer>
-      <HeaderBar />
+      <HeaderBar goBack={goBack} />
 
       <ContentContainer>{children}</ContentContainer>
     </PageContainer>

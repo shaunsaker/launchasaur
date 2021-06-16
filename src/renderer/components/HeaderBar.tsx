@@ -1,16 +1,25 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { navigateBack } from "../store/navigation/actions";
+import { navigateBack, navigateTo } from "../store/navigation/actions";
+import { Routes } from "../store/navigation/models";
 import { BORDER_WIDTH, RHYTHM, theme } from "../theme";
 import { CloseIcon } from "./CloseIcon";
 
-export const HeaderBar = () => {
+export interface HeaderBarProps {
+  goBack?: boolean;
+}
+
+export const HeaderBar = ({ goBack }: HeaderBarProps) => {
   const dispatch = useDispatch();
 
   const onCloseClick = useCallback(() => {
-    dispatch(navigateBack());
-  }, [dispatch]);
+    if (goBack) {
+      dispatch(navigateBack());
+    } else {
+      dispatch(navigateTo({ to: Routes.root }));
+    }
+  }, [dispatch, goBack]);
 
   return (
     <HeaderBarContainer>
