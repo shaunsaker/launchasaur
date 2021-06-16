@@ -9,6 +9,7 @@ import {
 const routes: SettingsNavigationMenuRoute[] = [
   {
     key: "App Shortcut",
+    title: "App Shortcut",
     route: Routes.settingsAppSettingsAppShortcut,
   },
 ];
