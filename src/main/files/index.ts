@@ -23,8 +23,7 @@ export const startOpenFileIPC = () => {
     async (_event: IpcMainInvokeEvent, filepath: string) => {
       const error = await shell.openPath(filepath);
 
-      // TODO: how to handle errors here
-      console.log({ error });
+      return error;
     },
   );
 };
@@ -44,7 +43,7 @@ export const startCloseFileIPC = () => {
           fkill(process.pid);
         }
       } catch (error) {
-        console.log({ error });
+        return error;
       }
     },
   );
