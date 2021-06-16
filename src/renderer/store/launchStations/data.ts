@@ -1,4 +1,5 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
+import { getRandomPhrase } from "../../utils/getRandomPhrase";
 import { uuid } from "../../utils/uuid";
 import {
   ActionData,
@@ -38,7 +39,7 @@ export const makeLauncherData = ({
   isEditable?: boolean;
 }): LauncherData => ({
   id: id || uuid(),
-  title: title || "What am I?", // TODO: get random word
+  title: title || getRandomPhrase(),
   icon: icon || "question",
   colour: "", // TODO: get random colour
   actions: {},
@@ -57,7 +58,7 @@ export const makeLaunchStationData = ({
 
   return {
     id: id || uuid(),
-    title: title || "What am I?", // TODO: get random word
+    title: title || getRandomPhrase(),
     launchers: {
       [launcherId]: makeLauncherData({ id: launcherId }),
     },
