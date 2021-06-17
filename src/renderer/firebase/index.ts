@@ -3,12 +3,12 @@ import "firebase/auth";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAQfkAb8pXjsr_o25OthP3Nch7LqpHL-s8",
-  authDomain: "launchasaur-development.firebaseapp.com",
-  projectId: "launchasaur-development",
-  storageBucket: "launchasaur-development.appspot.com",
-  messagingSenderId: "962659759134",
-  appId: "1:962659759134:web:bf79d2a1ce97a786ba6a0f",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
