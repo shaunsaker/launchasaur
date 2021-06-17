@@ -114,6 +114,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@sentry/electron": "^2.5.0",
     "connected-react-router": "^6.9.1",
     "d3": "^6.7.0",
     "electron-is-accelerator": "^0.2.0",

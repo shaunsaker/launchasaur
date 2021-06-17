@@ -12,6 +12,8 @@ if (require("electron-squirrel-startup")) {
 }
 
 const start = (): void => {
+  require("../sentry");
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,

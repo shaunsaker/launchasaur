@@ -13,6 +13,8 @@ import {
   theme,
 } from "./theme";
 
+require("../sentry");
+
 loadIcons();
 
 export const App = (): ReactElement => {
