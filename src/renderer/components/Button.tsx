@@ -126,7 +126,7 @@ const Container = styled.div<ContainerProps>`
   border-radius: ${BORDER_RADIUS / 2}px;
   border: ${SMALL_BORDER_WIDTH}px solid ${getContainerBorderColor};
   transition: all ${TRANSITION_CSS};
-  ${BOX_SHADOW_CSS};
+  ${({ disabled }) => (disabled ? undefined : BOX_SHADOW_CSS)};
   cursor: ${({ disabled }) => (disabled ? "unset" : "pointer")};
   max-width: ${MAX_WIDTH}px;
   width: ${({ $fullWidth }) => ($fullWidth ? `${MAX_WIDTH}px` : "initial")};
