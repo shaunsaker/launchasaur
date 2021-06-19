@@ -26,7 +26,7 @@ import { objectToArray } from "../../../utils/objectToArray";
 import { uuid } from "../../../utils/uuid";
 import { BlankState } from "../../BlankState";
 import { Button } from "../../Button";
-import { FieldContainer } from "../../FieldContainer";
+import { MarginContainer } from "../../MarginContainer";
 import { FieldLabel } from "../../FieldLabel";
 import { ListItem } from "../../ListItem";
 import { PageContentContainer } from "../../PageContentContainer";
@@ -123,14 +123,14 @@ export const LaunchStationEditor = () => {
         {launchStation.title} Launch Station
       </StyledPageTitleText>
 
-      <FieldContainer>
+      <MarginContainer>
         <TextInput
           label="Title"
           placeholder="Add a Title"
           value={launchStation.title}
           onChangeText={onChangeTitle}
         />
-      </FieldContainer>
+      </MarginContainer>
 
       <LaunchersContainer>
         <FieldLabel>Launchers</FieldLabel>
@@ -138,7 +138,7 @@ export const LaunchStationEditor = () => {
         {hasLaunchers ? (
           <>
             {objectToArray(launchStation.launchers).map((launcher) => (
-              <LaunchItemContainer key={launcher.id}>
+              <MarginContainer key={launcher.id} small>
                 <ListItem
                   icon={launcher.icon}
                   colour={launcher.colour}
@@ -146,7 +146,7 @@ export const LaunchStationEditor = () => {
                   onDelete={() => onLauncherDeleteClick(launcher)}
                   onEdit={() => onLauncherEditClick(launcher)}
                 />
-              </LaunchItemContainer>
+              </MarginContainer>
             ))}
 
             {addLauncherButton}
@@ -179,10 +179,6 @@ const StyledPageTitleText = styled(PageTitleText)`
 const LaunchersContainer = styled.div`
   flex: 1;
   overflow: auto;
-`;
-
-const LaunchItemContainer = styled.div`
-  margin-bottom: ${RHYTHM}px;
 `;
 
 const AddLauncherButtonContainer = styled.div`

@@ -13,7 +13,7 @@ import { LaunchStationAction } from "../../store/launchStations/models";
 import { uuid } from "../../utils/uuid";
 import { validateUrl } from "../../utils/validateUrl";
 import { Button } from "../Button";
-import { FieldContainer } from "../FieldContainer";
+import { MarginContainer } from "../MarginContainer";
 import { Modal } from "../Modal";
 import { TextInput } from "../TextInput";
 
@@ -51,14 +51,14 @@ export const EditLinkModal = (): ReactElement => {
 
   return (
     <Modal title="Open a Link" onClose={onCloseClick}>
-      <FieldContainer>
+      <MarginContainer>
         <TextInput
           label="Link"
           placeholder="Where should we browse to?"
           value={value}
           onChangeText={onChangeLink}
         />
-      </FieldContainer>
+      </MarginContainer>
 
       <ButtonContainer>
         <Button primary large disabled={!isValid} onClick={onSubmitClick}>

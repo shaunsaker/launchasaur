@@ -13,7 +13,7 @@ import { Modal } from "../Modal";
 import { Button } from "../Button";
 import { Picker } from "../Picker";
 import { Circle } from "../Circle";
-import { FieldContainer } from "../FieldContainer";
+import { MarginContainer } from "../MarginContainer";
 import { TextInput } from "../TextInput";
 import { colours } from "./colours";
 
@@ -63,14 +63,14 @@ export const EditLauncherColourModal = (): ReactElement => {
         onSelect={onSelectColour}
       />
 
-      <FieldContainer>
+      <MarginContainer>
         <TextInput
           label="Enter a HEX code"
           placeholder="Indulge me..."
           value={value}
           onChangeText={onChangeHexCode}
         />
-      </FieldContainer>
+      </MarginContainer>
 
       <SubmitButtonContainer>
         <Button primary large onClick={onSubmitClick}>

@@ -1,20 +1,23 @@
-import React, { ChangeEvent, ReactElement, useCallback, useState } from "react";
+import React, {
+  ChangeEvent,
+  InputHTMLAttributes,
+  ReactElement,
+  useCallback,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { FieldLabel } from "./FieldLabel";
 import { inputCSS } from "./InputCSS";
 
-interface TextInputProps {
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  placeholder: string;
-  value: string;
   onChangeText: (value: string) => void;
 }
 
 export const TextInput = ({
   label,
-  placeholder,
-  value,
   onChangeText,
+  ...props
 }: TextInputProps): ReactElement => {
   const [isFocussed, setIsFocussed] = useState(false);
 
@@ -39,11 +42,10 @@ export const TextInput = ({
 
       <Input
         focussed={isFocussed}
-        placeholder={placeholder}
-        value={value}
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
+        {...props}
       />
     </Container>
   );

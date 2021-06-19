@@ -6,13 +6,16 @@ import { makeLauncherData } from "../../store/launchStations/data";
 import { ADD_ITEM_TITLE } from "../../store/launchStations/models";
 import { selectLaunchStation } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
-import { ABSOLUTE_CENTER_CSS, FLEX_CENTER_CSS } from "../../theme";
+import {
+  ABSOLUTE_CENTER_CSS,
+  FLEX_CENTER_CSS,
+  LAUNCH_STATION_DIAMETER,
+} from "../../theme";
 import { objectToArray } from "../../utils/objectToArray";
 import { CenterButton } from "./CenterButton";
 import { LauncherForeground } from "./LauncherForeground";
 import { LauncherSvgBackground } from "./LauncherSvgBackground";
 
-const LAUNCH_STATION_DIAMETER = 640;
 const LAUNCH_STATION_INNER_DIAMETER = 128;
 
 export interface HomeRouteParams {

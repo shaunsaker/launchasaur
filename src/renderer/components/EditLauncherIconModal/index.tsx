@@ -13,7 +13,7 @@ import { ApplicationState } from "../../store/reducers";
 import { Modal } from "../Modal";
 import { Button } from "../Button";
 import { Picker } from "../Picker";
-import { FieldContainer } from "../FieldContainer";
+import { MarginContainer } from "../MarginContainer";
 import { TextInput } from "../TextInput";
 import { getIconList } from "../../icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -73,14 +73,14 @@ export const EditLauncherIconModal = (): ReactElement => {
 
   return (
     <Modal title="Select an Icon" onClose={onCloseClick}>
-      <FieldContainer>
+      <MarginContainer>
         <TextInput
           label="Search for an Icon"
           placeholder="Filter by name..."
           value={filter}
           onChangeText={onChangeFilter}
         />
-      </FieldContainer>
+      </MarginContainer>
 
       <Picker
         data={filteredIcons}

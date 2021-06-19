@@ -3,6 +3,7 @@ import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { BORDER_RADIUS, RHYTHM, theme } from "../theme";
 import { Icon } from "./Icon";
+import { MarginContainer } from "./MarginContainer";
 
 interface BlankStateProps {
   icon: IconName;
@@ -19,11 +20,13 @@ export const BlankState = ({
 }: BlankStateProps): ReactElement => {
   return (
     <Container>
-      <IconContainer>
+      <MarginContainer small>
         <Icon icon={icon} />
-      </IconContainer>
+      </MarginContainer>
 
-      <TitleText>{title}</TitleText>
+      <MarginContainer small>
+        <TitleText>{title}</TitleText>
+      </MarginContainer>
 
       <DescriptionText>{description}</DescriptionText>
 
@@ -42,15 +45,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const IconContainer = styled.div`
-  margin-bottom: ${RHYTHM}px;
-`;
-
 const TitleText = styled.div`
   font-size: 18px;
   font-weight: bold;
   color: ${theme.white};
-  margin-bottom: ${RHYTHM}px;
 `;
 
 const DescriptionText = styled.div`

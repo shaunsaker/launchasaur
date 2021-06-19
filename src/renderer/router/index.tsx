@@ -21,8 +21,11 @@ import { launchStationIdParam, Routes } from "../store/navigation/models";
 import { DEFAULT_LAUNCH_STATION_ID } from "../store/launchStations/models";
 import { selectConfirmationModalIsShown } from "../store/confirmationModal/selectors";
 import { ConfirmationModal } from "../components/ConfirmationModal";
+import { selectIsAuthenticated } from "../store/auth/selectors";
+import { Login } from "../components/Login";
 
 export const Router = (): ReactElement => {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const launcherActionsModalIsShown = useSelector(
     selectLauncherActionsModalIsShown,
   );
@@ -41,53 +44,65 @@ export const Router = (): ReactElement => {
   return (
     <ConnectedRouter history={history}>
       <HashRouter>
-        <Switch>
-          <Route exact path={Routes.root}>
-            <Redirect
-              to={Routes.launchStation.replace(
-                launchStationIdParam,
-                DEFAULT_LAUNCH_STATION_ID,
-              )}
-            />
-          </Route>
+        {isAuthenticated ? (
+          <>
+            <Switch>
+              <Route exact path={Routes.root}>
+                <Redirect
+                  to={Routes.launchStation.replace(
+                    launchStationIdParam,
+                    DEFAULT_LAUNCH_STATION_ID,
+                  )}
+                />
+              </Route>
 
-          <Route path={Routes.launchStation}>
-            <Home />
-          </Route>
+              <Route path={Routes.launchStation}>
+                <Home />
+              </Route>
 
-          <Route path={Routes.settingsLaunchStations}>
-            <Redirect
-              to={Routes.settingsLaunchStation.replace(
-                launchStationIdParam,
-                DEFAULT_LAUNCH_STATION_ID,
-              )}
-            />
-          </Route>
+              <Route path={Routes.settingsLaunchStations}>
+                <Redirect
+                  to={Routes.settingsLaunchStation.replace(
+                    launchStationIdParam,
+                    DEFAULT_LAUNCH_STATION_ID,
+                  )}
+                />
+              </Route>
 
-          <Route path={Routes.settingsLaunchStation}>
-            <LaunchStations />
-          </Route>
+              <Route path={Routes.settingsLaunchStation}>
+                <LaunchStations />
+              </Route>
 
-          <Route path={Routes.settingsLauncher}>
-            <SettingsLauncher />
-          </Route>
+              <Route path={Routes.settingsLauncher}>
+                <SettingsLauncher />
+              </Route>
 
-          <Route path={Routes.settingsAppSettingsAppShortcut}>
-            <AppShortcut />
-          </Route>
-        </Switch>
+              <Route path={Routes.settingsAppSettingsAppShortcut}>
+                <AppShortcut />
+              </Route>
+            </Switch>
 
-        {editLauncherIconModalIsShown && <EditLauncherIconModal />}
+            {editLauncherIconModalIsShown && <EditLauncherIconModal />}
 
-        {launcherActionsModalIsShown && <SelectLauncherActionModal />}
+            {launcherActionsModalIsShown && <SelectLauncherActionModal />}
 
-        {editLinkModalIsShown && <EditLinkModal />}
+            {editLinkModalIsShown && <EditLinkModal />}
 
-        {launchStationSelectorModalIsShown && <SelectLaunchStationModal />}
+            {launchStationSelectorModalIsShown && <SelectLaunchStationModal />}
 
-        {editLauncherColourModalIsShown && <EditLauncherColourModal />}
+            {editLauncherColourModalIsShown && <EditLauncherColourModal />}
 
-        {confirmationModalIsShown && <ConfirmationModal />}
+            {confirmationModalIsShown && <ConfirmationModal />}
+          </>
+        ) : (
+          <Switch>
+            <Route path={Routes.login}>
+              <Login />
+            </Route>
+
+            <Redirect to={Routes.login} />
+          </Switch>
+        )}
       </HashRouter>
     </ConnectedRouter>
   );

@@ -7,10 +7,11 @@ import { BORDER_WIDTH, RHYTHM, theme } from "../theme";
 import { CloseIcon } from "./CloseIcon";
 
 export interface HeaderBarProps {
+  showClose?: boolean;
   goBack?: boolean;
 }
 
-export const HeaderBar = ({ goBack }: HeaderBarProps) => {
+export const HeaderBar = ({ showClose, goBack }: HeaderBarProps) => {
   const dispatch = useDispatch();
 
   const onCloseClick = useCallback(() => {
@@ -25,9 +26,11 @@ export const HeaderBar = ({ goBack }: HeaderBarProps) => {
     <HeaderBarContainer>
       <LogoText>LAUNCHASAUR</LogoText>
 
-      <CloseIconContainer>
-        <CloseIcon onClick={onCloseClick} />
-      </CloseIconContainer>
+      {showClose && (
+        <CloseIconContainer>
+          <CloseIcon onClick={onCloseClick} />
+        </CloseIconContainer>
+      )}
     </HeaderBarContainer>
   );
 };

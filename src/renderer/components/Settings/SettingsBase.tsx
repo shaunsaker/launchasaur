@@ -26,7 +26,7 @@ interface SettingsBaseProps {
 
 export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   return (
-    <Page>
+    <Page showClose>
       <Container>
         <SettingsNavigationMenu routes={routes} />
 

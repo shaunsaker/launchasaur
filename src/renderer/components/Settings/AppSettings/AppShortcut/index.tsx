@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAppShortcut } from "../../../../store/settings/actions";
 import { selectSettingsAppShortcut } from "../../../../store/settings/selectors";
-import { FieldContainer } from "../../../FieldContainer";
+import { MarginContainer } from "../../../MarginContainer";
 import { PageContentContainer } from "../../../PageContentContainer";
 import { PageTitleText } from "../../../PageTitleText";
 import { ShortcutEditor } from "../../../ShortcutEditor";
@@ -26,9 +26,9 @@ export const AppShortcut = (): ReactElement => {
         <PageContentContainer>
           <PageTitleText>App Shortcut</PageTitleText>
 
-          <FieldContainer>
+          <MarginContainer>
             <ShortcutEditor shortcut={shortcut} onChange={onChangeShortcut} />
-          </FieldContainer>
+          </MarginContainer>
         </PageContentContainer>
       </AppSettingsBase>
     </SettingsBase>

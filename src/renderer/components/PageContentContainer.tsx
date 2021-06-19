@@ -14,4 +14,5 @@ export const PageContentContainer = styled.div`
   padding: ${RHYTHM}px;
   background-color: ${theme.white5};
   ${BOX_SHADOW_CSS};
+  margin: 0 auto;
 `;

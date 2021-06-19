@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { BORDER_WIDTH, RHYTHM, theme } from "../../theme";
+import { MarginContainer } from "../MarginContainer";
 import { SideMenuOption, SIDE_MENU_OPTION_MARGIN } from "./SideMenuOption";
 
 export interface SideMenuOption {
@@ -24,7 +25,11 @@ export const SideMenu = ({
 }: SideMenuProps) => {
   return (
     <SideMenuContainer>
-      {title && <TitleText>{title}</TitleText>}
+      {title && (
+        <MarginContainer small>
+          <TitleText>{title}</TitleText>
+        </MarginContainer>
+      )}
 
       {options.map((option) => (
         <SideMenuOption
@@ -52,5 +57,4 @@ const TitleText = styled.div`
   font-weight: bold;
   color: ${theme.white50};
   margin-top: ${SIDE_MENU_OPTION_MARGIN}px;
-  margin-bottom: ${RHYTHM}px;
 `;

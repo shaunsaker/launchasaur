@@ -10,6 +10,7 @@ import {
 } from "../theme";
 import { CloseIcon, CLOSE_ICON_PADDING, CLOSE_ICON_SIZE } from "./CloseIcon";
 import { FadeIn } from "./FadeIn";
+import { MarginContainer } from "./MarginContainer";
 
 interface ModalProps {
   title: string;
@@ -26,7 +27,9 @@ export const Modal = ({
     <FadeIn>
       <Container>
         <ContentContainer>
-          <TitleText>{title}</TitleText>
+          <MarginContainer>
+            <TitleText>{title}</TitleText>
+          </MarginContainer>
 
           {children}
 
@@ -68,7 +71,6 @@ const TitleText = styled.div`
   line-height: 1.5;
   font-weight: bold;
   color: ${theme.white};
-  margin-bottom: ${RHYTHM * 1.5}px;
   margin-right: ${CLOSE_ICON_SIZE + CLOSE_ICON_PADDING}px;
 `;
 

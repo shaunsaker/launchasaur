@@ -11,7 +11,7 @@ import { selectLauncher } from "../../../../store/launchStations/selectors";
 import { ApplicationState } from "../../../../store/reducers";
 import { CONTENT_CONTAINER_WIDTH, RHYTHM } from "../../../../theme";
 import { ShortcutEditor } from "../../../ShortcutEditor";
-import { FieldContainer } from "../../../FieldContainer";
+import { MarginContainer } from "../../../MarginContainer";
 import { FieldLabel } from "../../../FieldLabel";
 import { Icon } from "../../../Icon";
 import { Button } from "../../../Button";
@@ -108,11 +108,11 @@ export const SettingsLauncher = (): ReactElement => {
   );
 
   return (
-    <Page goBack>
+    <Page showClose goBack>
       <Container>
         <PageTitleText>{launcher.title} Launcher</PageTitleText>
 
-        <FieldContainer>
+        <MarginContainer>
           <FieldLabel>Icon</FieldLabel>
 
           <WithEditButtonContainer>
@@ -122,27 +122,27 @@ export const SettingsLauncher = (): ReactElement => {
               <Button onClick={onEditIconClick}>EDIT</Button>
             </EditButtonContainer>
           </WithEditButtonContainer>
-        </FieldContainer>
+        </MarginContainer>
 
-        <FieldContainer>
+        <MarginContainer>
           <TextInput
             label="Title"
             placeholder="What should we call your Launcher?"
             value={launcher.title}
             onChangeText={onChangeTitle}
           />
-        </FieldContainer>
+        </MarginContainer>
 
-        <FieldContainer>
+        <MarginContainer>
           <FieldLabel>Shortcut</FieldLabel>
 
           <ShortcutEditor
             shortcut={launcher.shortcut}
             onChange={onChangeShortcut}
           />
-        </FieldContainer>
+        </MarginContainer>
 
-        <FieldContainer>
+        <MarginContainer>
           <FieldLabel>Colour</FieldLabel>
 
           <WithEditButtonContainer>
@@ -152,22 +152,22 @@ export const SettingsLauncher = (): ReactElement => {
               <Button onClick={onEditColourClick}>EDIT</Button>
             </EditButtonContainer>
           </WithEditButtonContainer>
-        </FieldContainer>
+        </MarginContainer>
 
         <ActionsContainer>
-          <FieldContainer>
+          <MarginContainer>
             <FieldLabel>Actions</FieldLabel>
 
             {hasActions ? (
               <>
                 {actions.map((action) => {
                   return (
-                    <ActionItemContainer key={action.id}>
+                    <MarginContainer key={action.id} small>
                       <ActionItem
                         action={action}
                         onDelete={() => onDeleteAction(action)}
                       />
-                    </ActionItemContainer>
+                    </MarginContainer>
                   );
                 })}
 
@@ -181,7 +181,7 @@ export const SettingsLauncher = (): ReactElement => {
                 {addActionButton}
               </BlankState>
             )}
-          </FieldContainer>
+          </MarginContainer>
         </ActionsContainer>
 
         <DoneButtonContainer>
@@ -210,10 +210,6 @@ const EditButtonContainer = styled.div`
 
 const ActionsContainer = styled.div`
   flex: 1;
-`;
-
-const ActionItemContainer = styled.div`
-  margin-bottom: ${RHYTHM}px;
 `;
 
 const AddActionButtonContainer = styled.div`

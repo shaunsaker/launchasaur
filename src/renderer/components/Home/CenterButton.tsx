@@ -18,6 +18,7 @@ import {
   TRANSITION_CSS,
 } from "../../theme";
 import { Icon } from "../Icon";
+import { Logo } from "../Logo";
 
 interface LogoButtonProps {
   diameter: number;
@@ -56,7 +57,7 @@ export const CenterButton = ({ diameter }: LogoButtonProps): ReactElement => {
             </LaunchStationTitleText>
           </>
         ) : (
-          <div>LOGO ICON</div>
+          <Logo />
         )}
       </InnerContainer>
     </Container>

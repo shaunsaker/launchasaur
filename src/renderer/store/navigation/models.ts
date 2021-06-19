@@ -3,6 +3,9 @@ export const launchStationIdParam = ":launchStationId";
 export const launcherIdParam = ":launcherId";
 
 export const Routes = {
+  login: "/login",
+  register: "/register",
+  forgotPassword: "/forgot-password",
   root: "/",
   launchStation: `/${launchStationBase}/${launchStationIdParam}`,
   settingsLaunchStations: "/settings/launch-stations",
