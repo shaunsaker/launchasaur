@@ -7,6 +7,7 @@ import { firebaseLogin } from "../../firebase/auth/login";
 import { firebaseSignout } from "../../firebase/auth/signout";
 import { firebaseSignup } from "../../firebase/auth/signup";
 import { firebaseUpdateEmail } from "../../firebase/auth/updateEmail";
+import { firebaseUpdatePassword } from "../../firebase/auth/updatePassword";
 import {
   deleteAccount,
   forgotPassword,
@@ -14,6 +15,7 @@ import {
   signout,
   signup,
   updateEmail,
+  updatePassword,
 } from "./actions";
 
 export function* signupSaga(): SagaIterator {
@@ -90,6 +92,23 @@ export function* updateEmailSaga(): SagaIterator {
   );
 }
 
+export function* updatePasswordSaga(): SagaIterator {
+  yield takeLatest(
+    getType(updatePassword.request),
+    function* (
+      action: ActionType<typeof updatePassword.request>,
+    ): SagaIterator {
+      try {
+        yield call(firebaseUpdatePassword, action.payload);
+
+        yield put(updatePassword.success(action.payload));
+      } catch (error) {
+        yield put(updatePassword.failure(error));
+      }
+    },
+  );
+}
+
 export function* deleteAccountSaga(): SagaIterator {
   yield takeLatest(getType(deleteAccount.request), function* (): SagaIterator {
     try {
@@ -108,5 +127,6 @@ export function* authSagas(): SagaIterator {
   yield fork(forgotPasswordSaga);
   yield fork(signoutSaga);
   yield fork(updateEmailSaga);
+  yield fork(updatePasswordSaga);
   yield fork(deleteAccountSaga);
 }

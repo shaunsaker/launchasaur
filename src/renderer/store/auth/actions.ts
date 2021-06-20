@@ -31,6 +31,12 @@ export const updateEmail = createAsyncAction(
   "AUTH/updateEmailFailure",
 )<{ email: string }, { email: string }, Error>();
 
+export const updatePassword = createAsyncAction(
+  "AUTH/updatePasswordRequest",
+  "AUTH/updatePasswordSuccess",
+  "AUTH/updatePasswordFailure",
+)<{ password: string }, { password: string }, Error>();
+
 export const deleteAccount = createAsyncAction(
   "AUTH/deleteAccountRequest",
   "AUTH/deleteAccountSuccess",

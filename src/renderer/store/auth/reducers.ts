@@ -7,6 +7,7 @@ import {
   signout,
   signup,
   updateEmail,
+  updatePassword,
 } from "./actions";
 import { AuthState } from "./models";
 
@@ -26,6 +27,9 @@ const reducerActions = {
   updateEmailRequest: updateEmail.request,
   updateEmailSuccess: updateEmail.success,
   updateEmailFailure: updateEmail.failure,
+  updatePasswordRequest: updatePassword.request,
+  updatePasswordSuccess: updatePassword.success,
+  updatePasswordFailure: updatePassword.failure,
   deleteAccountRequest: deleteAccount.request,
   deleteAccountSuccess: deleteAccount.success,
   deleteAccountFailure: deleteAccount.failure,
@@ -136,6 +140,24 @@ export const authReducer: Reducer<AuthState> = (
       };
 
     case getType(updateEmail.failure):
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case getType(updatePassword.request):
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case getType(updatePassword.success):
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case getType(updatePassword.failure):
       return {
         ...state,
         loading: false,
