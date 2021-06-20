@@ -21,6 +21,8 @@ import { AuthState } from "./auth/models";
 import { authReducer } from "./auth/reducers";
 import { LoginModalState } from "./loginModal/models";
 import { loginModalReducer } from "./loginModal/reducer";
+import { SnackbarsState } from "./snackbars/models";
+import { snackbarsReducer } from "./snackbars/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -34,6 +36,7 @@ export interface ApplicationState {
   editLauncherIconModal: EditLauncherIconModalState;
   confirmationModal: ConfirmationModalState;
   loginModal: LoginModalState;
+  snackbars: SnackbarsState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -49,6 +52,7 @@ export const createRootReducer = (history_: History) =>
     editLauncherIconModal: editLauncherIconModalReducer,
     confirmationModal: confirmationModalReducer,
     loginModal: loginModalReducer,
+    snackbars: snackbarsReducer,
   });
 
 export const initialState = {

@@ -69,7 +69,6 @@ const getContainerBackgroundColor = ({
   hovered,
   disabled,
 }: ContainerProps): string => {
-  ``;
   if (disabled) {
     return theme.white5;
   }
@@ -115,13 +114,14 @@ const getContainerBorderColor = ({
 };
 
 const MAX_WIDTH = 320;
+export const LARGE_BUTTON_HEIGHT = 40;
 
 const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 ${({ large }) => (large ? RHYTHM : RHYTHM / 2)}px;
-  height: ${({ large }) => (large ? 40 : 26)}px;
+  height: ${({ large }) => (large ? LARGE_BUTTON_HEIGHT : 26)}px;
   background-color: ${getContainerBackgroundColor};
   border-radius: ${BORDER_RADIUS / 2}px;
   border: ${SMALL_BORDER_WIDTH}px solid ${getContainerBorderColor};

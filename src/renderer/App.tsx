@@ -12,6 +12,7 @@ import {
   SCROLLBAR_WIDTH,
   theme,
 } from "./theme";
+import { Notifier } from "./components/Notifier";
 
 require("../sentry");
 
@@ -23,6 +24,8 @@ export const App = (): ReactElement => {
       <PersistGate loading={null} persistor={persistor}>
         <AppContainer>
           <Router />
+
+          <Notifier />
         </AppContainer>
       </PersistGate>
     </Provider>
