@@ -24,3 +24,9 @@ export const signout = createAsyncAction(
   "AUTH/signoutSuccess",
   "AUTH/signoutFailure",
 )<void, void, Error>();
+
+export const deleteAccount = createAsyncAction(
+  "AUTH/deleteAccountRequest",
+  "AUTH/deleteAccountSuccess",
+  "AUTH/deleteAccountFailure",
+)<void, void, Error>();

@@ -63,7 +63,7 @@ export const EditLauncherColourModal = (): ReactElement => {
         onSelect={onSelectColour}
       />
 
-      <MarginContainer>
+      <MarginContainer small>
         <TextInput
           label="Enter a HEX code"
           placeholder="Indulge me..."

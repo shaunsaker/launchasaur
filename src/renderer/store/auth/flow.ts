@@ -1,11 +1,18 @@
 import { SagaIterator } from "redux-saga";
 import { call, fork, put, takeLatest } from "redux-saga/effects";
 import { ActionType, getType } from "typesafe-actions";
+import { firebaseDeleteUser } from "../../firebase/auth/deleteUser";
 import { firebaseForgotPassword } from "../../firebase/auth/forgotPassword";
 import { firebaseLogin } from "../../firebase/auth/login";
 import { firebaseSignout } from "../../firebase/auth/signout";
 import { firebaseSignup } from "../../firebase/auth/signup";
-import { forgotPassword, login, signout, signup } from "./actions";
+import {
+  deleteAccount,
+  forgotPassword,
+  login,
+  signout,
+  signup,
+} from "./actions";
 
 export function* signupSaga(): SagaIterator {
   yield takeLatest(
@@ -66,9 +73,22 @@ export function* signoutSaga(): SagaIterator {
   });
 }
 
+export function* deleteAccountSaga(): SagaIterator {
+  yield takeLatest(getType(deleteAccount.request), function* (): SagaIterator {
+    try {
+      yield call(firebaseDeleteUser);
+
+      yield put(deleteAccount.success());
+    } catch (error) {
+      yield put(deleteAccount.failure(error));
+    }
+  });
+}
+
 export function* authSagas(): SagaIterator {
   yield fork(signupSaga);
   yield fork(loginSaga);
   yield fork(forgotPasswordSaga);
   yield fork(signoutSaga);
+  yield fork(deleteAccountSaga);
 }

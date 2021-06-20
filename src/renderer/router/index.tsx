@@ -23,6 +23,7 @@ import { selectConfirmationModalIsShown } from "../store/confirmationModal/selec
 import { ConfirmationModal } from "../components/ConfirmationModal";
 import { selectIsAuthenticated } from "../store/auth/selectors";
 import { Login } from "../components/Login";
+import { Account } from "../components/Settings/Account";
 
 export const Router = (): ReactElement => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -75,6 +76,10 @@ export const Router = (): ReactElement => {
 
               <Route path={Routes.settingsLauncher}>
                 <SettingsLauncher />
+              </Route>
+
+              <Route path={Routes.settingsAccount}>
+                <Account />
               </Route>
 
               <Route path={Routes.settingsAppSettingsAppShortcut}>

@@ -12,12 +12,17 @@ import {
 
 const routes: SettingsNavigationMenuRoute[] = [
   {
-    key: "Launch Stations",
+    key: "launchStations",
     title: "Launch Stations",
     route: Routes.settingsLaunchStations,
   },
   {
-    key: "App Settings",
+    key: "account",
+    title: "My Account",
+    route: Routes.settingsAccount,
+  },
+  {
+    key: "appSettings",
     title: "App Settings",
     route: Routes.settingsAppSettingsAppShortcut,
   },

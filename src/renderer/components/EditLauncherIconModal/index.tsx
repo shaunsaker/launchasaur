@@ -73,7 +73,7 @@ export const EditLauncherIconModal = (): ReactElement => {
 
   return (
     <Modal title="Select an Icon" onClose={onCloseClick}>
-      <MarginContainer>
+      <MarginContainer small>
         <TextInput
           label="Search for an Icon"
           placeholder="Filter by name..."

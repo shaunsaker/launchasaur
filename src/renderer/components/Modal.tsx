@@ -27,7 +27,7 @@ export const Modal = ({
     <FadeIn>
       <Container>
         <ContentContainer>
-          <MarginContainer>
+          <MarginContainer small>
             <TitleText>{title}</TitleText>
           </MarginContainer>
 

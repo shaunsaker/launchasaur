@@ -1,6 +1,12 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { forgotPassword, login, signout, signup } from "./actions";
+import {
+  deleteAccount,
+  forgotPassword,
+  login,
+  signout,
+  signup,
+} from "./actions";
 import { AuthState } from "./models";
 
 const reducerActions = {
@@ -16,6 +22,9 @@ const reducerActions = {
   signoutRequest: signout.request,
   signoutSuccess: signout.success,
   signoutFailure: signout.failure,
+  deleteAccountRequest: deleteAccount.request,
+  deleteAccountSuccess: deleteAccount.success,
+  deleteAccountFailure: deleteAccount.failure,
 };
 
 export const initialState: AuthState = {
@@ -101,6 +110,21 @@ export const authReducer: Reducer<AuthState> = (
       };
 
     case getType(signout.failure):
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case getType(deleteAccount.request):
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case getType(deleteAccount.success):
+      return initialState;
+
+    case getType(deleteAccount.failure):
       return {
         ...state,
         loading: false,

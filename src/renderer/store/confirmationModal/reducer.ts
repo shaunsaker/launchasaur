@@ -11,6 +11,7 @@ const reducerActions = {
 export const initialState: ConfirmationModalState = {
   isShown: false,
   title: "",
+  subtitle: "",
   actions: [],
 };
 
@@ -24,6 +25,7 @@ export const confirmationModalReducer: Reducer<ConfirmationModalState> = (
         ...state,
         isShown: true,
         title: action.payload.title,
+        subtitle: action.payload.subtitle,
         actions: action.payload.actions,
       };
     case getType(hideConfirmationModal):

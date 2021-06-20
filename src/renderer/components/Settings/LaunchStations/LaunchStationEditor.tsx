@@ -119,9 +119,7 @@ export const LaunchStationEditor = () => {
 
   return (
     <PageContentContainer>
-      <StyledPageTitleText>
-        {launchStation.title} Launch Station
-      </StyledPageTitleText>
+      <PageTitleText>{launchStation.title} Launch Station</PageTitleText>
 
       <MarginContainer>
         <TextInput
@@ -171,10 +169,6 @@ export const LaunchStationEditor = () => {
     </PageContentContainer>
   );
 };
-
-const StyledPageTitleText = styled(PageTitleText)`
-  margin-top: ${SIDE_MENU_OPTION_MARGIN}px;
-`;
 
 const LaunchersContainer = styled.div`
   flex: 1;
