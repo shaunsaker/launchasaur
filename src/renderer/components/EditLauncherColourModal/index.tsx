@@ -16,6 +16,7 @@ import { Circle } from "../Circle";
 import { MarginContainer } from "../MarginContainer";
 import { TextInput } from "../TextInput";
 import { colours } from "./colours";
+import { HighlightContent } from "../HighlightContent";
 
 export const EditLauncherColourModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -55,6 +56,17 @@ export const EditLauncherColourModal = (): ReactElement => {
 
   return (
     <Modal title="Select an Colour" onClose={onCloseClick}>
+      <MarginContainer small>
+        <HighlightContent>
+          <TextInput
+            label="Enter a HEX code"
+            placeholder="Indulge me..."
+            value={value}
+            onChangeText={onChangeHexCode}
+          />
+        </HighlightContent>
+      </MarginContainer>
+
       <Picker
         data={colours}
         selected={value}
@@ -62,15 +74,6 @@ export const EditLauncherColourModal = (): ReactElement => {
         renderItem={renderColour}
         onSelect={onSelectColour}
       />
-
-      <MarginContainer small>
-        <TextInput
-          label="Enter a HEX code"
-          placeholder="Indulge me..."
-          value={value}
-          onChangeText={onChangeHexCode}
-        />
-      </MarginContainer>
 
       <SubmitButtonContainer>
         <Button primary large onClick={onSubmitClick}>

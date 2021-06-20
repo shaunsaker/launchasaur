@@ -17,8 +17,17 @@ import { MarginContainer } from "../MarginContainer";
 import { TextInput } from "../TextInput";
 import { getIconList } from "../../icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ICON_SIZE, RHYTHM, TEXT_ELLIPSIS_CSS, theme } from "../../theme";
+import {
+  BORDER_RADIUS,
+  BOX_SHADOW_CSS,
+  FLEX_CENTER_CSS,
+  ICON_SIZE,
+  RHYTHM,
+  TEXT_ELLIPSIS_CSS,
+  theme,
+} from "../../theme";
 import { PICKER_ITEM_CONTAINER_SIZE } from "../Picker/ItemContainer";
+import { HighlightContent } from "../HighlightContent";
 
 export const EditLauncherIconModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -74,12 +83,14 @@ export const EditLauncherIconModal = (): ReactElement => {
   return (
     <Modal title="Select an Icon" onClose={onCloseClick}>
       <MarginContainer small>
-        <TextInput
-          label="Search for an Icon"
-          placeholder="Filter by name..."
-          value={filter}
-          onChangeText={onChangeFilter}
-        />
+        <HighlightContent>
+          <TextInput
+            label="Search for an Icon"
+            placeholder="Filter by name..."
+            value={filter}
+            onChangeText={onChangeFilter}
+          />
+        </HighlightContent>
       </MarginContainer>
 
       <Picker
