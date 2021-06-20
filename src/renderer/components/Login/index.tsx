@@ -20,7 +20,7 @@ interface LoginProps {
 export const Login = ({ title }: LoginProps): ReactElement => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const [email, setEmail] = useState(user?.email);
+  const [email, setEmail] = useState(user?.email || "");
   const [password, setPassword] = useState("");
   const isEmailValid = validateEmail(email);
   const isPasswordValid = validatePassword(password);
