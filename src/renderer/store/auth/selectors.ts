@@ -5,3 +5,5 @@ export const selectIsAuthenticated = (state: ApplicationState) =>
 
 export const selectIsAuthLoading = (state: ApplicationState) =>
   state.auth.loading;
+
+export const selectUser = (state: ApplicationState) => state.auth.user;

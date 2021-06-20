@@ -10,7 +10,7 @@ import {
 } from "../../theme";
 
 interface SideMenuOptionProps {
-  selected: boolean;
+  selected?: boolean;
   children: string;
   onClick: () => void;
 }

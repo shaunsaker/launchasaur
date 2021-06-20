@@ -10,6 +10,7 @@ import {
   ABSOLUTE_CENTER_CSS,
   FLEX_CENTER_CSS,
   LAUNCH_STATION_DIAMETER,
+  theme,
 } from "../../theme";
 import { objectToArray } from "../../utils/objectToArray";
 import { CenterButton } from "./CenterButton";
@@ -39,7 +40,7 @@ export const Home = (): ReactElement => {
       makeLauncherData({
         title: ADD_ITEM_TITLE,
         icon: "plus",
-        colour: "#000000",
+        colour: theme.black,
         isEditable: false,
       }),
     ];

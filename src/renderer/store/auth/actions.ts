@@ -18,3 +18,9 @@ export const forgotPassword = createAsyncAction(
   "AUTH/forgotPasswordSuccess",
   "AUTH/forgotPasswordFailure",
 )<{ email: string }, void, Error>();
+
+export const signout = createAsyncAction(
+  "AUTH/signoutRequest",
+  "AUTH/signoutSuccess",
+  "AUTH/signoutFailure",
+)<void, void, Error>();

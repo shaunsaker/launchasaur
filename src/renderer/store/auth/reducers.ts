@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { forgotPassword, login, signup } from "./actions";
+import { forgotPassword, login, signout, signup } from "./actions";
 import { AuthState } from "./models";
 
 const reducerActions = {
@@ -13,6 +13,9 @@ const reducerActions = {
   forgotPasswordRequest: forgotPassword.request,
   forgotPasswordSuccess: forgotPassword.success,
   forgotPasswordFailure: forgotPassword.failure,
+  signoutRequest: signout.request,
+  signoutSuccess: signout.success,
+  signoutFailure: signout.failure,
 };
 
 export const initialState: AuthState = {
@@ -79,6 +82,25 @@ export const authReducer: Reducer<AuthState> = (
       };
 
     case getType(forgotPassword.failure):
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case getType(signout.request):
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case getType(signout.success):
+      return {
+        ...state,
+        loading: false,
+        authenticated: false,
+      };
+
+    case getType(signout.failure):
       return {
         ...state,
         loading: false,

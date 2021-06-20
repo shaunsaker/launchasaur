@@ -11,11 +11,12 @@ import { validateEmail } from "../../utils/validateEmail";
 import { validatePassword } from "../../utils/validatePassword";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, login, signup } from "../../store/auth/actions";
-import { selectIsAuthLoading } from "../../store/auth/selectors";
+import { selectIsAuthLoading, selectUser } from "../../store/auth/selectors";
 
 export const Login = (): ReactElement => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
+  const user = useSelector(selectUser);
+  const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState("");
   const isEmailValid = validateEmail(email);
   const isPasswordValid = validatePassword(password);

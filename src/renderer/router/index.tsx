@@ -80,6 +80,8 @@ export const Router = (): ReactElement => {
               <Route path={Routes.settingsAppSettingsAppShortcut}>
                 <AppShortcut />
               </Route>
+
+              <Redirect to={Routes.root} />
             </Switch>
 
             {editLauncherIconModalIsShown && <EditLauncherIconModal />}
