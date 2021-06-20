@@ -1,5 +1,10 @@
 import { createStore, applyMiddleware, Middleware } from "redux";
-import { persistStore, persistReducer, PersistConfig } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  PersistConfig,
+  createTransform,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
 import { createLogger } from "redux-logger";
@@ -8,6 +13,7 @@ import sagas from "./sagas";
 import { isDevelopment } from "../../utils/isDevelopment";
 import { routerMiddleware } from "connected-react-router";
 import { createHashHistory } from "history";
+import { parse, stringify } from "flatted";
 
 const middlewares: Middleware[] = [];
 
@@ -31,6 +37,11 @@ if (isDevelopment() && !isTesting) {
 // apply the middleware
 const middleware = applyMiddleware(...middlewares);
 
+const transformCircular = createTransform(
+  (inboundState) => stringify(inboundState),
+  (outboundState) => parse(outboundState),
+);
+
 const persistConfig: PersistConfig<ApplicationState> = {
   key: "root",
   storage,
@@ -43,6 +54,7 @@ const persistConfig: PersistConfig<ApplicationState> = {
     "editLauncherIconModal",
     "confirmationModal",
   ],
+  transforms: [transformCircular],
 };
 
 const reducers = createRootReducer(history);

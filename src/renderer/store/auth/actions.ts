@@ -25,6 +25,12 @@ export const signout = createAsyncAction(
   "AUTH/signoutFailure",
 )<void, void, Error>();
 
+export const updateEmail = createAsyncAction(
+  "AUTH/updateEmailRequest",
+  "AUTH/updateEmailSuccess",
+  "AUTH/updateEmailFailure",
+)<{ email: string }, { email: string }, Error>();
+
 export const deleteAccount = createAsyncAction(
   "AUTH/deleteAccountRequest",
   "AUTH/deleteAccountSuccess",

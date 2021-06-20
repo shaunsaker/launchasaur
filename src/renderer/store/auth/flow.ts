@@ -6,12 +6,14 @@ import { firebaseForgotPassword } from "../../firebase/auth/forgotPassword";
 import { firebaseLogin } from "../../firebase/auth/login";
 import { firebaseSignout } from "../../firebase/auth/signout";
 import { firebaseSignup } from "../../firebase/auth/signup";
+import { firebaseUpdateEmail } from "../../firebase/auth/updateEmail";
 import {
   deleteAccount,
   forgotPassword,
   login,
   signout,
   signup,
+  updateEmail,
 } from "./actions";
 
 export function* signupSaga(): SagaIterator {
@@ -73,6 +75,21 @@ export function* signoutSaga(): SagaIterator {
   });
 }
 
+export function* updateEmailSaga(): SagaIterator {
+  yield takeLatest(
+    getType(updateEmail.request),
+    function* (action: ActionType<typeof updateEmail.request>): SagaIterator {
+      try {
+        yield call(firebaseUpdateEmail, action.payload);
+
+        yield put(updateEmail.success(action.payload));
+      } catch (error) {
+        yield put(updateEmail.failure(error));
+      }
+    },
+  );
+}
+
 export function* deleteAccountSaga(): SagaIterator {
   yield takeLatest(getType(deleteAccount.request), function* (): SagaIterator {
     try {
@@ -90,5 +107,6 @@ export function* authSagas(): SagaIterator {
   yield fork(loginSaga);
   yield fork(forgotPasswordSaga);
   yield fork(signoutSaga);
+  yield fork(updateEmailSaga);
   yield fork(deleteAccountSaga);
 }
