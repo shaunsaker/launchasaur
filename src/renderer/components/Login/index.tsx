@@ -13,7 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, login, signup } from "../../store/auth/actions";
 import { selectIsAuthLoading, selectUser } from "../../store/auth/selectors";
 
-export const Login = (): ReactElement => {
+interface LoginProps {
+  title?: string;
+}
+
+export const Login = ({ title }: LoginProps): ReactElement => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [email, setEmail] = useState(user?.email);
@@ -52,7 +56,7 @@ export const Login = (): ReactElement => {
           <Logo />
         </MarginContainer>
 
-        <PageTitleText>Login to Launchasaur</PageTitleText>
+        <PageTitleText>{title || "Login to Launchasaur"}</PageTitleText>
 
         <MarginContainer small>
           <TextInput

@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { hasFirebaseSession } from "../../../firebase/auth/session";
 import {
   deleteAccount,
   updateEmail,
@@ -8,6 +9,7 @@ import {
 } from "../../../store/auth/actions";
 import { selectUser } from "../../../store/auth/selectors";
 import { showConfirmationModal } from "../../../store/confirmationModal/actions";
+import { showLoginModal } from "../../../store/loginModal/actions";
 import { validateEmail } from "../../../utils/validateEmail";
 import { validatePassword } from "../../../utils/validatePassword";
 import { Button } from "../../Button";
@@ -18,7 +20,6 @@ import { TextInput } from "../../TextInput";
 import { SettingsBase } from "../SettingsBase";
 
 export const Account = (): ReactElement => {
-  // TODO: reauthenticate before any of these actions
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [email, setEmail] = useState(user.email);
@@ -34,7 +35,11 @@ export const Account = (): ReactElement => {
   }, []);
 
   const onChangeEmailClick = useCallback(() => {
-    dispatch(updateEmail.request({ email }));
+    if (hasFirebaseSession()) {
+      dispatch(updateEmail.request({ email }));
+    } else {
+      dispatch(showLoginModal());
+    }
   }, [dispatch, email]);
 
   const onChangePassword = useCallback((text: string) => {
@@ -42,17 +47,25 @@ export const Account = (): ReactElement => {
   }, []);
 
   const onChangePasswordClick = useCallback(() => {
-    dispatch(updatePassword.request({ password }));
+    if (hasFirebaseSession()) {
+      dispatch(updatePassword.request({ password }));
+    } else {
+      dispatch(showLoginModal());
+    }
   }, [dispatch, password]);
 
   const onDeleteAccountClick = useCallback(() => {
-    dispatch(
-      showConfirmationModal({
-        title: "Are you sure you want to delete your account?",
-        subtitle: "This action cannot be undone.",
-        actions: [deleteAccount.request()],
-      }),
-    );
+    if (hasFirebaseSession()) {
+      dispatch(
+        showConfirmationModal({
+          title: "Are you sure you want to delete your account?",
+          subtitle: "This action cannot be undone.",
+          actions: [deleteAccount.request()],
+        }),
+      );
+    } else {
+      dispatch(showLoginModal());
+    }
   }, [dispatch]);
 
   return (

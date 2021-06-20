@@ -32,7 +32,7 @@ const Circle = styled.div`
   width: ${LAUNCH_STATION_DIAMETER}px;
   height: ${LAUNCH_STATION_DIAMETER}px;
   border-radius: ${LAUNCH_STATION_DIAMETER / 2}px;
-  background-color: ${theme.backgroundDark};
+  background-color: ${theme.backgroundDarkOpaque};
   border: ${BORDER_WIDTH}px solid ${theme.black};
   ${BOX_SHADOW_CSS};
   ${FLEX_CENTER_CSS};

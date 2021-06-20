@@ -19,6 +19,8 @@ import { ConfirmationModalState } from "./confirmationModal/models";
 import { confirmationModalReducer } from "./confirmationModal/reducer";
 import { AuthState } from "./auth/models";
 import { authReducer } from "./auth/reducers";
+import { LoginModalState } from "./loginModal/models";
+import { loginModalReducer } from "./loginModal/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -31,6 +33,7 @@ export interface ApplicationState {
   editLauncherColourModal: EditLauncherColourModalState;
   editLauncherIconModal: EditLauncherIconModalState;
   confirmationModal: ConfirmationModalState;
+  loginModal: LoginModalState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -45,6 +48,7 @@ export const createRootReducer = (history_: History) =>
     editLauncherColourModal: editLauncherColourModalReducer,
     editLauncherIconModal: editLauncherIconModalReducer,
     confirmationModal: confirmationModalReducer,
+    loginModal: loginModalReducer,
   });
 
 export const initialState = {

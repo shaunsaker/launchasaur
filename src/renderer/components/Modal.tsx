@@ -4,13 +4,12 @@ import {
   BORDER_RADIUS,
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
-  FLEX_CENTER_CSS,
   RHYTHM,
   theme,
 } from "../theme";
 import { CloseIcon, CLOSE_ICON_PADDING, CLOSE_ICON_SIZE } from "./CloseIcon";
-import { FadeIn } from "./FadeIn";
 import { MarginContainer } from "./MarginContainer";
+import { ModalBackdrop } from "./ModalBackdrop";
 
 interface ModalProps {
   title: string;
@@ -24,33 +23,21 @@ export const Modal = ({
   onClose,
 }: ModalProps): ReactElement => {
   return (
-    <FadeIn>
-      <Container>
-        <ContentContainer>
-          <MarginContainer small>
-            <TitleText>{title}</TitleText>
-          </MarginContainer>
+    <ModalBackdrop>
+      <ContentContainer>
+        <MarginContainer small>
+          <TitleText>{title}</TitleText>
+        </MarginContainer>
 
-          {children}
+        {children}
 
-          <CloseIconContainer>
-            <CloseIcon onClick={onClose} />
-          </CloseIconContainer>
-        </ContentContainer>
-      </Container>
-    </FadeIn>
+        <CloseIconContainer>
+          <CloseIcon onClick={onClose} />
+        </CloseIconContainer>
+      </ContentContainer>
+    </ModalBackdrop>
   );
 };
-
-const Container = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: ${theme.backgroundDark};
-  ${FLEX_CENTER_CSS};
-`;
 
 export const MODAL_WIDTH = 640;
 export const MODAL_PADDING = RHYTHM;

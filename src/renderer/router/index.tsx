@@ -24,6 +24,8 @@ import { ConfirmationModal } from "../components/ConfirmationModal";
 import { selectIsAuthenticated } from "../store/auth/selectors";
 import { Login } from "../components/Login";
 import { Account } from "../components/Settings/Account";
+import { selectLoginModalIsShown } from "../store/loginModal/selectors";
+import { LoginModal } from "../components/LoginModal";
 
 export const Router = (): ReactElement => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -41,6 +43,7 @@ export const Router = (): ReactElement => {
     selectEditLauncherIconModalIsShown,
   );
   const confirmationModalIsShown = useSelector(selectConfirmationModalIsShown);
+  const loginModalIsShown = useSelector(selectLoginModalIsShown);
 
   return (
     <ConnectedRouter history={history}>
@@ -100,6 +103,8 @@ export const Router = (): ReactElement => {
             {editLauncherColourModalIsShown && <EditLauncherColourModal />}
 
             {confirmationModalIsShown && <ConfirmationModal />}
+
+            {loginModalIsShown && <LoginModal />}
           </>
         ) : (
           <Switch>
