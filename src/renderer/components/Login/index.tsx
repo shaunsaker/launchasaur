@@ -23,6 +23,7 @@ export const Login = (): ReactElement => {
   const isAuthLoading = useSelector(selectIsAuthLoading);
   const isForgotPasswordDisabled = !isEmailValid || isAuthLoading;
   const isSubmitDisabled = !isEmailValid || !isPasswordValid || isAuthLoading;
+  const showSignupButton = email !== user?.email;
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text);
@@ -82,11 +83,13 @@ export const Login = (): ReactElement => {
         </MarginContainer>
 
         <ButtonsContainer>
-          <SignUpButtonContainer>
-            <Button large disabled={isSubmitDisabled} onClick={onSignupClick}>
-              SIGN UP?
-            </Button>
-          </SignUpButtonContainer>
+          {showSignupButton && (
+            <SignUpButtonContainer>
+              <Button large disabled={isSubmitDisabled} onClick={onSignupClick}>
+                SIGN UP?
+              </Button>
+            </SignUpButtonContainer>
+          )}
 
           <Button
             large
