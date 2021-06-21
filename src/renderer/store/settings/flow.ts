@@ -14,14 +14,14 @@ import { setAppShortcut } from "./actions";
 import { selectSettingsAppShortcut } from "./selectors";
 
 function* loadAppShortcutSaga(): SagaIterator {
-  // loads the app shortcut on mount
+  // checks if the app shortcut is available and registers it if not (sometimes we lose it 🤷‍♂️)
   const shortcut = yield* select(selectSettingsAppShortcut);
 
-  yield put(setAppShortcut.request({ shortcut }));
+  const shortcutRegistered = yield call(checkShortcutRegisteredSaga, shortcut);
 
-  yield call(registerShortcutSaga, shortcut);
-
-  yield put(setAppShortcut.success({ shortcut }));
+  if (!shortcutRegistered) {
+    yield put(setAppShortcut.request({ shortcut }));
+  }
 }
 
 function* setAppShortcutSaga(): SagaIterator {
