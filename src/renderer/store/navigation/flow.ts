@@ -54,16 +54,8 @@ function* backHandlerSaga(): SagaIterator {
   });
 }
 
-function* onAppLoadSaga(): SagaIterator {
-  // on app load, redirect to the index route, replacing the route stack
-  yield takeLatest(REHYDRATE, function* (): SagaIterator {
-    yield put(navigateTo({ to: Routes.root, replace: true }));
-  });
-}
-
 export function* navigationSagas(): SagaIterator {
   yield fork(navigateToSaga);
   yield fork(navigateBackSaga);
   yield fork(backHandlerSaga);
-  yield fork(onAppLoadSaga);
 }
