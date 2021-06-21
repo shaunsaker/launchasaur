@@ -46,6 +46,7 @@ const HeaderBarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 40px;
+  background-color: ${theme.backgroundDark33};
 `;
 
 const LogoText = styled.div`

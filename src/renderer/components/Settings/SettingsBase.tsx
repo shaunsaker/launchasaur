@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { signout } from "../../store/auth/actions";
-import { Routes } from "../../store/navigation/models";
+import { launchStationIdParam, Routes } from "../../store/navigation/models";
 import { Page } from "../Page";
 import { SideMenuOption } from "../SideMenu/SideMenuOption";
 import {
@@ -15,16 +15,19 @@ const routes: SettingsNavigationMenuRoute[] = [
     key: "launchStations",
     title: "Launch Stations",
     route: Routes.settingsLaunchStations,
+    baseRoute: Routes.settingsLaunchStation.replace(launchStationIdParam, ""),
   },
   {
     key: "account",
     title: "My Account",
     route: Routes.settingsAccount,
+    baseRoute: Routes.settingsAccount,
   },
   {
     key: "appSettings",
     title: "App Settings",
-    route: Routes.settingsAppSettingsAppShortcut,
+    route: Routes.settingsAppSettings,
+    baseRoute: Routes.settingsAppSettings,
   },
 ];
 

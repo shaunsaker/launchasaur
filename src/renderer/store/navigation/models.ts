@@ -12,5 +12,7 @@ export const Routes = {
   settingsLaunchStation: `/settings/launch-station/${launchStationIdParam}`,
   settingsLauncher: `/settings/launcher/${launchStationIdParam}/${launcherIdParam}`,
   settingsAccount: "/settings/account",
-  settingsAppSettingsAppShortcut: "/settings/app-settings/app-shortcut",
+  settingsAccountInfo: "/settings/account/info",
+  settingsAppSettings: "/settings/app",
+  settingsAppSettingsAppShortcut: "/settings/app/shortcut",
 };

@@ -8,23 +8,21 @@ import {
 
 const routes: SettingsNavigationMenuRoute[] = [
   {
-    key: "App Shortcut",
-    title: "App Shortcut",
-    route: Routes.settingsAppSettingsAppShortcut,
-    baseRoute: Routes.settingsAppSettingsAppShortcut,
+    key: "info",
+    title: "Info",
+    route: Routes.settingsAccountInfo,
+    baseRoute: Routes.settingsAccountInfo,
   },
 ];
 
-interface SettingsBaseProps {
+interface AccountBaseProps {
   children: ReactNode;
 }
 
-export const AppSettingsBase = ({
-  children,
-}: SettingsBaseProps): ReactElement => {
+export const AccountBase = ({ children }: AccountBaseProps): ReactElement => {
   return (
     <Container>
-      <SettingsNavigationMenu title="APP SETTINGS" routes={routes} />
+      <SettingsNavigationMenu title="MY ACCOUNT" routes={routes} />
 
       {children}
     </Container>

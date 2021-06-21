@@ -30,6 +30,10 @@ export const LaunchStations = (): ReactElement => {
         launchStationIdParam,
         launchStation.id,
       ),
+      baseRoute: Routes.settingsLaunchStation.replace(
+        launchStationIdParam,
+        launchStation.id,
+      ),
     }),
   );
 

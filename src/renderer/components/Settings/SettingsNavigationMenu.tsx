@@ -1,30 +1,14 @@
 import React, { ReactElement, ReactNode, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { navigateTo } from "../../store/navigation/actions";
-import { Routes } from "../../store/navigation/models";
 import { SideMenu, SideMenuOption } from "../SideMenu";
-
-const isRouteSelected = (route: string, pathname: string): boolean => {
-  // we need to special case the settings/launch-station/launchStationId route
-  // because this menu expects it to be settings/launch-station but we do a redirect to
-  // the above route
-  const isSettingsLaunchStationRoute = pathname.includes(
-    "settings/launch-station",
-  );
-  const isRouteSettingsLaunchStations = route === Routes.settingsLaunchStations;
-
-  if (isRouteSettingsLaunchStations && isSettingsLaunchStationRoute) {
-    return true;
-  }
-
-  return pathname === route;
-};
 
 export interface SettingsNavigationMenuRoute {
   key: string;
   title: string;
   route: string;
+  baseRoute: string; // allows us to match child routes and display selected state
 }
 
 interface SettingsNavigationMenuProps {
@@ -44,7 +28,7 @@ export const SettingsNavigationMenu = ({
     return {
       id: route.key,
       title: route.title,
-      selected: isRouteSelected(route.route, location.pathname),
+      selected: location.pathname.includes(route.baseRoute),
     };
   });
 

@@ -23,7 +23,7 @@ import { selectConfirmationModalIsShown } from "../store/confirmationModal/selec
 import { ConfirmationModal } from "../components/ConfirmationModal";
 import { selectIsAuthenticated } from "../store/auth/selectors";
 import { Login } from "../components/Login";
-import { Account } from "../components/Settings/Account";
+import { AccountInfo } from "../components/Settings/Account/Info";
 import { selectLoginModalIsShown } from "../store/loginModal/selectors";
 import { LoginModal } from "../components/LoginModal";
 
@@ -64,7 +64,7 @@ export const Router = (): ReactElement => {
                 <Home />
               </Route>
 
-              <Route path={Routes.settingsLaunchStations}>
+              <Route exact path={Routes.settingsLaunchStations}>
                 <Redirect
                   to={Routes.settingsLaunchStation.replace(
                     launchStationIdParam,
@@ -81,8 +81,16 @@ export const Router = (): ReactElement => {
                 <SettingsLauncher />
               </Route>
 
-              <Route path={Routes.settingsAccount}>
-                <Account />
+              <Route exact path={Routes.settingsAccount}>
+                <Redirect to={Routes.settingsAccountInfo} />
+              </Route>
+
+              <Route path={Routes.settingsAccountInfo}>
+                <AccountInfo />
+              </Route>
+
+              <Route exact path={Routes.settingsAppSettings}>
+                <Redirect to={Routes.settingsAppSettingsAppShortcut} />
               </Route>
 
               <Route path={Routes.settingsAppSettingsAppShortcut}>
