@@ -20,6 +20,7 @@ import { REHYDRATE } from "redux-persist/es/constants";
 import { selectLaunchStation } from "./selectors";
 import { ApplicationState } from "../reducers";
 import { objectToArray } from "../../utils/objectToArray";
+import { deleteAccount } from "../auth/actions";
 
 const reducerActions = {
   addLauncher,
@@ -34,6 +35,7 @@ const reducerActions = {
   setLauncherColour,
   setLauncherIcon,
   deleteLaunchStation,
+  deleteAccountSuccess: deleteAccount.success,
 };
 
 export const initialState: LaunchStationsState = {
@@ -339,6 +341,9 @@ export const launchstationsReducer: Reducer<LaunchStationsState> = (
 
     case getType(deleteLaunchStation):
       return deleteLaunchStationReducer(state, action);
+
+    case getType(deleteAccount.success):
+      return initialState;
 
     default: {
       return state;
