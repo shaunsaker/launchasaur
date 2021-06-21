@@ -120,7 +120,8 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: ${RHYTHM / 2}px ${({ large }) => (large ? RHYTHM : RHYTHM / 2)}px;
+  padding: ${({ large }) => (large ? RHYTHM / 2 : 0)}px
+    ${({ large }) => (large ? RHYTHM : RHYTHM / 2)}px;
   min-height: ${({ large }) => (large ? LARGE_BUTTON_HEIGHT : 26)}px;
   background-color: ${getContainerBackgroundColor};
   border-radius: ${BORDER_RADIUS / 2}px;
