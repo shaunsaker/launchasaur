@@ -13,13 +13,23 @@ import { SnackbarType } from "../snackbars/models";
 import { setAppShortcut } from "./actions";
 import { selectSettingsAppShortcut } from "./selectors";
 
+function* loadAppShortcutSaga(): SagaIterator {
+  // loads the app shortcut on mount
+  const shortcut = yield* select(selectSettingsAppShortcut);
+
+  yield put(setAppShortcut.request({ shortcut }));
+
+  yield call(registerShortcutSaga, shortcut);
+
+  yield put(setAppShortcut.success({ shortcut }));
+}
+
 function* setAppShortcutSaga(): SagaIterator {
   yield takeLatest(
     getType(setAppShortcut.request),
     function* (
       action: ActionType<typeof setAppShortcut.request>,
     ): SagaIterator {
-      console.log("HERE");
       const { shortcut } = action.payload;
 
       // check if the shortcut is available
@@ -54,5 +64,6 @@ function* setAppShortcutSaga(): SagaIterator {
 }
 
 export function* settingsSagas(): SagaIterator {
+  yield fork(loadAppShortcutSaga);
   yield fork(setAppShortcutSaga);
 }
