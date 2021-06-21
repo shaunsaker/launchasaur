@@ -58,7 +58,8 @@ const TitleText = styled.div`
   line-height: 1.5;
   font-weight: bold;
   color: ${theme.white};
-  margin-right: ${CLOSE_ICON_SIZE + CLOSE_ICON_PADDING}px;
+  text-align: center;
+  margin: 0 ${CLOSE_ICON_SIZE + CLOSE_ICON_PADDING}px;
 `;
 
 const CloseIconContainer = styled.div`
