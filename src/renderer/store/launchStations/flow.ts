@@ -52,6 +52,7 @@ function* handleAddOpenOrCloseFileActionSaga(
   } else {
     // failure
     yield put(addLauncherAction.failure());
+    // TODO: Should we fail silently?
   }
 }
 

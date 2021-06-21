@@ -2,11 +2,14 @@ import { SagaIterator } from "redux-saga";
 import { call, fork, put, takeLatest } from "redux-saga/effects";
 import { ActionType, getType } from "typesafe-actions";
 import { select } from "../../utils/select";
+import { uuid } from "../../utils/uuid";
 import {
   checkShortcutRegisteredSaga,
   registerShortcutSaga,
   unregisterShortcutSaga,
 } from "../ipc/flow";
+import { showSnackbar } from "../snackbars/actions";
+import { SnackbarType } from "../snackbars/models";
 import { setAppShortcut } from "./actions";
 import { selectSettingsAppShortcut } from "./selectors";
 
@@ -36,12 +39,17 @@ function* setAppShortcutSaga(): SagaIterator {
       );
 
       if (shortcutRegistered) {
+        const message =
+          "Shortcut is already registered. Please try a different one.";
+
+        yield put(setAppShortcut.failure(new Error(message)));
+
         yield put(
-          setAppShortcut.failure(
-            new Error(
-              "Shortcut is already registered. Please try a different one.",
-            ),
-          ),
+          showSnackbar({
+            key: uuid(),
+            message,
+            type: SnackbarType.Danger,
+          }),
         );
       } else {
         const oldShortcut = yield* select(selectSettingsAppShortcut);

@@ -13,6 +13,9 @@ import {
   registerShortcut,
   unregisterShortcut,
 } from "./actions";
+import { showSnackbar } from "../snackbars/actions";
+import { uuid } from "../../utils/uuid";
+import { SnackbarType } from "../snackbars/models";
 
 export function* getFilepathSaga(): SagaIterator {
   yield put(getFilepath.request());
@@ -25,6 +28,13 @@ export function* getFilepathSaga(): SagaIterator {
     return response;
   } catch (error) {
     yield put(getFilepath.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
 
@@ -41,6 +51,13 @@ export function* openFileSaga(filepath: string): SagaIterator {
     }
   } catch (error) {
     yield put(openFile.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
 
@@ -59,6 +76,13 @@ export function* closeFileSaga(filepath: string): SagaIterator {
     }
   } catch (error) {
     yield put(closeFile.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
 
@@ -71,6 +95,13 @@ export function* openLinkSaga(url: string): SagaIterator {
     yield put(openLink.success());
   } catch (error) {
     yield put(openLink.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
 
@@ -87,6 +118,13 @@ export function* checkShortcutRegisteredSaga(shortcut: string): SagaIterator {
     return shortcutRegistered;
   } catch (error) {
     yield put(checkShortcutRegistered.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
 
@@ -99,6 +137,13 @@ export function* unregisterShortcutSaga(shortcut: string): SagaIterator {
     yield put(unregisterShortcut.success());
   } catch (error) {
     yield put(unregisterShortcut.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
 
@@ -111,6 +156,13 @@ export function* registerShortcutSaga(shortcut: string): SagaIterator {
     yield put(registerShortcut.success());
   } catch (error) {
     yield put(registerShortcut.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
 
@@ -123,5 +175,12 @@ export function* hideWindowSaga(): SagaIterator {
     yield put(hideWindow.success());
   } catch (error) {
     yield put(hideWindow.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
   }
 }
