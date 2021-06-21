@@ -13,6 +13,7 @@ import {
   theme,
 } from "./theme";
 import { Notifier } from "./components/Notifier";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 require("../sentry");
 
@@ -23,9 +24,11 @@ export const App = (): ReactElement => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <AppContainer>
-          <Router />
+          <ErrorBoundary>
+            <Router />
 
-          <Notifier />
+            <Notifier />
+          </ErrorBoundary>
         </AppContainer>
       </PersistGate>
     </Provider>

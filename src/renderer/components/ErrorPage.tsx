@@ -1,26 +1,68 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { CONTENT_CONTAINER_WIDTH } from "../theme";
+import { selectIsAuthenticated } from "../store/auth/selectors";
+import { navigateBack, navigateTo } from "../store/navigation/actions";
+import { Routes } from "../store/navigation/models";
+import { RHYTHM } from "../theme";
 import { BlankState } from "./BlankState";
-import { Page } from "./Page";
-import { PageContentContainer } from "./PageContentContainer";
+import { Button } from "./Button";
+import { CircularWindow } from "./CircularWindow";
+import { MarginContainer } from "./MarginContainer";
 
-export const ErrorPage = (): ReactElement => {
+interface ErrorPageProps {
+  error?: string;
+  resetError?: () => void;
+}
+
+export const ErrorPage = ({
+  error,
+  resetError,
+}: ErrorPageProps): ReactElement => {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
+  const onContactSupportClick = useCallback(() => {
+    // TODO:
+    resetError();
+  }, [resetError]);
+
+  const onGoHomeClick = useCallback(() => {
+    dispatch(navigateTo({ to: isAuthenticated ? Routes.root : Routes.login }));
+    resetError();
+  }, [dispatch, isAuthenticated, resetError]);
+
   return (
-    <Page>
+    <CircularWindow>
       <Container>
         <BlankState
           icon="exclamation"
           title="Uh Oh!"
-          description="We're not sure how you got here but if the issue persists, please contact Support."
-        />
+          description={
+            error ||
+            "We're not sure how you got here but if the issue persists, please contact Support."
+          }>
+          <ButtonsContainer>
+            <MarginContainer small>
+              <Button large onClick={onContactSupportClick}>
+                CONTACT SUPPORT
+              </Button>
+            </MarginContainer>
+
+            <Button large primary onClick={onGoHomeClick}>
+              GO HOME
+            </Button>
+          </ButtonsContainer>
+        </BlankState>
       </Container>
-    </Page>
+    </CircularWindow>
   );
 };
 
-const Container = styled(PageContentContainer)`
-  width: ${CONTENT_CONTAINER_WIDTH}px;
-  align-self: center;
-  justify-content: center;
+const Container = styled.div`
+  padding: ${RHYTHM}px;
+`;
+
+const ButtonsContainer = styled.div`
+  margin-top: ${RHYTHM}px;
 `;
