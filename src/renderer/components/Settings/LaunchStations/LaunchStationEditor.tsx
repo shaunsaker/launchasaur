@@ -31,7 +31,6 @@ import { FieldLabel } from "../../FieldLabel";
 import { ListItem } from "../../ListItem";
 import { PageContentContainer } from "../../PageContentContainer";
 import { PageTitleText } from "../../PageTitleText";
-import { SIDE_MENU_OPTION_MARGIN } from "../../SideMenu/SideMenuOption";
 import { TextInput } from "../../TextInput";
 
 export const LaunchStationEditor = () => {

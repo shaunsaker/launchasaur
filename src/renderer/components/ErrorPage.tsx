@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectIsAuthenticated } from "../store/auth/selectors";
-import { navigateBack, navigateTo } from "../store/navigation/actions";
+import { navigateTo } from "../store/navigation/actions";
 import { Routes } from "../store/navigation/models";
 import { RHYTHM } from "../theme";
 import { BlankState } from "./BlankState";

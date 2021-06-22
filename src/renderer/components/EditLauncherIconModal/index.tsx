@@ -17,15 +17,7 @@ import { MarginContainer } from "../MarginContainer";
 import { TextInput } from "../TextInput";
 import { getIconList } from "../../icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  BORDER_RADIUS,
-  BOX_SHADOW_CSS,
-  FLEX_CENTER_CSS,
-  ICON_SIZE,
-  RHYTHM,
-  TEXT_ELLIPSIS_CSS,
-  theme,
-} from "../../theme";
+import { ICON_SIZE, RHYTHM, TEXT_ELLIPSIS_CSS, theme } from "../../theme";
 import { PICKER_ITEM_CONTAINER_SIZE } from "../Picker/ItemContainer";
 import { HighlightContent } from "../HighlightContent";
 

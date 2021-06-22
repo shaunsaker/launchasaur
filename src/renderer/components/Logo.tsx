@@ -2,9 +2,7 @@ import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { theme } from "../theme";
 
-interface LogoProps {}
-
-export const Logo = ({}: LogoProps): ReactElement => {
+export const Logo = (): ReactElement => {
   return <Container />;
 };
 
