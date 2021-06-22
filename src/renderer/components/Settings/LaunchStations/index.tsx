@@ -14,6 +14,8 @@ import {
 } from "../SettingsNavigationMenu";
 import { launchStationIdParam, Routes } from "../../../store/navigation/models";
 import { navigateToSettingsLaunchStation } from "../../../store/navigation/actions";
+import { selectUserIsPro } from "../../../store/user/selectors";
+import { showUpgradeModal } from "../../../store/upgradeModal/actions";
 
 export interface LaunchStationsRouteParams {
   launchStationId: string | undefined;
@@ -36,14 +38,19 @@ export const LaunchStations = (): ReactElement => {
       ),
     }),
   );
+  const userIsPro = useSelector(selectUserIsPro);
 
   const onAddLaunchStationClick = useCallback(() => {
-    const id = uuid();
+    if (userIsPro) {
+      const id = uuid();
 
-    dispatch(addLaunchStation({ id }));
+      dispatch(addLaunchStation({ id }));
 
-    dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
-  }, [dispatch]);
+      dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
+    } else {
+      dispatch(showUpgradeModal());
+    }
+  }, [dispatch, userIsPro]);
 
   return (
     <SettingsBase>

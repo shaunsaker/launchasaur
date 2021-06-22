@@ -1,3 +1,5 @@
 import { ApplicationState } from "../reducers";
+import { Plans } from "./models";
 
-export const selectUserPlan = (state: ApplicationState) => state.user.data.plan;
+export const selectUserIsPro = (state: ApplicationState) =>
+  state.user.data.plan === Plans.Pro;

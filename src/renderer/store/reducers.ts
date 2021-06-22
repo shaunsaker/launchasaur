@@ -25,12 +25,16 @@ import { SnackbarsState } from "./snackbars/models";
 import { snackbarsReducer } from "./snackbars/reducer";
 import { UserState } from "./user/models";
 import { userReducer } from "./user/reducer";
+import { UpgradeModalState } from "./upgradeModal/models";
+import { upgradeModalReducer } from "./upgradeModal/reducer";
 
 export interface ApplicationState {
   router: RouterState;
   auth: AuthState;
   settings: SettingsState;
   launchStations: LaunchStationsState;
+  snackbars: SnackbarsState;
+  user: UserState;
   launcherActionsModal: LauncherActionsModalState;
   editLinkModal: EditLinkModalState;
   selectLaunchStationModal: SelectLaunchStationModalState;
@@ -38,8 +42,7 @@ export interface ApplicationState {
   editLauncherIconModal: EditLauncherIconModalState;
   confirmationModal: ConfirmationModalState;
   loginModal: LoginModalState;
-  snackbars: SnackbarsState;
-  user: UserState;
+  upgradeModal: UpgradeModalState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -48,6 +51,8 @@ export const createRootReducer = (history_: History) =>
     auth: authReducer,
     settings: settingsReducer,
     launchStations: launchstationsReducer,
+    snackbars: snackbarsReducer,
+    user: userReducer,
     launcherActionsModal: launcherActionsModalReducer,
     editLinkModal: editLinkModalReducer,
     selectLaunchStationModal: selectLaunchStationModalReducer,
@@ -55,8 +60,7 @@ export const createRootReducer = (history_: History) =>
     editLauncherIconModal: editLauncherIconModalReducer,
     confirmationModal: confirmationModalReducer,
     loginModal: loginModalReducer,
-    snackbars: snackbarsReducer,
-    user: userReducer,
+    upgradeModal: upgradeModalReducer,
   });
 
 export const initialState = {

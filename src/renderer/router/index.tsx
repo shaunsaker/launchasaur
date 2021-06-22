@@ -26,6 +26,8 @@ import { Login } from "../components/Login";
 import { AccountInfo } from "../components/Settings/Account/Info";
 import { selectLoginModalIsShown } from "../store/loginModal/selectors";
 import { LoginModal } from "../components/LoginModal";
+import { selecUpgradeModalIsShown } from "../store/upgradeModal/selectors";
+import { UpgradeModal } from "../components/UpgradeModal";
 
 export const Router = (): ReactElement => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -44,6 +46,7 @@ export const Router = (): ReactElement => {
   );
   const confirmationModalIsShown = useSelector(selectConfirmationModalIsShown);
   const loginModalIsShown = useSelector(selectLoginModalIsShown);
+  const upgradeModalIsShown = useSelector(selecUpgradeModalIsShown);
 
   return (
     <ConnectedRouter history={history}>
@@ -113,6 +116,8 @@ export const Router = (): ReactElement => {
             {confirmationModalIsShown && <ConfirmationModal />}
 
             {loginModalIsShown && <LoginModal />}
+
+            {upgradeModalIsShown && <UpgradeModal />}
           </>
         ) : (
           <Switch>
