@@ -6,4 +6,7 @@ export const selectIsAuthenticated = (state: ApplicationState) =>
 export const selectIsAuthLoading = (state: ApplicationState) =>
   state.auth.loading;
 
-export const selectUser = (state: ApplicationState) => state.auth.user;
+export const selectUserEmail = (state: ApplicationState) =>
+  state.auth.user?.email;
+
+export const selectUserId = (state: ApplicationState) => state.auth.user?.uid;

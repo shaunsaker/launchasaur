@@ -11,7 +11,10 @@ import { validateEmail } from "../../utils/validateEmail";
 import { validatePassword } from "../../utils/validatePassword";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, login, signup } from "../../store/auth/actions";
-import { selectIsAuthLoading, selectUser } from "../../store/auth/selectors";
+import {
+  selectIsAuthLoading,
+  selectUserEmail,
+} from "../../store/auth/selectors";
 
 interface LoginProps {
   title?: string;
@@ -19,15 +22,15 @@ interface LoginProps {
 
 export const Login = ({ title }: LoginProps): ReactElement => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const [email, setEmail] = useState(user?.email || "");
+  const userEmail = useSelector(selectUserEmail);
+  const [email, setEmail] = useState(userEmail || "");
   const [password, setPassword] = useState("");
   const isEmailValid = validateEmail(email);
   const isPasswordValid = validatePassword(password);
   const isAuthLoading = useSelector(selectIsAuthLoading);
   const isForgotPasswordDisabled = !isEmailValid || isAuthLoading;
   const isSubmitDisabled = !isEmailValid || !isPasswordValid || isAuthLoading;
-  const showSignupButton = email !== user?.email;
+  const showSignupButton = email !== userEmail;
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text);

@@ -7,7 +7,7 @@ import {
   updateEmail,
   updatePassword,
 } from "../../../../store/auth/actions";
-import { selectUser } from "../../../../store/auth/selectors";
+import { selectUserEmail } from "../../../../store/auth/selectors";
 import { showConfirmationModal } from "../../../../store/confirmationModal/actions";
 import { showLoginModal } from "../../../../store/loginModal/actions";
 import { validateEmail } from "../../../../utils/validateEmail";
@@ -22,10 +22,10 @@ import { AccountBase } from "../AccountBase";
 
 export const AccountInfo = (): ReactElement => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const [email, setEmail] = useState(user.email);
+  const userEmail = useSelector(selectUserEmail);
+  const [email, setEmail] = useState(userEmail);
   const isEmailValid = validateEmail(email);
-  const hasEmailChanged = email !== user.email;
+  const hasEmailChanged = email !== userEmail;
   const isChangeEmailButtonDisabled = !hasEmailChanged || !isEmailValid;
   const [password, setPassword] = useState("");
   const isPasswordValid = validatePassword(password);

@@ -2,6 +2,6 @@ import firebase from "firebase";
 
 export interface AuthState {
   authenticated: boolean;
-  user: firebase.User;
+  user: firebase.User | undefined;
   loading: boolean;
 }
