@@ -18,6 +18,8 @@ import {
   selectSelectLaunchStationModalLaunchStationId,
   selectSelectLaunchStationModalLauncherId,
 } from "../../store/selectLaunchStationModal/selectors";
+import { showUpgradeModal } from "../../store/upgradeModal/actions";
+import { selectIsUserPro } from "../../store/user/selectors";
 import { RHYTHM } from "../../theme";
 import { uuid } from "../../utils/uuid";
 import { BlankState } from "../BlankState";
@@ -32,15 +34,23 @@ export const SelectLaunchStationModal = (): ReactElement => {
   const launcherId = useSelector(selectSelectLaunchStationModalLauncherId);
   const launchStations = useSelector(selectNonDefaultLaunchStations);
   const hasOtherLaunchStations = launchStations.length;
+  const userIsPro = useSelector(selectIsUserPro);
 
   const onAddLaunchStationClick = useCallback(() => {
-    const id = uuid();
+    if (userIsPro) {
+      const id = uuid();
 
-    dispatch(addLaunchStation({ id }));
-    dispatch(hideSelectLaunchStationModal());
-    dispatch(hideLauncherActionsModal());
-    dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
-  }, [dispatch]);
+      dispatch(addLaunchStation({ id }));
+
+      dispatch(hideSelectLaunchStationModal());
+
+      dispatch(hideLauncherActionsModal());
+
+      dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
+    } else {
+      dispatch(showUpgradeModal());
+    }
+  }, [dispatch, userIsPro]);
 
   const onLaunchStationClick = useCallback(
     (launchStation: LaunchStationData) => {

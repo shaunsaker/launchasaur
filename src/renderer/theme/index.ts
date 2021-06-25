@@ -26,6 +26,7 @@ export const SCROLLBAR_WIDTH = RHYTHM / 2;
 export const ICON_SIZE = RHYTHM;
 export const CONTENT_CONTAINER_WIDTH = 536;
 export const LAUNCH_STATION_DIAMETER = 640;
+export const MAX_TEXT_WIDTH = 360;
 
 // css
 const SHADOW_CSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";

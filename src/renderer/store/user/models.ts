@@ -4,9 +4,13 @@ export enum Plans {
 }
 
 export interface UserData {
+  isEligibleForTrial: boolean;
+  isTrialActive: boolean;
+  trialStartDate: string;
   plan: Plans;
 }
 
 export interface UserState {
   data: UserData;
+  loading: boolean;
 }

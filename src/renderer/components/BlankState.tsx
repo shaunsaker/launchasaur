@@ -1,7 +1,7 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
-import { BORDER_RADIUS, RHYTHM, theme } from "../theme";
+import { BORDER_RADIUS, MAX_TEXT_WIDTH, RHYTHM, theme } from "../theme";
 import { Icon } from "./Icon";
 import { MarginContainer } from "./MarginContainer";
 
@@ -46,12 +46,15 @@ const Container = styled.div`
 `;
 
 const TitleText = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: ${theme.white};
 `;
 
 const DescriptionText = styled.div`
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 20px;
   color: ${theme.white};
+  text-align: center;
+  max-width: ${MAX_TEXT_WIDTH}px;
 `;

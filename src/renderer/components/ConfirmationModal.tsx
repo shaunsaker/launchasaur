@@ -50,6 +50,7 @@ export const ConfirmationModal = (): ReactElement => {
 const SubtitleText = styled.div`
   font-size: 16px;
   color: ${theme.white};
+  text-align: center;
 `;
 
 const ActionButtonContainer = styled.div`

@@ -6,3 +6,9 @@ export const fetchUser = createAsyncAction(
   "USER/fetchUserSuccess",
   "USER/fetchUserFailure",
 )<{ userId: string }, UserData, Error>();
+
+export const startTrial = createAsyncAction(
+  "USER/startTrialRequest",
+  "USER/startTrialSuccess",
+  "USER/startTrialFailure",
+)<{ email: string }, void, Error>();
