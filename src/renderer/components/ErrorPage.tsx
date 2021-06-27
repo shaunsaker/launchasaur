@@ -1,7 +1,9 @@
 import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { SUPPORT_EMAIL } from "../config";
 import { selectIsAuthenticated } from "../store/auth/selectors";
+import { openLink } from "../store/ipc/actions";
 import { navigateTo } from "../store/navigation/actions";
 import { Routes } from "../store/navigation/models";
 import { RHYTHM } from "../theme";
@@ -23,9 +25,9 @@ export const ErrorPage = ({
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const onContactSupportClick = useCallback(() => {
-    // TODO:
+    dispatch(openLink.request({ url: `mailto: ${SUPPORT_EMAIL}` }));
     resetError();
-  }, [resetError]);
+  }, [dispatch, resetError]);
 
   const onGoHomeClick = useCallback(() => {
     dispatch(navigateTo({ to: isAuthenticated ? Routes.root : Routes.login }));
