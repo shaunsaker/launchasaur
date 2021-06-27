@@ -10,6 +10,7 @@ export const theme = {
   backgroundDark33: "rgba(0, 0, 0, 0.33)",
   backgroundDarkOpaque: "#1E2524",
   backgroundLight: `rgba(255, 255, 255, ${MAGIC_NUMBER})`,
+  backgroundLightOpaque: "#373E3D",
   accent: "#3BAC98",
   accent67: "rgba(59,172,152, 0.67)",
   danger: "#AC3B42",

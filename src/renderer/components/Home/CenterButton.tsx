@@ -83,7 +83,7 @@ const Container = styled.div<ContainerProps>`
   border-style: solid;
   border-color: ${theme.black};
   background-color: ${({ hovered }) =>
-    hovered ? theme.backgroundLight : theme.backgroundDark};
+    hovered ? theme.backgroundLightOpaque : theme.backgroundDarkOpaque};
   transition: background-color ${TRANSITION_CSS};
   cursor: pointer;
   color: ${theme.white};

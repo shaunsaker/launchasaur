@@ -102,7 +102,7 @@ const StyledPath = styled.path<HoveredProps>`
   stroke: ${theme.black};
   stroke-width: ${BORDER_WIDTH};
   fill: ${({ hovered }) =>
-    hovered ? theme.backgroundLight : theme.backgroundDark};
+    hovered ? theme.backgroundLightOpaque : theme.backgroundDarkOpaque};
   transition: all ${TRANSITION_CSS};
 `;
 
