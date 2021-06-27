@@ -1,16 +1,6 @@
 import React, { ReactElement } from "react";
-import styled from "styled-components";
-import { theme } from "../theme";
+import { Icon } from "./Icon";
 
 export const Logo = (): ReactElement => {
-  return <Container />;
+  return <Icon icon="rocket" />;
 };
-
-const SIZE = 64;
-
-const Container = styled.div`
-  width: ${SIZE}px;
-  height: ${SIZE}px;
-  border-radius: ${SIZE / 2}px;
-  background-color: ${theme.accent};
-`;

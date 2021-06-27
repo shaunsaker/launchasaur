@@ -52,12 +52,18 @@ export const CenterButton = ({ diameter }: LogoButtonProps): ReactElement => {
           <>
             <Icon icon="times" />
 
-            <LaunchStationTitleText $diameter={diameter}>
+            <CenterButtonTitleText $diameter={diameter}>
               {launchStation?.title}
-            </LaunchStationTitleText>
+            </CenterButtonTitleText>
           </>
         ) : (
-          <Logo />
+          <>
+            <Logo />
+
+            <CenterButtonTitleText $diameter={diameter}>
+              Settings
+            </CenterButtonTitleText>
+          </>
         )}
       </InnerContainer>
     </Container>
@@ -88,11 +94,11 @@ const InnerContainer = styled.div`
   ${FLEX_CENTER_CSS}
 `;
 
-interface LaunchStationTitleTextProps {
+interface CenterButtonTitleTextProps {
   $diameter: number;
 }
 
-const LaunchStationTitleText = styled.div<LaunchStationTitleTextProps>`
+const CenterButtonTitleText = styled.div<CenterButtonTitleTextProps>`
   margin-top: ${RHYTHM / 2}px;
   font-size: 16px;
   font-weight: bold;
