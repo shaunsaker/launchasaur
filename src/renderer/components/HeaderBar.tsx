@@ -6,31 +6,22 @@ import { Routes } from "../store/navigation/models";
 import { BORDER_WIDTH, RHYTHM, theme } from "../theme";
 import { CloseIcon } from "./CloseIcon";
 
-export interface HeaderBarProps {
-  showClose?: boolean;
-  goBack?: boolean;
-}
+export interface HeaderBarProps {}
 
-export const HeaderBar = ({ showClose, goBack }: HeaderBarProps) => {
+export const HeaderBar = ({}: HeaderBarProps) => {
   const dispatch = useDispatch();
 
   const onCloseClick = useCallback(() => {
-    if (goBack) {
-      dispatch(navigateBack());
-    } else {
-      dispatch(navigateTo({ to: Routes.root }));
-    }
-  }, [dispatch, goBack]);
+    dispatch(navigateTo({ to: Routes.root }));
+  }, [dispatch]);
 
   return (
     <HeaderBarContainer>
       <LogoText>LAUNCHASAUR</LogoText>
 
-      {showClose && (
-        <CloseIconContainer>
-          <CloseIcon onClick={onCloseClick} />
-        </CloseIconContainer>
-      )}
+      <CloseIconContainer>
+        <CloseIcon onClick={onCloseClick} />
+      </CloseIconContainer>
     </HeaderBarContainer>
   );
 };

@@ -43,7 +43,7 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   }, [dispatch]);
 
   return (
-    <Page showClose>
+    <Page>
       <Container>
         <SettingsNavigationMenu routes={routes}>
           <SideMenuOption onClick={onSignOutClick}>Sign Out</SideMenuOption>

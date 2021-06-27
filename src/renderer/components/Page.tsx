@@ -7,10 +7,10 @@ interface PageProps extends HeaderBarProps {
   children: ReactNode;
 }
 
-export const Page = ({ showClose, goBack, children }: PageProps) => {
+export const Page = ({ children }: PageProps) => {
   return (
     <PageContainer>
-      <HeaderBar showClose={showClose} goBack={goBack} />
+      <HeaderBar />
 
       <ContentContainer>{children}</ContentContainer>
     </PageContainer>

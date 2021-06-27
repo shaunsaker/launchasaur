@@ -108,7 +108,7 @@ export const SettingsLauncher = (): ReactElement => {
   );
 
   return (
-    <Page showClose goBack>
+    <Page>
       <Container>
         <PageTitleText>{launcher.title} Launcher</PageTitleText>
 
