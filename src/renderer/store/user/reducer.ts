@@ -17,7 +17,7 @@ export const initialState: UserState = {
     trialStartDate: "",
     plan: Plans.Basic,
   },
-  loading: false,
+  isStartTrialLoading: false,
 };
 
 export const userReducer: Reducer<UserState> = (
@@ -40,7 +40,7 @@ export const userReducer: Reducer<UserState> = (
         data: {
           ...state.data,
         },
-        loading: true,
+        isStartTrialLoading: true,
       };
 
     case getType(startTrial.success):
@@ -49,7 +49,7 @@ export const userReducer: Reducer<UserState> = (
         data: {
           ...state.data,
         },
-        loading: false,
+        isStartTrialLoading: false,
       };
 
     case getType(startTrial.failure):
@@ -58,7 +58,7 @@ export const userReducer: Reducer<UserState> = (
         data: {
           ...state.data,
         },
-        loading: false,
+        isStartTrialLoading: false,
       };
 
     default: {

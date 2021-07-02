@@ -6,7 +6,7 @@ import { hideUpgradeModal } from "../../store/upgradeModal/actions";
 import { startTrial } from "../../store/user/actions";
 import {
   selectIsEligibleForTrial,
-  selectIsUserLoading,
+  selectIsStartTrialLoading,
 } from "../../store/user/selectors";
 import { RHYTHM } from "../../theme";
 import { BlankState } from "../BlankState";
@@ -17,7 +17,8 @@ export const UpgradeModal = (): ReactElement => {
   const dispatch = useDispatch();
   const isEligibleForTrial = useSelector(selectIsEligibleForTrial);
   const userEmail = useSelector(selectUserEmail);
-  const isUserLoading = useSelector(selectIsUserLoading);
+  const isStartTrialLoading = useSelector(selectIsStartTrialLoading);
+  const isSubmitDisabled = isStartTrialLoading;
 
   const onClose = useCallback(() => {
     dispatch(hideUpgradeModal());
@@ -43,9 +44,13 @@ export const UpgradeModal = (): ReactElement => {
           <Button
             primary
             large
-            disabled={isUserLoading}
+            disabled={isSubmitDisabled}
             onClick={onSubmitClick}>
-            {isEligibleForTrial ? "START YOUR FREE TRIAL" : "UPGRADE TO PRO"}
+            {isStartTrialLoading
+              ? "STARTING YOUR FREE TRIAL..."
+              : isEligibleForTrial
+              ? "START YOUR FREE TRIAL"
+              : "UPGRADE TO PRO"}
           </Button>
         </ButtonContainer>
       </BlankState>

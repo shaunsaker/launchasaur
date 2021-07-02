@@ -12,5 +12,5 @@ export interface UserData {
 
 export interface UserState {
   data: UserData;
-  loading: boolean;
+  isStartTrialLoading: boolean;
 }

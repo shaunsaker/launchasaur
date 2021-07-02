@@ -10,5 +10,5 @@ export const selectIsTrialActive = (state: ApplicationState) =>
 export const selectIsUserPro = (state: ApplicationState) =>
   state.user.data.plan === Plans.Pro;
 
-export const selectIsUserLoading = (state: ApplicationState) =>
-  state.user.loading;
+export const selectIsStartTrialLoading = (state: ApplicationState) =>
+  state.user.isStartTrialLoading;
