@@ -18,19 +18,14 @@ const start = (): void => {
   const mainWindow = new BrowserWindow({
     height: 600,
     width: 1200,
+    fullscreen: true,
+    // frame: false,
+    // transparent: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
-
-  if (!isDevelopment()) {
-    mainWindow.fullScreen = true;
-    // @ts-expect-error frame exists
-    mainWindow.frame = false;
-    // @ts-expect-error transparent exists
-    mainWindow.transparent = true;
-  }
 
   mainWindow.maximize();
 
