@@ -7,7 +7,12 @@ import {
   updateEmail,
   updatePassword,
 } from "../../../../store/auth/actions";
-import { selectUserEmail } from "../../../../store/auth/selectors";
+import {
+  selectIsDeleteAccountLoading,
+  selectIsUpdateEmailLoading,
+  selectIsUpdatePasswordLoading,
+  selectUserEmail,
+} from "../../../../store/auth/selectors";
 import { showConfirmationModal } from "../../../../store/confirmationModal/actions";
 import { showLoginModal } from "../../../../store/loginModal/actions";
 import { validateEmail } from "../../../../utils/validateEmail";
@@ -26,10 +31,16 @@ export const AccountInfo = (): ReactElement => {
   const [email, setEmail] = useState(userEmail);
   const isEmailValid = validateEmail(email);
   const hasEmailChanged = email !== userEmail;
-  const isChangeEmailButtonDisabled = !hasEmailChanged || !isEmailValid;
   const [password, setPassword] = useState("");
   const isPasswordValid = validatePassword(password);
-  const isChangePasswordButtonDisabled = !isPasswordValid;
+  const isUpdateEmailLoading = useSelector(selectIsUpdateEmailLoading);
+  const isUpdatePasswordLoading = useSelector(selectIsUpdatePasswordLoading);
+  const isDeleteAccountLoading = useSelector(selectIsDeleteAccountLoading);
+  const isChangeEmailButtonDisabled =
+    !hasEmailChanged || !isEmailValid || isUpdateEmailLoading;
+  const isChangePasswordButtonDisabled =
+    !isPasswordValid || isUpdatePasswordLoading;
+  const isDeleteAccountButtonDisabled = isDeleteAccountLoading;
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text);
@@ -90,7 +101,9 @@ export const AccountInfo = (): ReactElement => {
                 <Button
                   disabled={isChangeEmailButtonDisabled}
                   onClick={onChangeEmailClick}>
-                  CHANGE YOUR EMAIL
+                  {isUpdateEmailLoading
+                    ? "CHANGING YOUR EMAIL..."
+                    : "CHANGE YOUR EMAIL"}
                 </Button>
               </ButtonContainer>
             </MarginContainer>
@@ -110,14 +123,22 @@ export const AccountInfo = (): ReactElement => {
                 <Button
                   disabled={isChangePasswordButtonDisabled}
                   onClick={onChangePasswordClick}>
-                  CHANGE YOUR PASSWORD
+                  {isUpdatePasswordLoading
+                    ? "CHANGING YOUR PASSWORD..."
+                    : "CHANGE YOUR PASSWORD"}
                 </Button>
               </ButtonContainer>
             </MarginContainer>
 
             <DeleteButtonContainer>
-              <Button danger large onClick={onDeleteAccountClick}>
-                DELETE YOUR ACCOUNT
+              <Button
+                danger
+                large
+                disabled={isDeleteAccountButtonDisabled}
+                onClick={onDeleteAccountClick}>
+                {isDeleteAccountLoading
+                  ? "DELETING YOUR ACCOUNT..."
+                  : "DELETE YOUR ACCOUNT"}
               </Button>
             </DeleteButtonContainer>
           </PageContentContainer>

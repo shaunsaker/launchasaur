@@ -12,7 +12,9 @@ import { validatePassword } from "../../utils/validatePassword";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, login, signup } from "../../store/auth/actions";
 import {
-  selectIsAuthLoading,
+  selectIsForgotPasswordLoading,
+  selectIsLoginLoading,
+  selectIsSignupLoading,
   selectUserEmail,
 } from "../../store/auth/selectors";
 
@@ -27,9 +29,12 @@ export const Login = ({ title }: LoginProps): ReactElement => {
   const [password, setPassword] = useState("");
   const isEmailValid = validateEmail(email);
   const isPasswordValid = validatePassword(password);
-  const isAuthLoading = useSelector(selectIsAuthLoading);
-  const isForgotPasswordDisabled = !isEmailValid || isAuthLoading;
-  const isSubmitDisabled = !isEmailValid || !isPasswordValid || isAuthLoading;
+  const isForgotPasswordLoading = useSelector(selectIsForgotPasswordLoading);
+  const isForgotPasswordDisabled = !isEmailValid || isForgotPasswordLoading;
+  const isLoginLoading = useSelector(selectIsLoginLoading);
+  const isSignupLoading = useSelector(selectIsSignupLoading);
+  const isSubmitDisabled =
+    !isEmailValid || !isPasswordValid || isLoginLoading || isSignupLoading;
   const showSignupButton = email !== userEmail;
 
   const onChangeEmail = useCallback((text: string) => {
@@ -85,7 +90,9 @@ export const Login = ({ title }: LoginProps): ReactElement => {
           <Button
             disabled={isForgotPasswordDisabled}
             onClick={onForgotPasswordClick}>
-            FORGOT PASSWORD?
+            {isForgotPasswordLoading
+              ? "SENDING PASSWORD RESET EMAIL..."
+              : "RESET PASSWORD"}
           </Button>
         </MarginContainer>
 
@@ -93,7 +100,7 @@ export const Login = ({ title }: LoginProps): ReactElement => {
           {showSignupButton && (
             <SignUpButtonContainer>
               <Button large disabled={isSubmitDisabled} onClick={onSignupClick}>
-                SIGN UP?
+                {isSignupLoading ? "SIGNING YOU UP..." : "SIGN UP"}
               </Button>
             </SignUpButtonContainer>
           )}
@@ -103,7 +110,7 @@ export const Login = ({ title }: LoginProps): ReactElement => {
             primary
             disabled={isSubmitDisabled}
             onClick={onLoginClick}>
-            LOG IN
+            {isLoginLoading ? "LOGGING YOU IN..." : "LOG IN"}
           </Button>
         </ButtonsContainer>
       </Container>

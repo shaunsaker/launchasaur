@@ -1,7 +1,8 @@
 import React, { ReactElement, ReactNode, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { signout } from "../../store/auth/actions";
+import { selectIsSignoutLoading } from "../../store/auth/selectors";
 import { launchStationIdParam, Routes } from "../../store/navigation/models";
 import { Page } from "../Page";
 import { SideMenuOption } from "../SideMenu/SideMenuOption";
@@ -37,6 +38,7 @@ interface SettingsBaseProps {
 
 export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   const dispatch = useDispatch();
+  const isSignOutLoading = useSelector(selectIsSignoutLoading);
 
   const onSignOutClick = useCallback(() => {
     dispatch(signout.request());
@@ -46,7 +48,9 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
     <Page>
       <Container>
         <SettingsNavigationMenu routes={routes}>
-          <SideMenuOption onClick={onSignOutClick}>Sign Out</SideMenuOption>
+          <SideMenuOption onClick={onSignOutClick}>
+            {isSignOutLoading ? "Signing out..." : "Sign Out"}
+          </SideMenuOption>
         </SettingsNavigationMenu>
 
         {children}

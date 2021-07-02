@@ -38,7 +38,10 @@ const reducerActions = {
 export const initialState: AuthState = {
   authenticated: false,
   user: undefined,
-  loading: false,
+  isLoginLoading: false,
+  isSignupLoading: false,
+  isForgotPasswordLoading: false,
+  isSignoutLoading: false,
 };
 
 export const authReducer: Reducer<AuthState> = (
@@ -49,7 +52,7 @@ export const authReducer: Reducer<AuthState> = (
     case getType(signup.request):
       return {
         ...state,
-        loading: true,
+        isSignupLoading: true,
       };
 
     case getType(signup.success):
@@ -57,19 +60,19 @@ export const authReducer: Reducer<AuthState> = (
         ...state,
         authenticated: true,
         user: action.payload,
-        loading: false,
+        isSignupLoading: false,
       };
 
     case getType(signup.failure):
       return {
         ...state,
-        loading: false,
+        isSignupLoading: false,
       };
 
     case getType(login.request):
       return {
         ...state,
-        loading: true,
+        isLoginLoading: true,
       };
 
     case getType(login.success):
@@ -77,62 +80,62 @@ export const authReducer: Reducer<AuthState> = (
         ...state,
         authenticated: true,
         user: action.payload,
-        loading: false,
+        isLoginLoading: false,
       };
 
     case getType(login.failure):
       return {
         ...state,
-        loading: false,
+        isLoginLoading: false,
       };
 
     case getType(forgotPassword.request):
       return {
         ...state,
-        loading: true,
+        isForgotPasswordLoading: true,
       };
 
     case getType(forgotPassword.success):
       return {
         ...state,
-        loading: false,
+        isForgotPasswordLoading: false,
       };
 
     case getType(forgotPassword.failure):
       return {
         ...state,
-        loading: false,
+        isForgotPasswordLoading: false,
       };
 
     case getType(signout.request):
       return {
         ...state,
-        loading: true,
+        isSignoutLoading: true,
       };
 
     case getType(signout.success):
       return {
         ...state,
-        loading: false,
+        isSignoutLoading: false,
         authenticated: false,
       };
 
     case getType(signout.failure):
       return {
         ...state,
-        loading: false,
+        isSignoutLoading: false,
       };
 
     case getType(updateEmail.request):
       return {
         ...state,
-        loading: true,
+        isUpdateEmailLoading: true,
       };
 
     case getType(updateEmail.success):
       return {
         ...state,
-        loading: false,
+        isUpdateEmailLoading: false,
         user: {
           ...state.user,
           email: action.payload.email,
@@ -142,31 +145,31 @@ export const authReducer: Reducer<AuthState> = (
     case getType(updateEmail.failure):
       return {
         ...state,
-        loading: false,
+        isUpdateEmailLoading: false,
       };
 
     case getType(updatePassword.request):
       return {
         ...state,
-        loading: true,
+        isUpdatePasswordLoading: true,
       };
 
     case getType(updatePassword.success):
       return {
         ...state,
-        loading: false,
+        isUpdatePasswordLoading: false,
       };
 
     case getType(updatePassword.failure):
       return {
         ...state,
-        loading: false,
+        isUpdatePasswordLoading: false,
       };
 
     case getType(deleteAccount.request):
       return {
         ...state,
-        loading: true,
+        isDeleteAccountLoading: true,
       };
 
     case getType(deleteAccount.success):
@@ -175,7 +178,7 @@ export const authReducer: Reducer<AuthState> = (
     case getType(deleteAccount.failure):
       return {
         ...state,
-        loading: false,
+        isDeleteAccountLoading: false,
       };
 
     default: {

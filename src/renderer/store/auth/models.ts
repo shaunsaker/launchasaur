@@ -3,5 +3,11 @@ import firebase from "firebase";
 export interface AuthState {
   authenticated: boolean;
   user: firebase.User | undefined;
-  loading: boolean;
+  isLoginLoading: boolean;
+  isSignupLoading: boolean;
+  isForgotPasswordLoading: boolean;
+  isSignoutLoading: boolean;
+  isUpdateEmailLoading: boolean;
+  isUpdatePasswordLoading: boolean;
+  isDeleteAccountLoading: boolean;
 }
