@@ -15,4 +15,5 @@ export const PageContentContainer = styled.div`
   background-color: ${theme.white5};
   ${BOX_SHADOW_CSS};
   margin: 0 auto;
+  overflow: auto;
 `;

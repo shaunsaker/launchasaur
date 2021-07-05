@@ -218,6 +218,7 @@ const AddActionButtonContainer = styled.div`
 `;
 
 const DoneButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  bottom: ${RHYTHM}px;
+  right: ${RHYTHM}px;
 `;

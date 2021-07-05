@@ -31,4 +31,5 @@ const ContentContainer = styled.div`
   align-self: center;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 `;
