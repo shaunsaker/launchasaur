@@ -18,9 +18,9 @@ const start = (): void => {
   const mainWindow = new BrowserWindow({
     height: 600,
     width: 1200,
-    fullscreen: !isDevelopment(),
-    frame: !isDevelopment(),
-    transparent: !isDevelopment(),
+    fullscreen: isDevelopment() ? false : true,
+    frame: isDevelopment() ? true : false,
+    transparent: isDevelopment() ? false : true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
