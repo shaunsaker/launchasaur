@@ -27,7 +27,7 @@ type Options<S> = {
   equal?: typeof shallowEqual;
 };
 
-const defaultOptions = {
+const defaultOptions: Options<any> = {
   pathTests: [],
   debounce: 0,
   method: takeEvery,
@@ -55,7 +55,8 @@ export function* connectSaga<State, T>(
     let oldStore = yield* select((store) => store);
     let oldData: T;
 
-    const initialState = yield* select((storeState) => storeState);
+    // FIXME: type this
+    const initialState: any = yield* select((storeState) => storeState);
     oldData = selectData(initialState);
     yield put(dataChangedChannel, {
       state: oldData,
@@ -84,8 +85,10 @@ export function* connectSaga<State, T>(
       if (state !== oldStore) {
         if (
           options.pathTests.length === 0 ||
+          // @ts-expect-error type this
           options.pathTests.some((pathTest) => pathTest(oldStore, state))
         ) {
+          // @ts-expect-error type this
           const data = selectData(state);
 
           if (!options.equal(data, oldData)) {
@@ -104,6 +107,7 @@ export function* connectSaga<State, T>(
   });
 
   yield options.method(dataChangedChannel, function* (data) {
+    // @ts-expect-error type this
     const result = yield call(saga, data.state, data.oldState);
     if (result === "__connect_exit") {
       dataChangedChannel.close();

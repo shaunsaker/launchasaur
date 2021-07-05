@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { theme } from "../theme";
-import { HeaderBar, HeaderBarProps } from "./HeaderBar";
+import { HeaderBar } from "./HeaderBar";
 
-interface PageProps extends HeaderBarProps {
+interface PageProps {
   children: ReactNode;
 }
 

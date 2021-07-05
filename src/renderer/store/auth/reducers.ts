@@ -42,6 +42,9 @@ export const initialState: AuthState = {
   isSignupLoading: false,
   isForgotPasswordLoading: false,
   isSignoutLoading: false,
+  isUpdateEmailLoading: false,
+  isUpdatePasswordLoading: false,
+  isDeleteAccountLoading: false,
 };
 
 export const authReducer: Reducer<AuthState> = (
