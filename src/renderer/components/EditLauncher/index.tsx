@@ -112,7 +112,16 @@ export const EditLauncher = (): ReactElement => {
       <Container>
         <PageTitleText>{launcher.title} Launcher</PageTitleText>
 
-        <MarginContainer>
+        <MarginContainer small>
+          <TextInput
+            label="Title"
+            placeholder="What should we call your Launcher?"
+            value={launcher.title}
+            onChangeText={onChangeTitle}
+          />
+        </MarginContainer>
+
+        <MarginContainer small>
           <FieldLabel>Icon</FieldLabel>
 
           <WithEditButtonContainer>
@@ -124,16 +133,7 @@ export const EditLauncher = (): ReactElement => {
           </WithEditButtonContainer>
         </MarginContainer>
 
-        <MarginContainer>
-          <TextInput
-            label="Title"
-            placeholder="What should we call your Launcher?"
-            value={launcher.title}
-            onChangeText={onChangeTitle}
-          />
-        </MarginContainer>
-
-        <MarginContainer>
+        <MarginContainer small>
           <FieldLabel>Shortcut</FieldLabel>
 
           <ShortcutEditor
@@ -142,7 +142,7 @@ export const EditLauncher = (): ReactElement => {
           />
         </MarginContainer>
 
-        <MarginContainer>
+        <MarginContainer small>
           <FieldLabel>Colour</FieldLabel>
 
           <WithEditButtonContainer>
@@ -154,35 +154,33 @@ export const EditLauncher = (): ReactElement => {
           </WithEditButtonContainer>
         </MarginContainer>
 
-        <ActionsContainer>
-          <MarginContainer>
-            <FieldLabel>Actions</FieldLabel>
+        <MarginContainer small>
+          <FieldLabel>Actions</FieldLabel>
 
-            {hasActions ? (
-              <>
-                {actions.map((action) => {
-                  return (
-                    <MarginContainer key={action.id} small>
-                      <ActionItem
-                        action={action}
-                        onDelete={() => onDeleteAction(action)}
-                      />
-                    </MarginContainer>
-                  );
-                })}
+          {hasActions ? (
+            <>
+              {actions.map((action) => {
+                return (
+                  <MarginContainer key={action.id} small>
+                    <ActionItem
+                      action={action}
+                      onDelete={() => onDeleteAction(action)}
+                    />
+                  </MarginContainer>
+                );
+              })}
 
-                {addActionButton}
-              </>
-            ) : (
-              <BlankState
-                icon="rocket"
-                title="You have no actions"
-                description="Add an action so that you can start launching things!">
-                {addActionButton}
-              </BlankState>
-            )}
-          </MarginContainer>
-        </ActionsContainer>
+              {addActionButton}
+            </>
+          ) : (
+            <BlankState
+              icon="rocket"
+              title="You have no actions"
+              description="Add an action so that you can start launching things!">
+              {addActionButton}
+            </BlankState>
+          )}
+        </MarginContainer>
 
         <DoneButtonContainer>
           <Button primary large onClick={onDoneClick}>
@@ -206,10 +204,6 @@ const WithEditButtonContainer = styled.div`
 
 const EditButtonContainer = styled.div`
   margin-left: ${RHYTHM}px;
-`;
-
-const ActionsContainer = styled.div`
-  flex: 1;
 `;
 
 const AddActionButtonContainer = styled.div`
