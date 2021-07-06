@@ -139,6 +139,7 @@ function* triggerLauncherSaga(): SagaIterator {
         }
       });
 
+      // TODO: how to catch the errors here (they're not errors but rather failure actions) - we should not trigger success and hide window on error
       yield all(actionsArray);
 
       yield put(triggerLauncher.success());
