@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
-import { ActionData } from "../../../../store/launchStations/models";
-import { selectPrettyAction } from "../../../../store/launchStations/selectors";
-import { getActionIcon } from "../../../../store/launchStations/utils";
-import { ApplicationState } from "../../../../store/reducers";
-import { ListItem } from "../../../ListItem";
+import { ActionData } from "../../store/launchStations/models";
+import { selectPrettyAction } from "../../store/launchStations/selectors";
+import { getActionIcon } from "../../store/launchStations/utils";
+import { ApplicationState } from "../../store/reducers";
+import { ListItem } from "../ListItem";
 
 interface ActionItemProps {
   action: ActionData;

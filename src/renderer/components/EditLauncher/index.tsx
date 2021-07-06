@@ -1,42 +1,42 @@
 import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { showEditLauncherIconModal } from "../../../../store/editLauncherIconModal/actions";
+import { showEditLauncherIconModal } from "../../store/editLauncherIconModal/actions";
 import {
   deleteLauncherAction,
   setLauncherShortcut,
   setLauncherTitle,
-} from "../../../../store/launchStations/actions";
-import { selectLauncher } from "../../../../store/launchStations/selectors";
-import { ApplicationState } from "../../../../store/reducers";
-import { CONTENT_CONTAINER_WIDTH, RHYTHM } from "../../../../theme";
-import { ShortcutEditor } from "../../../ShortcutEditor";
-import { MarginContainer } from "../../../MarginContainer";
-import { FieldLabel } from "../../../FieldLabel";
-import { Icon } from "../../../Icon";
-import { Button } from "../../../Button";
-import { TextInput } from "../../../TextInput";
-import { Circle } from "../../../Circle";
-import { showEditLauncherColourModal } from "../../../../store/editLauncherColourModal/actions";
-import { Page } from "../../../Page";
+} from "../../store/launchStations/actions";
+import { selectLauncher } from "../../store/launchStations/selectors";
+import { ApplicationState } from "../../store/reducers";
+import { CONTENT_CONTAINER_WIDTH, RHYTHM } from "../../theme";
+import { ShortcutEditor } from "../ShortcutEditor";
+import { MarginContainer } from "../MarginContainer";
+import { FieldLabel } from "../FieldLabel";
+import { Icon } from "../Icon";
+import { Button } from "../Button";
+import { TextInput } from "../TextInput";
+import { Circle } from "../Circle";
+import { showEditLauncherColourModal } from "../../store/editLauncherColourModal/actions";
+import { Page } from "../Page";
 import { useParams } from "react-router-dom";
-import { navigateBack } from "../../../../store/navigation/actions";
-import { PageTitleText } from "../../../PageTitleText";
-import { PageContentContainer } from "../../../PageContentContainer";
-import { objectToArray } from "../../../../utils/objectToArray";
-import { ActionData } from "../../../../store/launchStations/models";
-import { showLauncherActionsModal } from "../../../../store/launcherActionsModal/actions";
-import { BlankState } from "../../../BlankState";
-import { ErrorPage } from "../../../ErrorPage";
+import { navigateBack } from "../../store/navigation/actions";
+import { PageTitleText } from "../PageTitleText";
+import { PageContentContainer } from "../PageContentContainer";
+import { objectToArray } from "../../utils/objectToArray";
+import { ActionData } from "../../store/launchStations/models";
+import { showLauncherActionsModal } from "../../store/launcherActionsModal/actions";
+import { BlankState } from "../BlankState";
+import { ErrorPage } from "../ErrorPage";
 import { ActionItem } from "./ActionItem";
-import { showConfirmationModal } from "../../../../store/confirmationModal/actions";
+import { showConfirmationModal } from "../../store/confirmationModal/actions";
 
 interface SettingsLauncherRouteParams {
   launchStationId: string | undefined;
   launcherId: string | undefined;
 }
 
-export const SettingsLauncher = (): ReactElement => {
+export const EditLauncher = (): ReactElement => {
   const dispatch = useDispatch();
   const { launchStationId, launcherId } =
     useParams<SettingsLauncherRouteParams>();

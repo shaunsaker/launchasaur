@@ -15,7 +15,7 @@ import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
 import { Home } from "../components/Home";
 import { LaunchStations } from "../components/Settings/LaunchStations";
-import { SettingsLauncher } from "../components/Settings/LaunchStations/SettingsLauncher";
+import { EditLauncher } from "../components/EditLauncher";
 import { AppShortcut } from "../components/Settings/AppSettings/AppShortcut";
 import { launchStationIdParam, Routes } from "../store/navigation/models";
 import { DEFAULT_LAUNCH_STATION_ID } from "../store/launchStations/models";
@@ -81,7 +81,7 @@ export const Router = (): ReactElement => {
               </Route>
 
               <Route path={Routes.settingsLauncher}>
-                <SettingsLauncher />
+                <EditLauncher />
               </Route>
 
               <Route exact path={Routes.settingsAccount}>
