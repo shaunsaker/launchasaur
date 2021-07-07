@@ -56,6 +56,11 @@ export const Home = (): ReactElement => {
     setLauncherIndexHovered(index);
   }, []);
 
+  // TODO: LauncherForeground does not update correctly when another launcher is added/removed because it does not know when svg background has updated
+  // ideally svg background should control LauncherForeground but we will need a ref to the ForegroundContainer to attach those pieces too
+  // we could then just use one component for each launcher
+  // and move this to the Launch station component
+
   return (
     <Container>
       <SvgBackgroundContainer id={launchStation.id}>
@@ -76,7 +81,7 @@ export const Home = (): ReactElement => {
       <ForegroundContainer>
         {launchers.map((launcher, index) => (
           <LauncherForeground
-            key={launcher.id}
+            key={launcher.id + index + itemCount}
             diameter={LAUNCH_STATION_DIAMETER}
             innerDiameter={LAUNCH_STATION_INNER_DIAMETER}
             {...launcher}
