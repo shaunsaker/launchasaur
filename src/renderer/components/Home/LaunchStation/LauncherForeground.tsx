@@ -6,17 +6,17 @@ import { useWindowSize } from "use-hooks";
 import {
   addLauncher,
   triggerLauncher,
-} from "../../store/launchStations/actions";
+} from "../../../store/launchStations/actions";
 import {
   ADD_ITEM_TITLE,
   LaunchStationId,
   LauncherData,
-} from "../../store/launchStations/models";
-import { getSvgArcCentroid } from "../../svg/getSvgArcCentroid";
-import { FLEX_CENTER_CSS, RHYTHM, theme } from "../../theme";
-import { uuid } from "../../utils/uuid";
+} from "../../../store/launchStations/models";
+import { getSvgArcCentroid } from "../../../svg/getSvgArcCentroid";
+import { FLEX_CENTER_CSS, RHYTHM, theme } from "../../../theme";
+import { uuid } from "../../../utils/uuid";
 import { ContextMenu } from "./ContextMenu";
-import { Icon } from "../Icon";
+import { Icon } from "../../Icon";
 import { makeSvgArcProps } from "./LauncherSvgBackground/makeSvgArcProps";
 
 interface LauncherForegroundProps extends LauncherData {

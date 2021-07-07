@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
-import { HomeRouteParams } from ".";
-import { DEFAULT_LAUNCH_STATION_ID } from "../../store/launchStations/models";
-import { selectLaunchStation } from "../../store/launchStations/selectors";
-import { navigateBack, navigateTo } from "../../store/navigation/actions";
-import { Routes } from "../../store/navigation/models";
-import { ApplicationState } from "../../store/reducers";
+import { HomeRouteParams } from "..";
+import { DEFAULT_LAUNCH_STATION_ID } from "../../../store/launchStations/models";
+import { selectLaunchStation } from "../../../store/launchStations/selectors";
+import { navigateBack, navigateTo } from "../../../store/navigation/actions";
+import { Routes } from "../../../store/navigation/models";
+import { ApplicationState } from "../../../store/reducers";
 import {
   BORDER_WIDTH,
   FLEX_CENTER_CSS,
@@ -16,9 +16,9 @@ import {
   TEXT_ELLIPSIS_CSS,
   theme,
   TRANSITION_CSS,
-} from "../../theme";
-import { Icon } from "../Icon";
-import { Logo } from "../Logo";
+} from "../../../theme";
+import { Icon } from "../../Icon";
+import { Logo } from "../../Logo";
 
 interface LogoButtonProps {
   diameter: number;

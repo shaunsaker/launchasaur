@@ -1,13 +1,13 @@
 import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
-import { makeSvgArcPath } from "../../../svg/makeSvgArcPath";
+import { makeSvgArcPath } from "../../../../svg/makeSvgArcPath";
 import {
   BORDER_WIDTH,
   RHYTHM,
   SMALL_BORDER_WIDTH,
   theme,
   TRANSITION_CSS,
-} from "../../../theme";
+} from "../../../../theme";
 import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface LauncherSvgBackgroundProps {

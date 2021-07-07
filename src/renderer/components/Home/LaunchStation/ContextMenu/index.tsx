@@ -1,15 +1,15 @@
 import React, { MouseEvent, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { deleteLauncher } from "../../../store/launchStations/actions";
-import { navigateToSettingsLauncher } from "../../../store/navigation/actions";
+import { deleteLauncher } from "../../../../store/launchStations/actions";
+import { navigateToSettingsLauncher } from "../../../../store/navigation/actions";
 import {
   BORDER_RADIUS,
   BOX_SHADOW_CSS,
   SMALL_BORDER_WIDTH,
   theme,
-} from "../../../theme";
-import { FadeIn } from "../../FadeIn";
+} from "../../../../theme";
+import { FadeIn } from "../../../FadeIn";
 import { ContextMenuItem, ContextMenuItemProps } from "./ContextMenuItem";
 import { useContextMenu } from "./useContextMenu";
 
