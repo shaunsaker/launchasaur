@@ -4,15 +4,16 @@ import {
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
   FLEX_CENTER_CSS,
-  LAUNCH_STATION_DIAMETER,
+  CONTENT_CONTAINER_WIDTH,
   theme,
+  BORDER_RADIUS,
 } from "../theme";
 
 interface CircularWindowProps {
   children: ReactNode;
 }
 
-export const CircularWindow = ({
+export const WindowContainer = ({
   children,
 }: CircularWindowProps): ReactElement => {
   return (
@@ -29,9 +30,9 @@ const Container = styled.div`
 `;
 
 const Circle = styled.div`
-  width: ${LAUNCH_STATION_DIAMETER}px;
-  height: ${LAUNCH_STATION_DIAMETER}px;
-  border-radius: ${LAUNCH_STATION_DIAMETER / 2}px;
+  width: ${CONTENT_CONTAINER_WIDTH}px;
+  height: ${CONTENT_CONTAINER_WIDTH}px;
+  border-radius: ${BORDER_RADIUS}px;
   background-color: ${theme.backgroundDarkOpaque};
   border: ${BORDER_WIDTH}px solid ${theme.black};
   ${BOX_SHADOW_CSS};

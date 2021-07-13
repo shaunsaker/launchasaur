@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
 import { FLEX_CENTER_CSS, RHYTHM } from "../../theme";
 import { Button } from "../Button";
-import { CircularWindow } from "../CircularWindow";
+import { WindowContainer } from "../WindowContainer";
 import { MarginContainer } from "../MarginContainer";
 import { Logo } from "../Logo";
 import { PageTitleText } from "../PageTitleText";
@@ -58,7 +58,7 @@ export const Login = ({ title }: LoginProps): ReactElement => {
   }, [dispatch, email, password]);
 
   return (
-    <CircularWindow>
+    <WindowContainer>
       <Container>
         <MarginContainer small>
           <Logo />
@@ -114,7 +114,7 @@ export const Login = ({ title }: LoginProps): ReactElement => {
           </Button>
         </ButtonsContainer>
       </Container>
-    </CircularWindow>
+    </WindowContainer>
   );
 };
 

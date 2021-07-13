@@ -9,7 +9,7 @@ import { Routes } from "../store/navigation/models";
 import { RHYTHM } from "../theme";
 import { BlankState } from "./BlankState";
 import { Button } from "./Button";
-import { CircularWindow } from "./CircularWindow";
+import { WindowContainer } from "./WindowContainer";
 import { MarginContainer } from "./MarginContainer";
 
 interface ErrorPageProps {
@@ -35,7 +35,7 @@ export const ErrorPage = ({
   }, [dispatch, isAuthenticated, resetError]);
 
   return (
-    <CircularWindow>
+    <WindowContainer>
       <Container>
         <BlankState
           icon="exclamation"
@@ -57,7 +57,7 @@ export const ErrorPage = ({
           </ButtonsContainer>
         </BlankState>
       </Container>
-    </CircularWindow>
+    </WindowContainer>
   );
 };
 
