@@ -1,34 +1,39 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, {
+  MutableRefObject,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useWindowSize } from "use-hooks";
 import {
   addLauncher,
   triggerLauncher,
-} from "../../../store/launchStations/actions";
+} from "../../../../store/launchStations/actions";
 import {
   ADD_ITEM_TITLE,
   LaunchStationId,
   LauncherData,
-} from "../../../store/launchStations/models";
-import { getSvgArcCentroid } from "../../../svg/getSvgArcCentroid";
-import { FLEX_CENTER_CSS, RHYTHM, theme } from "../../../theme";
-import { uuid } from "../../../utils/uuid";
-import { ContextMenu } from "./ContextMenu";
-import { Icon } from "../../Icon";
-import { makeSvgArcProps } from "./LauncherSvgBackground/makeSvgArcProps";
+} from "../../../../store/launchStations/models";
+import { getSvgArcCentroid } from "../../../../svg/getSvgArcCentroid";
+import { FLEX_CENTER_CSS, RHYTHM, theme } from "../../../../theme";
+import { uuid } from "../../../../utils/uuid";
+import { ContextMenu } from "../ContextMenu";
+import { Icon } from "../../../Icon";
+import { makeSvgArcProps } from "./makeSvgArcProps";
 
 interface LauncherForegroundProps extends LauncherData {
+  arcPathRef: MutableRefObject<SVGPathElement>;
   diameter: number;
   innerDiameter: number;
   index: number;
   itemCount: number;
   launchStationId: LaunchStationId;
-  svgBackgroundHasMounted: boolean;
   isHovered: boolean;
   isEditable: boolean;
-  onHover: (index: number | null) => void;
+  onHover: (isHovered: boolean) => void;
 }
 
 interface LayoutState {
@@ -41,12 +46,12 @@ interface LayoutState {
 }
 
 export const LauncherForeground = ({
+  arcPathRef,
   diameter,
   innerDiameter,
   index,
   itemCount,
   launchStationId,
-  svgBackgroundHasMounted,
   id,
   icon,
   title,
@@ -67,58 +72,49 @@ export const LauncherForeground = ({
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   useLayoutEffect(() => {
-    // when the svg background has mounted we need to get the corresponding svg group
-    // using the index and copy it's layout
+    // get the corresponding svg group using the index and copy it's layout
     // we also position the inner content container so that it's center point
     // is exactly between the inner and outer arcs
-    if (svgBackgroundHasMounted) {
-      const svgArcProps = makeSvgArcProps({
-        diameter,
-        innerDiameter,
-        itemCount,
-        index,
-      });
-      const centerRadius =
-        (diameter / 2 - RHYTHM * 2 + innerDiameter / 2 + RHYTHM / 2) / 2;
-      const arcCentroid = getSvgArcCentroid({
-        ...svgArcProps,
-        innerRadius: centerRadius,
-        outerRadius: centerRadius,
-      });
-      const element = document
-        .getElementById(launchStationId)
-        .getElementsByTagName("g")
-        .item(index)
-        .getElementsByTagName("path")
-        .item(0);
-      const clientRect = element.getClientRects().item(0);
-      const centerCoordsOfContainerRelativeToWindow = [
-        clientRect.x + clientRect.width / 2,
-        clientRect.y + clientRect.height / 2,
-      ];
-      const centerCoordsOfWindow = [windowWidth / 2, windowHeight / 2];
-      const arcCentroidRelativeToWindow = [
-        arcCentroid[0] + centerCoordsOfWindow[0],
-        arcCentroid[1] + centerCoordsOfWindow[1],
-      ];
-      const contentTranslateRequired = [
-        arcCentroidRelativeToWindow[0] -
-          centerCoordsOfContainerRelativeToWindow[0],
-        arcCentroidRelativeToWindow[1] -
-          centerCoordsOfContainerRelativeToWindow[1],
-      ];
+    const svgArcProps = makeSvgArcProps({
+      diameter,
+      innerDiameter,
+      itemCount,
+      index,
+    });
+    const centerRadius =
+      (diameter / 2 - RHYTHM * 2 + innerDiameter / 2 + RHYTHM / 2) / 2;
+    const arcCentroid = getSvgArcCentroid({
+      ...svgArcProps,
+      innerRadius: centerRadius,
+      outerRadius: centerRadius,
+    });
+    const clientRect = arcPathRef.current.getClientRects().item(0);
+    const centerCoordsOfContainerRelativeToWindow = [
+      clientRect.x + clientRect.width / 2,
+      clientRect.y + clientRect.height / 2,
+    ];
+    const centerCoordsOfWindow = [windowWidth / 2, windowHeight / 2];
+    const arcCentroidRelativeToWindow = [
+      arcCentroid[0] + centerCoordsOfWindow[0],
+      arcCentroid[1] + centerCoordsOfWindow[1],
+    ];
+    const contentTranslateRequired = [
+      arcCentroidRelativeToWindow[0] -
+        centerCoordsOfContainerRelativeToWindow[0],
+      arcCentroidRelativeToWindow[1] -
+        centerCoordsOfContainerRelativeToWindow[1],
+    ];
 
-      setLayout({
-        top: clientRect.top,
-        left: clientRect.left,
-        width: clientRect.width,
-        height: clientRect.height,
-        contentTranslateX: contentTranslateRequired[0],
-        contentTranslateY: contentTranslateRequired[1],
-      });
-    }
+    setLayout({
+      top: clientRect.top,
+      left: clientRect.left,
+      width: clientRect.width,
+      height: clientRect.height,
+      contentTranslateX: contentTranslateRequired[0],
+      contentTranslateY: contentTranslateRequired[1],
+    });
   }, [
-    svgBackgroundHasMounted,
+    arcPathRef,
     diameter,
     innerDiameter,
     index,
@@ -129,11 +125,11 @@ export const LauncherForeground = ({
   ]);
 
   const onMouseOver = useCallback(() => {
-    onHover(index);
-  }, [onHover, index]);
+    onHover(true);
+  }, [onHover]);
 
   const onMouseLeave = useCallback(() => {
-    onHover(null);
+    onHover(false);
   }, [onHover]);
 
   const onClick = useCallback(() => {
@@ -150,10 +146,6 @@ export const LauncherForeground = ({
       );
     }
   }, [dispatch, launchStationId, id, title]);
-
-  if (!svgBackgroundHasMounted) {
-    return null;
-  }
 
   return (
     <Container

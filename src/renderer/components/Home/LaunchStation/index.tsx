@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from "react";
+import React, { ReactElement, useCallback, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { makeLauncherData } from "../../../store/launchStations/data";
@@ -10,13 +10,13 @@ import {
   LAUNCH_STATION_DIAMETER,
   FLEX_CENTER_CSS,
   ABSOLUTE_CENTER_CSS,
+  ABSOLUTE_STRETCH_CSS,
 } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { CenterButton } from "./CenterButton";
-import { LauncherForeground } from "./LauncherForeground";
-import { LauncherSvgBackground } from "./LauncherSvgBackground";
+import { Launcher } from "./Launcher";
 
-const LAUNCH_STATION_INNER_DIAMETER = 128;
+export const LAUNCH_STATION_INNER_DIAMETER = 128;
 
 interface LaunchStationProps {
   id: string;
@@ -26,8 +26,6 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
   const launchStation = useSelector((state: ApplicationState) =>
     selectLaunchStation(state, id),
   );
-  const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
-  const [launcherIndexHovered, setLauncherIndexHovered] = useState(null);
 
   let launchers = objectToArray(launchStation?.launchers);
 
@@ -45,14 +43,7 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
   }
 
   const itemCount = launchers.length;
-
-  const onMountSvgBackground = useCallback(() => {
-    setSvgBackgroundHasMounted(true);
-  }, []);
-
-  const onHoverLauncher = useCallback((index: number) => {
-    setLauncherIndexHovered(index);
-  }, []);
+  const foregroundContainerRef = useRef<HTMLDivElement>();
 
   // TODO: LauncherForeground does not update correctly when another launcher is added/removed because it does not know when svg background has updated
   // ideally svg background should control LauncherForeground but we will need a ref to the ForegroundContainer to attach those pieces too
@@ -61,38 +52,23 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
 
   return (
     <Container>
-      <SvgBackgroundContainer id={launchStation.id}>
+      <LaunchersContainer id={launchStation.id}>
         {launchers.map((launcher, index) => (
-          <LauncherSvgBackground
+          <Launcher
             key={launcher.id}
+            launcher={launcher}
+            launchStation={launchStation}
             diameter={LAUNCH_STATION_DIAMETER}
             innerDiameter={LAUNCH_STATION_INNER_DIAMETER}
             index={index}
             itemCount={itemCount}
             colour={launcher.colour}
-            isHovered={launcherIndexHovered === index}
-            onMount={onMountSvgBackground}
+            foregroundContainerRef={foregroundContainerRef}
           />
         ))}
-      </SvgBackgroundContainer>
+      </LaunchersContainer>
 
-      <ForegroundContainer>
-        {launchers.map((launcher, index) => (
-          <LauncherForeground
-            key={launcher.id + index + itemCount}
-            diameter={LAUNCH_STATION_DIAMETER}
-            innerDiameter={LAUNCH_STATION_INNER_DIAMETER}
-            {...launcher}
-            index={index}
-            itemCount={itemCount}
-            launchStationId={launchStation.id}
-            svgBackgroundHasMounted={svgBackgroundHasMounted}
-            isHovered={launcherIndexHovered === index}
-            isEditable={launcher.isEditable}
-            onHover={onHoverLauncher}
-          />
-        ))}
-      </ForegroundContainer>
+      <LaunchersForegroundContainer ref={foregroundContainerRef} />
 
       <CenterButtonContainer>
         <CenterButton diameter={LAUNCH_STATION_INNER_DIAMETER} />
@@ -104,15 +80,19 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
 const Container = styled.div`
   width: 100%;
   flex: 1;
-  ${FLEX_CENTER_CSS}
+  ${FLEX_CENTER_CSS};
 `;
 
-const SvgBackgroundContainer = styled.svg`
+const LaunchersContainer = styled.svg`
   width: ${LAUNCH_STATION_DIAMETER}px;
   height: ${LAUNCH_STATION_DIAMETER}px;
 `;
 
-const ForegroundContainer = styled.div``;
+const LaunchersForegroundContainer = styled.div`
+  width: ${LAUNCH_STATION_DIAMETER}px;
+  height: ${LAUNCH_STATION_DIAMETER}px;
+  ${ABSOLUTE_CENTER_CSS};
+`;
 
 const CenterButtonContainer = styled.div`
   ${ABSOLUTE_CENTER_CSS}
