@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { theme } from "../theme";
+import { BORDER_WIDTH, theme } from "../theme";
 import { HeaderBar } from "./HeaderBar";
 
 interface PageProps {
@@ -31,5 +31,8 @@ const ContentContainer = styled.div`
   align-self: center;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-left: ${BORDER_WIDTH}px solid ${theme.black};
+  border-right: ${BORDER_WIDTH}px solid ${theme.black};
 `;

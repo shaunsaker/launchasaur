@@ -71,7 +71,7 @@ const Container = styled.div<ContainerProps>`
   height: ${LAUNCHER_SIZE}px;
   border-radius: ${BORDER_RADIUS}px;
   background-color: ${({ $isHovered }) =>
-    $isHovered ? theme.backgroundLight : theme.backgroundDark};
+    $isHovered ? theme.backgroundLight : theme.backgroundDarkOpaque};
   border: ${BORDER_WIDTH}px solid ${({ $colour }) => $colour};
   transition: background-color ${TRANSITION_CSS};
   padding: ${RHYTHM}px ${RHYTHM}px;

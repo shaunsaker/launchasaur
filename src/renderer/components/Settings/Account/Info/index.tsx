@@ -150,6 +150,7 @@ export const AccountInfo = (): ReactElement => {
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const ButtonContainer = styled.div`
