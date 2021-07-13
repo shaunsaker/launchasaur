@@ -1,15 +1,15 @@
 import React, { MouseEvent, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { deleteLauncher } from "../../../../store/launchStations/actions";
-import { navigateToSettingsLauncher } from "../../../../store/navigation/actions";
+import { deleteLauncher } from "../../../../../store/launchStations/actions";
+import { navigateToSettingsLauncher } from "../../../../../store/navigation/actions";
 import {
   BORDER_RADIUS,
   BOX_SHADOW_CSS,
   SMALL_BORDER_WIDTH,
   theme,
-} from "../../../../theme";
-import { FadeIn } from "../../../FadeIn";
+} from "../../../../../theme";
+import { FadeIn } from "../../../../FadeIn";
 import { ContextMenuItem, ContextMenuItemProps } from "./ContextMenuItem";
 import { useContextMenu } from "./useContextMenu";
 
@@ -23,8 +23,7 @@ export const ContextMenu = ({
   launcherId,
 }: ContextMenuProps) => {
   const dispatch = useDispatch();
-  const { xPos, yPos, showLaunchStation, setShowLaunchStation } =
-    useContextMenu();
+  const { xPos, yPos, showContextMenu, setShowContextMenu } = useContextMenu();
 
   const onEditClick = useCallback(
     (event: MouseEvent) => {
@@ -32,9 +31,9 @@ export const ContextMenu = ({
 
       dispatch(navigateToSettingsLauncher({ launchStationId, launcherId }));
 
-      setShowLaunchStation(false);
+      setShowContextMenu(false);
     },
-    [dispatch, launchStationId, launcherId, setShowLaunchStation],
+    [dispatch, launchStationId, launcherId, setShowContextMenu],
   );
 
   const onDeleteClick = useCallback(
@@ -43,12 +42,12 @@ export const ContextMenu = ({
 
       dispatch(deleteLauncher({ launchStationId, launcherId }));
 
-      setShowLaunchStation(false);
+      setShowContextMenu(false);
     },
-    [dispatch, launchStationId, launcherId, setShowLaunchStation],
+    [dispatch, launchStationId, launcherId, setShowContextMenu],
   );
 
-  if (!showLaunchStation) {
+  if (!showContextMenu) {
     return null;
   }
 

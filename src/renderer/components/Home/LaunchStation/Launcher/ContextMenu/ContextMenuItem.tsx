@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { MouseEvent, ReactElement } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
-import { RHYTHM, theme, TRANSITION_CSS } from "../../../../theme";
+import { RHYTHM, theme, TRANSITION_CSS } from "../../../../../theme";
 
 export interface ContextMenuItemProps {
   icon: IconName;

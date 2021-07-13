@@ -33,14 +33,12 @@ export const makeLauncherData = ({
   colour,
   title,
   shortcut,
-  isEditable,
 }: {
   id?: string;
   icon?: IconName;
   colour?: string;
   title?: string;
   shortcut?: string;
-  isEditable?: boolean;
 }): LauncherData => ({
   id: id || uuid(),
   title: title || getRandomPhrase(),
@@ -48,7 +46,6 @@ export const makeLauncherData = ({
   colour: colour || getRandomArrayItem(colours),
   actions: {},
   shortcut,
-  isEditable: isEditable === false ? false : true,
 });
 
 export const makeLaunchStationData = ({

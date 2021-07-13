@@ -1,24 +1,25 @@
-import {
-  IconName,
-  // @ts-expect-error it exists
-  FontAwesomeIconProps,
-} from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
+import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
+import { useHover } from "use-hooks";
 import { ICON_SIZE, theme } from "../theme";
 import { Circle } from "./Circle";
 
-interface IconProps extends FontAwesomeIconProps {
+interface IconProps {
   icon: IconName;
-  isClickable?: boolean;
   onClick?: () => void;
 }
 
-export const Icon = ({ icon, isClickable, onClick, ...props }: IconProps) => {
+export const Icon = ({ icon, onClick }: IconProps) => {
+  const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+
   return (
-    <Circle onClick={isClickable ? onClick : null}>
-      <StyledIcon icon={icon || "question"} {...props} />
+    <Circle
+      ref={onClick ? hoverRef : null}
+      $isHovered={isHovered}
+      onClick={onClick ? onClick : null}>
+      <StyledIcon icon={icon || "question"} />
     </Circle>
   );
 };

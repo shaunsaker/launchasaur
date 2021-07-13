@@ -1,119 +1,92 @@
-import React, { ReactElement, useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { ReactElement, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { makeLauncherData } from "../../../store/launchStations/data";
-import { ADD_ITEM_TITLE } from "../../../store/launchStations/models";
 import { selectLaunchStation } from "../../../store/launchStations/selectors";
+import { navigateTo } from "../../../store/navigation/actions";
+import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
 import {
-  theme,
-  LAUNCH_STATION_DIAMETER,
-  FLEX_CENTER_CSS,
   ABSOLUTE_CENTER_CSS,
+  LAUNCHER_SIZE,
+  RHYTHM,
+  theme,
 } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
-import { CenterButton } from "./CenterButton";
-import { LauncherForeground } from "./LauncherForeground";
-import { LauncherSvgBackground } from "./LauncherSvgBackground";
-
-const LAUNCH_STATION_INNER_DIAMETER = 128;
+import { Icon } from "../../Icon";
+import { Logo } from "../../Logo";
+import { Launcher } from "./Launcher";
 
 interface LaunchStationProps {
   id: string;
 }
 
 export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
+  const dispatch = useDispatch();
   const launchStation = useSelector((state: ApplicationState) =>
     selectLaunchStation(state, id),
   );
-  const [svgBackgroundHasMounted, setSvgBackgroundHasMounted] = useState(false);
-  const [launcherIndexHovered, setLauncherIndexHovered] = useState(null);
+  const launchers = objectToArray(launchStation?.launchers);
 
-  let launchers = objectToArray(launchStation?.launchers);
+  const onSettingsClick = useCallback(() => {
+    dispatch(navigateTo({ to: Routes.settingsLaunchStations }));
+  }, [dispatch]);
 
-  // allow a maximum of 7 launchers per launch station
-  if (launchers.length < 7) {
-    launchers = [
-      ...launchers,
-      makeLauncherData({
-        title: ADD_ITEM_TITLE,
-        icon: "plus",
-        colour: theme.backgroundDarkOpaque,
-        isEditable: false,
-      }),
-    ];
-  }
-
-  const itemCount = launchers.length;
-
-  const onMountSvgBackground = useCallback(() => {
-    setSvgBackgroundHasMounted(true);
-  }, []);
-
-  const onHoverLauncher = useCallback((index: number) => {
-    setLauncherIndexHovered(index);
-  }, []);
-
-  // TODO: LauncherForeground does not update correctly when another launcher is added/removed because it does not know when svg background has updated
-  // ideally svg background should control LauncherForeground but we will need a ref to the ForegroundContainer to attach those pieces too
-  // we could then just use one component for each launcher
-  // and move this to the Launch station component
+  // TODO: Launch station title
+  // TODO: Logo
 
   return (
     <Container>
-      <SvgBackgroundContainer id={launchStation.id}>
-        {launchers.map((launcher, index) => (
-          <LauncherSvgBackground
-            key={launcher.id}
-            diameter={LAUNCH_STATION_DIAMETER}
-            innerDiameter={LAUNCH_STATION_INNER_DIAMETER}
-            index={index}
-            itemCount={itemCount}
-            colour={launcher.colour}
-            isHovered={launcherIndexHovered === index}
-            onMount={onMountSvgBackground}
-          />
+      <LaunchersContainer>
+        {launchers.map((launcher) => (
+          <LauncherContainer key={launcher.id}>
+            <Launcher {...launcher} launchStationId={launchStation.id} />
+          </LauncherContainer>
         ))}
-      </SvgBackgroundContainer>
+      </LaunchersContainer>
 
-      <ForegroundContainer>
-        {launchers.map((launcher, index) => (
-          <LauncherForeground
-            key={launcher.id + index + itemCount}
-            diameter={LAUNCH_STATION_DIAMETER}
-            innerDiameter={LAUNCH_STATION_INNER_DIAMETER}
-            {...launcher}
-            index={index}
-            itemCount={itemCount}
-            launchStationId={launchStation.id}
-            svgBackgroundHasMounted={svgBackgroundHasMounted}
-            isHovered={launcherIndexHovered === index}
-            isEditable={launcher.isEditable}
-            onHover={onHoverLauncher}
-          />
-        ))}
-      </ForegroundContainer>
+      <HeaderContainer>
+        <Logo />
 
-      <CenterButtonContainer>
-        <CenterButton diameter={LAUNCH_STATION_INNER_DIAMETER} />
-      </CenterButtonContainer>
+        <LaunchStationTitleText>
+          {launchStation.title} Launch Station
+        </LaunchStationTitleText>
+
+        <Icon icon="cog" onClick={onSettingsClick} />
+      </HeaderContainer>
     </Container>
   );
 };
 
-const Container = styled.div`
-  width: 100%;
-  flex: 1;
-  ${FLEX_CENTER_CSS}
+const Container = styled.div``;
+
+const MAX_LAUNCHERS_PER_ROW = 4;
+const LAUNCHER_CONTAINER_MARGIN = RHYTHM / 2;
+
+const LaunchersContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: ${(LAUNCHER_SIZE + LAUNCHER_CONTAINER_MARGIN * 2) *
+  MAX_LAUNCHERS_PER_ROW}px;
 `;
 
-const SvgBackgroundContainer = styled.svg`
-  width: ${LAUNCH_STATION_DIAMETER}px;
-  height: ${LAUNCH_STATION_DIAMETER}px;
+const LauncherContainer = styled.div`
+  margin: ${LAUNCHER_CONTAINER_MARGIN}px;
 `;
 
-const ForegroundContainer = styled.div``;
+const HeaderContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${RHYTHM}px;
+`;
 
-const CenterButtonContainer = styled.div`
-  ${ABSOLUTE_CENTER_CSS}
+const LaunchStationTitleText = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${theme.white};
 `;

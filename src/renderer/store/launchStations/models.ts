@@ -35,7 +35,6 @@ export interface LauncherData {
   colour: string;
   actions: Record<ActionId, ActionData>;
   shortcut: Shortcut;
-  isEditable: boolean;
 }
 
 export type LauncherId = string;

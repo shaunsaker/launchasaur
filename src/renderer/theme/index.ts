@@ -27,6 +27,7 @@ export const SCROLLBAR_WIDTH = RHYTHM / 2;
 export const ICON_SIZE = RHYTHM;
 export const CONTENT_CONTAINER_WIDTH = 536;
 export const LAUNCH_STATION_DIAMETER = 640;
+export const LAUNCHER_SIZE = 160;
 export const MAX_TEXT_WIDTH = 360;
 
 // css
@@ -64,4 +65,5 @@ export const TEXT_ELLIPSIS_CSS = `
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 `;

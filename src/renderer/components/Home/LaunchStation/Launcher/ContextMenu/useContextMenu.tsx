@@ -4,7 +4,7 @@ import { useEventListener } from "use-hooks";
 export const useContextMenu = () => {
   const [xPos, setXPos] = useState(0);
   const [yPos, setYPos] = useState(0);
-  const [showLaunchStation, setShowLaunchStation] = useState(false);
+  const [showContextMenu, setShowContextMenu] = useState(false);
 
   const handleContextMenu = useCallback(
     (event) => {
@@ -12,12 +12,12 @@ export const useContextMenu = () => {
 
       setXPos(event.pageX);
       setYPos(event.pageY);
-      setShowLaunchStation(true);
+      setShowContextMenu(true);
     },
     [setXPos, setYPos],
   );
 
   useEventListener("contextmenu", handleContextMenu);
 
-  return { xPos, yPos, showLaunchStation, setShowLaunchStation };
+  return { xPos, yPos, showContextMenu, setShowContextMenu };
 };
