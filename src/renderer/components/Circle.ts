@@ -8,6 +8,7 @@ import {
 } from "../theme";
 
 interface CircleProps {
+  colour: string;
   $isHovered: boolean;
   onClick: () => void | undefined;
 }
@@ -17,8 +18,8 @@ export const Circle = styled.div<CircleProps>`
   width: ${SIZE}px;
   height: ${SIZE}px;
   border-radius: ${SIZE / 2}px;
-  background-color: ${({ $isHovered }) =>
-    $isHovered ? theme.backgroundLight : theme.backgroundDark};
+  background-color: ${({ $isHovered, colour }) =>
+    $isHovered ? theme.backgroundLight : colour || theme.backgroundDark};
   transition: background-color ${TRANSITION_CSS};
   ${FLEX_CENTER_CSS};
   ${BOX_SHADOW_CSS};
