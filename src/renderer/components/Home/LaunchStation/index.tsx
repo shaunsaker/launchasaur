@@ -5,12 +5,7 @@ import { selectLaunchStation } from "../../../store/launchStations/selectors";
 import { navigateTo } from "../../../store/navigation/actions";
 import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
-import {
-  ABSOLUTE_CENTER_CSS,
-  LAUNCHER_SIZE,
-  RHYTHM,
-  theme,
-} from "../../../theme";
+import { LAUNCHER_SIZE, RHYTHM, theme } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { Icon } from "../../Icon";
 import { Logo } from "../../Logo";
@@ -30,9 +25,6 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
   const onSettingsClick = useCallback(() => {
     dispatch(navigateTo({ to: Routes.settingsLaunchStations }));
   }, [dispatch]);
-
-  // TODO: Launch station title
-  // TODO: Logo
 
   return (
     <Container>
