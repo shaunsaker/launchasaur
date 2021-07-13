@@ -18,22 +18,23 @@ const start = (): void => {
   const mainWindow = new BrowserWindow({
     height: 600,
     width: 1200,
-    fullscreen: isDevelopment() ? false : true,
-    frame: isDevelopment() ? true : false,
-    transparent: isDevelopment() ? false : true,
+    fullscreen: true,
+    frame: false,
+    transparent: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
 
-  mainWindow.maximize();
-
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools({ mode: "detach" });
+  const isDev = isDevelopment();
+  if (isDev) {
+    mainWindow.webContents.openDevTools({ mode: "detach" });
+  }
 
   startIPC(mainWindow);
 
