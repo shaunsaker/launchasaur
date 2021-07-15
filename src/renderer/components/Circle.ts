@@ -9,8 +9,8 @@ import {
 
 interface CircleProps {
   colour: string;
-  $isHovered: boolean;
-  onClick: () => void | undefined;
+  $isHovered?: boolean;
+  onClick?: () => void | undefined;
 }
 
 const SIZE = ICON_SIZE * 2;
