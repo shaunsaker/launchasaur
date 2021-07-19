@@ -7,6 +7,7 @@ import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
 import { LAUNCHER_SIZE, RHYTHM, theme } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
+import { HeaderBar } from "../../HeaderBar";
 import { Icon } from "../../Icon";
 import { Logo } from "../../Logo";
 import { Launcher } from "./Launcher";
@@ -28,6 +29,14 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
 
   return (
     <Container>
+      <HeaderBarContainer>
+        <HeaderBar
+          title={`${launchStation.title} Launch Station`}
+          icon="cog"
+          onClick={onSettingsClick}
+        />
+      </HeaderBarContainer>
+
       <LaunchersContainer>
         {launchers.map((launcher) => (
           <LauncherContainer key={launcher.id}>
@@ -35,21 +44,18 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
           </LauncherContainer>
         ))}
       </LaunchersContainer>
-
-      <HeaderContainer>
-        <Logo />
-
-        <LaunchStationTitleText>
-          {launchStation.title} Launch Station
-        </LaunchStationTitleText>
-
-        <Icon icon="cog" onClick={onSettingsClick} />
-      </HeaderContainer>
     </Container>
   );
 };
 
 const Container = styled.div``;
+
+const HeaderBarContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+`;
 
 const MAX_LAUNCHERS_PER_ROW = 4;
 const LAUNCHER_CONTAINER_MARGIN = RHYTHM / 2;
@@ -64,21 +70,4 @@ const LaunchersContainer = styled.div`
 
 const LauncherContainer = styled.div`
   margin: ${LAUNCHER_CONTAINER_MARGIN}px;
-`;
-
-const HeaderContainer = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${RHYTHM}px;
-`;
-
-const LaunchStationTitleText = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  color: ${theme.white};
 `;

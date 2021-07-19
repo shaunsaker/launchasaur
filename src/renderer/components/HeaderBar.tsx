@@ -1,49 +1,37 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
+import React from "react";
 import styled from "styled-components";
-import { navigateTo } from "../store/navigation/actions";
-import { Routes } from "../store/navigation/models";
-import { BORDER_WIDTH, RHYTHM, theme } from "../theme";
-import { CloseIcon } from "./CloseIcon";
+import { RHYTHM, theme } from "../theme";
+import { Icon } from "./Icon";
+import { Logo } from "./Logo";
 
-export const HeaderBar = () => {
-  const dispatch = useDispatch();
+interface HeaderBarProps {
+  title: string;
+  icon: IconName;
+  onClick: () => void;
+}
 
-  const onCloseClick = useCallback(() => {
-    dispatch(navigateTo({ to: Routes.root }));
-  }, [dispatch]);
-
+export const HeaderBar = ({ title, icon, onClick }: HeaderBarProps) => {
   return (
-    <HeaderBarContainer>
-      <LogoText>LAUNCHASAUR</LogoText>
+    <Container>
+      <Logo />
 
-      <CloseIconContainer>
-        <CloseIcon onClick={onCloseClick} />
-      </CloseIconContainer>
-    </HeaderBarContainer>
+      <TitleText>{title}</TitleText>
+
+      <Icon icon={icon} onClick={onClick} />
+    </Container>
   );
 };
 
-const HZ_MARGIN = RHYTHM / 2;
-
-const HeaderBarContainer = styled.div`
-  padding-left: ${HZ_MARGIN}px;
-  border-bottom-width: ${BORDER_WIDTH / 2}px;
-  border-bottom-style: solid;
-  border-bottom-color: ${theme.black};
+const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
-  background-color: ${theme.backgroundDark33};
+  padding: ${RHYTHM}px;
 `;
 
-const LogoText = styled.div`
-  font-size: 14px;
+const TitleText = styled.div`
+  font-size: 18px;
   font-weight: bold;
   color: ${theme.white};
-`;
-
-const CloseIconContainer = styled.div`
-  margin-right: ${-HZ_MARGIN}px;
 `;
