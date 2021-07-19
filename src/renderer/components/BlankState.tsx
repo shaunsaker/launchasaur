@@ -28,9 +28,7 @@ export const BlankState = ({
         <TitleText>{title}</TitleText>
       </MarginContainer>
 
-      <MarginContainer small>
-        <DescriptionText>{description}</DescriptionText>
-      </MarginContainer>
+      <DescriptionText>{description}</DescriptionText>
 
       {children}
     </Container>

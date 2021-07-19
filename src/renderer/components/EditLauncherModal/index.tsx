@@ -157,32 +157,30 @@ export const EditLauncherModal = (): ReactElement => {
           <FieldLabel>Actions</FieldLabel>
 
           {hasActions ? (
-            <>
+            <ActionsContainer>
+              {actions.map((action, index) => {
+                const actionItemComponent = (
+                  <ActionItem
+                    key={action.id}
+                    action={action}
+                    onDelete={() => onDeleteAction(action)}
+                  />
+                );
+                const isLastItem = index === actions.length - 1;
+
+                if (isLastItem) {
+                  return actionItemComponent;
+                }
+
+                return (
+                  <MarginContainer key={action.id} small>
+                    {actionItemComponent}
+                  </MarginContainer>
+                );
+              })}
+
               {addActionButton}
-
-              <ActionsContainer>
-                {actions.map((action, index) => {
-                  const actionItemComponent = (
-                    <ActionItem
-                      key={action.id}
-                      action={action}
-                      onDelete={() => onDeleteAction(action)}
-                    />
-                  );
-                  const isLastItem = index === actions.length - 1;
-
-                  if (isLastItem) {
-                    return actionItemComponent;
-                  }
-
-                  return (
-                    <MarginContainer key={action.id} small>
-                      {actionItemComponent}
-                    </MarginContainer>
-                  );
-                })}
-              </ActionsContainer>
-            </>
+            </ActionsContainer>
           ) : (
             <BlankState
               icon="rocket"
@@ -227,7 +225,7 @@ const ActionsContainer = styled.div`
 
 const AddActionButtonContainer = styled.div`
   flex-direction: row;
-  margin-bottom: ${RHYTHM}px;
+  margin-top: ${RHYTHM}px;
 `;
 
 const DoneButtonContainer = styled.div`

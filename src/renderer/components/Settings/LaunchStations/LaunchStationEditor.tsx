@@ -174,7 +174,6 @@ const LaunchersContainer = styled.div`
 
 const AddLauncherButtonContainer = styled.div`
   flex-direction: row;
-  margin-top: ${RHYTHM}px;
 `;
 
 const DeleteButtonContainer = styled.div`
