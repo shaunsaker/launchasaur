@@ -51,6 +51,8 @@ const ContentContainer = styled.div`
   position: relative;
   width: ${MODAL_WIDTH}px;
   padding: ${MODAL_PADDING}px;
+  margin: ${RHYTHM}px;
+  overflow: hidden;
 `;
 
 const TitleText = styled.div`

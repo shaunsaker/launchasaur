@@ -32,7 +32,7 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  display: flex;
+  flex-direction: row;
   align-items: center;
   padding: ${RHYTHM / 2}px;
   background-color: ${({ hovered }) =>

@@ -52,7 +52,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  display: flex;
+  flex-direction: row;
   align-items: center;
   padding: ${RHYTHM / 4}px ${RHYTHM / 2}px;
   background-color: ${theme.white5};
@@ -71,7 +71,7 @@ const TitleText = styled.div`
 `;
 
 const ButtonsContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   align-items: center;
 `;
 

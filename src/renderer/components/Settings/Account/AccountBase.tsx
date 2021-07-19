@@ -30,6 +30,6 @@ export const AccountBase = ({ children }: AccountBaseProps): ReactElement => {
 };
 
 const Container = styled.div`
-  display: flex;
+  flex-direction: row;
   flex: 1;
 `;

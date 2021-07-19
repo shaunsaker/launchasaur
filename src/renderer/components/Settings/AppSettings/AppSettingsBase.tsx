@@ -32,6 +32,6 @@ export const AppSettingsBase = ({
 };
 
 const Container = styled.div`
-  display: flex;
+  flex-direction: row;
   flex: 1;
 `;

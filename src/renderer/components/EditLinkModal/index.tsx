@@ -73,6 +73,6 @@ export const EditLinkModal = (): ReactElement => {
 };
 
 const ButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
 `;

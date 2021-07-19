@@ -1,6 +1,6 @@
 import { createStandardAction } from "typesafe-actions";
-import { LauncherId, LaunchStationId } from "../launchStations/models";
-import { launcherIdParam, launchStationIdParam, Routes } from "./models";
+import { LaunchStationId } from "../launchStations/models";
+import { launchStationIdParam, Routes } from "./models";
 
 export const navigateTo = createStandardAction("NAVIGATION/navigateTo").map(
   (payload: { to: string; replace?: boolean }) => ({
@@ -28,14 +28,4 @@ export const navigateToSettingsLaunchStation = (props: {
       launchStationIdParam,
       props.launchStationId,
     ),
-  });
-
-export const navigateToSettingsLauncher = (props: {
-  launchStationId?: LaunchStationId;
-  launcherId?: LauncherId;
-}) =>
-  navigateTo({
-    to: Routes.settingsLauncher
-      .replace(launchStationIdParam, props.launchStationId)
-      .replace(launcherIdParam, props.launcherId),
   });

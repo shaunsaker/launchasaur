@@ -55,7 +55,7 @@ const MAX_LAUNCHERS_PER_ROW = 4;
 const LAUNCHER_CONTAINER_MARGIN = RHYTHM / 2;
 
 const LaunchersContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   max-width: ${(LAUNCHER_SIZE + LAUNCHER_CONTAINER_MARGIN * 2) *
@@ -71,7 +71,7 @@ const HeaderContainer = styled.div`
   top: 0;
   right: 0;
   left: 0;
-  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: ${RHYTHM}px;

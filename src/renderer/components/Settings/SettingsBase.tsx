@@ -60,6 +60,6 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
 };
 
 const Container = styled.div`
-  display: flex;
+  flex-direction: row;
   flex: 1;
 `;

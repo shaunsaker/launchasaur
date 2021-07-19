@@ -54,8 +54,6 @@ export const ABSOLUTE_STRETCH_CSS = `
 `;
 
 export const FLEX_CENTER_CSS = `
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

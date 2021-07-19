@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { BOX_SHADOW_CSS, RHYTHM, theme } from "../theme";
 
 export const PageContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   padding: ${RHYTHM}px;

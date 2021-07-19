@@ -28,7 +28,9 @@ export const BlankState = ({
         <TitleText>{title}</TitleText>
       </MarginContainer>
 
-      <DescriptionText>{description}</DescriptionText>
+      <MarginContainer small>
+        <DescriptionText>{description}</DescriptionText>
+      </MarginContainer>
 
       {children}
     </Container>
@@ -40,8 +42,6 @@ const Container = styled.div`
   margin-bottom: ${RHYTHM}px;
   background-color: ${theme.white5};
   border-radius: ${BORDER_RADIUS}px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
 `;
 

@@ -54,6 +54,5 @@ const SubtitleText = styled.div`
 `;
 
 const ActionButtonContainer = styled.div`
-  display: flex;
   justify-content: flex-end;
 `;

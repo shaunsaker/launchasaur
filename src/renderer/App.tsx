@@ -41,10 +41,6 @@ const AppContainer = styled.div`
   background-color: ${theme.backgroundDark};
   ${FLEX_CENTER_CSS};
 
-  & * {
-    box-sizing: border-box;
-  }
-
   & ::-webkit-scrollbar {
     width: ${SCROLLBAR_WIDTH}px;
   }

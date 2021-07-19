@@ -9,7 +9,7 @@ import {
 } from "../../store/launchStations/actions";
 import { selectLauncher } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
-import { CONTENT_CONTAINER_WIDTH, RHYTHM } from "../../theme";
+import { RHYTHM } from "../../theme";
 import { ShortcutEditor } from "../ShortcutEditor";
 import { MarginContainer } from "../MarginContainer";
 import { FieldLabel } from "../FieldLabel";
@@ -18,11 +18,7 @@ import { Button } from "../Button";
 import { TextInput } from "../TextInput";
 import { Circle } from "../Circle";
 import { showEditLauncherColourModal } from "../../store/editLauncherColourModal/actions";
-import { Page } from "../Page";
-import { useParams } from "react-router-dom";
 import { navigateBack } from "../../store/navigation/actions";
-import { PageTitleText } from "../PageTitleText";
-import { PageContentContainer } from "../PageContentContainer";
 import { objectToArray } from "../../utils/objectToArray";
 import { ActionData } from "../../store/launchStations/models";
 import { showLauncherActionsModal } from "../../store/launcherActionsModal/actions";
@@ -30,25 +26,22 @@ import { BlankState } from "../BlankState";
 import { ErrorPage } from "../ErrorPage";
 import { ActionItem } from "./ActionItem";
 import { showConfirmationModal } from "../../store/confirmationModal/actions";
+import { Modal } from "../Modal";
+import {
+  selectEditLauncherModalLauncherId,
+  selectEditLauncherModalLaunchStationId,
+} from "../../store/editLauncherModal/selectors";
+import { hideEditLauncherModal } from "../../store/editLauncherModal/actions";
 
-interface SettingsLauncherRouteParams {
-  launchStationId: string | undefined;
-  launcherId: string | undefined;
-}
-
-export const EditLauncher = (): ReactElement => {
+export const EditLauncherModal = (): ReactElement => {
   const dispatch = useDispatch();
-  const { launchStationId, launcherId } =
-    useParams<SettingsLauncherRouteParams>();
+  const launchStationId = useSelector(selectEditLauncherModalLaunchStationId);
+  const launcherId = useSelector(selectEditLauncherModalLauncherId);
   const launcher = useSelector((state: ApplicationState) =>
     selectLauncher(state, { launchStationId, launcherId }),
   );
   const actions = objectToArray(launcher.actions);
   const hasActions = actions.length;
-
-  const onDoneClick = useCallback(() => {
-    dispatch(navigateBack());
-  }, [dispatch]);
 
   const onEditIconClick = useCallback(() => {
     dispatch(showEditLauncherIconModal({ launchStationId, launcherId }));
@@ -94,6 +87,14 @@ export const EditLauncher = (): ReactElement => {
     [dispatch, launchStationId, launcherId],
   );
 
+  const onCloseClick = useCallback(() => {
+    dispatch(hideEditLauncherModal());
+  }, [dispatch]);
+
+  const onDoneClick = useCallback(() => {
+    dispatch(hideEditLauncherModal());
+  }, [dispatch]);
+
   if (!launcher) {
     // shouldn't happen but it's better than a crash
     return <ErrorPage />;
@@ -108,10 +109,8 @@ export const EditLauncher = (): ReactElement => {
   );
 
   return (
-    <Page>
+    <Modal title={`${launcher.title} Launcher`} onClose={onCloseClick}>
       <Container>
-        <PageTitleText>{launcher.title} Launcher</PageTitleText>
-
         <MarginContainer small>
           <TextInput
             label="Title"
@@ -154,23 +153,34 @@ export const EditLauncher = (): ReactElement => {
           </WithEditButtonContainer>
         </MarginContainer>
 
-        <MarginContainer small>
+        <ActionsSection small>
           <FieldLabel>Actions</FieldLabel>
 
           {hasActions ? (
             <>
-              {actions.map((action) => {
-                return (
-                  <MarginContainer key={action.id} small>
+              {addActionButton}
+
+              <ActionsContainer>
+                {actions.map((action, index) => {
+                  const actionItemComponent = (
                     <ActionItem
                       action={action}
                       onDelete={() => onDeleteAction(action)}
                     />
-                  </MarginContainer>
-                );
-              })}
+                  );
+                  const isLastItem = index === actions.length - 1;
 
-              {addActionButton}
+                  if (isLastItem) {
+                    return actionItemComponent;
+                  }
+
+                  return (
+                    <MarginContainer key={action.id} small>
+                      {actionItemComponent}
+                    </MarginContainer>
+                  );
+                })}
+              </ActionsContainer>
             </>
           ) : (
             <BlankState
@@ -180,7 +190,7 @@ export const EditLauncher = (): ReactElement => {
               {addActionButton}
             </BlankState>
           )}
-        </MarginContainer>
+        </ActionsSection>
 
         <DoneButtonContainer>
           <Button primary large onClick={onDoneClick}>
@@ -188,17 +198,16 @@ export const EditLauncher = (): ReactElement => {
           </Button>
         </DoneButtonContainer>
       </Container>
-    </Page>
+    </Modal>
   );
 };
 
-const Container = styled(PageContentContainer)`
-  width: ${CONTENT_CONTAINER_WIDTH}px;
-  align-self: center;
+const Container = styled.div`
+  overflow: hidden;
 `;
 
 const WithEditButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   align-items: center;
 `;
 
@@ -206,13 +215,20 @@ const EditButtonContainer = styled.div`
   margin-left: ${RHYTHM}px;
 `;
 
+const ActionsSection = styled(MarginContainer)`
+  overflow: hidden;
+`;
+
+const ActionsContainer = styled.div`
+  flex: 1;
+  overflow: auto;
+`;
+
 const AddActionButtonContainer = styled.div`
-  display: flex;
-  margin-top: ${RHYTHM}px;
+  flex-direction: row;
+  margin-bottom: ${RHYTHM}px;
 `;
 
 const DoneButtonContainer = styled.div`
-  position: absolute;
-  bottom: ${RHYTHM}px;
-  right: ${RHYTHM}px;
+  align-items: flex-end;
 `;

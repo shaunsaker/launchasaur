@@ -56,6 +56,7 @@ const persistConfig: PersistConfig<ApplicationState> = {
     "confirmationModal",
     "loginModal",
     "upgradeModal",
+    "editLauncherModal",
   ],
   transforms: [transformCircular],
 };

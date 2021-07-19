@@ -85,6 +85,6 @@ export const EditLauncherColourModal = (): ReactElement => {
 };
 
 const SubmitButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
 `;

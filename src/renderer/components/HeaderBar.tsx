@@ -31,7 +31,7 @@ const HeaderBarContainer = styled.div`
   border-bottom-width: ${BORDER_WIDTH / 2}px;
   border-bottom-style: solid;
   border-bottom-color: ${theme.black};
-  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 40px;

@@ -15,7 +15,7 @@ import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal
 import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
 import { Home } from "../components/Home";
 import { LaunchStations } from "../components/Settings/LaunchStations";
-import { EditLauncher } from "../components/EditLauncher";
+import { EditLauncherModal } from "../components/EditLauncherModal";
 import { AppShortcut } from "../components/Settings/AppSettings/AppShortcut";
 import { launchStationIdParam, Routes } from "../store/navigation/models";
 import { DEFAULT_LAUNCH_STATION_ID } from "../store/launchStations/models";
@@ -28,6 +28,7 @@ import { selectLoginModalIsShown } from "../store/loginModal/selectors";
 import { LoginModal } from "../components/LoginModal";
 import { selecUpgradeModalIsShown } from "../store/upgradeModal/selectors";
 import { UpgradeModal } from "../components/UpgradeModal";
+import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
 
 export const Router = (): ReactElement => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -47,6 +48,7 @@ export const Router = (): ReactElement => {
   const confirmationModalIsShown = useSelector(selectConfirmationModalIsShown);
   const loginModalIsShown = useSelector(selectLoginModalIsShown);
   const upgradeModalIsShown = useSelector(selecUpgradeModalIsShown);
+  const editLauncherModalIsShown = useSelector(selectEditLauncherModalIsShown);
 
   return (
     <ConnectedRouter history={history}>
@@ -80,10 +82,6 @@ export const Router = (): ReactElement => {
                 <LaunchStations />
               </Route>
 
-              <Route path={Routes.settingsLauncher}>
-                <EditLauncher />
-              </Route>
-
               <Route exact path={Routes.settingsAccount}>
                 <Redirect to={Routes.settingsAccountInfo} />
               </Route>
@@ -102,6 +100,8 @@ export const Router = (): ReactElement => {
 
               <Redirect to={Routes.root} />
             </Switch>
+
+            {editLauncherModalIsShown && <EditLauncherModal />}
 
             {editLauncherIconModalIsShown && <EditLauncherIconModal />}
 

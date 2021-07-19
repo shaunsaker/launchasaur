@@ -77,7 +77,7 @@ const ButtonsContainer = styled.div`
   top: 0;
   right: ${RHYTHM / 4}px;
   bottom: 0;
-  display: flex;
+  flex-direction: row;
   align-items: center;
 `;
 

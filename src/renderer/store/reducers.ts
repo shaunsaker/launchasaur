@@ -27,6 +27,8 @@ import { UserState } from "./user/models";
 import { userReducer } from "./user/reducer";
 import { UpgradeModalState } from "./upgradeModal/models";
 import { upgradeModalReducer } from "./upgradeModal/reducer";
+import { EditLauncherModalState } from "./editLauncherModal/models";
+import { editLauncherModalReducer } from "./editLauncherModal/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -43,6 +45,7 @@ export interface ApplicationState {
   confirmationModal: ConfirmationModalState;
   loginModal: LoginModalState;
   upgradeModal: UpgradeModalState;
+  editLauncherModal: EditLauncherModalState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -61,6 +64,7 @@ export const createRootReducer = (history_: History) =>
     confirmationModal: confirmationModalReducer,
     loginModal: loginModalReducer,
     upgradeModal: upgradeModalReducer,
+    editLauncherModal: editLauncherModalReducer,
   });
 
 export const initialState = {

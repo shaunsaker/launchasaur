@@ -103,8 +103,6 @@ export const EditLauncherIconModal = (): ReactElement => {
 };
 
 const IconContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   align-items: center;
 `;
 
@@ -123,6 +121,6 @@ const IconText = styled.div`
 `;
 
 const SubmitButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
 `;

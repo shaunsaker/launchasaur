@@ -1,8 +1,8 @@
 import React, { MouseEvent, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { showEditLauncherModal } from "../../../../../store/editLauncherModal/actions";
 import { deleteLauncher } from "../../../../../store/launchStations/actions";
-import { navigateToSettingsLauncher } from "../../../../../store/navigation/actions";
 import {
   BORDER_RADIUS,
   BOX_SHADOW_CSS,
@@ -29,7 +29,7 @@ export const ContextMenu = ({
     (event: MouseEvent) => {
       event.stopPropagation(); // don't trigger the actions
 
-      dispatch(navigateToSettingsLauncher({ launchStationId, launcherId }));
+      dispatch(showEditLauncherModal({ launchStationId, launcherId }));
 
       setShowContextMenu(false);
     },

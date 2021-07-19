@@ -8,7 +8,7 @@ import {
 } from "../theme";
 
 interface CircleProps {
-  colour: string;
+  colour?: string;
   $isHovered?: boolean;
   onClick?: () => void | undefined;
 }

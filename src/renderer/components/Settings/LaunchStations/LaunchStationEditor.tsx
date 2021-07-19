@@ -15,10 +15,7 @@ import {
   LauncherData,
 } from "../../../store/launchStations/models";
 import { selectLaunchStation } from "../../../store/launchStations/selectors";
-import {
-  navigateTo,
-  navigateToSettingsLauncher,
-} from "../../../store/navigation/actions";
+import { navigateTo } from "../../../store/navigation/actions";
 import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
 import { RHYTHM } from "../../../theme";
@@ -32,6 +29,7 @@ import { ListItem } from "../../ListItem";
 import { PageContentContainer } from "../../PageContentContainer";
 import { PageTitleText } from "../../PageTitleText";
 import { TextInput } from "../../TextInput";
+import { showEditLauncherModal } from "../../../store/editLauncherModal/actions";
 
 export const LaunchStationEditor = () => {
   const dispatch = useDispatch();
@@ -76,7 +74,7 @@ export const LaunchStationEditor = () => {
   const onLauncherEditClick = useCallback(
     (launcher: LauncherData) => {
       dispatch(
-        navigateToSettingsLauncher({
+        showEditLauncherModal({
           launchStationId: launchStationId,
           launcherId: launcher.id,
         }),
@@ -175,11 +173,11 @@ const LaunchersContainer = styled.div`
 `;
 
 const AddLauncherButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   margin-top: ${RHYTHM}px;
 `;
 
 const DeleteButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
 `;

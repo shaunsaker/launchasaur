@@ -149,15 +149,15 @@ export const AccountInfo = (): ReactElement => {
 };
 
 const Container = styled.div`
-  display: flex;
+  flex-direction: row;
   width: 100%;
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
 `;
 
 const DeleteButtonContainer = styled.div`
-  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
 `;

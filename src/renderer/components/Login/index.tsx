@@ -123,7 +123,7 @@ const Container = styled.div`
 `;
 
 const ButtonsContainer = styled.div`
-  display: flex;
+  flex-direction: row;
 `;
 
 const SignUpButtonContainer = styled.div`

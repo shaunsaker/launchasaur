@@ -117,7 +117,7 @@ const MAX_WIDTH = 320;
 export const LARGE_BUTTON_HEIGHT = 40;
 
 const Container = styled.div<ContainerProps>`
-  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: ${({ large }) => (large ? RHYTHM / 2 : 0)}px

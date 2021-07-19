@@ -10,7 +10,6 @@ export const Routes = {
   launchStation: `/${launchStationBase}/${launchStationIdParam}`,
   settingsLaunchStations: "/settings/launch-stations",
   settingsLaunchStation: `/settings/launch-station/${launchStationIdParam}`,
-  settingsLauncher: `/settings/launcher/${launchStationIdParam}/${launcherIdParam}`,
   settingsAccount: "/settings/account",
   settingsAccountInfo: "/settings/account/info",
   settingsAppSettings: "/settings/app",

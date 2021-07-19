@@ -54,7 +54,7 @@ interface ContainerProps {
 
 const Container = styled.div<ContainerProps>`
   overflow: auto;
-  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   height: ${({ height }) => height}px;
   overflow-y: scroll;
