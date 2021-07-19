@@ -11,8 +11,9 @@ import {
   LaunchStationAction,
   LaunchStationData,
 } from "../../store/launchStations/models";
-import { selectNonDefaultLaunchStations } from "../../store/launchStations/selectors";
+import { selectAllOtherLaunchStations } from "../../store/launchStations/selectors";
 import { navigateToSettingsLaunchStation } from "../../store/navigation/actions";
+import { ApplicationState } from "../../store/reducers";
 import { hideSelectLaunchStationModal } from "../../store/selectLaunchStationModal/actions";
 import {
   selectSelectLaunchStationModalLaunchStationId,
@@ -32,7 +33,9 @@ export const SelectLaunchStationModal = (): ReactElement => {
     selectSelectLaunchStationModalLaunchStationId,
   );
   const launcherId = useSelector(selectSelectLaunchStationModalLauncherId);
-  const launchStations = useSelector(selectNonDefaultLaunchStations);
+  const launchStations = useSelector((state: ApplicationState) =>
+    selectAllOtherLaunchStations(state, launchStationId),
+  );
   const hasOtherLaunchStations = launchStations.length;
   const userIsPro = useSelector(selectIsUserPro);
 

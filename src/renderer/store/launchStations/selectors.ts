@@ -17,9 +17,12 @@ export const selectLaunchStation = (
 export const selectLaunchStations = (state: ApplicationState) =>
   objectToArray(state.launchStations.data);
 
-export const selectNonDefaultLaunchStations = (state: ApplicationState) =>
+export const selectAllOtherLaunchStations = (
+  state: ApplicationState,
+  launchStationId: LaunchStationId,
+) =>
   objectToArray(state.launchStations.data).filter(
-    (launchStation) => launchStation.id !== DEFAULT_LAUNCH_STATION_ID,
+    (launchStation) => launchStation.id !== launchStationId,
   );
 
 export const selectLauncher = (
