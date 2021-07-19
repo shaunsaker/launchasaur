@@ -164,6 +164,7 @@ export const EditLauncherModal = (): ReactElement => {
                 {actions.map((action, index) => {
                   const actionItemComponent = (
                     <ActionItem
+                      key={action.id}
                       action={action}
                       onDelete={() => onDeleteAction(action)}
                     />
