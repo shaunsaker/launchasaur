@@ -2,9 +2,11 @@ import { goBack, push, replace } from "connected-react-router";
 import { eventChannel, SagaIterator } from "redux-saga";
 import { call, fork, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { ActionType, getType } from "typesafe-actions";
+import { select } from "../../utils/select";
 import { hideWindowSaga } from "../ipc/flow";
 import { DEFAULT_LAUNCH_STATION_ID } from "../launchStations/models";
 import { navigateBack, navigateTo } from "./actions";
+import { selectNavigationLocation } from "./selectors";
 import { getLaunchStationIdFromRoute } from "./utils";
 
 function* navigateToSaga(): SagaIterator {
@@ -41,8 +43,10 @@ function* backHandlerSaga(): SagaIterator {
   const channel = yield call(createKeyListenerChannel, "Escape");
 
   yield takeEvery(channel, function* () {
+    const { pathname } = yield* select(selectNavigationLocation);
     const isDefaultLaunchStationRoute =
-      getLaunchStationIdFromRoute() === DEFAULT_LAUNCH_STATION_ID;
+      getLaunchStationIdFromRoute() === DEFAULT_LAUNCH_STATION_ID &&
+      !pathname.includes("settings");
 
     if (isDefaultLaunchStationRoute) {
       yield call(hideWindowSaga);
