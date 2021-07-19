@@ -7,7 +7,7 @@ export enum LaunchStationAction {
   OpenLaunchStation = "Open a Launch Station",
 }
 
-export const launcherActions = [
+export const LauncherActions = [
   LaunchStationAction.OpenFile,
   LaunchStationAction.CloseFile,
   LaunchStationAction.OpenLink,

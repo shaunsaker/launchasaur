@@ -9,7 +9,7 @@ import {
 import { addLauncherAction } from "../../store/launchStations/actions";
 import {
   LaunchStationAction,
-  launcherActions,
+  LauncherActions,
 } from "../../store/launchStations/models";
 import { selectLauncherHasOpenLaunchStationAction } from "../../store/launchStations/selectors";
 import { getActionIcon } from "../../store/launchStations/utils";
@@ -46,7 +46,7 @@ export const SelectLauncherActionModal = (): ReactElement => {
 
   return (
     <Modal title="Select an Action" onClose={onCloseClick}>
-      {launcherActions.map((action) => (
+      {LauncherActions.map((action) => (
         <ButtonContainer key={action}>
           <Button
             icon={getActionIcon(action)}
