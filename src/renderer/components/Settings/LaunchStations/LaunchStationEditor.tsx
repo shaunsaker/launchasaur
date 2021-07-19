@@ -18,7 +18,6 @@ import { selectLaunchStation } from "../../../store/launchStations/selectors";
 import { navigateTo } from "../../../store/navigation/actions";
 import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
-import { RHYTHM } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { uuid } from "../../../utils/uuid";
 import { BlankState } from "../../BlankState";

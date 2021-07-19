@@ -29,7 +29,7 @@ const reducerActions = {
   addLauncherActionSuccess: addLauncherAction.success,
   deleteLauncherAction,
   addLaunchStation,
-  setLauncherShortcut,
+  setLauncherShortcutSuccess: setLauncherShortcut.success,
   setLauncherTitle,
   setLaunchStationTitle,
   setLauncherColour,
@@ -170,7 +170,7 @@ const addLaunchStationReducer = (
 
 const setLauncherShortcutReducer = (
   state: LaunchStationsState,
-  action: ActionType<typeof setLauncherShortcut>,
+  action: ActionType<typeof setLauncherShortcut.success>,
 ): LaunchStationsState => {
   const { launchStationId, launcherId, shortcut } = action.payload;
 
@@ -324,7 +324,7 @@ export const launchstationsReducer: Reducer<LaunchStationsState> = (
     case getType(addLaunchStation):
       return addLaunchStationReducer(state, action);
 
-    case getType(setLauncherShortcut):
+    case getType(setLauncherShortcut.success):
       return setLauncherShortcutReducer(state, action);
 
     case getType(setLauncherTitle):

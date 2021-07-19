@@ -6,7 +6,6 @@ import {
   LaunchStationId,
   LauncherId,
   ActionId,
-  Shortcut,
 } from "./models";
 
 export const addLauncher = createStandardAction("LAUNCH_STATIONS/addLauncher")<{
@@ -74,14 +73,6 @@ export const triggerLauncher = createAsyncAction(
   Error
 >();
 
-export const setLauncherShortcut = createStandardAction(
-  "LAUNCH_STATIONS/setLauncherShortcut",
-)<{
-  launchStationId: LaunchStationId;
-  launcherId: LauncherId;
-  shortcut: Shortcut;
-}>();
-
 export const setLauncherTitle = createStandardAction(
   "LAUNCH_STATIONS/setLauncherTitle",
 )<{
@@ -118,3 +109,21 @@ export const deleteLaunchStation = createStandardAction(
 )<{
   launchStationId: LaunchStationId;
 }>();
+
+interface RegisterLauncherShortcutProps {
+  launchStationId: string;
+  launcherId: string;
+  shortcut: string;
+}
+
+export const registerLauncherShortcut = createAsyncAction(
+  "SHORTCUTS/registerLauncherShortcutRequest",
+  "SHORTCUTS/registerLauncherShortcutSuccess",
+  "SHORTCUTS/registerLauncherShortcutFailure",
+)<RegisterLauncherShortcutProps, void, Error>();
+
+export const setLauncherShortcut = createAsyncAction(
+  "LAUNCH_STATIONS/setLauncherShortcutRequest",
+  "LAUNCH_STATIONS/setLauncherShortcutSuccess",
+  "LAUNCH_STATIONS/setLauncherShortcutFailure",
+)<RegisterLauncherShortcutProps, RegisterLauncherShortcutProps, Error>();

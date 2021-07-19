@@ -6,7 +6,6 @@ import { selectIsAuthenticated } from "./auth/selectors";
 import { launchStationsSagas } from "./launchStations/flow";
 import { navigationSagas } from "./navigation/flow";
 import { settingsSagas } from "./settings/flow";
-import { shortcutsSagas } from "./shortcuts/flow";
 import { userSagas } from "./user/flow";
 
 function* omnipresentFlows() {
@@ -18,7 +17,6 @@ function* authenticatedFlows(authenticated: boolean) {
   if (authenticated) {
     yield fork(settingsSagas);
     yield fork(launchStationsSagas);
-    yield fork(shortcutsSagas);
     yield fork(userSagas);
   }
 }

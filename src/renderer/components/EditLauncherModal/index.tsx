@@ -18,7 +18,6 @@ import { Button } from "../Button";
 import { TextInput } from "../TextInput";
 import { Circle } from "../Circle";
 import { showEditLauncherColourModal } from "../../store/editLauncherColourModal/actions";
-import { navigateBack } from "../../store/navigation/actions";
 import { objectToArray } from "../../utils/objectToArray";
 import { ActionData } from "../../store/launchStations/models";
 import { showLauncherActionsModal } from "../../store/launcherActionsModal/actions";
@@ -56,7 +55,13 @@ export const EditLauncherModal = (): ReactElement => {
 
   const onChangeShortcut = useCallback(
     (shortcut: string) => {
-      dispatch(setLauncherShortcut({ launchStationId, launcherId, shortcut }));
+      dispatch(
+        setLauncherShortcut.request({
+          launchStationId,
+          launcherId,
+          shortcut,
+        }),
+      );
     },
     [dispatch, launchStationId, launcherId],
   );
