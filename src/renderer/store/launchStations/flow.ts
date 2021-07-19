@@ -171,11 +171,11 @@ function* triggerLauncherSaga(): SagaIterator {
 
       yield put(triggerLauncher.success());
 
-      const isOpeningLaunchStation = arrayActions.some(
+      const isOpeningAnotherLaunchStation = arrayActions.some(
         (action) => action.action === LaunchStationAction.OpenLaunchStation,
       );
       const hasActions = arrayActions.length;
-      if (!isOpeningLaunchStation && hasActions) {
+      if (!isOpeningAnotherLaunchStation && hasActions) {
         yield call(hideWindowSaga);
       }
     },

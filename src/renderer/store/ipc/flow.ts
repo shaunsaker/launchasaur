@@ -46,6 +46,13 @@ export function* openFileSaga(filepath: string): SagaIterator {
 
     if (error) {
       yield put(openFile.failure(error));
+      yield put(
+        showSnackbar({
+          key: uuid(),
+          message: error.message,
+          type: SnackbarType.Danger,
+        }),
+      );
     } else {
       yield put(openFile.success());
     }
@@ -70,7 +77,14 @@ export function* closeFileSaga(filepath: string): SagaIterator {
     const error = yield call(() => ipcRenderer.invoke(IPC.CloseFile, filename));
 
     if (error) {
-      yield put(openFile.failure(error));
+      yield put(closeFile.failure(error));
+      yield put(
+        showSnackbar({
+          key: uuid(),
+          message: error.message,
+          type: SnackbarType.Danger,
+        }),
+      );
     } else {
       yield put(closeFile.success());
     }
