@@ -16,11 +16,11 @@ import {
   deleteLaunchStation,
 } from "./actions";
 import { makeLaunchStationData, makeLauncherData } from "./data";
-import { REHYDRATE } from "redux-persist/es/constants";
 import { selectLaunchStation } from "./selectors";
 import { ApplicationState } from "../reducers";
 import { objectToArray } from "../../utils/objectToArray";
 import { deleteAccount } from "../auth/actions";
+import { uuid } from "../../utils/uuid";
 
 const reducerActions = {
   addLauncher,
@@ -50,12 +50,13 @@ const addLauncherReducer = (
   state: LaunchStationsState,
   action: ActionType<typeof addLauncher>,
 ): LaunchStationsState => {
-  const { launchStationId, launcherId } = action.payload;
+  const { launchStationId } = action.payload;
   const launchStation = selectLaunchStation(
     { launchStations: state } as ApplicationState,
     launchStationId,
   );
   const nextLauncherIndex = objectToArray(launchStation.launchers).length + 1;
+  const launcherId = uuid();
   const newLauncherData = makeLauncherData({
     id: launcherId,
     shortcut: `Ctrl+Shift+${nextLauncherIndex}`,
@@ -301,12 +302,7 @@ const deleteLaunchStationReducer = (
 
 export const launchstationsReducer: Reducer<LaunchStationsState> = (
   state = initialState,
-  action:
-    | ActionType<typeof reducerActions>
-    | {
-        type: typeof REHYDRATE;
-        payload: { launchStations: LaunchStationsState };
-      },
+  action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
     case getType(addLauncher):

@@ -9,12 +9,10 @@ import {
   BORDER_RADIUS,
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
-  CONTENT_CONTAINER_WIDTH,
   RHYTHM,
   theme,
 } from "../../theme";
 import { HeaderBar } from "../HeaderBar";
-import { Page } from "../Page";
 import { SideMenuOption } from "../SideMenu/SideMenuOption";
 import {
   SettingsNavigationMenu,
@@ -91,7 +89,8 @@ const ContentContainer = styled.div`
   align-self: center;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: ${RHYTHM * 2}px;
+  margin-bottom: ${RHYTHM *
+  4}px; // TODO: we should base this on the platform, on windows we want to avoid the taskbar
   border: ${BORDER_WIDTH}px solid ${theme.black};
   border-radius: ${BORDER_RADIUS}px;
   ${BOX_SHADOW_CSS};

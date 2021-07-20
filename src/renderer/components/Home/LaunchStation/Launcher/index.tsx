@@ -3,10 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import { triggerLauncher } from "../../../../store/launchStations/actions";
-import {
-  LauncherData,
-  LaunchStationId,
-} from "../../../../store/launchStations/models";
+import { LauncherData } from "../../../../store/launchStations/models";
 import {
   BORDER_RADIUS,
   BORDER_WIDTH,
@@ -19,30 +16,20 @@ import {
 } from "../../../../theme";
 import { Icon } from "../../../Icon";
 
-interface LauncherProps extends LauncherData {
-  launchStationId: LaunchStationId;
-}
-
 export const Launcher = ({
   id,
   icon,
   title,
   shortcut,
   colour,
-  launchStationId,
-}: LauncherProps): ReactElement => {
+}: LauncherData): ReactElement => {
   // TODO: figure out context menu
   const dispatch = useDispatch();
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
   const onClick = useCallback(() => {
-    dispatch(
-      triggerLauncher.request({
-        launchStationId: launchStationId,
-        launcherId: id,
-      }),
-    );
-  }, [dispatch, launchStationId, id]);
+    dispatch(triggerLauncher.request(id));
+  }, [dispatch, id]);
 
   return (
     <Container

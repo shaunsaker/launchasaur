@@ -15,6 +15,10 @@ export const getActionIcon = (action: LaunchStationAction): IconName => {
   }
 
   if (action === LaunchStationAction.OpenLaunchStation) {
+    return "bomb";
+  }
+
+  if (action === LaunchStationAction.TriggerLauncher) {
     return "rocket";
   }
 };

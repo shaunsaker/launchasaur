@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { selectLaunchStations } from "../../../store/launchStations/selectors";
 import { Button } from "../../Button";
 import { SettingsBase } from "../SettingsBase";
-import { RHYTHM } from "../../../theme";
 import { addLaunchStation } from "../../../store/launchStations/actions";
 import { uuid } from "../../../utils/uuid";
 import { LaunchStationEditor } from "./LaunchStationEditor";
@@ -16,6 +15,7 @@ import { launchStationIdParam, Routes } from "../../../store/navigation/models";
 import { navigateToSettingsLaunchStation } from "../../../store/navigation/actions";
 import { selectIsUserPro } from "../../../store/user/selectors";
 import { showUpgradeModal } from "../../../store/upgradeModal/actions";
+import { SIDE_MENU_OPTION_MARGIN } from "../../SideMenu/SideMenuOption";
 
 export interface LaunchStationsRouteParams {
   launchStationId: string | undefined;
@@ -75,5 +75,5 @@ const Container = styled.div`
 `;
 
 const AddButtonContainer = styled.div`
-  margin-top: ${RHYTHM}px;
+  margin-top: ${SIDE_MENU_OPTION_MARGIN}px;
 `;

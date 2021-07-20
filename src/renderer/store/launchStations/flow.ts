@@ -38,7 +38,7 @@ import {
 import { navigateToLaunchStation } from "../navigation/actions";
 import { ApplicationState } from "../reducers";
 import { showSelectLaunchStationModal } from "../selectLaunchStationModal/actions";
-import { selectLauncher, selectLaunchStation } from "./selectors";
+import { selectLauncherById, selectLaunchStation } from "./selectors";
 import Mousetrap from "mousetrap";
 import { getLaunchStationIdFromRoute } from "../navigation/utils";
 import { LOCATION_CHANGE } from "connected-react-router";
@@ -47,6 +47,7 @@ import { showSnackbar } from "../snackbars/actions";
 import { uuid } from "../../utils/uuid";
 import { SnackbarType } from "../snackbars/models";
 import { launchStationBase } from "../navigation/models";
+import { showSelectLauncherModal } from "../selectLauncherModal/actions";
 
 function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addLauncherAction.request>,
@@ -107,6 +108,18 @@ function* handleAddOpenLaunchStationActionSaga(
   );
 }
 
+function* handleAddTriggerLauncherActionSaga(
+  action: ActionType<typeof addLauncherAction.request>,
+): SagaIterator {
+  yield put(
+    showSelectLauncherModal({
+      launchStationId: action.payload.launchStationId,
+      launcherId: action.payload.launcherId,
+      actionId: "", // it's a new action
+    }),
+  );
+}
+
 function* addLaunchStationActionSaga(): SagaIterator {
   yield takeLatest(
     getType(addLauncherAction.request),
@@ -128,56 +141,66 @@ function* addLaunchStationActionSaga(): SagaIterator {
         case LaunchStationAction.OpenLaunchStation:
           yield call(handleAddOpenLaunchStationActionSaga, action);
           break;
+        case LaunchStationAction.TriggerLauncher:
+          yield call(handleAddTriggerLauncherActionSaga, action);
+          break;
       }
     },
   );
 }
 
-function* triggerLauncherSaga(): SagaIterator {
+function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
+  const launcher = yield* select((state: ApplicationState) =>
+    selectLauncherById(state, launcherId),
+  );
+  const arrayActions = objectToArray(launcher.actions);
+
+  // trigger the actions as appropriate
+  const actionsArray = arrayActions.map((action) => {
+    if (action.action === LaunchStationAction.OpenFile) {
+      return call(openFileSaga, action.resource);
+    }
+
+    if (action.action === LaunchStationAction.CloseFile) {
+      return call(closeFileSaga, action.resource);
+    }
+
+    if (action.action === LaunchStationAction.OpenLink) {
+      return call(openLinkSaga, action.resource);
+    }
+
+    if (action.action === LaunchStationAction.OpenLaunchStation) {
+      return put(navigateToLaunchStation({ launchStationId: action.resource }));
+    }
+
+    if (action.action === LaunchStationAction.TriggerLauncher) {
+      return call(triggerLauncherSaga, action.resource);
+    }
+  });
+
+  // TODO: how to catch the errors here (they're not errors but rather failure actions) - we should not trigger success and hide window on error
+  yield all(actionsArray);
+
+  yield put(triggerLauncher.success());
+
+  const isOpeningAnotherLaunchStation = arrayActions.some(
+    (action) => action.action === LaunchStationAction.OpenLaunchStation,
+  );
+  const hasActions = arrayActions.length;
+  if (!isOpeningAnotherLaunchStation && hasActions) {
+    yield call(hideWindowSaga);
+  }
+}
+
+function* triggerLauncherListener(): SagaIterator {
   yield takeLatest(
     getType(triggerLauncher.request),
     function* (
       action: ActionType<typeof triggerLauncher.request>,
     ): SagaIterator {
-      const { launchStationId, launcherId } = action.payload;
-      const { actions } = yield* select((state: ApplicationState) =>
-        selectLauncher(state, { launchStationId, launcherId }),
-      );
-      const arrayActions = objectToArray(actions);
+      const launcherId = action.payload;
 
-      // trigger the actions as appropriate
-      const actionsArray = arrayActions.map((action) => {
-        if (action.action === LaunchStationAction.OpenFile) {
-          return call(openFileSaga, action.resource);
-        }
-
-        if (action.action === LaunchStationAction.CloseFile) {
-          return call(closeFileSaga, action.resource);
-        }
-
-        if (action.action === LaunchStationAction.OpenLink) {
-          return call(openLinkSaga, action.resource);
-        }
-
-        if (action.action === LaunchStationAction.OpenLaunchStation) {
-          return put(
-            navigateToLaunchStation({ launchStationId: action.resource }),
-          );
-        }
-      });
-
-      // TODO: how to catch the errors here (they're not errors but rather failure actions) - we should not trigger success and hide window on error
-      yield all(actionsArray);
-
-      yield put(triggerLauncher.success());
-
-      const isOpeningAnotherLaunchStation = arrayActions.some(
-        (action) => action.action === LaunchStationAction.OpenLaunchStation,
-      );
-      const hasActions = arrayActions.length;
-      if (!isOpeningAnotherLaunchStation && hasActions) {
-        yield call(hideWindowSaga);
-      }
+      yield call(triggerLauncherSaga, launcherId);
     },
   );
 }
@@ -192,7 +215,6 @@ const createShortcutListenerChannel = (shortcut: string) =>
   });
 
 export function* registerLauncherShortcutSaga({
-  launchStationId,
   launcherId,
   shortcut,
 }: {
@@ -203,7 +225,7 @@ export function* registerLauncherShortcutSaga({
   const channel = yield call(createShortcutListenerChannel, shortcut);
 
   yield takeEvery(channel, function* (): SagaIterator {
-    yield put(triggerLauncher.request({ launchStationId, launcherId }));
+    yield put(triggerLauncher.request(launcherId));
   });
 
   yield put(registerLauncherShortcut.success());
@@ -298,7 +320,7 @@ function* setLauncherShortcutListener(): SagaIterator {
 
 export function* launchStationsSagas(): SagaIterator {
   yield fork(addLaunchStationActionSaga);
-  yield fork(triggerLauncherSaga);
+  yield fork(triggerLauncherListener);
   yield fork(registerLaunchStationShortcutsListener);
   yield fork(registerLauncherShortcutListener);
   yield fork(setLauncherShortcutListener);

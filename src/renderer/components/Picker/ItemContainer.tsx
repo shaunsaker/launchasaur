@@ -35,7 +35,7 @@ export const ItemContainer = ({
   );
 };
 
-export const ITEMS_PER_ROW = 6;
+export const ITEMS_PER_ROW = 4;
 export const PICKER_ITEM_CONTAINER_SIZE =
   (MODAL_WIDTH - MODAL_PADDING * 2 - MODAL_BORDER_WIDTH * 2 - SCROLLBAR_WIDTH) /
   ITEMS_PER_ROW;

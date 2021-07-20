@@ -6,6 +6,7 @@ import {
   LaunchStationId,
   LauncherId,
   ActionData,
+  LauncherData,
 } from "./models";
 import { getPrettyFilename, getPrettyLink } from "./utils";
 
@@ -25,6 +26,23 @@ export const selectAllOtherLaunchStations = (
     (launchStation) => launchStation.id !== launchStationId,
   );
 
+export const selectAllOtherLaunchers = (
+  state: ApplicationState,
+  launcherId: LauncherId,
+) => {
+  const launchers: LauncherData[] = [];
+
+  objectToArray(state.launchStations.data).forEach((launchStation) =>
+    objectToArray(launchStation.launchers).forEach((launcher) => {
+      if (launcher.id !== launcherId) {
+        launchers.push(launcher);
+      }
+    }),
+  );
+
+  return launchers;
+};
+
 export const selectLauncher = (
   state: ApplicationState,
   {
@@ -34,6 +52,27 @@ export const selectLauncher = (
 ) => {
   const launchStation = selectLaunchStation(state, launchStationId);
   const launcher = launchStation.launchers[launcherId];
+
+  return launcher;
+};
+
+export const selectLauncherById = (
+  state: ApplicationState,
+  launcherId: LauncherId,
+) => {
+  const launchStations = selectLaunchStations(state);
+
+  let launcher: LauncherData;
+
+  launchStations.forEach((launchStation) => {
+    objectToArray<LauncherData>(launchStation.launchers).forEach(
+      (launcher_) => {
+        if (launcher_.id === launcherId) {
+          launcher = launcher_;
+        }
+      },
+    );
+  });
 
   return launcher;
 };
@@ -73,5 +112,12 @@ export const selectPrettyAction = (
     const launchStation = selectLaunchStation(state, action.resource);
 
     return `Open Launch Station: ${launchStation.title}`;
+  }
+
+  if (action.action == LaunchStationAction.TriggerLauncher) {
+    // the resource is the launcherId
+    const launcher = selectLauncherById(state, action.resource);
+
+    return `Trigger Launcher: ${launcher ? launcher.title : "Unknown"}`;
   }
 };

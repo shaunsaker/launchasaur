@@ -14,6 +14,7 @@ import {
 import { selectLauncherHasOpenLaunchStationAction } from "../../store/launchStations/selectors";
 import { getActionIcon } from "../../store/launchStations/utils";
 import { ApplicationState } from "../../store/reducers";
+import { RHYTHM } from "../../theme";
 import { Button } from "../Button";
 import { Modal } from "../Modal";
 
@@ -67,5 +68,5 @@ export const SelectLauncherActionModal = (): ReactElement => {
 };
 
 const ButtonContainer = styled.div`
-  margin-top: 20px;
+  margin-top: ${RHYTHM}px;
 `;

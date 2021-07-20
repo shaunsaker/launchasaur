@@ -53,7 +53,7 @@ const SideMenuContainer = styled.div`
 `;
 
 const TitleText = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   color: ${theme.white50};
   margin-top: ${SIDE_MENU_OPTION_MARGIN}px;

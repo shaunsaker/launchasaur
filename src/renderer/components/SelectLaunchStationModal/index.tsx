@@ -55,7 +55,7 @@ export const SelectLaunchStationModal = (): ReactElement => {
     }
   }, [dispatch, userIsPro]);
 
-  const onLaunchStationClick = useCallback(
+  const onSelectLaunchStation = useCallback(
     (launchStation: LaunchStationData) => {
       const actionData = makeActionData({
         action: LaunchStationAction.OpenLaunchStation,
@@ -83,7 +83,7 @@ export const SelectLaunchStationModal = (): ReactElement => {
     <Modal title="Select a Launch Station" onClose={onClose}>
       {!hasOtherLaunchStations ? (
         <BlankState
-          icon="rocket"
+          icon="bomb"
           title="No other Launch Stations available"
           description="Add a Launch Station so that you can start grouping launchers!">
           <AddLaunchStationButtonContainer>
@@ -98,7 +98,7 @@ export const SelectLaunchStationModal = (): ReactElement => {
             <Button
               large
               fullWidth
-              onClick={() => onLaunchStationClick(launchStation)}>
+              onClick={() => onSelectLaunchStation(launchStation)}>
               {launchStation.title.toUpperCase()}
             </Button>
           </LaunchStationButtonContainer>

@@ -10,7 +10,6 @@ import {
 
 export const addLauncher = createStandardAction("LAUNCH_STATIONS/addLauncher")<{
   launchStationId: LaunchStationId;
-  launcherId: LauncherId;
 }>();
 
 export const editLauncher = createStandardAction(
@@ -64,14 +63,7 @@ export const triggerLauncher = createAsyncAction(
   "LAUNCH_STATIONS/triggerLauncherRequest",
   "LAUNCH_STATIONS/triggerLauncherSuccess",
   "LAUNCH_STATIONS/triggerLauncherFailure",
-)<
-  {
-    launchStationId: LaunchStationId;
-    launcherId: LauncherId;
-  },
-  void,
-  Error
->();
+)<LauncherId, void, Error>();
 
 export const setLauncherTitle = createStandardAction(
   "LAUNCH_STATIONS/setLauncherTitle",

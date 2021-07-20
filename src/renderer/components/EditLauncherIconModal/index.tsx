@@ -107,7 +107,7 @@ const IconContainer = styled.div`
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
-  font-size: ${ICON_SIZE}px;
+  font-size: ${ICON_SIZE * 2}px;
   color: ${theme.white};
   margin-bottom: ${RHYTHM / 2}px;
 `;

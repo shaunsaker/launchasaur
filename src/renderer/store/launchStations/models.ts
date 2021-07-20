@@ -5,6 +5,7 @@ export enum LaunchStationAction {
   CloseFile = "Close an App or File",
   OpenLink = "Open a Link",
   OpenLaunchStation = "Open a Launch Station",
+  TriggerLauncher = "Trigger another Launcher",
 }
 
 export const LauncherActions = [
@@ -12,6 +13,7 @@ export const LauncherActions = [
   LaunchStationAction.CloseFile,
   LaunchStationAction.OpenLink,
   LaunchStationAction.OpenLaunchStation,
+  LaunchStationAction.TriggerLauncher,
 ];
 
 export type Filepath = string;

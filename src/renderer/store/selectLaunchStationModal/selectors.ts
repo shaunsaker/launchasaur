@@ -1,7 +1,8 @@
 import { ApplicationState } from "../reducers";
 
-export const selectLaunchStationModalIsShown = (state: ApplicationState) =>
-  state.selectLaunchStationModal.isShown;
+export const selectSelectLaunchStationModalIsShown = (
+  state: ApplicationState,
+) => state.selectLaunchStationModal.isShown;
 
 export const selectSelectLaunchStationModalLaunchStationId = (
   state: ApplicationState,

@@ -1,9 +1,9 @@
 import { createStandardAction } from "typesafe-actions";
 
 export const showSelectLaunchStationModal = createStandardAction(
-  "SELECT_SUBLAUNCH_STATION_MODAL/showSelectLaunchStationModal",
+  "SELECT_LAUNCH_STATION_MODAL/showSelectLaunchStationModal",
 )<{ launchStationId: string; launcherId: string; actionId: string }>();
 
 export const hideSelectLaunchStationModal = createStandardAction(
-  "SELECT_SUBLAUNCH_STATION_MODAL/hideSelectLaunchStationModal",
+  "SELECT_LAUNCH_STATION_MODAL/hideSelectLaunchStationModal",
 )();

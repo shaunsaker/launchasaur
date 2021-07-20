@@ -216,7 +216,7 @@ const WithEditButtonContainer = styled.div`
 `;
 
 const EditButtonContainer = styled.div`
-  margin-left: ${RHYTHM}px;
+  margin-left: ${RHYTHM / 2}px;
 `;
 
 const ActionsSection = styled(MarginContainer)`

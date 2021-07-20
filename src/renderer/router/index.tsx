@@ -12,7 +12,7 @@ import { selectEditLinkModalIsShown } from "../store/editLinkModal/selectors";
 import { selectEditLauncherColourModalIsShown } from "../store/editLauncherColourModal/selectors";
 import { selectEditLauncherIconModalIsShown } from "../store/editLauncherIconModal/selectors";
 import { selectLauncherActionsModalIsShown } from "../store/launcherActionsModal/selectors";
-import { selectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
+import { selectSelectLaunchStationModalIsShown } from "../store/selectLaunchStationModal/selectors";
 import { Home } from "../components/Home";
 import { LaunchStations } from "../components/Settings/LaunchStations";
 import { EditLauncherModal } from "../components/EditLauncherModal";
@@ -29,6 +29,8 @@ import { LoginModal } from "../components/LoginModal";
 import { selecUpgradeModalIsShown } from "../store/upgradeModal/selectors";
 import { UpgradeModal } from "../components/UpgradeModal";
 import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
+import { SelectLauncherModal } from "../components/SelectLauncherModal";
+import { selectSelectLauncherModalIsShown } from "../store/selectLauncherModal/selectors";
 
 export const Router = (): ReactElement => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -36,8 +38,8 @@ export const Router = (): ReactElement => {
     selectLauncherActionsModalIsShown,
   );
   const editLinkModalIsShown = useSelector(selectEditLinkModalIsShown);
-  const launchStationSelectorModalIsShown = useSelector(
-    selectLaunchStationModalIsShown,
+  const selectLaunchStationModalIsShown = useSelector(
+    selectSelectLaunchStationModalIsShown,
   );
   const editLauncherColourModalIsShown = useSelector(
     selectEditLauncherColourModalIsShown,
@@ -49,6 +51,9 @@ export const Router = (): ReactElement => {
   const loginModalIsShown = useSelector(selectLoginModalIsShown);
   const upgradeModalIsShown = useSelector(selecUpgradeModalIsShown);
   const editLauncherModalIsShown = useSelector(selectEditLauncherModalIsShown);
+  const selectLauncherModalIsShown = useSelector(
+    selectSelectLauncherModalIsShown,
+  );
 
   return (
     <ConnectedRouter history={history}>
@@ -109,7 +114,9 @@ export const Router = (): ReactElement => {
 
             {editLinkModalIsShown && <EditLinkModal />}
 
-            {launchStationSelectorModalIsShown && <SelectLaunchStationModal />}
+            {selectLaunchStationModalIsShown && <SelectLaunchStationModal />}
+
+            {selectLauncherModalIsShown && <SelectLauncherModal />}
 
             {editLauncherColourModalIsShown && <EditLauncherColourModal />}
 

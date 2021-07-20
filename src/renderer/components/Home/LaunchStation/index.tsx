@@ -5,11 +5,9 @@ import { selectLaunchStation } from "../../../store/launchStations/selectors";
 import { navigateTo } from "../../../store/navigation/actions";
 import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
-import { LAUNCHER_SIZE, RHYTHM, theme } from "../../../theme";
+import { LAUNCHER_SIZE, RHYTHM } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { HeaderBar } from "../../HeaderBar";
-import { Icon } from "../../Icon";
-import { Logo } from "../../Logo";
 import { Launcher } from "./Launcher";
 
 interface LaunchStationProps {
@@ -40,7 +38,7 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
       <LaunchersContainer>
         {launchers.map((launcher) => (
           <LauncherContainer key={launcher.id}>
-            <Launcher {...launcher} launchStationId={launchStation.id} />
+            <Launcher {...launcher} />
           </LauncherContainer>
         ))}
       </LaunchersContainer>
