@@ -11,7 +11,8 @@
     "publish": "electron-forge publish",
     "lint": "npm-run-all --parallel lint:*",
     "lint:eslint": "eslint --ext [.ts,.tsx] .",
-    "lint:prettier": "prettier -c \"**/*.{js,ts,tsx}\""
+    "lint:prettier": "prettier -c \"**/*.{ts,tsx}\"",
+    "lint:tsc": "tsc"
   },
   "keywords": [],
   "author": {
