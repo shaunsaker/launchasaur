@@ -49,7 +49,7 @@ const Container = styled.div<ContainerProps>`
   font-weight: bold;
   color: ${theme.white};
   padding: ${RHYTHM / 2}px ${RHYTHM}px;
-  margin: ${SIDE_MENU_OPTION_MARGIN / 2}px 0px;
+  margin-bottom: ${SIDE_MENU_OPTION_MARGIN}px;
   background-color: ${({ $isHovered, $isSelected }) =>
     $isHovered || $isSelected ? theme.backgroundLight : "transparent"};
   border-radius: ${SMALL_BORDER_RADIUS}px;

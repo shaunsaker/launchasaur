@@ -107,7 +107,7 @@ export const LaunchStationEditor = () => {
 
   const addLauncherButton = (
     <AddLauncherButtonContainer>
-      <Button primary onClick={onAddLauncherClick}>
+      <Button primary large onClick={onAddLauncherClick}>
         ADD LAUNCHER
       </Button>
     </AddLauncherButtonContainer>

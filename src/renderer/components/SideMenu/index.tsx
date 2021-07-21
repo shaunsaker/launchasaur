@@ -45,16 +45,18 @@ export const SideMenu = ({
   );
 };
 
+export const SIDE_MENU_PADDING_TOP = RHYTHM * 2;
+
 const SideMenuContainer = styled.div`
   align-self: flex-start;
   height: 100%;
   border-right: ${BORDER_WIDTH}px solid ${theme.backgroundDark33};
-  padding: ${RHYTHM}px;
+  padding: ${SIDE_MENU_PADDING_TOP}px ${RHYTHM}px ${RHYTHM}px;
 `;
 
 const TitleText = styled.div`
   font-size: 16px;
+  line-height: 16px;
   font-weight: bold;
   color: ${theme.white50};
-  margin-top: ${SIDE_MENU_OPTION_MARGIN}px;
 `;
