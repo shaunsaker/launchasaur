@@ -19,7 +19,6 @@ import { navigateTo } from "../../../store/navigation/actions";
 import { Routes } from "../../../store/navigation/models";
 import { ApplicationState } from "../../../store/reducers";
 import { objectToArray } from "../../../utils/objectToArray";
-import { uuid } from "../../../utils/uuid";
 import { BlankState } from "../../BlankState";
 import { Button } from "../../Button";
 import { MarginContainer } from "../../MarginContainer";
@@ -83,9 +82,7 @@ export const LaunchStationEditor = () => {
   );
 
   const onAddLauncherClick = useCallback(() => {
-    dispatch(
-      addLauncher({ launchStationId: launchStationId, launcherId: uuid() }),
-    );
+    dispatch(addLauncher({ launchStationId: launchStationId }));
   }, [dispatch, launchStationId]);
 
   const onDeleteLaunchStationClick = useCallback(() => {

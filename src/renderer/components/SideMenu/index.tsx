@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { BORDER_WIDTH, RHYTHM, theme } from "../../theme";
 import { MarginContainer } from "../MarginContainer";
-import { SideMenuOption, SIDE_MENU_OPTION_MARGIN } from "./SideMenuOption";
+import { SideMenuOption } from "./SideMenuOption";
 
 export interface SideMenuOption {
   id: string;
