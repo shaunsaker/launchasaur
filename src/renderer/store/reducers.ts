@@ -31,9 +31,12 @@ import { EditLauncherModalState } from "./editLauncherModal/models";
 import { editLauncherModalReducer } from "./editLauncherModal/reducer";
 import { SelectLauncherModalState } from "./selectLauncherModal/models";
 import { selectLauncherModalReducer } from "./selectLauncherModal/reducer";
+import { AppStatesState } from "./appStates/models";
+import { appStatesReducer } from "./appStates/reducer";
 
 export interface ApplicationState {
   router: RouterState;
+  appStates: AppStatesState;
   auth: AuthState;
   settings: SettingsState;
   launchStations: LaunchStationsState;
@@ -54,6 +57,7 @@ export interface ApplicationState {
 export const createRootReducer = (history_: History) =>
   combineReducers({
     router: connectRouter(history_),
+    appStates: appStatesReducer,
     auth: authReducer,
     settings: settingsReducer,
     launchStations: launchstationsReducer,

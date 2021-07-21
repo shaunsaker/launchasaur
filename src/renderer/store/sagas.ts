@@ -1,6 +1,7 @@
 import { SagaIterator } from "redux-saga";
 import { fork } from "redux-saga/effects";
 import { connectSaga } from "../utils/connectSaga";
+import { appStatesSaga } from "./appStates/flow";
 import { authSagas } from "./auth/flow";
 import { selectIsAuthenticated } from "./auth/selectors";
 import { launchStationsSagas } from "./launchStations/flow";
@@ -9,6 +10,7 @@ import { settingsSagas } from "./settings/flow";
 import { userSagas } from "./user/flow";
 
 function* omnipresentFlows() {
+  yield fork(appStatesSaga);
   yield fork(navigationSagas);
   yield fork(authSagas);
 }

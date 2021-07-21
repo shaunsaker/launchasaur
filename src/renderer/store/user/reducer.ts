@@ -1,9 +1,11 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
+import { setAppStarted } from "../appStates/actions";
 import { fetchUser, startTrial } from "./actions";
 import { Plans, UserState } from "./models";
 
 const reducerActions = {
+  setAppStarted,
   fetchUserSuccess: fetchUser.success,
   startTrialRequest: startTrial.request,
   startTrialSuccess: startTrial.success,
@@ -25,6 +27,13 @@ export const userReducer: Reducer<UserState> = (
   action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
+    case getType(setAppStarted):
+      // reset loading states
+      return {
+        ...state,
+        isStartTrialLoading: false,
+      };
+
     case getType(fetchUser.success):
       return {
         ...state,

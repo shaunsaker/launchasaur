@@ -47,6 +47,7 @@ const persistConfig: PersistConfig<ApplicationState> = {
   storage,
   blacklist: [
     "router",
+    "appStates",
     "snackbars",
     "launcherActionsModal",
     "editLinkModal",

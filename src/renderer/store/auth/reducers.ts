@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
+import { setAppStarted } from "../appStates/actions";
 import {
   deleteAccount,
   forgotPassword,
@@ -12,6 +13,7 @@ import {
 import { AuthState } from "./models";
 
 const reducerActions = {
+  setAppStarted,
   signupRequest: signup.request,
   signupSuccess: signup.success,
   signupFailure: signup.failure,
@@ -52,6 +54,19 @@ export const authReducer: Reducer<AuthState> = (
   action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
+    case getType(setAppStarted):
+      // reset loading states
+      return {
+        ...state,
+        isLoginLoading: false,
+        isSignupLoading: false,
+        isForgotPasswordLoading: false,
+        isSignoutLoading: false,
+        isUpdateEmailLoading: false,
+        isUpdatePasswordLoading: false,
+        isDeleteAccountLoading: false,
+      };
+
     case getType(signup.request):
       return {
         ...state,
