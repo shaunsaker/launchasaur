@@ -9,7 +9,7 @@ import {
 import { hideLauncherActionsModal } from "../../store/launcherActionsModal/actions";
 import { addLauncherAction } from "../../store/launchStations/actions";
 import { makeActionData } from "../../store/launchStations/data";
-import { LaunchStationAction } from "../../store/launchStations/models";
+import { LauncherAction } from "../../store/launchStations/models";
 import { uuid } from "../../utils/uuid";
 import { validateUrl } from "../../utils/validateUrl";
 import { Button } from "../Button";
@@ -35,7 +35,7 @@ export const EditLinkModal = (): ReactElement => {
   const onSubmitClick = useCallback(() => {
     const actionData = makeActionData({
       id: uuid(),
-      action: LaunchStationAction.OpenLink,
+      action: LauncherAction.OpenLink,
       resource: value,
     });
 
@@ -56,7 +56,7 @@ export const EditLinkModal = (): ReactElement => {
         <HighlightContent>
           <TextInput
             label="Link"
-            placeholder="Where should we browse to?"
+            placeholder="What url should we open?"
             value={value}
             onChangeText={onChangeLink}
           />

@@ -1,6 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 
-export enum LaunchStationAction {
+export enum LauncherAction {
   OpenFile = "Open an App or File",
   CloseFile = "Close an App or File",
   OpenLink = "Open a Link",
@@ -9,11 +9,11 @@ export enum LaunchStationAction {
 }
 
 export const LauncherActions = [
-  LaunchStationAction.OpenFile,
-  LaunchStationAction.CloseFile,
-  LaunchStationAction.OpenLink,
-  LaunchStationAction.OpenLaunchStation,
-  LaunchStationAction.TriggerLauncher,
+  LauncherAction.OpenFile,
+  LauncherAction.CloseFile,
+  LauncherAction.OpenLink,
+  LauncherAction.OpenLaunchStation,
+  LauncherAction.TriggerLauncher,
 ];
 
 export type Filepath = string;
@@ -22,7 +22,7 @@ export type ActionDataResource = Filepath | LaunchStationId; // LaunchStationId 
 
 export interface ActionData {
   id: ActionId;
-  action: LaunchStationAction;
+  action: LauncherAction;
   resource: ActionDataResource;
   icon: IconName;
 }

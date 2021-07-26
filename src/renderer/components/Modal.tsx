@@ -12,9 +12,9 @@ import { MarginContainer } from "./MarginContainer";
 import { ModalBackdrop } from "./ModalBackdrop";
 
 interface ModalProps {
-  title: string;
-  children: ReactNode;
-  onClose: () => void;
+  title?: string;
+  children?: ReactNode;
+  onClose?: () => void;
 }
 
 export const Modal = ({
@@ -31,9 +31,11 @@ export const Modal = ({
 
         {children}
 
-        <CloseIconContainer>
-          <CloseIcon onClick={onClose} />
-        </CloseIconContainer>
+        {onClose && (
+          <CloseIconContainer>
+            <CloseIcon onClick={onClose} />
+          </CloseIconContainer>
+        )}
       </ContentContainer>
     </ModalBackdrop>
   );
@@ -52,11 +54,11 @@ const ContentContainer = styled.div`
   width: ${MODAL_WIDTH}px;
   padding: ${MODAL_PADDING}px;
   margin: ${RHYTHM}px;
-  overflow: hidden;
 `;
 
 const TitleText = styled.div`
   font-size: 24px;
+  min-height: 24px; /* for when there is no title */
   line-height: 1.5;
   font-weight: bold;
   color: ${theme.white};

@@ -1,7 +1,7 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { createAsyncAction, createStandardAction } from "typesafe-actions";
 import {
-  LaunchStationAction,
+  LauncherAction,
   ActionData,
   LaunchStationId,
   LauncherId,
@@ -35,7 +35,7 @@ export const addLauncherAction = createAsyncAction(
   {
     launchStationId: LaunchStationId;
     launcherId: LauncherId;
-    action: LaunchStationAction;
+    action: LauncherAction;
   },
   {
     launchStationId: LaunchStationId;

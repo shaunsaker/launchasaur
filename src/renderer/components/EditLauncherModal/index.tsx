@@ -31,6 +31,8 @@ import {
   selectEditLauncherModalLaunchStationId,
 } from "../../store/editLauncherModal/selectors";
 import { hideEditLauncherModal } from "../../store/editLauncherModal/actions";
+import { OnboardingCoachmark } from "../OnboardingCoachmark";
+import { OnboardingCoachmarkKey } from "../../store/onboarding/models";
 
 export const EditLauncherModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -114,27 +116,39 @@ export const EditLauncherModal = (): ReactElement => {
   );
 
   return (
-    <Modal title={`${launcher.title} Launcher`} onClose={onCloseClick}>
+    <Modal title={`${launcher.title} Control Panel`} onClose={onCloseClick}>
       <Container>
         <MarginContainer small>
-          <TextInput
-            label="Title"
-            placeholder="What should we call your Launcher?"
-            value={launcher.title}
-            onChangeText={onChangeTitle}
-          />
+          <OnboardingCoachmark
+            shouldRender={(key) =>
+              key === OnboardingCoachmarkKey.EditLauncherName
+            }
+            placement="left">
+            <TextInput
+              label="Title"
+              placeholder="What should we call your Launcher?"
+              value={launcher.title}
+              onChangeText={onChangeTitle}
+            />
+          </OnboardingCoachmark>
         </MarginContainer>
 
         <MarginContainer small>
           <FieldLabel>Icon</FieldLabel>
 
-          <WithEditButtonContainer>
-            <Icon icon={launcher.icon} />
+          <OnboardingCoachmark
+            shouldRender={(key) =>
+              key === OnboardingCoachmarkKey.EditLauncherIcon
+            }
+            placement="left">
+            <WithEditButtonContainer>
+              <Icon icon={launcher.icon} />
 
-            <EditButtonContainer>
-              <Button onClick={onEditIconClick}>EDIT</Button>
-            </EditButtonContainer>
-          </WithEditButtonContainer>
+              <EditButtonContainer>
+                <Button onClick={onEditIconClick}>EDIT</Button>
+              </EditButtonContainer>
+            </WithEditButtonContainer>
+          </OnboardingCoachmark>
         </MarginContainer>
 
         <MarginContainer small>
@@ -149,57 +163,75 @@ export const EditLauncherModal = (): ReactElement => {
         <MarginContainer small>
           <FieldLabel>Colour</FieldLabel>
 
-          <WithEditButtonContainer>
-            <Circle colour={launcher.colour} />
+          <OnboardingCoachmark
+            shouldRender={(key) =>
+              key === OnboardingCoachmarkKey.EditLauncherColour
+            }
+            placement="left">
+            <WithEditButtonContainer>
+              <Circle colour={launcher.colour} />
 
-            <EditButtonContainer>
-              <Button onClick={onEditColourClick}>EDIT</Button>
-            </EditButtonContainer>
-          </WithEditButtonContainer>
+              <EditButtonContainer>
+                <Button onClick={onEditColourClick}>EDIT</Button>
+              </EditButtonContainer>
+            </WithEditButtonContainer>
+          </OnboardingCoachmark>
         </MarginContainer>
 
-        <ActionsSection small>
-          <FieldLabel>Actions</FieldLabel>
+        <OnboardingCoachmark
+          shouldRender={(key) =>
+            key === OnboardingCoachmarkKey.EditLauncherActions
+          }
+          placement="left">
+          <ActionsSection small>
+            <FieldLabel>Actions</FieldLabel>
 
-          {hasActions ? (
-            <ActionsContainer>
-              {actions.map((action, index) => {
-                const actionItemComponent = (
-                  <ActionItem
-                    key={action.id}
-                    action={action}
-                    onDelete={() => onDeleteAction(action)}
-                  />
-                );
-                const isLastItem = index === actions.length - 1;
+            {hasActions ? (
+              <ActionsContainer>
+                {actions.map((action, index) => {
+                  const actionItemComponent = (
+                    <ActionItem
+                      key={action.id}
+                      action={action}
+                      onDelete={() => onDeleteAction(action)}
+                    />
+                  );
+                  const isLastItem = index === actions.length - 1;
 
-                if (isLastItem) {
-                  return actionItemComponent;
-                }
+                  if (isLastItem) {
+                    return actionItemComponent;
+                  }
 
-                return (
-                  <MarginContainer key={action.id} small>
-                    {actionItemComponent}
-                  </MarginContainer>
-                );
-              })}
+                  return (
+                    <MarginContainer key={action.id} small>
+                      {actionItemComponent}
+                    </MarginContainer>
+                  );
+                })}
 
-              {addActionButton}
-            </ActionsContainer>
-          ) : (
-            <BlankState
-              icon="rocket"
-              title="You have no actions"
-              description="Add an action so that you can start launching things!">
-              {addActionButton}
-            </BlankState>
-          )}
-        </ActionsSection>
+                {addActionButton}
+              </ActionsContainer>
+            ) : (
+              <BlankState
+                icon="rocket"
+                title="You have no actions"
+                description="Add an action so that you can start launching things!">
+                {addActionButton}
+              </BlankState>
+            )}
+          </ActionsSection>
+        </OnboardingCoachmark>
 
         <DoneButtonContainer>
-          <Button primary large onClick={onDoneClick}>
-            DONE
-          </Button>
+          <OnboardingCoachmark
+            shouldRender={(key) =>
+              key === OnboardingCoachmarkKey.CloseLauncherControlPanel
+            }
+            placement="left">
+            <Button primary large onClick={onDoneClick}>
+              DONE
+            </Button>
+          </OnboardingCoachmark>
         </DoneButtonContainer>
       </Container>
     </Modal>

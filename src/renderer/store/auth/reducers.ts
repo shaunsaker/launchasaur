@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
+import { isDevelopment } from "../../../utils/isDevelopment";
 import { setAppStarted } from "../appStates/actions";
 import {
   deleteAccount,
@@ -38,7 +39,7 @@ const reducerActions = {
 };
 
 export const initialState: AuthState = {
-  authenticated: false,
+  authenticated: isDevelopment(),
   user: undefined,
   isLoginLoading: false,
   isSignupLoading: false,

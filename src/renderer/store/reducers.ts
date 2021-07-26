@@ -33,6 +33,8 @@ import { SelectLauncherModalState } from "./selectLauncherModal/models";
 import { selectLauncherModalReducer } from "./selectLauncherModal/reducer";
 import { AppStatesState } from "./appStates/models";
 import { appStatesReducer } from "./appStates/reducer";
+import { OnboardingState } from "./onboarding/models";
+import { onboardingReducer } from "./onboarding/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -52,6 +54,7 @@ export interface ApplicationState {
   upgradeModal: UpgradeModalState;
   editLauncherModal: EditLauncherModalState;
   selectLauncherModal: SelectLauncherModalState;
+  onboarding: OnboardingState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -73,6 +76,7 @@ export const createRootReducer = (history_: History) =>
     upgradeModal: upgradeModalReducer,
     editLauncherModal: editLauncherModalReducer,
     selectLauncherModal: selectLauncherModalReducer,
+    onboarding: onboardingReducer,
   });
 
 export const initialState = {

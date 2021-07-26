@@ -2,7 +2,7 @@ import { objectToArray } from "../../utils/objectToArray";
 import { ApplicationState } from "../reducers";
 import {
   DEFAULT_LAUNCH_STATION_ID,
-  LaunchStationAction,
+  LauncherAction,
   LaunchStationId,
   LauncherId,
   ActionData,
@@ -87,7 +87,7 @@ export const selectLauncherHasOpenLaunchStationAction = (
   const launcher = selectLauncher(state, { launchStationId, launcherId });
 
   return objectToArray(launcher.actions).some(
-    (actionData) => actionData.action === LaunchStationAction.OpenLaunchStation,
+    (actionData) => actionData.action === LauncherAction.OpenLaunchStation,
   );
 };
 
@@ -95,26 +95,26 @@ export const selectPrettyAction = (
   state: ApplicationState,
   { action }: { action: ActionData },
 ): string => {
-  if (action.action === LaunchStationAction.OpenFile) {
+  if (action.action === LauncherAction.OpenFile) {
     return `Open ${getPrettyFilename(action.resource)}`;
   }
 
-  if (action.action === LaunchStationAction.CloseFile) {
+  if (action.action === LauncherAction.CloseFile) {
     return `Close ${getPrettyFilename(action.resource)}`;
   }
 
-  if (action.action === LaunchStationAction.OpenLink) {
-    return `Browse to ${getPrettyLink(action.resource)}`;
+  if (action.action === LauncherAction.OpenLink) {
+    return `Open Link: ${getPrettyLink(action.resource)}`;
   }
 
-  if (action.action === LaunchStationAction.OpenLaunchStation) {
+  if (action.action === LauncherAction.OpenLaunchStation) {
     // the resource is the launchStationId so we need to get it's title
     const launchStation = selectLaunchStation(state, action.resource);
 
     return `Open Launch Station: ${launchStation.title}`;
   }
 
-  if (action.action == LaunchStationAction.TriggerLauncher) {
+  if (action.action == LauncherAction.TriggerLauncher) {
     // the resource is the launcherId
     const launcher = selectLauncherById(state, action.resource);
 

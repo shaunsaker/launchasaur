@@ -31,6 +31,12 @@ import { UpgradeModal } from "../components/UpgradeModal";
 import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
 import { SelectLauncherModal } from "../components/SelectLauncherModal";
 import { selectSelectLauncherModalIsShown } from "../store/selectLauncherModal/selectors";
+import {
+  selectShowOnboardingIntroModal,
+  selectShowOnboardingOutroModal,
+} from "../store/onboarding/selectors";
+import { OnboardingIntroModalModal } from "../components/OnboardingIntroModal";
+import { OnboardingOutroModal } from "../components/OnboardingOutroModal";
 
 export const Router = (): ReactElement => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -54,6 +60,8 @@ export const Router = (): ReactElement => {
   const selectLauncherModalIsShown = useSelector(
     selectSelectLauncherModalIsShown,
   );
+  const showOnboardingIntroModal = useSelector(selectShowOnboardingIntroModal);
+  const showOnboardingOutroModal = useSelector(selectShowOnboardingOutroModal);
 
   return (
     <ConnectedRouter history={history}>
@@ -125,6 +133,10 @@ export const Router = (): ReactElement => {
             {loginModalIsShown && <LoginModal />}
 
             {upgradeModalIsShown && <UpgradeModal />}
+
+            {showOnboardingIntroModal && <OnboardingIntroModalModal />}
+
+            {showOnboardingOutroModal && <OnboardingOutroModal />}
           </>
         ) : (
           <Switch>

@@ -31,7 +31,7 @@ import {
 import { makeActionData } from "./data";
 import {
   LauncherId,
-  LaunchStationAction,
+  LauncherAction,
   LaunchStationId,
   Shortcut,
 } from "./models";
@@ -129,19 +129,19 @@ function* addLaunchStationActionSaga(): SagaIterator {
       const { action: launcherAction } = action.payload;
 
       switch (launcherAction) {
-        case LaunchStationAction.OpenFile:
+        case LauncherAction.OpenFile:
           yield call(handleAddOpenOrCloseFileActionSaga, action);
           break;
-        case LaunchStationAction.CloseFile:
+        case LauncherAction.CloseFile:
           yield call(handleAddOpenOrCloseFileActionSaga, action);
           break;
-        case LaunchStationAction.OpenLink:
+        case LauncherAction.OpenLink:
           yield call(handleAddOpenLinkActionSaga, action);
           break;
-        case LaunchStationAction.OpenLaunchStation:
+        case LauncherAction.OpenLaunchStation:
           yield call(handleAddOpenLaunchStationActionSaga, action);
           break;
-        case LaunchStationAction.TriggerLauncher:
+        case LauncherAction.TriggerLauncher:
           yield call(handleAddTriggerLauncherActionSaga, action);
           break;
       }
@@ -157,23 +157,23 @@ function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
 
   // trigger the actions as appropriate
   const actionsArray = arrayActions.map((action) => {
-    if (action.action === LaunchStationAction.OpenFile) {
+    if (action.action === LauncherAction.OpenFile) {
       return call(openFileSaga, action.resource);
     }
 
-    if (action.action === LaunchStationAction.CloseFile) {
+    if (action.action === LauncherAction.CloseFile) {
       return call(closeFileSaga, action.resource);
     }
 
-    if (action.action === LaunchStationAction.OpenLink) {
+    if (action.action === LauncherAction.OpenLink) {
       return call(openLinkSaga, action.resource);
     }
 
-    if (action.action === LaunchStationAction.OpenLaunchStation) {
+    if (action.action === LauncherAction.OpenLaunchStation) {
       return put(navigateToLaunchStation({ launchStationId: action.resource }));
     }
 
-    if (action.action === LaunchStationAction.TriggerLauncher) {
+    if (action.action === LauncherAction.TriggerLauncher) {
       return call(triggerLauncherSaga, action.resource);
     }
   });
@@ -184,7 +184,7 @@ function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
   yield put(triggerLauncher.success());
 
   const isOpeningAnotherLaunchStation = arrayActions.some(
-    (action) => action.action === LaunchStationAction.OpenLaunchStation,
+    (action) => action.action === LauncherAction.OpenLaunchStation,
   );
   const hasActions = arrayActions.length;
   if (!isOpeningAnotherLaunchStation && hasActions) {

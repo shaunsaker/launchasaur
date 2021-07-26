@@ -29,3 +29,6 @@ export const navigateToSettingsLaunchStation = (props: {
       props.launchStationId,
     ),
   });
+
+export const navigateToSettings = () =>
+  navigateTo({ to: Routes.settingsLaunchStations });

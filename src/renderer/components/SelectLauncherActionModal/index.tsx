@@ -8,7 +8,7 @@ import {
 } from "../../store/launcherActionsModal/selectors";
 import { addLauncherAction } from "../../store/launchStations/actions";
 import {
-  LaunchStationAction,
+  LauncherAction,
   LauncherActions,
 } from "../../store/launchStations/models";
 import { selectLauncherHasOpenLaunchStationAction } from "../../store/launchStations/selectors";
@@ -33,7 +33,7 @@ export const SelectLauncherActionModal = (): ReactElement => {
   );
 
   const onActionClick = useCallback(
-    (action: LaunchStationAction) => {
+    (action: LauncherAction) => {
       dispatch(
         addLauncherAction.request({ launchStationId, launcherId, action }),
       );
@@ -55,7 +55,7 @@ export const SelectLauncherActionModal = (): ReactElement => {
             fullWidth
             disabled={
               // don't allow multiple open launch station actions
-              action === LaunchStationAction.OpenLaunchStation &&
+              action === LauncherAction.OpenLaunchStation &&
               launcherHasOpenLaunchStationAction
             }
             onClick={() => onActionClick(action)}>

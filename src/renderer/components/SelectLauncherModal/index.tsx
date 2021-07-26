@@ -9,7 +9,7 @@ import {
 import { makeActionData } from "../../store/launchStations/data";
 import {
   LauncherData,
-  LaunchStationAction,
+  LauncherAction,
 } from "../../store/launchStations/models";
 import { selectAllOtherLaunchers } from "../../store/launchStations/selectors";
 import { ApplicationState } from "../../store/reducers";
@@ -50,7 +50,7 @@ export const SelectLauncherModal = (): ReactElement => {
   const onSelectLauncher = useCallback(
     (launcher: LauncherData) => {
       const actionData = makeActionData({
-        action: LaunchStationAction.TriggerLauncher,
+        action: LauncherAction.TriggerLauncher,
         resource: launcher.id,
       });
 

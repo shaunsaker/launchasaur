@@ -1,9 +1,14 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
+import { selectIsLaunchStationRoute } from "../store/navigation/selectors";
+import { OnboardingCoachmarkKey } from "../store/onboarding/models";
 import { RHYTHM, theme } from "../theme";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
+import { OnboardingCoachmark } from "./OnboardingCoachmark";
 
 interface HeaderBarProps {
   title: string;
@@ -12,13 +17,26 @@ interface HeaderBarProps {
 }
 
 export const HeaderBar = ({ title, icon, onClick }: HeaderBarProps) => {
+  const isEditLauncherModalShown = useSelector(selectEditLauncherModalIsShown);
+  const isLaunchStationRoute = useSelector(selectIsLaunchStationRoute);
+
   return (
     <Container>
       <Logo />
 
       <TitleText>{title}</TitleText>
 
-      <Icon icon={icon} onClick={onClick} />
+      <OnboardingCoachmark
+        shouldRender={(key) => key === OnboardingCoachmarkKey.OpenControlPanel}>
+        <OnboardingCoachmark
+          shouldRender={(key) =>
+            key === OnboardingCoachmarkKey.CloseControlPanel &&
+            !isEditLauncherModalShown &&
+            !isLaunchStationRoute
+          }>
+          <Icon icon={icon} onClick={onClick} />
+        </OnboardingCoachmark>
+      </OnboardingCoachmark>
     </Container>
   );
 };

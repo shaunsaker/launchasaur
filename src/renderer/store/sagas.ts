@@ -6,6 +6,7 @@ import { authSagas } from "./auth/flow";
 import { selectIsAuthenticated } from "./auth/selectors";
 import { launchStationsSagas } from "./launchStations/flow";
 import { navigationSagas } from "./navigation/flow";
+import { onboardingSagas } from "./onboarding/flow";
 import { settingsSagas } from "./settings/flow";
 import { userSagas } from "./user/flow";
 
@@ -20,6 +21,7 @@ function* authenticatedFlows(authenticated: boolean) {
     yield fork(settingsSagas);
     yield fork(launchStationsSagas);
     yield fork(userSagas);
+    yield fork(onboardingSagas);
   }
 }
 

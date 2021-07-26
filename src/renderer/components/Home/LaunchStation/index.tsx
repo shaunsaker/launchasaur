@@ -2,12 +2,13 @@ import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectLaunchStation } from "../../../store/launchStations/selectors";
-import { navigateTo } from "../../../store/navigation/actions";
-import { Routes } from "../../../store/navigation/models";
+import { navigateToSettings } from "../../../store/navigation/actions";
+import { OnboardingCoachmarkKey } from "../../../store/onboarding/models";
 import { ApplicationState } from "../../../store/reducers";
 import { LAUNCHER_SIZE, RHYTHM } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { HeaderBar } from "../../HeaderBar";
+import { OnboardingCoachmark } from "../../OnboardingCoachmark";
 import { Launcher } from "./Launcher";
 
 interface LaunchStationProps {
@@ -22,26 +23,39 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
   const launchers = objectToArray(launchStation?.launchers);
 
   const onSettingsClick = useCallback(() => {
-    dispatch(navigateTo({ to: Routes.settingsLaunchStations }));
+    dispatch(navigateToSettings());
   }, [dispatch]);
 
   return (
     <Container>
       <HeaderBarContainer>
-        <HeaderBar
-          title={`${launchStation.title} Launch Station`}
-          icon="cog"
-          onClick={onSettingsClick}
-        />
+        <OnboardingCoachmark
+          shouldRender={(key) =>
+            key === OnboardingCoachmarkKey.ShowLaunchStation
+          }>
+          <HeaderBar
+            title={`${launchStation.title} Launch Station`}
+            icon="cog"
+            onClick={onSettingsClick}
+          />
+        </OnboardingCoachmark>
       </HeaderBarContainer>
 
-      <LaunchersContainer>
-        {launchers.map((launcher) => (
-          <LauncherContainer key={launcher.id}>
-            <Launcher {...launcher} />
-          </LauncherContainer>
-        ))}
-      </LaunchersContainer>
+      <OnboardingCoachmark
+        shouldRender={(key) => key === OnboardingCoachmarkKey.ShowLauncher}>
+        <OnboardingCoachmark
+          shouldRender={(key) =>
+            key === OnboardingCoachmarkKey.TriggerLauncher
+          }>
+          <LaunchersContainer>
+            {launchers.map((launcher) => (
+              <LauncherContainer key={launcher.id}>
+                <Launcher {...launcher} />
+              </LauncherContainer>
+            ))}
+          </LaunchersContainer>
+        </OnboardingCoachmark>
+      </OnboardingCoachmark>
     </Container>
   );
 };

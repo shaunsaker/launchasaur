@@ -15,7 +15,17 @@ function* fetchUserSaga(): SagaIterator {
   const userId = yield* select(selectUserId);
 
   if (!userId) {
-    yield put(fetchUser.failure(new Error("No user is signed in.")));
+    const message = "No user is signed in.";
+
+    yield put(fetchUser.failure(new Error(message)));
+
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: message,
+        type: SnackbarType.Danger,
+      }),
+    );
 
     return;
   }

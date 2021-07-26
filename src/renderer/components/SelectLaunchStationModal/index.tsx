@@ -8,7 +8,7 @@ import {
 } from "../../store/launchStations/actions";
 import { makeActionData } from "../../store/launchStations/data";
 import {
-  LaunchStationAction,
+  LauncherAction,
   LaunchStationData,
 } from "../../store/launchStations/models";
 import { selectAllOtherLaunchStations } from "../../store/launchStations/selectors";
@@ -58,7 +58,7 @@ export const SelectLaunchStationModal = (): ReactElement => {
   const onSelectLaunchStation = useCallback(
     (launchStation: LaunchStationData) => {
       const actionData = makeActionData({
-        action: LaunchStationAction.OpenLaunchStation,
+        action: LauncherAction.OpenLaunchStation,
         resource: launchStation.id,
       });
 

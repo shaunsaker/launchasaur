@@ -6,7 +6,7 @@ import { uuid } from "../../utils/uuid";
 import {
   ActionData,
   ActionDataResource,
-  LaunchStationAction,
+  LauncherAction,
   LaunchStationData,
   LauncherData,
 } from "./models";
@@ -18,7 +18,7 @@ export const makeActionData = ({
   resource,
 }: {
   id?: string;
-  action: LaunchStationAction;
+  action: LauncherAction;
   resource: ActionDataResource;
 }): ActionData => ({
   id: id || uuid(),

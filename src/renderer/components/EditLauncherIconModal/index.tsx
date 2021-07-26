@@ -80,6 +80,7 @@ export const EditLauncherIconModal = (): ReactElement => {
             label="Search for an Icon"
             placeholder="Filter by name..."
             value={filter}
+            autoFocus
             onChangeText={onChangeFilter}
           />
         </HighlightContent>

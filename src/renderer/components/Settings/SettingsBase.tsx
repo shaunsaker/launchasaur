@@ -5,6 +5,7 @@ import { signout } from "../../store/auth/actions";
 import { selectIsSignoutLoading } from "../../store/auth/selectors";
 import { navigateTo } from "../../store/navigation/actions";
 import { launchStationIdParam, Routes } from "../../store/navigation/models";
+import { OnboardingCoachmarkKey } from "../../store/onboarding/models";
 import {
   BORDER_RADIUS,
   BORDER_WIDTH,
@@ -13,6 +14,7 @@ import {
   theme,
 } from "../../theme";
 import { HeaderBar } from "../HeaderBar";
+import { OnboardingCoachmark } from "../OnboardingCoachmark";
 import { SideMenuOption } from "../SideMenu/SideMenuOption";
 import {
   SettingsNavigationMenu,
@@ -59,15 +61,21 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   return (
     <Container>
       <HeaderBarContainer>
-        <HeaderBar title="Settings" icon="times" onClick={onCloseClick} />
+        <HeaderBar title="Control Panel" icon="times" onClick={onCloseClick} />
       </HeaderBarContainer>
 
       <ContentContainer>
-        <SettingsNavigationMenu routes={routes}>
-          <SideMenuOption onClick={onSignOutClick}>
-            {isSignOutLoading ? "Signing out..." : "Sign Out"}
-          </SideMenuOption>
-        </SettingsNavigationMenu>
+        <OnboardingCoachmark
+          shouldRender={(key) =>
+            key === OnboardingCoachmarkKey.ShowControlPanel
+          }
+          placement="left">
+          <SettingsNavigationMenu routes={routes}>
+            <SideMenuOption onClick={onSignOutClick}>
+              {isSignOutLoading ? "Signing out..." : "Sign Out"}
+            </SideMenuOption>
+          </SettingsNavigationMenu>
+        </OnboardingCoachmark>
 
         {children}
       </ContentContainer>

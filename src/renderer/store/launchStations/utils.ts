@@ -1,24 +1,24 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
-import { LaunchStationAction } from "./models";
+import { LauncherAction } from "./models";
 
-export const getActionIcon = (action: LaunchStationAction): IconName => {
-  if (action === LaunchStationAction.OpenFile) {
+export const getActionIcon = (action: LauncherAction): IconName => {
+  if (action === LauncherAction.OpenFile) {
     return "folder-open";
   }
 
-  if (action === LaunchStationAction.CloseFile) {
+  if (action === LauncherAction.CloseFile) {
     return "window-close";
   }
 
-  if (action === LaunchStationAction.OpenLink) {
+  if (action === LauncherAction.OpenLink) {
     return "external-link-square-alt";
   }
 
-  if (action === LaunchStationAction.OpenLaunchStation) {
+  if (action === LauncherAction.OpenLaunchStation) {
     return "bomb";
   }
 
-  if (action === LaunchStationAction.TriggerLauncher) {
+  if (action === LauncherAction.TriggerLauncher) {
     return "rocket";
   }
 };

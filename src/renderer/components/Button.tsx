@@ -1,6 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-common-types"; // eslint-disable-line
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { MouseEvent, ReactElement } from "react";
+import React, { MouseEvent, ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
@@ -19,7 +19,7 @@ interface SmallButtonProps {
   large?: boolean;
   fullWidth?: boolean;
   disabled?: boolean;
-  children: string;
+  children: ReactNode;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -150,4 +150,5 @@ const Text = styled.div<TextProps>`
   font-size: ${({ $large }) => ($large ? 13 : 11)}px;
   color: ${({ $disabled }) => ($disabled ? theme.white50 : theme.white)};
   font-weight: bold;
+  text-align: center;
 `;

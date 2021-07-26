@@ -28,6 +28,9 @@ import { PageContentContainer } from "../../PageContentContainer";
 import { PageTitleText } from "../../PageTitleText";
 import { TextInput } from "../../TextInput";
 import { showEditLauncherModal } from "../../../store/editLauncherModal/actions";
+import { RHYTHM } from "../../../theme";
+import { OnboardingCoachmark } from "../../OnboardingCoachmark";
+import { OnboardingCoachmarkKey } from "../../../store/onboarding/models";
 
 export const LaunchStationEditor = () => {
   const dispatch = useDispatch();
@@ -102,14 +105,6 @@ export const LaunchStationEditor = () => {
     return null;
   }
 
-  const addLauncherButton = (
-    <AddLauncherButtonContainer>
-      <Button primary large onClick={onAddLauncherClick}>
-        ADD LAUNCHER
-      </Button>
-    </AddLauncherButtonContainer>
-  );
-
   return (
     <PageContentContainer>
       <PageTitleText>{launchStation.title} Launch Station</PageTitleText>
@@ -123,34 +118,50 @@ export const LaunchStationEditor = () => {
         />
       </MarginContainer>
 
-      <LaunchersContainer>
+      <LaunchersSectionContainer>
         <FieldLabel>Launchers</FieldLabel>
 
         {hasLaunchers ? (
           <>
-            {objectToArray(launchStation.launchers).map((launcher) => (
-              <MarginContainer key={launcher.id} small>
-                <ListItem
-                  icon={launcher.icon}
-                  colour={launcher.colour}
-                  title={launcher.title}
-                  onDelete={() => onLauncherDeleteClick(launcher)}
-                  onEdit={() => onLauncherEditClick(launcher)}
-                />
-              </MarginContainer>
-            ))}
+            <LaunchersContainer>
+              {objectToArray(launchStation.launchers).map((launcher) => (
+                <MarginContainer key={launcher.id} small>
+                  <OnboardingCoachmark
+                    shouldRender={(key) =>
+                      key === OnboardingCoachmarkKey.OpenLauncherControlPanel
+                    }
+                    placement="right">
+                    <ListItem
+                      icon={launcher.icon}
+                      colour={launcher.colour}
+                      title={launcher.title}
+                      onDelete={() => onLauncherDeleteClick(launcher)}
+                      onEdit={() => onLauncherEditClick(launcher)}
+                    />
+                  </OnboardingCoachmark>
+                </MarginContainer>
+              ))}
+            </LaunchersContainer>
 
-            {addLauncherButton}
+            <AddLauncherButtonContainer>
+              <Button primary large onClick={onAddLauncherClick}>
+                ADD LAUNCHER
+              </Button>
+            </AddLauncherButtonContainer>
           </>
         ) : (
           <BlankState
             icon="rocket"
             title="You have no Launchers"
             description="Add a Launcher so that you can start launching things!">
-            {addLauncherButton}
+            <BlankStateAddLauncherButtonContainer>
+              <Button primary large onClick={onAddLauncherClick}>
+                ADD LAUNCHER
+              </Button>
+            </BlankStateAddLauncherButtonContainer>
           </BlankState>
         )}
-      </LaunchersContainer>
+      </LaunchersSectionContainer>
 
       {showDeleteLaunchStationButton && (
         <DeleteButtonContainer>
@@ -163,13 +174,19 @@ export const LaunchStationEditor = () => {
   );
 };
 
-const LaunchersContainer = styled.div`
+const LaunchersSectionContainer = styled.div`
   flex: 1;
   overflow: auto;
 `;
 
+const LaunchersContainer = styled.div``;
+
 const AddLauncherButtonContainer = styled.div`
   flex-direction: row;
+`;
+
+const BlankStateAddLauncherButtonContainer = styled.div`
+  margin-top: ${RHYTHM}px;
 `;
 
 const DeleteButtonContainer = styled.div`

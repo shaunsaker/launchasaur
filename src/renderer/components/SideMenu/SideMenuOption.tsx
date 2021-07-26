@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
+  BORDER_WIDTH,
   RHYTHM,
   SMALL_BORDER_RADIUS,
   theme,
@@ -45,13 +46,14 @@ const Container = styled.div<ContainerProps>`
   width: 200px;
   height: ${HEIGHT}px;
   font-size: 16px;
-  line-height: ${HEIGHT / 2}px;
   font-weight: bold;
   color: ${theme.white};
   padding: ${RHYTHM / 2}px ${RHYTHM}px;
   margin-bottom: ${SIDE_MENU_OPTION_MARGIN}px;
   background-color: ${({ $isHovered, $isSelected }) =>
     $isHovered || $isSelected ? theme.backgroundLight : "transparent"};
+  border: ${({ $isSelected }) =>
+    $isSelected ? `${BORDER_WIDTH / 2}px solid ${theme.black}` : ""};
   border-radius: ${SMALL_BORDER_RADIUS}px;
   transition: all ${TRANSITION_CSS};
   cursor: pointer;
