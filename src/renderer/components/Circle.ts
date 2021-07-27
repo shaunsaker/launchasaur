@@ -26,5 +26,5 @@ export const Circle = styled.div<CircleProps>`
   transition: background-color ${TRANSITION_CSS};
   ${FLEX_CENTER_CSS};
   ${BOX_SHADOW_CSS};
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "initial")};
+  cursor: ${({ onClick }) => (onClick ? "pointer" : "")};
 `;
