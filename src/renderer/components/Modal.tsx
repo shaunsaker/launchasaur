@@ -14,17 +14,19 @@ import { ModalBackdrop } from "./ModalBackdrop";
 interface ModalProps {
   title?: string;
   children?: ReactNode;
+  borderColor?: string;
   onClose?: () => void;
 }
 
 export const Modal = ({
   title,
   children,
+  borderColor,
   onClose,
 }: ModalProps): ReactElement => {
   return (
     <ModalBackdrop>
-      <ContentContainer>
+      <ContentContainer $borderColor={borderColor}>
         <MarginContainer small>
           <TitleText>{title}</TitleText>
         </MarginContainer>
@@ -45,8 +47,13 @@ export const MODAL_WIDTH = 640;
 export const MODAL_PADDING = RHYTHM;
 export const MODAL_BORDER_WIDTH = BORDER_WIDTH;
 
-const ContentContainer = styled.div`
-  border: ${MODAL_BORDER_WIDTH}px solid ${theme.black};
+interface ContentContainerProps {
+  $borderColor?: string;
+}
+
+const ContentContainer = styled.div<ContentContainerProps>`
+  border: ${MODAL_BORDER_WIDTH}px solid
+    ${({ $borderColor }) => $borderColor || theme.black};
   border-radius: ${BORDER_RADIUS}px;
   background-color: ${theme.backgroundDarkOpaque};
   ${BOX_SHADOW_CSS};

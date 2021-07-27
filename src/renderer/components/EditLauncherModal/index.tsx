@@ -116,7 +116,10 @@ export const EditLauncherModal = (): ReactElement => {
   );
 
   return (
-    <Modal title={`${launcher.title} Control Panel`} onClose={onCloseClick}>
+    <Modal
+      title={`${launcher.title} Control Panel`}
+      borderColor={launcher.colour}
+      onClose={onCloseClick}>
       <Container>
         <MarginContainer small>
           <OnboardingCoachmark
