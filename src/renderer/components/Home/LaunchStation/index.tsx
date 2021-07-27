@@ -1,15 +1,17 @@
 import React, { ReactElement, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { addLauncher } from "../../../store/launchStations/actions";
 import { selectLaunchStation } from "../../../store/launchStations/selectors";
 import { navigateToSettings } from "../../../store/navigation/actions";
 import { OnboardingCoachmarkKey } from "../../../store/onboarding/models";
 import { ApplicationState } from "../../../store/reducers";
-import { LAUNCHER_SIZE, RHYTHM } from "../../../theme";
+import { LAUNCHER_SIZE, RHYTHM, theme } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
 import { HeaderBar } from "../../HeaderBar";
 import { OnboardingCoachmark } from "../../OnboardingCoachmark";
 import { Launcher } from "./Launcher";
+import { LauncherBase } from "./Launcher/LauncherBase";
 
 interface LaunchStationProps {
   id: string;
@@ -21,10 +23,15 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
     selectLaunchStation(state, id),
   );
   const launchers = objectToArray(launchStation?.launchers);
+  const hasLaunchers = launchers.length;
 
   const onSettingsClick = useCallback(() => {
     dispatch(navigateToSettings());
   }, [dispatch]);
+
+  const onAddLauncherClick = useCallback(() => {
+    dispatch(addLauncher({ launchStationId: launchStation.id }));
+  }, [dispatch, launchStation.id]);
 
   return (
     <Container>
@@ -41,21 +48,31 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
         </OnboardingCoachmark>
       </HeaderBarContainer>
 
-      <OnboardingCoachmark
-        shouldRender={(key) => key === OnboardingCoachmarkKey.ShowLauncher}>
+      {hasLaunchers ? (
         <OnboardingCoachmark
-          shouldRender={(key) =>
-            key === OnboardingCoachmarkKey.TriggerLauncher
-          }>
-          <LaunchersContainer>
-            {launchers.map((launcher) => (
-              <LauncherContainer key={launcher.id}>
-                <Launcher {...launcher} />
-              </LauncherContainer>
-            ))}
-          </LaunchersContainer>
+          shouldRender={(key) => key === OnboardingCoachmarkKey.ShowLauncher}>
+          <OnboardingCoachmark
+            shouldRender={(key) =>
+              key === OnboardingCoachmarkKey.TriggerLauncher
+            }>
+            <LaunchersContainer>
+              {launchers.map((launcher) => (
+                <LauncherContainer key={launcher.id}>
+                  <Launcher {...launcher} />
+                </LauncherContainer>
+              ))}
+            </LaunchersContainer>
+          </OnboardingCoachmark>
         </OnboardingCoachmark>
-      </OnboardingCoachmark>
+      ) : (
+        <LauncherBase
+          icon="plus"
+          title="Add Launcher"
+          shortcut=""
+          colour={theme.accent}
+          onClick={onAddLauncherClick}
+        />
+      )}
     </Container>
   );
 };
