@@ -7,6 +7,7 @@ import { navigateTo } from "../../store/navigation/actions";
 import { launchStationIdParam, Routes } from "../../store/navigation/models";
 import { OnboardingCoachmarkKey } from "../../store/onboarding/models";
 import {
+  ABSOLUTE_CENTER_CSS,
   BORDER_RADIUS,
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
@@ -16,10 +17,12 @@ import {
 import { HeaderBar } from "../HeaderBar";
 import { OnboardingCoachmark } from "../OnboardingCoachmark";
 import { SideMenuOption } from "../SideMenu/SideMenuOption";
+import { TinyText } from "../TinyText";
 import {
   SettingsNavigationMenu,
   SettingsNavigationMenuRoute,
 } from "./SettingsNavigationMenu";
+import pkg from "../../../../package.json";
 
 const routes: SettingsNavigationMenuRoute[] = [
   {
@@ -79,6 +82,10 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
 
         {children}
       </ContentContainer>
+
+      <VersionContainer>
+        <TinyText>Launchasaur (Alpha) v{pkg.version}</TinyText>
+      </VersionContainer>
     </Container>
   );
 };
@@ -90,6 +97,9 @@ const Container = styled.div`
 
 const HeaderBarContainer = styled.div``;
 
+// TODO: we should base this on the platform, on windows we want to avoid the taskbar
+const TASKBAR_MARGIN = RHYTHM * 2;
+
 const ContentContainer = styled.div`
   flex-direction: row;
   flex: 1;
@@ -97,10 +107,16 @@ const ContentContainer = styled.div`
   align-self: center;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: ${RHYTHM *
-  4}px; // TODO: we should base this on the platform, on windows we want to avoid the taskbar
+  margin-bottom: ${TASKBAR_MARGIN + RHYTHM * 2}px;
   border: ${BORDER_WIDTH}px solid ${theme.black};
   border-radius: ${BORDER_RADIUS}px;
   ${BOX_SHADOW_CSS};
   background-color: ${theme.backgroundDarkOpaque};
+`;
+
+const VersionContainer = styled.div`
+  position: fixed;
+  bottom: ${TASKBAR_MARGIN + RHYTHM / 2}px;
+  left: 50%;
+  transform: translateX(-50%);
 `;
