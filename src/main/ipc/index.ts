@@ -5,6 +5,7 @@ import {
   startOpenFileIPC,
 } from "../files";
 import { startOpenLinkIPC } from "../links";
+import { startGetDisplaysIPC, startSetDisplayIPC } from "../screen";
 import {
   startCheckShortcutRegisteredIPC,
   startRegisterShortcutIPC,
@@ -21,4 +22,6 @@ export function startIPC(window: BrowserWindow): void {
   startUnregisterShortcutIPC();
   startRegisterShortcutIPC(window);
   startHideWindowIPC(window);
+  startGetDisplaysIPC();
+  startSetDisplayIPC(window);
 }

@@ -13,6 +13,12 @@ const routes: SettingsNavigationMenuRoute[] = [
     route: Routes.settingsAppSettingsAppShortcut,
     baseRoute: Routes.settingsAppSettingsAppShortcut,
   },
+  {
+    key: "Display Screen",
+    title: "Display Screen",
+    route: Routes.settingsAppSettingsDisplayScreen,
+    baseRoute: Routes.settingsAppSettingsDisplayScreen,
+  },
 ];
 
 interface SettingsBaseProps {

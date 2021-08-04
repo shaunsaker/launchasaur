@@ -14,4 +14,5 @@ export const Routes = {
   settingsAccountInfo: "/settings/account/info",
   settingsAppSettings: "/settings/app",
   settingsAppSettingsAppShortcut: "/settings/app/shortcut",
+  settingsAppSettingsDisplayScreen: "/settings/app/display",
 };

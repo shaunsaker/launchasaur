@@ -1,4 +1,3 @@
-import { call, put } from "@redux-saga/core/effects";
 import { ipcRenderer } from "electron";
 import { SagaIterator } from "redux-saga";
 import { IPC } from "../../../main/ipc/models";
@@ -6,16 +5,21 @@ import { getFilenameFromFilepath } from "./utils";
 import {
   checkShortcutRegistered,
   closeFile,
+  getDisplays,
   getFilepath,
   hideWindow,
   openFile,
   openLink,
   registerShortcut,
+  setDisplay,
   unregisterShortcut,
 } from "./actions";
 import { showSnackbar } from "../snackbars/actions";
 import { uuid } from "../../utils/uuid";
 import { SnackbarType } from "../snackbars/models";
+import { call, put, fork, takeLatest } from "redux-saga/effects";
+import { ActionType } from "typesafe-actions";
+import { ExtendedDisplay } from "../settings/models";
 
 export function* getFilepathSaga(): SagaIterator {
   yield put(getFilepath.request());
@@ -197,4 +201,53 @@ export function* hideWindowSaga(): SagaIterator {
       }),
     );
   }
+}
+
+export function* getDisplaysSaga(): SagaIterator {
+  yield takeLatest(getDisplays.request, function* (): SagaIterator {
+    try {
+      const displays: ExtendedDisplay[] = yield call(() =>
+        ipcRenderer.invoke(IPC.GetDisplays),
+      );
+
+      yield put(getDisplays.success(displays));
+    } catch (error) {
+      yield put(hideWindow.failure(error));
+      yield put(
+        showSnackbar({
+          key: uuid(),
+          message: error.message,
+          type: SnackbarType.Danger,
+        }),
+      );
+    }
+  });
+}
+
+export function* setDisplaySaga(): SagaIterator {
+  yield takeLatest(
+    setDisplay.request,
+    function* (action: ActionType<typeof setDisplay.request>): SagaIterator {
+      try {
+        yield call(() => ipcRenderer.invoke(IPC.SetDisplay, action.payload));
+
+        yield put(setDisplay.success(action.payload));
+      } catch (error) {
+        yield put(setDisplay.failure(error));
+        yield put(
+          showSnackbar({
+            key: uuid(),
+            message: error.message,
+            type: SnackbarType.Danger,
+          }),
+        );
+      }
+    },
+  );
+}
+
+export function* ipcSagas(): SagaIterator {
+  yield fork(getDisplaysSaga);
+  yield put(getDisplays.request());
+  yield fork(setDisplaySaga);
 }

@@ -1,5 +1,6 @@
 import { OpenDialogReturnValue } from "electron";
 import { createAsyncAction } from "typesafe-actions";
+import { DisplayId, ExtendedDisplay } from "../settings/models";
 
 export const getFilepath = createAsyncAction(
   "IPC/getFilepathRequest",
@@ -48,3 +49,15 @@ export const hideWindow = createAsyncAction(
   "IPC/hideWindowSuccess",
   "IPC/hideWindowFailure",
 )<void, void, Error>();
+
+export const getDisplays = createAsyncAction(
+  "IPC/getDisplaysRequest",
+  "IPC/getDisplaysSuccess",
+  "IPC/getDisplaysFailure",
+)<void, ExtendedDisplay[], Error>();
+
+export const setDisplay = createAsyncAction(
+  "IPC/setDisplayRequest",
+  "IPC/setDisplaySuccess",
+  "IPC/setDisplayFailure",
+)<DisplayId, DisplayId, Error>();

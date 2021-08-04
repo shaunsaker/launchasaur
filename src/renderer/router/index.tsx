@@ -37,6 +37,7 @@ import {
 } from "../store/onboarding/selectors";
 import { OnboardingIntroModalModal } from "../components/OnboardingIntroModal";
 import { OnboardingOutroModal } from "../components/OnboardingOutroModal";
+import { DisplayScreen } from "../components/Settings/AppSettings/DisplayScreen";
 
 export const Router = (): ReactElement => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -109,6 +110,10 @@ export const Router = (): ReactElement => {
 
               <Route path={Routes.settingsAppSettingsAppShortcut}>
                 <AppShortcut />
+              </Route>
+
+              <Route path={Routes.settingsAppSettingsDisplayScreen}>
+                <DisplayScreen />
               </Route>
 
               <Redirect to={Routes.root} />

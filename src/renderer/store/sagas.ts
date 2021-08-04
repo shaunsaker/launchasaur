@@ -4,6 +4,7 @@ import { connectSaga } from "../utils/connectSaga";
 import { appStatesSaga } from "./appStates/flow";
 import { authSagas } from "./auth/flow";
 import { selectIsAuthenticated } from "./auth/selectors";
+import { ipcSagas } from "./ipc/flow";
 import { launchStationsSagas } from "./launchStations/flow";
 import { navigationSagas } from "./navigation/flow";
 import { onboardingSagas } from "./onboarding/flow";
@@ -22,6 +23,7 @@ function* authenticatedFlows(authenticated: boolean) {
     yield fork(launchStationsSagas);
     yield fork(userSagas);
     yield fork(onboardingSagas);
+    yield fork(ipcSagas);
   }
 }
 

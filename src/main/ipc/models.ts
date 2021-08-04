@@ -7,4 +7,6 @@ export enum IPC {
   RegisterShortcut = "RegisterShortcut",
   UnregisterShortcut = "UnregisterShortcut",
   HideWindow = "HideWindow",
+  GetDisplays = "GetDisplays",
+  SetDisplay = "SetDisplay",
 }
