@@ -1,5 +1,6 @@
 import { SagaIterator } from "redux-saga";
 import { fork } from "redux-saga/effects";
+import { features } from "../features";
 import { connectSaga } from "../utils/connectSaga";
 import { appStatesSaga } from "./appStates/flow";
 import { authSagas } from "./auth/flow";
@@ -21,9 +22,12 @@ function* authenticatedFlows(authenticated: boolean) {
   if (authenticated) {
     yield fork(settingsSagas);
     yield fork(launchStationsSagas);
-    yield fork(userSagas);
     yield fork(onboardingSagas);
     yield fork(ipcSagas);
+
+    if (features.billing) {
+      yield fork(userSagas);
+    }
   }
 }
 

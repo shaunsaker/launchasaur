@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
+import { features } from "../../features";
 import { setAppStarted } from "../appStates/actions";
 import { fetchUser, startTrial } from "./actions";
 import { Plans, UserState } from "./models";
@@ -17,7 +18,7 @@ export const initialState: UserState = {
     isEligibleForTrial: false,
     isTrialActive: false,
     trialStartDate: "",
-    plan: Plans.Basic,
+    plan: features.billing ? Plans.Basic : Plans.Pro,
   },
   isStartTrialLoading: false,
 };
