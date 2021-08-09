@@ -8,6 +8,7 @@ import {
   theme,
   TRANSITION_CSS,
 } from "../../theme";
+import { ParagraphText } from "../ParagraphText";
 
 interface SideMenuOptionProps {
   selected?: boolean;
@@ -42,12 +43,10 @@ interface ContainerProps {
   $isSelected: boolean;
 }
 
-const Container = styled.div<ContainerProps>`
+const Container = styled(ParagraphText)<ContainerProps>`
   width: 200px;
   height: ${HEIGHT}px;
-  font-size: 16px;
-  font-weight: bold;
-  color: ${theme.white};
+  font-size: 14px;
   padding: ${RHYTHM / 2}px ${RHYTHM}px;
   margin-bottom: ${SIDE_MENU_OPTION_MARGIN}px;
   background-color: ${({ $isHovered, $isSelected }) =>

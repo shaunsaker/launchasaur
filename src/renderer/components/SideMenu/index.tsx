@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { BORDER_WIDTH, RHYTHM, theme } from "../../theme";
 import { MarginContainer } from "../MarginContainer";
+import { TitleText } from "../TitleText";
 import { SideMenuOption } from "./SideMenuOption";
 
 export interface SideMenuOption {
@@ -27,7 +28,7 @@ export const SideMenu = ({
     <SideMenuContainer>
       {title && (
         <MarginContainer small>
-          <TitleText>{title}</TitleText>
+          <Text>{title}</Text>
         </MarginContainer>
       )}
 
@@ -54,9 +55,8 @@ const SideMenuContainer = styled.div`
   padding: ${SIDE_MENU_PADDING_TOP}px ${RHYTHM}px ${RHYTHM}px;
 `;
 
-const TitleText = styled.div`
+const Text = styled(TitleText)`
   font-size: 16px;
   line-height: 16px;
-  font-weight: bold;
   color: ${theme.white50};
 `;

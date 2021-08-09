@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ICON_SIZE, RHYTHM, TEXT_ELLIPSIS_CSS, theme } from "../../theme";
 import { PICKER_ITEM_CONTAINER_SIZE } from "../Picker/ItemContainer";
 import { HighlightContent } from "../HighlightContent";
+import { ParagraphText } from "../ParagraphText";
 
 export const EditLauncherIconModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -113,12 +114,10 @@ const StyledIcon = styled(FontAwesomeIcon)`
   margin-bottom: ${RHYTHM / 2}px;
 `;
 
-const IconText = styled.div`
+const IconText = styled(ParagraphText)`
   font-size: 11px;
-  color: ${theme.white};
   ${TEXT_ELLIPSIS_CSS};
   width: ${PICKER_ITEM_CONTAINER_SIZE - RHYTHM}px;
-  text-align: center;
 `;
 
 const SubmitButtonContainer = styled.div`

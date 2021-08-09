@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "Catamaran";
+  src: url("./Catamaran-VariableFont_wght.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LibreBaskerville";
+  src: url("./LibreBaskerville-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kanit";
+  src: url("./Kanit-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kanit";
+  src: url("./Kanit-SemiBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}

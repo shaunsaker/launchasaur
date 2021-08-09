@@ -5,7 +5,7 @@ import { Button } from "../Button";
 import { WindowContainer } from "../WindowContainer";
 import { MarginContainer } from "../MarginContainer";
 import { Logo } from "../Logo";
-import { PageTitleText } from "../PageTitleText";
+import { TitleText } from "../TitleText";
 import { TextInput } from "../TextInput";
 import { validateEmail } from "../../utils/validateEmail";
 import { validatePassword } from "../../utils/validatePassword";
@@ -63,7 +63,9 @@ export const Login = ({ title }: LoginProps): ReactElement => {
           <Logo />
         </MarginContainer>
 
-        <PageTitleText>{title || "Login to Launchasaur"}</PageTitleText>
+        <MarginContainer>
+          <TitleText>{title || "Login to Launchasaur"}</TitleText>
+        </MarginContainer>
 
         <MarginContainer small>
           <TextInput

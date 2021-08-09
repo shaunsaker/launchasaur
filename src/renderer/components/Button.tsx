@@ -11,6 +11,7 @@ import {
   BOX_SHADOW_CSS,
   SMALL_BORDER_WIDTH,
 } from "../theme";
+import { ParagraphText } from "./ParagraphText";
 
 interface SmallButtonProps {
   icon?: IconName;
@@ -146,7 +147,7 @@ interface TextProps {
   $disabled?: boolean;
 }
 
-const Text = styled.div<TextProps>`
+const Text = styled(ParagraphText)<TextProps>`
   font-size: ${({ $large }) => ($large ? 13 : 11)}px;
   color: ${({ $disabled }) => ($disabled ? theme.white50 : theme.white)};
   font-weight: bold;

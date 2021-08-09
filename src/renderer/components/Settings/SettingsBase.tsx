@@ -17,7 +17,7 @@ import {
 import { HeaderBar } from "../HeaderBar";
 import { OnboardingCoachmark } from "../OnboardingCoachmark";
 import { SideMenuOption } from "../SideMenu/SideMenuOption";
-import { TinyText } from "../TinyText";
+import { SubtitleText } from "../SubtitleText";
 import {
   SettingsNavigationMenu,
   SettingsNavigationMenuRoute,
@@ -84,7 +84,7 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
       </ContentContainer>
 
       <VersionContainer>
-        <TinyText>Launchasaur (Alpha) v{pkg.version}</TinyText>
+        <SubtitleText>Launchasaur (Alpha) v{pkg.version}</SubtitleText>
       </VersionContainer>
     </Container>
   );

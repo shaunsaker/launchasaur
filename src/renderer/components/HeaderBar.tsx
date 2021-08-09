@@ -9,6 +9,7 @@ import { RHYTHM, theme } from "../theme";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
 import { OnboardingCoachmark } from "./OnboardingCoachmark";
+import { TitleText } from "./TitleText";
 
 interface HeaderBarProps {
   title: string;
@@ -24,7 +25,7 @@ export const HeaderBar = ({ title, icon, onClick }: HeaderBarProps) => {
     <Container>
       <Logo />
 
-      <TitleText>{title}</TitleText>
+      <Text>{title}</Text>
 
       <OnboardingCoachmark
         shouldRender={(key) => key === OnboardingCoachmarkKey.OpenControlPanel}>
@@ -48,8 +49,6 @@ const Container = styled.div`
   padding: ${RHYTHM}px;
 `;
 
-const TitleText = styled.div`
+const Text = styled(TitleText)`
   font-size: 18px;
-  font-weight: bold;
-  color: ${theme.white};
 `;
