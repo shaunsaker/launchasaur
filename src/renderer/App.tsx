@@ -14,7 +14,6 @@ import {
 } from "./theme";
 import { Notifier } from "./components/Notifier";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import "./fonts/fonts.css";
 
 require("../sentry");
 

@@ -14,8 +14,7 @@ import {
   TRANSITION_CSS,
 } from "../../../../theme";
 import { FadeIn } from "../../../FadeIn";
-import { ParagraphText } from "../../../ParagraphText";
-import { SubtitleText } from "../../../SubtitleText";
+import { TinyText } from "../../../TinyText";
 
 interface DisplayProps {
   display: ExtendedDisplay;
@@ -45,14 +44,14 @@ export const Display = ({ display }: DisplayProps): ReactElement => {
       onClick={onClick}>
       {isActive && (
         <ActiveTextContainer>
-          <ActiveText>ACTIVE</ActiveText>
+          <TinyText>ACTIVE</TinyText>
         </ActiveTextContainer>
       )}
 
       {hovered && !isActive && (
         <ActiveTextContainer>
           <FadeIn>
-            <ActiveText>SET ACTIVE</ActiveText>
+            <TinyText>SET ACTIVE</TinyText>
           </FadeIn>
         </ActiveTextContainer>
       )}
@@ -82,9 +81,4 @@ const Container = styled.div<ContainerProps>`
 const ActiveTextContainer = styled.div`
   ${ABSOLUTE_CENTER_CSS};
   pointer-events: none;
-`;
-
-const ActiveText = styled(ParagraphText)`
-  font-size: 12px;
-  text-align: center;
 `;

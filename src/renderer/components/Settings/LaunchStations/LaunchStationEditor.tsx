@@ -25,7 +25,7 @@ import { MarginContainer } from "../../MarginContainer";
 import { FieldLabel } from "../../FieldLabel";
 import { ListItem } from "../../ListItem";
 import { PageContentContainer } from "../../PageContentContainer";
-import { TitleText } from "../../TitleText";
+import { PageTitleText } from "../../PageTitleText";
 import { TextInput } from "../../TextInput";
 import { showEditLauncherModal } from "../../../store/editLauncherModal/actions";
 import { RHYTHM } from "../../../theme";
@@ -107,9 +107,7 @@ export const LaunchStationEditor = () => {
 
   return (
     <PageContentContainer>
-      <MarginContainer>
-        <TitleText>{launchStation.title} Launch Station</TitleText>
-      </MarginContainer>
+      <PageTitleText>{launchStation.title} Launch Station</PageTitleText>
 
       <MarginContainer>
         <TextInput

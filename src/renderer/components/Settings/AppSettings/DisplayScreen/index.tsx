@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { selectSettingsDisplays } from "../../../../store/settings/selectors";
 import { MarginContainer } from "../../../MarginContainer";
 import { PageContentContainer } from "../../../PageContentContainer";
-import { TitleText } from "../../../TitleText";
+import { PageTitleText } from "../../../PageTitleText";
 import { SettingsBase } from "../../SettingsBase";
 import { AppSettingsBase } from "../AppSettingsBase";
 import { Display } from "./Display";
@@ -16,9 +16,7 @@ export const DisplayScreen = (): ReactElement => {
     <SettingsBase>
       <AppSettingsBase>
         <PageContentContainer>
-          <MarginContainer>
-            <TitleText>Display Screen</TitleText>
-          </MarginContainer>
+          <PageTitleText>Display Screen</PageTitleText>
 
           <MarginContainer>
             <DisplaysContainer>

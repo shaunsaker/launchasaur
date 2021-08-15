@@ -13,8 +13,6 @@ import {
   TRANSITION_CSS,
 } from "../../../../theme";
 import { Icon } from "../../../Icon";
-import { ParagraphText } from "../../../ParagraphText";
-import { SubtitleText } from "../../../SubtitleText";
 
 interface LauncherBaseProps extends Omit<LauncherData, "id" | "actions"> {
   onClick: () => void;
@@ -39,7 +37,7 @@ export const LauncherBase = ({
         <Icon icon={icon} />
       </IconContainer>
 
-      <LauncherText>{title}</LauncherText>
+      <Text>{title}</Text>
 
       {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
     </Container>
@@ -63,7 +61,6 @@ const Container = styled.div<ContainerProps>`
   ${FLEX_CENTER_CSS};
   ${BOX_SHADOW_CSS};
   cursor: pointer;
-  text-align: center;
 `;
 
 const IconContainer = styled.div`
@@ -71,9 +68,15 @@ const IconContainer = styled.div`
   position: relative;
 `;
 
-const LauncherText = styled(ParagraphText)``;
+const Text = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${theme.white};
+  text-align: center;
+`;
 
-const ShortcutText = styled(SubtitleText)`
+const ShortcutText = styled.div`
   font-size: 12px;
+  color: ${theme.white};
   margin-top: ${RHYTHM / 2}px;
 `;

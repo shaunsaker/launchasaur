@@ -6,7 +6,7 @@ import {
   selectOnboardingCoachmarksCount,
 } from "../../store/onboarding/selectors";
 import { BORDER_RADIUS, BOX_SHADOW_CSS, RHYTHM, theme } from "../../theme";
-import { SubtitleText } from "../SubtitleText";
+import { TinyText } from "../TinyText";
 
 export const OnboardingCoachmarkProgress = (): ReactElement => {
   const onboardingCoachmarkIndex = useSelector(selectOnboardingCoachmarkIndex);
@@ -20,7 +20,7 @@ export const OnboardingCoachmarkProgress = (): ReactElement => {
       />
 
       <CountTextContainer>
-        <SubtitleText>{`${progress} / ${onboardingCoachmarkCount}`}</SubtitleText>
+        <TinyText>{`${progress} / ${onboardingCoachmarkCount}`}</TinyText>
       </CountTextContainer>
     </Container>
   );

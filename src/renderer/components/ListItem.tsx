@@ -10,7 +10,6 @@ import {
   TEXT_ELLIPSIS_CSS,
   theme,
 } from "../theme";
-import { ParagraphText } from "./ParagraphText";
 
 interface LauncherItemProps {
   icon: IconName;
@@ -62,8 +61,10 @@ export const Container = styled.div<ContainerProps>`
   border-radius: ${SMALL_BORDER_RADIUS}px;
 `;
 
-const TitleText = styled(ParagraphText)`
+const TitleText = styled.div`
   font-size: 16px;
+  font-weight: bold;
+  color: ${theme.white};
   margin: 0 ${RHYTHM / 2}px;
   ${TEXT_ELLIPSIS_CSS};
   flex: 1;

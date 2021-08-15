@@ -4,7 +4,7 @@ import { setAppShortcut } from "../../../../store/settings/actions";
 import { selectSettingsAppShortcut } from "../../../../store/settings/selectors";
 import { MarginContainer } from "../../../MarginContainer";
 import { PageContentContainer } from "../../../PageContentContainer";
-import { TitleText } from "../../../TitleText";
+import { PageTitleText } from "../../../PageTitleText";
 import { ShortcutEditor } from "../../../ShortcutEditor";
 import { SettingsBase } from "../../SettingsBase";
 import { AppSettingsBase } from "../AppSettingsBase";
@@ -24,9 +24,7 @@ export const AppShortcut = (): ReactElement => {
     <SettingsBase>
       <AppSettingsBase>
         <PageContentContainer>
-          <MarginContainer>
-            <TitleText>App Shortcut</TitleText>
-          </MarginContainer>
+          <PageTitleText>App Shortcut</PageTitleText>
 
           <MarginContainer>
             <ShortcutEditor shortcut={shortcut} onChange={onChangeShortcut} />

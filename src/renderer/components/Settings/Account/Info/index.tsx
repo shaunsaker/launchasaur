@@ -20,7 +20,7 @@ import { validatePassword } from "../../../../utils/validatePassword";
 import { Button } from "../../../Button";
 import { MarginContainer } from "../../../MarginContainer";
 import { PageContentContainer } from "../../../PageContentContainer";
-import { TitleText } from "../../../TitleText";
+import { PageTitleText } from "../../../PageTitleText";
 import { TextInput } from "../../../TextInput";
 import { SettingsBase } from "../../SettingsBase";
 import { AccountBase } from "../AccountBase";
@@ -85,9 +85,7 @@ export const AccountInfo = (): ReactElement => {
       <AccountBase>
         <Container>
           <PageContentContainer>
-            <MarginContainer>
-              <TitleText>My Account</TitleText>
-            </MarginContainer>
+            <PageTitleText>My Account</PageTitleText>
 
             <MarginContainer small>
               <TextInput

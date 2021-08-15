@@ -23,6 +23,7 @@ import {
   ONBOARDING_NEW_LAUNCHER_NAME,
   ONBOARDING_PLANET,
 } from "../../store/onboarding/models";
+import { SmallText } from "../SmallText";
 import styled from "styled-components";
 import {
   BORDER_RADIUS,
@@ -39,7 +40,6 @@ import {
   setOnboardingCoachmarkKey,
 } from "../../store/onboarding/actions";
 import { LauncherAction } from "../../store/launchStations/models";
-import { ParagraphText } from "../ParagraphText";
 
 const getCoachmarkHtmlText = (
   onboardingCoachmarkKey: OnboardingCoachmarkKey,
@@ -125,7 +125,7 @@ export const OnboardingCoachmark = ({
     return (
       <CoachmarkContentContainer>
         <MarginContainer small>
-          <ParagraphText
+          <SmallText
             dangerouslySetInnerHTML={{
               __html: getCoachmarkHtmlText(onboardingCoachmarkKey),
             }}
