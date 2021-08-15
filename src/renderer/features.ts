@@ -1,4 +1,4 @@
 export const features = {
-  auth: false,
+  auth: true,
   billing: false,
 };
