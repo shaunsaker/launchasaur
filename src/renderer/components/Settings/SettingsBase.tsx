@@ -10,7 +10,6 @@ import {
   BORDER_RADIUS,
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
-  RHYTHM,
   theme,
 } from "../../theme";
 import { HeaderBar } from "../HeaderBar";
@@ -23,6 +22,8 @@ import {
 } from "./SettingsNavigationMenu";
 import pkg from "../../../../package.json";
 import { features } from "../../features";
+import { openLink } from "../../store/ipc/actions";
+import { SUPPORT_EMAIL } from "../../config";
 
 const routes: SettingsNavigationMenuRoute[] = [
   {
@@ -53,6 +54,10 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   const dispatch = useDispatch();
   const isSignOutLoading = useSelector(selectIsSignoutLoading);
 
+  const onSupportClick = useCallback(() => {
+    dispatch(openLink.request({ url: `mailto: ${SUPPORT_EMAIL}` }));
+  }, [dispatch]);
+
   const onSignOutClick = useCallback(() => {
     dispatch(signout.request());
   }, [dispatch]);
@@ -74,6 +79,8 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
           }
           placement="left">
           <SettingsNavigationMenu routes={routes}>
+            <SideMenuOption onClick={onSupportClick}>Support</SideMenuOption>
+
             {features.auth && (
               <SideMenuOption onClick={onSignOutClick}>
                 {isSignOutLoading ? "Signing out..." : "Sign Out"}

@@ -18,7 +18,6 @@ import {
   getFilepathSaga,
   hideWindowSaga,
   openFileSaga,
-  openLinkSaga,
 } from "../ipc/flow";
 import { hideLauncherActionsModal } from "../launcherActionsModal/actions";
 import {
@@ -48,6 +47,7 @@ import { uuid } from "../../utils/uuid";
 import { SnackbarType } from "../snackbars/models";
 import { launchStationBase } from "../navigation/models";
 import { showSelectLauncherModal } from "../selectLauncherModal/actions";
+import { openLink } from "../ipc/actions";
 
 function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addLauncherAction.request>,
@@ -166,7 +166,7 @@ function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
     }
 
     if (action.action === LauncherAction.OpenLink) {
-      return call(openLinkSaga, action.resource);
+      return put(openLink.request({ url: action.resource }));
     }
 
     if (action.action === LauncherAction.OpenLaunchStation) {

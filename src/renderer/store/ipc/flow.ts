@@ -104,23 +104,26 @@ export function* closeFileSaga(filepath: string): SagaIterator {
   }
 }
 
-export function* openLinkSaga(url: string): SagaIterator {
-  yield put(openLink.request({ url }));
+export function* openLinkSaga(): SagaIterator {
+  yield takeLatest(
+    openLink.request,
+    function* (action: ActionType<typeof openLink.request>) {
+      try {
+        yield call(() => ipcRenderer.invoke(IPC.OpenLink, action.payload.url));
 
-  try {
-    yield call(() => ipcRenderer.invoke(IPC.OpenLink, url));
-
-    yield put(openLink.success());
-  } catch (error) {
-    yield put(openLink.failure(error));
-    yield put(
-      showSnackbar({
-        key: uuid(),
-        message: error.message,
-        type: SnackbarType.Danger,
-      }),
-    );
-  }
+        yield put(openLink.success());
+      } catch (error) {
+        yield put(openLink.failure(error));
+        yield put(
+          showSnackbar({
+            key: uuid(),
+            message: error.message,
+            type: SnackbarType.Danger,
+          }),
+        );
+      }
+    },
+  );
 }
 
 export function* checkShortcutRegisteredSaga(shortcut: string): SagaIterator {
@@ -247,6 +250,7 @@ export function* setDisplaySaga(): SagaIterator {
 }
 
 export function* ipcSagas(): SagaIterator {
+  yield fork(openLinkSaga);
   yield fork(getDisplaysSaga);
   yield put(getDisplays.request());
   yield fork(setDisplaySaga);
