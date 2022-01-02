@@ -13,7 +13,7 @@ const reducerActions = {
 };
 
 export const initialState: SettingsState = {
-  appShortcut: "Ctrl+Shift+~",
+  appShortcut: "Ctrl+Shift+`",
   displays: [],
   defaultDisplayId: undefined,
 };
