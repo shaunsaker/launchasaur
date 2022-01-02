@@ -1,18 +1,19 @@
 {
   "name": "launchasaur",
   "productName": "Launchasaur",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "version": "0.0.0",
+  "description": "Launch all the things with our amazing Launchjitsu™ 🥋",
   "main": ".webpack/main",
   "scripts": {
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:eslint": "eslint --ext [.ts,.tsx] .",
+    "lint:prettier": "prettier -c \"**/*.{ts,tsx}\"",
+    "lint:tsc": "tsc",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "npm-run-all --parallel lint:*",
-    "lint:eslint": "eslint --ext [.ts,.tsx] .",
-    "lint:prettier": "prettier -c \"**/*.{ts,tsx}\"",
-    "lint:tsc": "tsc"
+    "deploy": "yarn ts-node ./scripts/deploy"
   },
   "keywords": [],
   "author": {
@@ -84,6 +85,7 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@electron-forge/plugin-webpack": "6.0.0-beta.54",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "@types/cross-spawn": "^6.0.2",
     "@types/d3": "^6.7.0",
     "@types/mousetrap": "^1.6.8",
     "@types/node": "^15.12.2",
@@ -96,6 +98,7 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
+    "cross-spawn": "^7.0.3",
     "css-loader": "^4.2.1",
     "dotenv": "^10.0.0",
     "electron": "12.0.7",
@@ -112,6 +115,7 @@
     "prettier": "^2.3.0",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.2",
+    "ts-node": "^10.4.0",
     "typescript": "^4.0.2"
   },
   "dependencies": {
@@ -145,5 +149,6 @@
     "unique-names-generator": "^4.5.0",
     "use-hooks": "^2.0.0-rc.5",
     "uuid": "^8.3.2"
-  }
+  },
+  "build": "1"
 }
