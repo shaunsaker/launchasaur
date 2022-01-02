@@ -10,6 +10,8 @@ import {
   BORDER_RADIUS,
   BORDER_WIDTH,
   RHYTHM,
+  SMALL_BORDER_RADIUS,
+  SMALL_BORDER_WIDTH,
   theme,
   TRANSITION_CSS,
 } from "../../../../theme";
@@ -70,9 +72,9 @@ const Container = styled.div<ContainerProps>`
   height: 120px;
   background-color: ${({ $hovered, $active }) =>
     $hovered || $active ? theme.backgroundLight : theme.backgroundDark33};
-  border: ${BORDER_WIDTH / 2}px solid
+  border: ${SMALL_BORDER_WIDTH}px solid
     ${({ $active }) => ($active ? theme.accent : theme.black)};
-  border-radius: ${BORDER_RADIUS / 2}px;
+  border-radius: ${SMALL_BORDER_RADIUS}px;
   margin: 0 ${RHYTHM / 4}px;
   cursor: pointer;
   transition: all ${TRANSITION_CSS};

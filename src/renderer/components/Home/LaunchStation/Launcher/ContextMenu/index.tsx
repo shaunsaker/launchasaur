@@ -6,6 +6,7 @@ import { deleteLauncher } from "../../../../../store/launchStations/actions";
 import {
   BORDER_RADIUS,
   BOX_SHADOW_CSS,
+  SMALL_BORDER_RADIUS,
   SMALL_BORDER_WIDTH,
   theme,
 } from "../../../../../theme";
@@ -91,7 +92,7 @@ const ContextMenuContainer = styled.div<ContextMenuContainerProps>`
   left: ${({ x }) => x}px;
   background-color: ${theme.backgroundDarkOpaque};
   border: ${SMALL_BORDER_WIDTH}px solid ${theme.black};
-  border-radius: ${BORDER_RADIUS / 2}px;
+  border-radius: ${SMALL_BORDER_RADIUS}px;
   ${BOX_SHADOW_CSS};
   overflow: hidden;
 `;

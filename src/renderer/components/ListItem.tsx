@@ -63,7 +63,6 @@ export const Container = styled.div<ContainerProps>`
 `;
 
 const TitleText = styled(ParagraphText)`
-  font-size: 16px;
   margin: 0 ${RHYTHM / 2}px;
   ${TEXT_ELLIPSIS_CSS};
   flex: 1;

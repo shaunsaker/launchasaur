@@ -17,6 +17,7 @@ import {
 } from "../../store/onboarding/selectors";
 import {
   OnboardingCoachmarkKey,
+  ONBOARDING_ACTION_URL,
   ONBOARDING_CHARACTER,
   ONBOARDING_ENEMY,
   ONBOARDING_NEW_LAUNCHER_ICON,
@@ -26,9 +27,9 @@ import {
 import styled from "styled-components";
 import {
   BORDER_RADIUS,
-  BORDER_WIDTH,
   BOX_SHADOW_CSS,
   RHYTHM,
+  SMALL_BORDER_WIDTH,
   theme,
 } from "../../theme";
 import { Button } from "../Button";
@@ -46,10 +47,10 @@ const getCoachmarkHtmlText = (
 ) => {
   switch (onboardingCoachmarkKey) {
     case OnboardingCoachmarkKey.ShowLaunchStation:
-      return `Welcome to your <b>${ONBOARDING_PLANET} Launch Station</b>.<br>Here you will find all of your Launchers that you can trigger to do amazing Launchjitsu™! 🚀🥋`;
+      return `Welcome to your <b>${ONBOARDING_PLANET} Launch Station</b>.<br>Here you will find all of your Launchers that you can trigger to do amazing Launchjitsu™ 🥋`;
 
     case OnboardingCoachmarkKey.ShowLauncher:
-      return `${ONBOARDING_CHARACTER} arrived here using this <b>Launcher</b> but it broke down during the landing ☄<br>You can click it but it doesn't do anything, yet!`;
+      return `${ONBOARDING_CHARACTER} arrived here using this <b>Launcher</b> but it broke down during the landing 🪂<br>You can click it but it doesn't do anything, yet!`;
 
     case OnboardingCoachmarkKey.OpenControlPanel:
       return `Let's fix ${ONBOARDING_CHARACTER}'s broken Launcher by heading over to the <b>Control Panel</b> ⚙`;
@@ -70,7 +71,7 @@ const getCoachmarkHtmlText = (
       return `Now let's change the <b>colour</b>!<br>How about a green for "Ready"? 🎨`;
 
     case OnboardingCoachmarkKey.EditLauncherActions:
-      return `The last piece of the puzzle and perhaps the most important of all, the <b>Launcher Actions</b>.<br><br>Add an "${LauncherAction.OpenLink}" action with the following url:<br><br>X`;
+      return `The last piece of the puzzle and perhaps the most important of all, the <b>Launcher Actions</b>.<br><br>Add an "${LauncherAction.OpenLink}" action with the following url:<br><br><u>${ONBOARDING_ACTION_URL}</u>`;
 
     case OnboardingCoachmarkKey.CloseLauncherControlPanel:
       return `Now click <b>Done</b> to head back to the Control Panel ✅`;
@@ -165,12 +166,10 @@ export const OnboardingCoachmark = ({
   );
 };
 
-const BACKGROUND_COLOR = theme.backgroundLightOpaque;
-
 const StyledTippy = styled(Tippy)`
   &.tippy-box {
-    background-color: ${BACKGROUND_COLOR};
-    border: ${BORDER_WIDTH / 2}px solid ${theme.black};
+    background-color: ${theme.backgroundLightOpaque};
+    border: ${SMALL_BORDER_WIDTH}px solid ${theme.black};
     border-radius: ${BORDER_RADIUS}px;
     ${BOX_SHADOW_CSS};
   }
@@ -180,7 +179,7 @@ const StyledTippy = styled(Tippy)`
   }
 
   & .tippy-arrow {
-    color: ${BACKGROUND_COLOR};
+    color: ${theme.black};
   }
 `;
 

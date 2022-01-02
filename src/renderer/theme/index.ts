@@ -18,16 +18,16 @@ export const theme = {
 };
 
 // constants
-export const RHYTHM = 20;
-export const BORDER_WIDTH = RHYTHM / 5;
-export const SMALL_BORDER_WIDTH = RHYTHM / 10;
+export const RHYTHM = 16;
+export const BORDER_WIDTH = RHYTHM / 4;
+export const SMALL_BORDER_WIDTH = BORDER_WIDTH / 2;
 export const BORDER_RADIUS = RHYTHM;
 export const SMALL_BORDER_RADIUS = BORDER_RADIUS / 2;
 export const SCROLLBAR_WIDTH = RHYTHM / 2;
 export const ICON_SIZE = RHYTHM;
 export const CONTENT_CONTAINER_WIDTH = 536;
 export const LAUNCHER_SIZE = 160;
-export const MAX_TEXT_WIDTH = 360;
+export const MAX_TEXT_WIDTH = 480;
 
 // css
 const SHADOW_CSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";

@@ -10,6 +10,7 @@ import {
   TRANSITION_CSS,
   BOX_SHADOW_CSS,
   SMALL_BORDER_WIDTH,
+  SMALL_BORDER_RADIUS,
 } from "../theme";
 import { ParagraphText } from "./ParagraphText";
 
@@ -125,7 +126,7 @@ const Container = styled.div<ContainerProps>`
     ${({ large }) => (large ? RHYTHM : RHYTHM / 2)}px;
   min-height: ${({ large }) => (large ? LARGE_BUTTON_HEIGHT : 26)}px;
   background-color: ${getContainerBackgroundColor};
-  border-radius: ${BORDER_RADIUS / 2}px;
+  border-radius: ${SMALL_BORDER_RADIUS}px;
   border: ${SMALL_BORDER_WIDTH}px solid ${getContainerBorderColor};
   transition: all ${TRANSITION_CSS};
   ${({ disabled }) => (disabled ? undefined : BOX_SHADOW_CSS)};

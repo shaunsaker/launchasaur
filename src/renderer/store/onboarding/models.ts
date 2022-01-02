@@ -3,6 +3,7 @@ export const ONBOARDING_PLANET = "Mars";
 export const ONBOARDING_ENEMY = "Aliens";
 export const ONBOARDING_NEW_LAUNCHER_NAME = "Fixed Launcher";
 export const ONBOARDING_NEW_LAUNCHER_ICON = "rocket";
+export const ONBOARDING_ACTION_URL = "https://youtu.be/bkZac30P5DM";
 
 export enum OnboardingCoachmarkKey {
   ShowLaunchStation = "showLaunchStation",

@@ -4,8 +4,9 @@ import { Fonts } from "../fonts/models";
 
 export const ParagraphText = styled.div`
   font-family: ${Fonts.paragraph};
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 22px;
   color: ${theme.white};
   max-width: ${MAX_TEXT_WIDTH}px;
+  display: inline-block;
 `;

@@ -118,6 +118,7 @@ const IconText = styled(ParagraphText)`
   font-size: 11px;
   ${TEXT_ELLIPSIS_CSS};
   width: ${PICKER_ITEM_CONTAINER_SIZE - RHYTHM}px;
+  text-align: center;
 `;
 
 const SubmitButtonContainer = styled.div`

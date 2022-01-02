@@ -70,6 +70,7 @@ export const ShortcutEditor = ({
 const Container = styled.div`
   ${inputCSS};
   position: relative;
+  justify-content: center;
 `;
 
 const ButtonsContainer = styled.div`

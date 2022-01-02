@@ -4,7 +4,7 @@ import { MAX_TEXT_WIDTH, theme } from "../theme";
 
 export const SubtitleText = styled.div`
   font-family: ${Fonts.subtitle};
-  font-size: 16px;
+  font-size: 12px;
   color: ${theme.white};
   max-width: ${MAX_TEXT_WIDTH}px;
 `;

@@ -5,7 +5,12 @@ import {
   selectOnboardingCoachmarkIndex,
   selectOnboardingCoachmarksCount,
 } from "../../store/onboarding/selectors";
-import { BORDER_RADIUS, BOX_SHADOW_CSS, RHYTHM, theme } from "../../theme";
+import {
+  BOX_SHADOW_CSS,
+  RHYTHM,
+  SMALL_BORDER_RADIUS,
+  theme,
+} from "../../theme";
 import { SubtitleText } from "../SubtitleText";
 
 export const OnboardingCoachmarkProgress = (): ReactElement => {
@@ -30,7 +35,7 @@ const Container = styled.div`
   flex: 1;
   padding: ${RHYTHM / 4}px;
   background-color: ${theme.white5};
-  border-radius: ${BORDER_RADIUS / 2}px;
+  border-radius: ${SMALL_BORDER_RADIUS}px;
   justify-content: center;
   position: relative;
 `;
@@ -42,7 +47,7 @@ interface ProgressBarProps {
 const ProgressBar = styled.div<ProgressBarProps>`
   width: ${({ progressPercent }) => progressPercent}%;
   height: 100%;
-  border-radius: ${BORDER_RADIUS / 2}px;
+  border-radius: ${SMALL_BORDER_RADIUS}px;
   background-color: ${theme.accent};
   ${BOX_SHADOW_CSS};
 `;

@@ -5,6 +5,7 @@ import {
   BORDER_WIDTH,
   RHYTHM,
   SMALL_BORDER_RADIUS,
+  SMALL_BORDER_WIDTH,
   theme,
   TRANSITION_CSS,
 } from "../../theme";
@@ -52,7 +53,7 @@ const Container = styled(ParagraphText)<ContainerProps>`
   background-color: ${({ $isHovered, $isSelected }) =>
     $isHovered || $isSelected ? theme.backgroundLight : "transparent"};
   border: ${({ $isSelected }) =>
-    $isSelected ? `${BORDER_WIDTH / 2}px solid ${theme.black}` : ""};
+    $isSelected ? `${SMALL_BORDER_WIDTH}px solid ${theme.black}` : ""};
   border-radius: ${SMALL_BORDER_RADIUS}px;
   transition: all ${TRANSITION_CSS};
   cursor: pointer;

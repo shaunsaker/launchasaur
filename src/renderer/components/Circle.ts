@@ -4,6 +4,7 @@ import {
   BOX_SHADOW_CSS,
   FLEX_CENTER_CSS,
   ICON_SIZE,
+  SMALL_BORDER_WIDTH,
   theme,
   TRANSITION_CSS,
 } from "../theme";
@@ -20,7 +21,7 @@ export const Circle = styled.div<CircleProps>`
   height: ${SIZE}px;
   border-radius: ${SIZE / 2}px;
   border: ${({ onClick }) =>
-    onClick ? `${BORDER_WIDTH / 2}px solid ${theme.black}` : ""};
+    onClick ? `${SMALL_BORDER_WIDTH}px solid ${theme.black}` : ""};
   background-color: ${({ $isHovered, colour }) =>
     $isHovered ? theme.backgroundLight : colour || theme.backgroundDark};
   transition: background-color ${TRANSITION_CSS};

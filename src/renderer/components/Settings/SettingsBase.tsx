@@ -7,7 +7,6 @@ import { navigateTo } from "../../store/navigation/actions";
 import { launchStationIdParam, Routes } from "../../store/navigation/models";
 import { OnboardingCoachmarkKey } from "../../store/onboarding/models";
 import {
-  ABSOLUTE_CENTER_CSS,
   BORDER_RADIUS,
   BORDER_WIDTH,
   BOX_SHADOW_CSS,
@@ -23,6 +22,7 @@ import {
   SettingsNavigationMenuRoute,
 } from "./SettingsNavigationMenu";
 import pkg from "../../../../package.json";
+import { features } from "../../features";
 
 const routes: SettingsNavigationMenuRoute[] = [
   {
@@ -31,7 +31,7 @@ const routes: SettingsNavigationMenuRoute[] = [
     route: Routes.settingsLaunchStations,
     baseRoute: Routes.settingsLaunchStation.replace(launchStationIdParam, ""),
   },
-  {
+  features.auth && {
     key: "account",
     title: "My Account",
     route: Routes.settingsAccount,
@@ -43,7 +43,7 @@ const routes: SettingsNavigationMenuRoute[] = [
     route: Routes.settingsAppSettings,
     baseRoute: Routes.settingsAppSettings,
   },
-];
+].filter((route) => route); // remove disabled features
 
 interface SettingsBaseProps {
   children: ReactNode;
@@ -74,9 +74,11 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
           }
           placement="left">
           <SettingsNavigationMenu routes={routes}>
-            <SideMenuOption onClick={onSignOutClick}>
-              {isSignOutLoading ? "Signing out..." : "Sign Out"}
-            </SideMenuOption>
+            {features.auth && (
+              <SideMenuOption onClick={onSignOutClick}>
+                {isSignOutLoading ? "Signing out..." : "Sign Out"}
+              </SideMenuOption>
+            )}
           </SettingsNavigationMenu>
         </OnboardingCoachmark>
 
@@ -98,7 +100,9 @@ const Container = styled.div`
 const HeaderBarContainer = styled.div``;
 
 // TODO: we should base this on the platform, on windows we want to avoid the taskbar
-const TASKBAR_MARGIN = RHYTHM * 2;
+const TASKBAR_HEIGHT = 41;
+
+const VERSION_CONTAINER_HEIGHT = 32;
 
 const ContentContainer = styled.div`
   flex-direction: row;
@@ -107,7 +111,7 @@ const ContentContainer = styled.div`
   align-self: center;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: ${TASKBAR_MARGIN + RHYTHM * 2}px;
+  margin-bottom: ${TASKBAR_HEIGHT + VERSION_CONTAINER_HEIGHT}px;
   border: ${BORDER_WIDTH}px solid ${theme.black};
   border-radius: ${BORDER_RADIUS}px;
   ${BOX_SHADOW_CSS};
@@ -116,7 +120,9 @@ const ContentContainer = styled.div`
 
 const VersionContainer = styled.div`
   position: fixed;
-  bottom: ${TASKBAR_MARGIN + RHYTHM / 2}px;
+  bottom: ${TASKBAR_HEIGHT}px;
   left: 50%;
   transform: translateX(-50%);
+  height: ${VERSION_CONTAINER_HEIGHT}px;
+  justify-content: center;
 `;

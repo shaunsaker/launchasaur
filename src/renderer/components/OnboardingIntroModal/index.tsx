@@ -52,7 +52,7 @@ export const OnboardingIntroModalModal = (): ReactElement => {
             </ParagraphText>
           </MarginContainer>
 
-          <MarginContainer small>
+          <MarginContainer>
             <ParagraphText>
               Can you help {ONBOARDING_CHARACTER} escape from the{" "}
               {ONBOARDING_ENEMY} on {ONBOARDING_PLANET}?

@@ -6,5 +6,4 @@ export const HighlightContent = styled.div`
   padding: ${RHYTHM}px ${RHYTHM / 2}px;
   border-radius: ${BORDER_RADIUS}px;
   ${FLEX_CENTER_CSS};
-  text-align: center;
 `;
