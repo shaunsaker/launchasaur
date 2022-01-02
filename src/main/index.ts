@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import initUpdateElectronApp from "update-electron-app";
 import { isDevelopment } from "../utils/isDevelopment";
 import { enableAutoLaunch } from "./autoLaunch";
 import { startIPC } from "./ipc";
@@ -13,6 +14,8 @@ if (require("electron-squirrel-startup")) {
 
 const start = (): void => {
   require("../sentry");
+
+  initUpdateElectronApp({ logger: console });
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
