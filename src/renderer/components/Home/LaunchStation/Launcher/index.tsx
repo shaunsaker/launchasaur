@@ -13,7 +13,6 @@ export const Launcher = ({
   shortcut,
   colour,
 }: LauncherProps): ReactElement => {
-  // TODO: figure out context menu
   const dispatch = useDispatch();
 
   const onClick = useCallback(() => {

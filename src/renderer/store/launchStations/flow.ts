@@ -80,7 +80,7 @@ function* handleAddOpenOrCloseFileActionSaga(
   } else {
     // failure
     yield put(addLauncherAction.failure());
-    // TODO: Should we fail silently?
+    // FIXME: Should we fail silently?
   }
 }
 
@@ -178,7 +178,7 @@ function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
     }
   });
 
-  // TODO: how to catch the errors here (they're not errors but rather failure actions) - we should not trigger success and hide window on error
+  // FIXME: how to catch the errors here (they're not errors but rather failure actions) - we should not trigger success and hide window on error
   yield all(actionsArray);
 
   yield put(triggerLauncher.success());

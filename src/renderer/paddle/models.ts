@@ -8,7 +8,7 @@ export interface PaddleProps {
     }: {
       product: string;
       email: string;
-      successCallback: (data: any, error: Error) => void; // TODO: what is the type of this data
+      successCallback: (data: any, error: Error) => void; // FIXME: what is the type of this data
     }) => void;
   };
 }
