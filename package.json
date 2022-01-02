@@ -1,7 +1,7 @@
 {
   "name": "launchasaur",
   "productName": "Launchasaur",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Launch all the things with our amazing Launchjitsu™ 🥋",
   "repository": {
     "url": "https://github.com/shaunsaker/launchasaur"
@@ -167,5 +167,5 @@
     "use-hooks": "^2.0.0-rc.5",
     "uuid": "^8.3.2"
   },
-  "build": "2"
+  "build": "1"
 }
