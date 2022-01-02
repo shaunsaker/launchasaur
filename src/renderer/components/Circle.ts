@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import {
-  BORDER_WIDTH,
   BOX_SHADOW_CSS,
   FLEX_CENTER_CSS,
   ICON_SIZE,

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
-  BORDER_WIDTH,
   RHYTHM,
   SMALL_BORDER_RADIUS,
   SMALL_BORDER_WIDTH,

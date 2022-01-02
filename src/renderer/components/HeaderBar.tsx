@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
 import { selectIsLaunchStationRoute } from "../store/navigation/selectors";
 import { OnboardingCoachmarkKey } from "../store/onboarding/models";
-import { RHYTHM, theme } from "../theme";
+import { RHYTHM } from "../theme";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
 import { OnboardingCoachmark } from "./OnboardingCoachmark";

@@ -7,8 +7,6 @@ import { ExtendedDisplay } from "../../../../store/settings/models";
 import { selectSettingsDefaultDisplayId } from "../../../../store/settings/selectors";
 import {
   ABSOLUTE_CENTER_CSS,
-  BORDER_RADIUS,
-  BORDER_WIDTH,
   RHYTHM,
   SMALL_BORDER_RADIUS,
   SMALL_BORDER_WIDTH,
@@ -17,7 +15,6 @@ import {
 } from "../../../../theme";
 import { FadeIn } from "../../../FadeIn";
 import { ParagraphText } from "../../../ParagraphText";
-import { SubtitleText } from "../../../SubtitleText";
 
 interface DisplayProps {
   display: ExtendedDisplay;

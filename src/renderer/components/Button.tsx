@@ -4,7 +4,6 @@ import React, { MouseEvent, ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
 import {
-  BORDER_RADIUS,
   RHYTHM,
   theme,
   TRANSITION_CSS,

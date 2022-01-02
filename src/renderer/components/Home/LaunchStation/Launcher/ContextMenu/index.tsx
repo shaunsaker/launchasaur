@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { showEditLauncherModal } from "../../../../../store/editLauncherModal/actions";
 import { deleteLauncher } from "../../../../../store/launchStations/actions";
 import {
-  BORDER_RADIUS,
   BOX_SHADOW_CSS,
   SMALL_BORDER_RADIUS,
   SMALL_BORDER_WIDTH,
