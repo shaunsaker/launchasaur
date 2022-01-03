@@ -1,7 +1,7 @@
 {
   "name": "launchasaur",
   "productName": "Launchasaur",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Launch all the things with our amazing Launchjitsu™ 🥋",
   "main": ".webpack/main",
   "scripts": {
@@ -12,7 +12,6 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish",
     "deploy": "yarn ts-node ./scripts/deploy"
   },
   "keywords": [],
@@ -63,6 +62,18 @@
             }
           }
         ]
+      ],
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "shaunsaker",
+              "name": "launchasaur-releases"
+            },
+            "prerelease": true
+          }
+        }
       ]
     }
   },
@@ -84,6 +95,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@electron-forge/plugin-webpack": "6.0.0-beta.54",
+    "@electron-forge/publisher-github": "^6.0.0-beta.61",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/d3": "^6.7.0",
@@ -98,10 +110,12 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
+    "cross-env": "^7.0.3",
     "cross-spawn": "^7.0.3",
     "css-loader": "^4.2.1",
     "dotenv": "^10.0.0",
     "electron": "12.0.7",
+    "electron-log": "^4.4.4",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.0",
@@ -116,7 +130,8 @@
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.2",
     "ts-node": "^10.4.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "update-electron-app": "^2.0.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -149,5 +164,6 @@
     "unique-names-generator": "^4.5.0",
     "use-hooks": "^2.0.0-rc.5",
     "uuid": "^8.3.2"
-  }
+  },
+  "build": "1"
 }
