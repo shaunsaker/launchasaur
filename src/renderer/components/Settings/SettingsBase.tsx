@@ -1,8 +1,6 @@
 import React, { ReactElement, ReactNode, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { signout } from "../../store/auth/actions";
-import { selectIsSignoutLoading } from "../../store/auth/selectors";
 import { navigateTo } from "../../store/navigation/actions";
 import { launchStationIdParam, Routes } from "../../store/navigation/models";
 import { OnboardingCoachmarkKey } from "../../store/onboarding/models";
@@ -21,7 +19,6 @@ import {
   SettingsNavigationMenuRoute,
 } from "./SettingsNavigationMenu";
 import pkg from "../../../../package.json";
-import { features } from "../../features";
 import { openLink } from "../../store/ipc/actions";
 import { SUPPORT_EMAIL } from "../../config";
 
@@ -32,19 +29,13 @@ const routes: SettingsNavigationMenuRoute[] = [
     route: Routes.settingsLaunchStations,
     baseRoute: Routes.settingsLaunchStation.replace(launchStationIdParam, ""),
   },
-  features.auth && {
-    key: "account",
-    title: "My Account",
-    route: Routes.settingsAccount,
-    baseRoute: Routes.settingsAccount,
-  },
   {
     key: "appSettings",
     title: "App Settings",
     route: Routes.settingsAppSettings,
     baseRoute: Routes.settingsAppSettings,
   },
-].filter((route) => route); // remove disabled features
+];
 
 interface SettingsBaseProps {
   children: ReactNode;
@@ -52,14 +43,9 @@ interface SettingsBaseProps {
 
 export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   const dispatch = useDispatch();
-  const isSignOutLoading = useSelector(selectIsSignoutLoading);
 
   const onSupportClick = useCallback(() => {
     dispatch(openLink.request({ url: `mailto: ${SUPPORT_EMAIL}` }));
-  }, [dispatch]);
-
-  const onSignOutClick = useCallback(() => {
-    dispatch(signout.request());
   }, [dispatch]);
 
   const onCloseClick = useCallback(() => {
@@ -80,12 +66,6 @@ export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
           placement="left">
           <SettingsNavigationMenu routes={routes}>
             <SideMenuOption onClick={onSupportClick}>Support</SideMenuOption>
-
-            {features.auth && (
-              <SideMenuOption onClick={onSignOutClick}>
-                {isSignOutLoading ? "Signing out..." : "Sign Out"}
-              </SideMenuOption>
-            )}
           </SettingsNavigationMenu>
         </OnboardingCoachmark>
 

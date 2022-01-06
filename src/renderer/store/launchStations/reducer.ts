@@ -19,7 +19,6 @@ import { makeLaunchStationData, makeLauncherData } from "./data";
 import { selectLaunchStation } from "./selectors";
 import { ApplicationState } from "../reducers";
 import { objectToArray } from "../../utils/objectToArray";
-import { deleteAccount } from "../auth/actions";
 import { uuid } from "../../utils/uuid";
 
 const reducerActions = {
@@ -35,7 +34,6 @@ const reducerActions = {
   setLauncherColour,
   setLauncherIcon,
   deleteLaunchStation,
-  deleteAccountSuccess: deleteAccount.success,
 };
 
 export const initialState: LaunchStationsState = {
@@ -337,9 +335,6 @@ export const launchstationsReducer: Reducer<LaunchStationsState> = (
 
     case getType(deleteLaunchStation):
       return deleteLaunchStationReducer(state, action);
-
-    case getType(deleteAccount.success):
-      return initialState;
 
     default: {
       return state;

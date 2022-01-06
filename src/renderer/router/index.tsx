@@ -21,13 +21,6 @@ import { launchStationIdParam, Routes } from "../store/navigation/models";
 import { DEFAULT_LAUNCH_STATION_ID } from "../store/launchStations/models";
 import { selectConfirmationModalIsShown } from "../store/confirmationModal/selectors";
 import { ConfirmationModal } from "../components/ConfirmationModal";
-import { selectIsAuthenticated } from "../store/auth/selectors";
-import { Login } from "../components/Login";
-import { AccountInfo } from "../components/Settings/Account/Info";
-import { selectLoginModalIsShown } from "../store/loginModal/selectors";
-import { LoginModal } from "../components/LoginModal";
-import { selecUpgradeModalIsShown } from "../store/upgradeModal/selectors";
-import { UpgradeModal } from "../components/UpgradeModal";
 import { selectEditLauncherModalIsShown } from "../store/editLauncherModal/selectors";
 import { SelectLauncherModal } from "../components/SelectLauncherModal";
 import { selectSelectLauncherModalIsShown } from "../store/selectLauncherModal/selectors";
@@ -40,7 +33,6 @@ import { OnboardingOutroModal } from "../components/OnboardingOutroModal";
 import { DisplayScreen } from "../components/Settings/AppSettings/DisplayScreen";
 
 export const Router = (): ReactElement => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
   const launcherActionsModalIsShown = useSelector(
     selectLauncherActionsModalIsShown,
   );
@@ -55,8 +47,6 @@ export const Router = (): ReactElement => {
     selectEditLauncherIconModalIsShown,
   );
   const confirmationModalIsShown = useSelector(selectConfirmationModalIsShown);
-  const loginModalIsShown = useSelector(selectLoginModalIsShown);
-  const upgradeModalIsShown = useSelector(selecUpgradeModalIsShown);
   const editLauncherModalIsShown = useSelector(selectEditLauncherModalIsShown);
   const selectLauncherModalIsShown = useSelector(
     selectSelectLauncherModalIsShown,
@@ -67,91 +57,67 @@ export const Router = (): ReactElement => {
   return (
     <ConnectedRouter history={history}>
       <HashRouter>
-        {isAuthenticated ? (
-          <>
-            <Switch>
-              <Route exact path={Routes.root}>
-                <Redirect
-                  to={Routes.launchStation.replace(
-                    launchStationIdParam,
-                    DEFAULT_LAUNCH_STATION_ID,
-                  )}
-                />
-              </Route>
+        <Switch>
+          <Route exact path={Routes.root}>
+            <Redirect
+              to={Routes.launchStation.replace(
+                launchStationIdParam,
+                DEFAULT_LAUNCH_STATION_ID,
+              )}
+            />
+          </Route>
 
-              <Route path={Routes.launchStation}>
-                <Home />
-              </Route>
+          <Route path={Routes.launchStation}>
+            <Home />
+          </Route>
 
-              <Route exact path={Routes.settingsLaunchStations}>
-                <Redirect
-                  to={Routes.settingsLaunchStation.replace(
-                    launchStationIdParam,
-                    DEFAULT_LAUNCH_STATION_ID,
-                  )}
-                />
-              </Route>
+          <Route exact path={Routes.settingsLaunchStations}>
+            <Redirect
+              to={Routes.settingsLaunchStation.replace(
+                launchStationIdParam,
+                DEFAULT_LAUNCH_STATION_ID,
+              )}
+            />
+          </Route>
 
-              <Route path={Routes.settingsLaunchStation}>
-                <LaunchStations />
-              </Route>
+          <Route path={Routes.settingsLaunchStation}>
+            <LaunchStations />
+          </Route>
 
-              <Route exact path={Routes.settingsAccount}>
-                <Redirect to={Routes.settingsAccountInfo} />
-              </Route>
+          <Route exact path={Routes.settingsAppSettings}>
+            <Redirect to={Routes.settingsAppSettingsAppShortcut} />
+          </Route>
 
-              <Route path={Routes.settingsAccountInfo}>
-                <AccountInfo />
-              </Route>
+          <Route path={Routes.settingsAppSettingsAppShortcut}>
+            <AppShortcut />
+          </Route>
 
-              <Route exact path={Routes.settingsAppSettings}>
-                <Redirect to={Routes.settingsAppSettingsAppShortcut} />
-              </Route>
+          <Route path={Routes.settingsAppSettingsDisplayScreen}>
+            <DisplayScreen />
+          </Route>
 
-              <Route path={Routes.settingsAppSettingsAppShortcut}>
-                <AppShortcut />
-              </Route>
+          <Redirect to={Routes.root} />
+        </Switch>
 
-              <Route path={Routes.settingsAppSettingsDisplayScreen}>
-                <DisplayScreen />
-              </Route>
+        {editLauncherModalIsShown && <EditLauncherModal />}
 
-              <Redirect to={Routes.root} />
-            </Switch>
+        {editLauncherIconModalIsShown && <EditLauncherIconModal />}
 
-            {editLauncherModalIsShown && <EditLauncherModal />}
+        {launcherActionsModalIsShown && <SelectLauncherActionModal />}
 
-            {editLauncherIconModalIsShown && <EditLauncherIconModal />}
+        {editLinkModalIsShown && <EditLinkModal />}
 
-            {launcherActionsModalIsShown && <SelectLauncherActionModal />}
+        {selectLaunchStationModalIsShown && <SelectLaunchStationModal />}
 
-            {editLinkModalIsShown && <EditLinkModal />}
+        {selectLauncherModalIsShown && <SelectLauncherModal />}
 
-            {selectLaunchStationModalIsShown && <SelectLaunchStationModal />}
+        {editLauncherColourModalIsShown && <EditLauncherColourModal />}
 
-            {selectLauncherModalIsShown && <SelectLauncherModal />}
+        {confirmationModalIsShown && <ConfirmationModal />}
 
-            {editLauncherColourModalIsShown && <EditLauncherColourModal />}
+        {showOnboardingIntroModal && <OnboardingIntroModalModal />}
 
-            {confirmationModalIsShown && <ConfirmationModal />}
-
-            {loginModalIsShown && <LoginModal />}
-
-            {upgradeModalIsShown && <UpgradeModal />}
-
-            {showOnboardingIntroModal && <OnboardingIntroModalModal />}
-
-            {showOnboardingOutroModal && <OnboardingOutroModal />}
-          </>
-        ) : (
-          <Switch>
-            <Route path={Routes.login}>
-              <Login />
-            </Route>
-
-            <Redirect to={Routes.login} />
-          </Switch>
-        )}
+        {showOnboardingOutroModal && <OnboardingOutroModal />}
       </HashRouter>
     </ConnectedRouter>
   );

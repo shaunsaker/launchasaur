@@ -1,8 +1,7 @@
 import React, { ReactElement, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { SUPPORT_EMAIL } from "../config";
-import { selectIsAuthenticated } from "../store/auth/selectors";
 import { openLink } from "../store/ipc/actions";
 import { navigateTo } from "../store/navigation/actions";
 import { Routes } from "../store/navigation/models";
@@ -22,7 +21,6 @@ export const ErrorPage = ({
   resetError,
 }: ErrorPageProps): ReactElement => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const onContactSupportClick = useCallback(() => {
     dispatch(openLink.request({ url: `mailto: ${SUPPORT_EMAIL}` }));
@@ -30,9 +28,9 @@ export const ErrorPage = ({
   }, [dispatch, resetError]);
 
   const onGoHomeClick = useCallback(() => {
-    dispatch(navigateTo({ to: isAuthenticated ? Routes.root : Routes.login }));
+    dispatch(navigateTo({ to: Routes.root }));
     resetError();
-  }, [dispatch, isAuthenticated, resetError]);
+  }, [dispatch, resetError]);
 
   return (
     <WindowContainer>

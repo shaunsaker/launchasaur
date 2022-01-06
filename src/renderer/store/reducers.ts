@@ -17,16 +17,8 @@ import { editLauncherIconModalReducer } from "./editLauncherIconModal/reducer";
 import { EditLauncherIconModalState } from "./editLauncherIconModal/models";
 import { ConfirmationModalState } from "./confirmationModal/models";
 import { confirmationModalReducer } from "./confirmationModal/reducer";
-import { AuthState } from "./auth/models";
-import { authReducer } from "./auth/reducers";
-import { LoginModalState } from "./loginModal/models";
-import { loginModalReducer } from "./loginModal/reducer";
 import { SnackbarsState } from "./snackbars/models";
 import { snackbarsReducer } from "./snackbars/reducer";
-import { UserState } from "./user/models";
-import { userReducer } from "./user/reducer";
-import { UpgradeModalState } from "./upgradeModal/models";
-import { upgradeModalReducer } from "./upgradeModal/reducer";
 import { EditLauncherModalState } from "./editLauncherModal/models";
 import { editLauncherModalReducer } from "./editLauncherModal/reducer";
 import { SelectLauncherModalState } from "./selectLauncherModal/models";
@@ -39,19 +31,15 @@ import { onboardingReducer } from "./onboarding/reducer";
 export interface ApplicationState {
   router: RouterState;
   appStates: AppStatesState;
-  auth: AuthState;
   settings: SettingsState;
   launchStations: LaunchStationsState;
   snackbars: SnackbarsState;
-  user: UserState;
   launcherActionsModal: LauncherActionsModalState;
   editLinkModal: EditLinkModalState;
   selectLaunchStationModal: SelectLaunchStationModalState;
   editLauncherColourModal: EditLauncherColourModalState;
   editLauncherIconModal: EditLauncherIconModalState;
   confirmationModal: ConfirmationModalState;
-  loginModal: LoginModalState;
-  upgradeModal: UpgradeModalState;
   editLauncherModal: EditLauncherModalState;
   selectLauncherModal: SelectLauncherModalState;
   onboarding: OnboardingState;
@@ -61,19 +49,15 @@ export const createRootReducer = (history_: History) =>
   combineReducers({
     router: connectRouter(history_),
     appStates: appStatesReducer,
-    auth: authReducer,
     settings: settingsReducer,
     launchStations: launchstationsReducer,
     snackbars: snackbarsReducer,
-    user: userReducer,
     launcherActionsModal: launcherActionsModalReducer,
     editLinkModal: editLinkModalReducer,
     selectLaunchStationModal: selectLaunchStationModalReducer,
     editLauncherColourModal: editLauncherColourModalReducer,
     editLauncherIconModal: editLauncherIconModalReducer,
     confirmationModal: confirmationModalReducer,
-    loginModal: loginModalReducer,
-    upgradeModal: upgradeModalReducer,
     editLauncherModal: editLauncherModalReducer,
     selectLauncherModal: selectLauncherModalReducer,
     onboarding: onboardingReducer,

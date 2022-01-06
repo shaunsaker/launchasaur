@@ -18,8 +18,6 @@ import {
   selectSelectLauncherModalLauncherId,
   selectSelectLauncherModalLaunchStationId,
 } from "../../store/selectLauncherModal/selectors";
-import { showUpgradeModal } from "../../store/upgradeModal/actions";
-import { selectIsUserPro } from "../../store/user/selectors";
 import { RHYTHM } from "../../theme";
 import { BlankState } from "../BlankState";
 import { Button } from "../Button";
@@ -33,19 +31,14 @@ export const SelectLauncherModal = (): ReactElement => {
     selectAllOtherLaunchers(state, launcherId),
   );
   const hasOtherLaunchers = launchers.length;
-  const userIsPro = useSelector(selectIsUserPro);
 
   const onAddLauncherClick = useCallback(() => {
-    if (userIsPro) {
-      dispatch(addLauncher({ launchStationId }));
+    dispatch(addLauncher({ launchStationId }));
 
-      dispatch(hideSelectLauncherModal());
+    dispatch(hideSelectLauncherModal());
 
-      dispatch(hideLauncherActionsModal());
-    } else {
-      dispatch(showUpgradeModal());
-    }
-  }, [dispatch, userIsPro, launchStationId]);
+    dispatch(hideLauncherActionsModal());
+  }, [dispatch, launchStationId]);
 
   const onSelectLauncher = useCallback(
     (launcher: LauncherData) => {

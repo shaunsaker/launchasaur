@@ -19,8 +19,6 @@ import {
   selectSelectLaunchStationModalLaunchStationId,
   selectSelectLaunchStationModalLauncherId,
 } from "../../store/selectLaunchStationModal/selectors";
-import { showUpgradeModal } from "../../store/upgradeModal/actions";
-import { selectIsUserPro } from "../../store/user/selectors";
 import { RHYTHM } from "../../theme";
 import { uuid } from "../../utils/uuid";
 import { BlankState } from "../BlankState";
@@ -37,23 +35,18 @@ export const SelectLaunchStationModal = (): ReactElement => {
     selectAllOtherLaunchStations(state, launchStationId),
   );
   const hasOtherLaunchStations = launchStations.length;
-  const userIsPro = useSelector(selectIsUserPro);
 
   const onAddLaunchStationClick = useCallback(() => {
-    if (userIsPro) {
-      const id = uuid();
+    const id = uuid();
 
-      dispatch(addLaunchStation({ id }));
+    dispatch(addLaunchStation({ id }));
 
-      dispatch(hideSelectLaunchStationModal());
+    dispatch(hideSelectLaunchStationModal());
 
-      dispatch(hideLauncherActionsModal());
+    dispatch(hideLauncherActionsModal());
 
-      dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
-    } else {
-      dispatch(showUpgradeModal());
-    }
-  }, [dispatch, userIsPro]);
+    dispatch(navigateToSettingsLaunchStation({ launchStationId: id }));
+  }, [dispatch]);
 
   const onSelectLaunchStation = useCallback(
     (launchStation: LaunchStationData) => {

@@ -55,8 +55,6 @@ const persistConfig: PersistConfig<ApplicationState> = {
     "editLauncherColourModal",
     "editLauncherIconModal",
     "confirmationModal",
-    "loginModal",
-    "upgradeModal",
     "editLauncherModal",
   ],
   transforms: [transformCircular],

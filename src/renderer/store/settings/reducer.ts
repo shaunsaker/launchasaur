@@ -1,13 +1,11 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { deleteAccount } from "../auth/actions";
 import { getDisplays, setDisplay } from "../ipc/actions";
 import { setAppShortcut } from "./actions";
 import { SettingsState } from "./models";
 
 const reducerActions = {
   setAppShortcut,
-  deleteAccountSuccess: deleteAccount.success,
   getDisplaysSuccess: getDisplays.success,
   setDisplaySuccess: setDisplay.success,
 };
@@ -28,9 +26,6 @@ export const settingsReducer: Reducer<SettingsState> = (
         ...state,
         appShortcut: action.payload.shortcut,
       };
-
-    case getType(deleteAccount.success):
-      return initialState;
 
     case getType(getDisplays.success):
       return {
