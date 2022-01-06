@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
+import { Fonts } from "../fonts/models";
 import {
   BORDER_RADIUS,
   BORDER_WIDTH,
@@ -10,6 +11,7 @@ import {
 import { CloseIcon, CLOSE_ICON_PADDING, CLOSE_ICON_SIZE } from "./CloseIcon";
 import { MarginContainer } from "./MarginContainer";
 import { ModalBackdrop } from "./ModalBackdrop";
+import { TitleText } from "./TitleText";
 
 interface ModalProps {
   title?: string;
@@ -28,7 +30,7 @@ export const Modal = ({
     <ModalBackdrop>
       <ContentContainer $borderColor={borderColor}>
         <MarginContainer small>
-          <TitleText>{title}</TitleText>
+          <StyledTitleText>{title}</StyledTitleText>
         </MarginContainer>
 
         {children}
@@ -63,12 +65,10 @@ const ContentContainer = styled.div<ContentContainerProps>`
   margin: ${RHYTHM}px;
 `;
 
-const TitleText = styled.div`
-  font-size: 24px;
+const StyledTitleText = styled(TitleText)`
   min-height: 24px; /* for when there is no title */
   line-height: 1.5;
   font-weight: bold;
-  color: ${theme.white};
   text-align: center;
   margin: 0 ${CLOSE_ICON_SIZE + CLOSE_ICON_PADDING}px;
 `;

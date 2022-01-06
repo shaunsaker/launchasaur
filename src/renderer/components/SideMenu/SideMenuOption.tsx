@@ -46,7 +46,6 @@ interface ContainerProps {
 const Container = styled(ParagraphText)<ContainerProps>`
   width: 200px;
   height: ${HEIGHT}px;
-  font-size: 14px;
   padding: ${RHYTHM / 2}px ${RHYTHM}px;
   margin-bottom: ${SIDE_MENU_OPTION_MARGIN}px;
   background-color: ${({ $isHovered, $isSelected }) =>

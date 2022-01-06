@@ -1,10 +1,12 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
+import { Fonts } from "../fonts/models";
 import { BORDER_RADIUS, RHYTHM, theme } from "../theme";
 import { Icon } from "./Icon";
 import { MarginContainer } from "./MarginContainer";
 import { ParagraphText } from "./ParagraphText";
+import { TitleText } from "./TitleText";
 
 interface BlankStateProps {
   icon: IconName;
@@ -26,7 +28,7 @@ export const BlankState = ({
       </MarginContainer>
 
       <MarginContainer small>
-        <TitleText>{title}</TitleText>
+        <StyledTitleText>{title}</StyledTitleText>
       </MarginContainer>
 
       <ParagraphText>{description}</ParagraphText>
@@ -44,8 +46,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const TitleText = styled.div`
+const StyledTitleText = styled(TitleText)`
   font-size: 20px;
-  font-weight: bold;
-  color: ${theme.white};
 `;

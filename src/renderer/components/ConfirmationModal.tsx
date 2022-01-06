@@ -7,10 +7,10 @@ import {
   selectConfirmationModalSubtitle,
   selectConfirmationModalTitle,
 } from "../store/confirmationModal/selectors";
-import { theme } from "../theme";
 import { Button } from "./Button";
 import { MarginContainer } from "./MarginContainer";
 import { Modal } from "./Modal";
+import { ParagraphText } from "./ParagraphText";
 
 export const ConfirmationModal = (): ReactElement => {
   const dispatch = useDispatch();
@@ -47,9 +47,8 @@ export const ConfirmationModal = (): ReactElement => {
   );
 };
 
-const SubtitleText = styled.div`
+const SubtitleText = styled(ParagraphText)`
   font-size: 16px;
-  color: ${theme.white};
   text-align: center;
 `;
 
