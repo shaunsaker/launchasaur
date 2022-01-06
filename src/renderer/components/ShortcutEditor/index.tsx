@@ -2,7 +2,7 @@ import isAccelerator from "electron-is-accelerator";
 import React, { ReactElement, useCallback, useState } from "react";
 import styled from "styled-components";
 import { RHYTHM } from "../../theme";
-import { inputCSS } from "../InputCSS";
+import { inputCSS, INPUT_HEIGHT } from "../InputCSS";
 import { Button } from "../Button";
 import { useListenForKeyboardShortcutCombination } from "./useListenForKeyboardShortcutCombination";
 
@@ -69,6 +69,7 @@ export const ShortcutEditor = ({
 
 const Container = styled.div`
   ${inputCSS};
+  line-height: ${INPUT_HEIGHT / 2}px;
   position: relative;
   justify-content: center;
 `;

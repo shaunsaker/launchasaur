@@ -8,13 +8,15 @@ import {
 } from "../theme";
 import { ParagraphTextCss } from "./ParagraphText";
 
+export const INPUT_HEIGHT = 40;
+
 export interface InputCSSProps {
   focussed: boolean;
 }
 
 export const inputCSS = css<InputCSSProps>`
   width: 320px;
-  height: 40px;
+  height: ${INPUT_HEIGHT}px;
   border: ${SMALL_BORDER_WIDTH}px solid
     ${({ focussed }) => (focussed ? theme.accent : theme.black)};
   transition: border-color ${TRANSITION_CSS};
