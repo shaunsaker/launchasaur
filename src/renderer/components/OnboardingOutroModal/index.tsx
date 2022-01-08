@@ -10,13 +10,7 @@ import {
   ONBOARDING_ENEMY,
   ONBOARDING_PLANET,
 } from "../../store/onboarding/models";
-import {
-  BORDER_RADIUS,
-  BORDER_WIDTH,
-  MAX_TEXT_WIDTH,
-  RHYTHM,
-  theme,
-} from "../../theme";
+import { MAX_TEXT_WIDTH, RHYTHM } from "../../theme";
 import { Button } from "../Button";
 import { MarginContainer } from "../MarginContainer";
 import { Modal } from "../Modal";
@@ -33,14 +27,13 @@ export const OnboardingOutroModal = (): ReactElement => {
   return (
     <Modal>
       <Container>
-        {/* TODO: illustration */}
-        <Illustration />
+        <div style={{ fontSize: 48, marginBottom: RHYTHM }}>🚀🎉</div>
 
         <ContentContainer>
           <MarginContainer small>
             <ParagraphText>
               Yay! Thanks to you, {ONBOARDING_CHARACTER} escaped{" "}
-              {ONBOARDING_PLANET} from the {ONBOARDING_ENEMY} 🎉
+              {ONBOARDING_PLANET} from the {ONBOARDING_ENEMY}!
             </ParagraphText>
           </MarginContainer>
 
@@ -70,15 +63,6 @@ export const OnboardingOutroModal = (): ReactElement => {
 
 const Container = styled.div`
   align-items: center;
-`;
-
-const Illustration = styled.img`
-  width: 160px;
-  height: 160px;
-  border: ${BORDER_WIDTH}px solid ${theme.black};
-  border-radius: ${BORDER_RADIUS}px;
-  background-color: ${theme.backgroundLight};
-  margin-bottom: ${RHYTHM}px;
 `;
 
 const ContentContainer = styled.div`

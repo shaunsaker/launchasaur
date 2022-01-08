@@ -80,7 +80,7 @@ const getCoachmarkHtmlText = (
       return `Woohoo! Our Launcher is <b>ready</b>💪<br>Let's go back to the <b>Launch Station</b>.<br>Click on the Close icon.`;
 
     case OnboardingCoachmarkKey.TriggerLauncher:
-      return `Let's get ${ONBOARDING_CHARACTER} the <b>hell out of here</b>!<br>Click on your "Fixed Launcher" to launch ${ONBOARDING_CHARACTER} into space and escape the ${ONBOARDING_ENEMY} 👽`;
+      return `Let's get ${ONBOARDING_CHARACTER} the <b>hell out of here</b>!<br>Click on your "Fixed Launcher" to launch ${ONBOARDING_CHARACTER} into space and escape the ${ONBOARDING_ENEMY} 👾`;
   }
 };
 
