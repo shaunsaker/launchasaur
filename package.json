@@ -1,7 +1,7 @@
 {
   "name": "launchasaur",
   "productName": "Launchasaur",
-  "version": "0.0.2",
+  "version": "0.0.14",
   "build": "1",
   "description": "Launch all the things with our amazing Launchjitsu™ 🥋",
   "main": ".webpack/main",
