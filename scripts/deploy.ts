@@ -1,10 +1,5 @@
 import * as spawn from "cross-spawn"; // eslint-disable-line
 import * as fs from "fs";
-import initEnv from "dotenv";
-
-initEnv.config({
-  path: "../.env.dev",
-});
 
 export const exitWithError = (message?: string) => {
   if (message) {
@@ -146,19 +141,8 @@ export const createRelease = (releaseName: string): void => {
   });
 };
 
-/**
- * Publishes the release builds to Github
- */
-const publishRelease = (): void => {
-  execChildProcess({
-    process: "yarn",
-    args: ["electron-forge", "publish"],
-    showLogs: true,
-  });
-};
-
 (async () => {
-  // checkGitForUnstagedChanges();
+  checkGitForUnstagedChanges();
 
   const { version } = getArgs();
 
@@ -178,6 +162,4 @@ const publishRelease = (): void => {
 
   const releaseName = getReleaseTagName(version, nextBuildNumber);
   createRelease(releaseName);
-
-  publishRelease();
 })();
