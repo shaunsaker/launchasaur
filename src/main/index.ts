@@ -30,17 +30,11 @@ const start = (): void => {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    icon: path.join(__dirname + "build/icons/64x64.png"),
+    icon: path.join(__dirname + "../../../build/icons/256x256.png"),
   });
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
-  // Open the DevTools.
-  const isDev = isDevelopment();
-  if (isDev) {
-    mainWindow.webContents.openDevTools({ mode: "detach" });
-  }
 
   startIPC(mainWindow);
 
