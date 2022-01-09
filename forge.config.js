@@ -1,7 +1,10 @@
 const path = require("path");
 
 module.exports = {
-  packagerConfig: { icon: path.resolve(__dirname, "build/icons/icon") },
+  packagerConfig: {
+    executableName: "launchasaur",
+    icon: path.resolve(__dirname, "build/icons/icon"),
+  },
   electronRebuildConfig: {},
   makers: [
     {
