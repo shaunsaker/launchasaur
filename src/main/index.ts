@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import initUpdateElectronApp from "update-electron-app";
 import logger from "electron-log";
+import path from "path";
 import { isDevelopment } from "../utils/isDevelopment";
 import { enableAutoLaunch } from "./autoLaunch";
 import { startIPC } from "./ipc";
@@ -29,6 +30,7 @@ const start = (): void => {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    icon: path.join(__dirname + "build/icons/64x64.png"),
   });
 
   // and load the index.html of the app.

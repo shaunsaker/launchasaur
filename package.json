@@ -2,6 +2,7 @@
   "name": "launchasaur",
   "productName": "Launchasaur",
   "version": "0.0.2",
+  "build": "1",
   "description": "Launch all the things with our amazing Launchjitsu™ 🥋",
   "main": ".webpack/main",
   "scripts": {
@@ -20,63 +21,6 @@
     "email": "sakershaun@gmail.com"
   },
   "license": "MIT",
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "Launchasaur"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
-      "plugins": [
-        [
-          "@electron-forge/plugin-webpack",
-          {
-            "mainConfig": "./webpack.main.config.js",
-            "renderer": {
-              "config": "./webpack.renderer.config.js",
-              "entryPoints": [
-                {
-                  "html": "./src/renderer/index.html",
-                  "js": "./src/renderer/index.tsx",
-                  "name": "main_window"
-                }
-              ]
-            }
-          }
-        ]
-      ],
-      "publishers": [
-        {
-          "name": "@electron-forge/publisher-github",
-          "config": {
-            "repository": {
-              "owner": "shaunsaker",
-              "name": "launchasaur-releases"
-            },
-            "prerelease": true
-          }
-        }
-      ]
-    }
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -87,6 +31,9 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "config": {
+    "forge": "./forge.config.js"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
@@ -164,6 +111,5 @@
     "unique-names-generator": "^4.5.0",
     "use-hooks": "^2.0.0-rc.5",
     "uuid": "^8.3.2"
-  },
-  "build": "1"
+  }
 }
