@@ -31,7 +31,7 @@ module.exports = {
           owner: "shaunsaker",
           name: "launchasaur-releases",
         },
-        prerelease: true,
+        draft: true,
       },
     },
   ],

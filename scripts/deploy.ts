@@ -146,17 +146,6 @@ export const createRelease = (releaseName: string): void => {
   });
 };
 
-/**
- * Publishes the release builds to Github
- */
-const publishRelease = (): void => {
-  execChildProcess({
-    process: "yarn",
-    args: ["electron-forge", "publish"],
-    showLogs: true,
-  });
-};
-
 (async () => {
   // checkGitForUnstagedChanges();
 
@@ -178,6 +167,4 @@ const publishRelease = (): void => {
 
   const releaseName = getReleaseTagName(version, nextBuildNumber);
   createRelease(releaseName);
-
-  publishRelease();
 })();
