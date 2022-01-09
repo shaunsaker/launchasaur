@@ -23,7 +23,7 @@ const start = (): void => {
   const mainWindow = new BrowserWindow({
     height: 600,
     width: 1200,
-    fullscreen: true,
+    fullscreen: false, // important for mac to only setFullScreen after window has been created
     frame: false,
     transparent: true,
     webPreferences: {
@@ -37,6 +37,9 @@ const start = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   startIPC(mainWindow);
+
+  mainWindow.maximize();
+  mainWindow.setFullScreen(true);
 
   if (!isDevelopment()) {
     enableAutoLaunch();
