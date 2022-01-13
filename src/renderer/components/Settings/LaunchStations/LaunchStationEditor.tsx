@@ -162,11 +162,13 @@ export const LaunchStationEditor = () => {
                 key === OnboardingCoachmarkKey.OpenLauncherControlPanel
               }
               placement="right">
-              <DraggableList
-                items={launchers}
-                renderItem={renderLauncher}
-                onDragEnd={onDragEnd}
-              />
+              <LaunchersListContainer>
+                <DraggableList
+                  items={launchers}
+                  renderItem={renderLauncher}
+                  onDragEnd={onDragEnd}
+                />
+              </LaunchersListContainer>
             </OnboardingCoachmark>
 
             <AddLauncherButtonContainer>
@@ -202,7 +204,14 @@ export const LaunchStationEditor = () => {
 
 const LaunchersSectionContainer = styled.div`
   flex: 1;
+`;
+
+// dirty fix to scroll long list of launchers
+// shows 8 launchers before scrolling
+const LaunchersListContainer = styled.div`
+  max-height: 480px;
   overflow: auto;
+  margin-bottom: ${RHYTHM}px;
 `;
 
 const AddLauncherButtonContainer = styled.div`
