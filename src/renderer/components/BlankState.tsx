@@ -1,7 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
-import { Fonts } from "../fonts/models";
 import { BORDER_RADIUS, RHYTHM, theme } from "../theme";
 import { Icon } from "./Icon";
 import { MarginContainer } from "./MarginContainer";

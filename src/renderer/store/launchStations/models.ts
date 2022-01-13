@@ -37,6 +37,7 @@ export interface LauncherData {
   colour: string;
   actions: Record<ActionId, ActionData>;
   shortcut: Shortcut;
+  order: number;
 }
 
 export type LauncherId = string;

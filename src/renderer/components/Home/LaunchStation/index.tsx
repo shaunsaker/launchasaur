@@ -8,6 +8,7 @@ import { OnboardingCoachmarkKey } from "../../../store/onboarding/models";
 import { ApplicationState } from "../../../store/reducers";
 import { LAUNCHER_SIZE, RHYTHM, theme } from "../../../theme";
 import { objectToArray } from "../../../utils/objectToArray";
+import { sortArrayOfObjectsByKey } from "../../../utils/sortArrayOfObjectsByKey";
 import { HeaderBar } from "../../HeaderBar";
 import { OnboardingCoachmark } from "../../OnboardingCoachmark";
 import { Launcher } from "./Launcher";
@@ -22,7 +23,10 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
   const launchStation = useSelector((state: ApplicationState) =>
     selectLaunchStation(state, id),
   );
-  const launchers = objectToArray(launchStation?.launchers);
+  const launchers = sortArrayOfObjectsByKey(
+    objectToArray(launchStation?.launchers),
+    "order",
+  );
   const hasLaunchers = launchers.length;
 
   const onSettingsClick = useCallback(() => {

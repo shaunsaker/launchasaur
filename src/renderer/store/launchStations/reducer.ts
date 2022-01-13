@@ -14,17 +14,22 @@ import {
   setLauncherColour,
   setLauncherIcon,
   deleteLaunchStation,
+  sortLaunchers,
 } from "./actions";
 import { makeLaunchStationData, makeLauncherData } from "./data";
 import { selectLaunchStation } from "./selectors";
 import { ApplicationState } from "../reducers";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
+import { arrayToObject } from "../../utils/arrayToObject";
+import { sortArrayOfObjectsByKey } from "../../utils/sortArrayOfObjectsByKey";
+import { arraymove } from "../../utils/arrayMove";
 
 const reducerActions = {
   addLauncher,
   editLauncher,
   deleteLauncher,
+  sortLaunchers,
   addLauncherActionSuccess: addLauncherAction.success,
   deleteLauncherAction,
   addLaunchStation,
@@ -53,12 +58,18 @@ const addLauncherReducer = (
     { launchStations: state } as ApplicationState,
     launchStationId,
   );
-  const nextLauncherIndex = objectToArray(launchStation.launchers).length + 1;
+
+  const nextLauncherOrder = objectToArray(launchStation.launchers).length + 1;
   const launcherId = uuid();
   const newLauncherData = makeLauncherData({
     id: launcherId,
-    shortcut: `Ctrl+Shift+${nextLauncherIndex}`,
+    shortcut: `Ctrl+Shift+${nextLauncherOrder}`,
+    order: nextLauncherOrder,
   });
+  const newLaunchers = {
+    ...state.data[launchStationId].launchers,
+    [launcherId]: newLauncherData,
+  };
 
   return {
     ...state,
@@ -66,10 +77,7 @@ const addLauncherReducer = (
       ...state.data,
       [launchStationId]: {
         ...state.data[launchStationId],
-        launchers: {
-          ...state.data[launchStationId].launchers,
-          [launcherId]: newLauncherData,
-        },
+        launchers: newLaunchers,
       },
     },
   };
@@ -84,13 +92,59 @@ const deleteLauncherReducer = (
 
   delete launchers[launcherId];
 
+  // reset the order of each launcher
+  let newLaunchersArray = objectToArray(launchers);
+  newLaunchersArray = sortArrayOfObjectsByKey(newLaunchersArray, "order");
+  newLaunchersArray = newLaunchersArray.map((launcher, index) => ({
+    ...launcher,
+    order: index + 1,
+  }));
+  const newLaunchers = arrayToObject(newLaunchersArray);
+
   return {
     ...state,
     data: {
       ...state.data,
       [launchStationId]: {
         ...state.data[launchStationId],
-        launchers: launchers,
+        launchers: newLaunchers,
+      },
+    },
+  };
+};
+
+const sortLaunchersReducer = (
+  state: LaunchStationsState,
+  action: ActionType<typeof sortLaunchers>,
+): LaunchStationsState => {
+  const { launchStationId, sourceIndex, destinationIndex } = action.payload;
+  const launchers = { ...state.data[launchStationId].launchers };
+
+  let newLaunchersArray = objectToArray(launchers);
+  newLaunchersArray = sortArrayOfObjectsByKey(newLaunchersArray, "order");
+
+  // move the launcher at sourceIndex to the destinationIndex
+  newLaunchersArray = arraymove(
+    newLaunchersArray,
+    sourceIndex,
+    destinationIndex,
+  );
+
+  // reset the order of each launcher
+  newLaunchersArray = newLaunchersArray.map((launcher, index) => ({
+    ...launcher,
+    order: index + 1,
+  }));
+
+  const newLaunchers = arrayToObject(newLaunchersArray);
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      [launchStationId]: {
+        ...state.data[launchStationId],
+        launchers: newLaunchers,
       },
     },
   };
@@ -308,6 +362,9 @@ export const launchstationsReducer: Reducer<LaunchStationsState> = (
 
     case getType(deleteLauncher):
       return deleteLauncherReducer(state, action);
+
+    case getType(sortLaunchers):
+      return sortLaunchersReducer(state, action);
 
     case getType(addLauncherAction.success):
       return addLauncherActionSuccessReducer(state, action);

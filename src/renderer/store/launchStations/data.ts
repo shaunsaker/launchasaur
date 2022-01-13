@@ -33,12 +33,14 @@ export const makeLauncherData = ({
   colour,
   title,
   shortcut,
+  order,
 }: {
   id?: string;
   icon?: IconName;
   colour?: string;
   title?: string;
   shortcut?: string;
+  order?: number;
 }): LauncherData => ({
   id: id || uuid(),
   title: title || getRandomPhrase(),
@@ -46,6 +48,7 @@ export const makeLauncherData = ({
   colour: colour || getRandomArrayItem(colours),
   actions: {},
   shortcut,
+  order,
 });
 
 export const makeLaunchStationData = ({
@@ -64,6 +67,7 @@ export const makeLaunchStationData = ({
       [launcherId]: makeLauncherData({
         id: launcherId,
         shortcut: "Ctrl+Shift+1",
+        order: 1,
       }),
     },
   };

@@ -5,6 +5,7 @@ export const theme = {
   black: "#000000",
   white: "#FFFFFF",
   white50: "rgba(255, 255, 255, 0.50)",
+  white33: "rgba(255, 255, 255, 0.33)",
   white5: "rgba(255, 255, 255, 0.05)",
   backgroundDark: "rgba(0, 0, 0, 0.67)",
   backgroundDark33: "rgba(0, 0, 0, 0.33)",

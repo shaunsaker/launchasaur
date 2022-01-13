@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
-import { Fonts } from "../fonts/models";
 import {
   BORDER_RADIUS,
   BORDER_WIDTH,

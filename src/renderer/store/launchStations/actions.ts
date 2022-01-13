@@ -27,6 +27,14 @@ export const deleteLauncher = createStandardAction(
   launcherId: LauncherId;
 }>();
 
+export const sortLaunchers = createStandardAction(
+  "LAUNCH_STATIONS/sortLaunchers",
+)<{
+  launchStationId: LaunchStationId;
+  sourceIndex: number;
+  destinationIndex: number;
+}>();
+
 export const addLauncherAction = createAsyncAction(
   "LAUNCH_STATIONS/addLauncherActionRequest",
   "LAUNCH_STATIONS/addLauncherActionSuccess",

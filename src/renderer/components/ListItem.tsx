@@ -9,13 +9,15 @@ import {
   SMALL_BORDER_WIDTH,
   TEXT_ELLIPSIS_CSS,
   theme,
+  TRANSITION_CSS,
 } from "../theme";
 import { ParagraphText } from "./ParagraphText";
 
-interface LauncherItemProps {
+interface ListItemProps {
   icon: IconName;
   colour?: string;
   title: string;
+  highlight?: boolean;
   onDelete: () => void;
   onEdit?: () => void;
 }
@@ -24,11 +26,12 @@ export const ListItem = ({
   icon,
   colour,
   title,
+  highlight,
   onDelete,
   onEdit,
-}: LauncherItemProps): ReactElement => {
+}: ListItemProps): ReactElement => {
   return (
-    <Container $colour={colour}>
+    <Container $colour={colour} $highlight={highlight}>
       <Icon icon={icon} />
 
       <TitleText>{title}</TitleText>
@@ -50,13 +53,16 @@ export const ListItem = ({
 
 interface ContainerProps {
   $colour?: string;
+  $highlight?: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
   flex-direction: row;
   align-items: center;
   padding: ${RHYTHM / 4}px ${RHYTHM / 2}px;
-  background-color: ${theme.white5};
+  background-color: ${({ $highlight }) =>
+    $highlight ? theme.white33 : theme.white5};
+  transition: background-color ${TRANSITION_CSS};
   border: ${SMALL_BORDER_WIDTH}px solid
     ${({ $colour }) => $colour || theme.black};
   border-radius: ${SMALL_BORDER_RADIUS}px;

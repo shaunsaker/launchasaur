@@ -16,7 +16,8 @@ import { Icon } from "../../../Icon";
 import { ParagraphText } from "../../../ParagraphText";
 import { SubtitleText } from "../../../SubtitleText";
 
-interface LauncherBaseProps extends Omit<LauncherData, "id" | "actions"> {
+interface LauncherBaseProps
+  extends Omit<LauncherData, "id" | "actions" | "order"> {
   onClick: () => void;
 }
 
