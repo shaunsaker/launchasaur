@@ -17,6 +17,10 @@ import { SubtitleText } from "../../../SubtitleText";
 interface LauncherBaseProps
   extends Omit<LauncherData, "id" | "actions" | "order"> {
   onClick: () => void;
+  onMouseOver?: () => void;
+  onMouseOut?: () => void;
+  onMouseDown?: () => void;
+  onMouseUp?: () => void;
 }
 
 export const LauncherBase = ({
@@ -25,16 +29,28 @@ export const LauncherBase = ({
   shortcut,
   colour,
   onClick,
+  onMouseOver,
+  onMouseOut,
+  onMouseDown,
+  onMouseUp,
 }: LauncherBaseProps): ReactElement => {
   return (
-    <Container $colour={colour} onClick={onClick}>
-      <IconContainer>
-        <Icon icon={icon} />
-      </IconContainer>
+    <Container
+      $colour={colour}
+      onClick={onClick}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}>
+      <ContentContainer>
+        <IconContainer>
+          <Icon icon={icon} />
+        </IconContainer>
 
-      <LauncherText>{title}</LauncherText>
+        <LauncherText>{title}</LauncherText>
 
-      {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+        {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+      </ContentContainer>
     </Container>
   );
 };
@@ -54,7 +70,6 @@ const Container = styled.div<ContainerProps>`
   background-color: ${theme.backgroundDarkOpaque};
   border: ${BORDER_WIDTH}px solid ${({ $colour }) => $colour};
   padding: ${RHYTHM}px ${RHYTHM}px;
-  ${FLEX_CENTER_CSS};
   cursor: pointer;
   text-align: center;
   box-shadow: inset -${RHYTHM / 2}px 0 ${RHYTHM / 2}px rgb(0 0 0 / 15%),
@@ -70,10 +85,6 @@ const Container = styled.div<ContainerProps>`
 
     & svg {
       color: ${({ $colour }) => $colour};
-    }
-
-    ${LauncherText} {
-      filter: drop-shadow(1px 1px 0px ${theme.white5});
     }
   }
 
@@ -103,6 +114,13 @@ const Container = styled.div<ContainerProps>`
   }
 `;
 
+const ContentContainer = styled.div`
+  z-index: 1;
+  flex: 1;
+  ${FLEX_CENTER_CSS};
+  pointer-events: none;
+`;
+
 const IconContainer = styled.div`
   margin-bottom: ${RHYTHM / 2}px;
   position: relative;
@@ -110,5 +128,6 @@ const IconContainer = styled.div`
 
 const ShortcutText = styled(SubtitleText)`
   font-size: 12px;
+  color: ${theme.white80};
   margin-top: ${RHYTHM / 2}px;
 `;

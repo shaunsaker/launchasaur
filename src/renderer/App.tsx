@@ -15,6 +15,7 @@ import {
 import { Notifier } from "./components/Notifier";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import "./fonts/fonts.css";
+import { Stars } from "./components/Stars";
 
 require("../sentry");
 
@@ -26,6 +27,8 @@ export const App = (): ReactElement => {
       <PersistGate loading={null} persistor={persistor}>
         <AppContainer>
           <ErrorBoundary>
+            <Stars />
+
             <Router />
 
             <Notifier />
@@ -37,9 +40,9 @@ export const App = (): ReactElement => {
 };
 
 const AppContainer = styled.div`
+  position: relative;
   width: 100vw;
   height: 100vh;
-  background-color: ${theme.backgroundDark};
   ${FLEX_CENTER_CSS};
 
   & ::-webkit-scrollbar {

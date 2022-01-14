@@ -27,6 +27,8 @@ import { AppStatesState } from "./appStates/models";
 import { appStatesReducer } from "./appStates/reducer";
 import { OnboardingState } from "./onboarding/models";
 import { onboardingReducer } from "./onboarding/reducer";
+import { StarsState } from "./stars/models";
+import { starsReducer } from "./stars/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -43,6 +45,7 @@ export interface ApplicationState {
   editLauncherModal: EditLauncherModalState;
   selectLauncherModal: SelectLauncherModalState;
   onboarding: OnboardingState;
+  stars: StarsState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -61,6 +64,7 @@ export const createRootReducer = (history_: History) =>
     editLauncherModal: editLauncherModalReducer,
     selectLauncherModal: selectLauncherModalReducer,
     onboarding: onboardingReducer,
+    stars: starsReducer,
   });
 
 export const initialState = {
