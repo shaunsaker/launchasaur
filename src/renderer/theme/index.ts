@@ -4,6 +4,7 @@ export const MAGIC_NUMBER = 0.167; // nothing special, I just like it
 export const theme = {
   black: "#000000",
   white: "#FFFFFF",
+  white80: "rgba(255, 255, 255, 0.80)",
   white50: "rgba(255, 255, 255, 0.50)",
   white33: "rgba(255, 255, 255, 0.33)",
   white5: "rgba(255, 255, 255, 0.05)",
@@ -27,7 +28,7 @@ export const SMALL_BORDER_RADIUS = BORDER_RADIUS / 2;
 export const SCROLLBAR_WIDTH = RHYTHM / 2;
 export const ICON_SIZE = RHYTHM;
 export const CONTENT_CONTAINER_WIDTH = 536;
-export const LAUNCHER_SIZE = 160;
+export const LAUNCHER_SIZE = 240;
 export const MAX_TEXT_WIDTH = 480;
 
 // css
@@ -37,7 +38,9 @@ export const BOX_SHADOW_CSS = `box-shadow: ${SHADOW_CSS};`;
 
 export const ANIMATION_DURATION = MAGIC_NUMBER * 1000; // ms
 
-export const TRANSITION_CSS = `${MAGIC_NUMBER}s ease-in-out;`;
+export const TRANSITION_ANIMATION_FUNCTION = "ease-in-out";
+
+export const TRANSITION_CSS = `${MAGIC_NUMBER}s ${TRANSITION_ANIMATION_FUNCTION};`;
 
 export const ABSOLUTE_CENTER_CSS = `
   position: absolute;

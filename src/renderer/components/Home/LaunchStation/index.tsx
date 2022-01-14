@@ -91,7 +91,7 @@ const HeaderBarContainer = styled.div`
 `;
 
 const MAX_LAUNCHERS_PER_ROW = 4;
-const LAUNCHER_CONTAINER_MARGIN = RHYTHM / 2;
+const LAUNCHER_CONTAINER_MARGIN = RHYTHM;
 
 const LaunchersContainer = styled.div`
   flex-direction: row;

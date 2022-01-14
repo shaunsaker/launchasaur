@@ -7,4 +7,5 @@ export const TitleText = styled.div`
   font-size: 24px;
   line-height: 24px;
   color: ${theme.white};
+  user-select: none;
 `;

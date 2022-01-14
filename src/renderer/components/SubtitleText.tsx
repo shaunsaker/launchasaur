@@ -7,4 +7,5 @@ export const SubtitleText = styled.div`
   font-size: 12px;
   color: ${theme.white};
   max-width: ${MAX_TEXT_WIDTH}px;
+  user-select: none;
 `;

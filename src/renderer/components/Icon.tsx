@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
-import { ICON_SIZE, theme } from "../theme";
+import { ICON_SIZE, theme, TRANSITION_CSS } from "../theme";
 import { Circle } from "./Circle";
 
 interface IconProps {
@@ -27,4 +27,5 @@ export const Icon = ({ icon, onClick }: IconProps) => {
 const StyledIcon = styled(FontAwesomeIcon)`
   font-size: ${ICON_SIZE}px;
   color: ${theme.white};
+  transition: color ${TRANSITION_CSS};
 `;
