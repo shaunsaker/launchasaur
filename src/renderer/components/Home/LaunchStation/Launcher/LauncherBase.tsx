@@ -13,9 +13,9 @@ import {
 import { Icon } from "../../../Icon";
 import { ParagraphText } from "../../../ParagraphText";
 import { SubtitleText } from "../../../SubtitleText";
+import { LauncherAnimator } from "./LauncherAnimator";
 
-interface LauncherBaseProps
-  extends Omit<LauncherData, "id" | "actions" | "order"> {
+interface LauncherBaseProps extends Omit<LauncherData, "id" | "actions"> {
   onClick: () => void;
   onMouseOver?: () => void;
   onMouseOut?: () => void;
@@ -28,6 +28,7 @@ export const LauncherBase = ({
   title,
   shortcut,
   colour,
+  order,
   onClick,
   onMouseOver,
   onMouseOut,
@@ -35,27 +36,27 @@ export const LauncherBase = ({
   onMouseUp,
 }: LauncherBaseProps): ReactElement => {
   return (
-    <Container
-      $colour={colour}
-      onClick={onClick}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}>
-      <ContentContainer>
-        <IconContainer>
-          <Icon icon={icon} />
-        </IconContainer>
+    <LauncherAnimator order={order} colour={colour}>
+      <Container
+        $colour={colour}
+        onClick={onClick}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}>
+        <ContentContainer>
+          <IconContainer>
+            <Icon icon={icon} />
+          </IconContainer>
 
-        <LauncherText>{title}</LauncherText>
+          <LauncherText>{title}</LauncherText>
 
-        {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
-      </ContentContainer>
-    </Container>
+          {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+        </ContentContainer>
+      </Container>
+    </LauncherAnimator>
   );
 };
-
-const LauncherText = styled(ParagraphText)``;
 
 interface ContainerProps {
   $colour: string;
@@ -63,12 +64,12 @@ interface ContainerProps {
 
 const Container = styled.div<ContainerProps>`
   position: relative;
-  overflow: hidden;
   width: ${LAUNCHER_SIZE}px;
   height: ${LAUNCHER_SIZE}px;
   border-radius: ${BORDER_RADIUS}px;
   background-color: ${theme.backgroundDarkOpaque};
-  border: ${BORDER_WIDTH}px solid ${({ $colour }) => $colour};
+  border: ${BORDER_WIDTH}px solid ${theme.black};
+  border-color: inherit;
   padding: ${RHYTHM}px ${RHYTHM}px;
   cursor: pointer;
   text-align: center;
@@ -125,6 +126,8 @@ const IconContainer = styled.div`
   margin-bottom: ${RHYTHM / 2}px;
   position: relative;
 `;
+
+const LauncherText = styled(ParagraphText)``;
 
 const ShortcutText = styled(SubtitleText)`
   font-size: 12px;

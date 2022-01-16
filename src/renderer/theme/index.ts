@@ -36,11 +36,11 @@ const SHADOW_CSS = "0px 4px 4px rgba(0, 0, 0, 0.25)";
 export const DROP_SHADOW_CSS = `filter: drop-shadow(${SHADOW_CSS});`;
 export const BOX_SHADOW_CSS = `box-shadow: ${SHADOW_CSS};`;
 
-export const ANIMATION_DURATION = MAGIC_NUMBER * 1000; // ms
+export const ANIMATION_DURATION_MS = MAGIC_NUMBER * 1000; // ms
 
-export const TRANSITION_ANIMATION_FUNCTION = "ease-in-out";
+export const ANIMATION_FUNCTION = "ease-out";
 
-export const TRANSITION_CSS = `${MAGIC_NUMBER}s ${TRANSITION_ANIMATION_FUNCTION};`;
+export const TRANSITION_CSS = `${MAGIC_NUMBER}s ${ANIMATION_FUNCTION};`;
 
 export const ABSOLUTE_CENTER_CSS = `
   position: absolute;

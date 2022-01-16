@@ -23,4 +23,5 @@ const Container = styled.div`
   left: 0;
   background-color: ${theme.backgroundDark};
   ${FLEX_CENTER_CSS};
+  z-index: 1;
 `;

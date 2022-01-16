@@ -74,6 +74,7 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
           title="Add Launcher"
           shortcut=""
           colour={theme.accent}
+          order={1}
           onClick={onAddLauncherClick}
         />
       )}
@@ -99,6 +100,7 @@ const LaunchersContainer = styled.div`
   justify-content: center;
   max-width: ${(LAUNCHER_SIZE + LAUNCHER_CONTAINER_MARGIN * 2) *
   MAX_LAUNCHERS_PER_ROW}px;
+  position: relative;
 `;
 
 const LauncherContainer = styled.div`

@@ -16,6 +16,7 @@ export const Launcher = ({
   title,
   shortcut,
   colour,
+  order,
 }: LauncherProps): ReactElement => {
   const dispatch = useDispatch();
 
@@ -45,6 +46,7 @@ export const Launcher = ({
       title={title}
       shortcut={shortcut}
       colour={colour}
+      order={order}
       onClick={onClick}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
