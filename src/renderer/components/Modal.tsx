@@ -8,6 +8,7 @@ import {
   theme,
 } from "../theme";
 import { CloseIcon, CLOSE_ICON_PADDING, CLOSE_ICON_SIZE } from "./CloseIcon";
+import { EntryAnimator } from "./EntryAnimator";
 import { MarginContainer } from "./MarginContainer";
 import { ModalBackdrop } from "./ModalBackdrop";
 import { TitleText } from "./TitleText";
@@ -27,19 +28,21 @@ export const Modal = ({
 }: ModalProps): ReactElement => {
   return (
     <ModalBackdrop>
-      <ContentContainer $borderColor={borderColor}>
-        <MarginContainer small>
-          <StyledTitleText>{title}</StyledTitleText>
-        </MarginContainer>
+      <EntryAnimator>
+        <ContentContainer $borderColor={borderColor}>
+          <MarginContainer small>
+            <StyledTitleText>{title}</StyledTitleText>
+          </MarginContainer>
 
-        {children}
+          {children}
 
-        {onClose && (
-          <CloseIconContainer>
-            <CloseIcon onClick={onClose} />
-          </CloseIconContainer>
-        )}
-      </ContentContainer>
+          {onClose && (
+            <CloseIconContainer>
+              <CloseIcon onClick={onClose} />
+            </CloseIconContainer>
+          )}
+        </ContentContainer>
+      </EntryAnimator>
     </ModalBackdrop>
   );
 };
