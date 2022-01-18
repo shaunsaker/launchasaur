@@ -15,7 +15,7 @@ export const getActionIcon = (action: LauncherAction): IconName => {
   }
 
   if (action === LauncherAction.OpenLaunchStation) {
-    return "bomb";
+    return "solar-panel";
   }
 
   if (action === LauncherAction.TriggerLauncher) {
