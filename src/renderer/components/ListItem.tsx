@@ -37,15 +37,15 @@ export const ListItem = ({
       <TitleText>{title}</TitleText>
 
       <ButtonsContainer>
-        <Button danger onClick={onDelete}>
-          DELETE
-        </Button>
-
         {onEdit && (
           <EditButtonContainer>
             <Button onClick={onEdit}>EDIT</Button>
           </EditButtonContainer>
         )}
+
+        <Button danger onClick={onDelete}>
+          DELETE
+        </Button>
       </ButtonsContainer>
     </Container>
   );
@@ -80,5 +80,5 @@ const ButtonsContainer = styled.div`
 `;
 
 const EditButtonContainer = styled.div`
-  margin-left: ${RHYTHM / 2}px;
+  margin-right: ${RHYTHM / 2}px;
 `;
