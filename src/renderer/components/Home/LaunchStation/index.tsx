@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addLauncher } from "../../../store/launchStations/actions";
@@ -36,6 +37,8 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
   const onAddLauncherClick = useCallback(() => {
     dispatch(addLauncher({ launchStationId: launchStation.id }));
   }, [dispatch, launchStation.id]);
+
+  useHotkeys("ctrl+shift+s", onSettingsClick);
 
   return (
     <Container>
