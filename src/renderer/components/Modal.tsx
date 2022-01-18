@@ -1,4 +1,5 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useCallback } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import styled from "styled-components";
 import {
   BORDER_RADIUS,
@@ -26,6 +27,19 @@ export const Modal = ({
   borderColor,
   onClose,
 }: ModalProps): ReactElement => {
+  const onEscapePress = useCallback(
+    (event: KeyboardEvent) => {
+      // prevent event bubble so as not to trigger app escape handler
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      onClose();
+    },
+    [onClose],
+  );
+
+  useHotkeys("Escape", onEscapePress);
+
   return (
     <ModalBackdrop>
       <EntryAnimator>
