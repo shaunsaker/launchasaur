@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { useDispatch } from "react-redux";
 import { triggerLauncher } from "../../../../store/launchStations/actions";
 import { LauncherData } from "../../../../store/launchStations/models";
@@ -39,6 +40,8 @@ export const Launcher = ({
   const onMouseUp = useCallback(() => {
     dispatch(setIsClickingLauncher(false));
   }, [dispatch]);
+
+  useHotkeys(shortcut, onClick);
 
   return (
     <LauncherBase

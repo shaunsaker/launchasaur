@@ -58,7 +58,7 @@ export const EditLauncherModal = (): ReactElement => {
   const onChangeShortcut = useCallback(
     (shortcut: string) => {
       dispatch(
-        setLauncherShortcut.request({
+        setLauncherShortcut({
           launchStationId,
           launcherId,
           shortcut,

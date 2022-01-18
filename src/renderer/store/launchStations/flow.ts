@@ -1,14 +1,6 @@
-import {
-  all,
-  call,
-  fork,
-  put,
-  take,
-  takeEvery,
-  takeLatest,
-} from "@redux-saga/core/effects";
+import { all, call, fork, put, takeLatest } from "@redux-saga/core/effects";
 import { OpenDialogReturnValue } from "electron";
-import { eventChannel, SagaIterator } from "redux-saga";
+import { SagaIterator } from "redux-saga";
 import { ActionType, getType } from "typesafe-actions";
 import { objectToArray } from "../../utils/objectToArray";
 import { select } from "../../utils/select";
@@ -20,32 +12,13 @@ import {
   openFileSaga,
 } from "../ipc/flow";
 import { hideLauncherActionsModal } from "../launcherActionsModal/actions";
-import {
-  addLauncher,
-  addLauncherAction,
-  registerLauncherShortcut,
-  setLauncherShortcut,
-  triggerLauncher,
-} from "./actions";
+import { addLauncherAction, triggerLauncher } from "./actions";
 import { makeActionData } from "./data";
-import {
-  LauncherId,
-  LauncherAction,
-  LaunchStationId,
-  Shortcut,
-} from "./models";
+import { LauncherId, LauncherAction } from "./models";
 import { navigateToLaunchStation } from "../navigation/actions";
 import { ApplicationState } from "../reducers";
 import { showSelectLaunchStationModal } from "../selectLaunchStationModal/actions";
-import { selectLauncherById, selectLaunchStation } from "./selectors";
-import Mousetrap from "mousetrap";
-import { getLaunchStationIdFromRoute } from "../navigation/utils";
-import { LOCATION_CHANGE } from "connected-react-router";
-import { selectNavigationLocation } from "../navigation/selectors";
-import { showSnackbar } from "../snackbars/actions";
-import { uuid } from "../../utils/uuid";
-import { SnackbarType } from "../snackbars/models";
-import { launchStationBase } from "../navigation/models";
+import { selectLauncherById } from "./selectors";
 import { showSelectLauncherModal } from "../selectLauncherModal/actions";
 import { openLink } from "../ipc/actions";
 
@@ -205,123 +178,7 @@ function* triggerLauncherListener(): SagaIterator {
   );
 }
 
-const createShortcutListenerChannel = (shortcut: string) =>
-  eventChannel((emit) => {
-    Mousetrap.bind(shortcut.toLowerCase(), () => {
-      emit("");
-    });
-
-    return () => {};
-  });
-
-export function* registerLauncherShortcutSaga({
-  launcherId,
-  shortcut,
-}: {
-  launchStationId: LaunchStationId;
-  launcherId: LauncherId;
-  shortcut: Shortcut;
-}): SagaIterator {
-  const channel = yield call(createShortcutListenerChannel, shortcut);
-
-  yield takeEvery(channel, function* (): SagaIterator {
-    yield put(triggerLauncher.request(launcherId));
-  });
-
-  yield put(registerLauncherShortcut.success());
-}
-
-function* registerLauncherShortcutListener(): SagaIterator {
-  yield takeEvery(
-    registerLauncherShortcut.request,
-    function* (action): SagaIterator {
-      yield call(registerLauncherShortcutSaga, action.payload);
-    },
-  );
-}
-
-function* registerLaunchStationShortcutsSaga(): SagaIterator {
-  // reset all shortcut listeners
-  Mousetrap.reset();
-
-  // select the current launch station
-  const launchStationId = getLaunchStationIdFromRoute();
-  const launchStation = yield* select(selectLaunchStation, launchStationId);
-
-  // for the currently selected launch station, register it's keyboard shortcuts
-  const actions = objectToArray(launchStation.launchers)
-    .filter((launcher) => launcher.shortcut)
-    .map((launcher) =>
-      put(
-        registerLauncherShortcut.request({
-          launchStationId: launchStation.id,
-          launcherId: launcher.id,
-          shortcut: launcher.shortcut,
-        }),
-      ),
-    );
-
-  yield all(actions);
-}
-
-function* registerLaunchStationShortcutsListener(): SagaIterator {
-  // when the launch station changes
-  yield takeLatest([LOCATION_CHANGE, addLauncher], function* (): SagaIterator {
-    const { pathname } = yield* select(selectNavigationLocation);
-    const isLaunchStationRoute =
-      pathname.includes(launchStationBase) && !pathname.includes("settings");
-
-    if (isLaunchStationRoute) {
-      yield call(registerLaunchStationShortcutsSaga);
-    }
-  });
-}
-
-function* setLauncherShortcutListener(): SagaIterator {
-  yield takeLatest(
-    setLauncherShortcut.request,
-    function* (action: ActionType<typeof setLauncherShortcut.request>) {
-      const { launchStationId, launcherId, shortcut } = action.payload;
-
-      // if the shortcut doesn't already exist in the other launchers
-      const shortcutAlreadyExists = objectToArray(
-        (yield* select(selectLaunchStation, launchStationId)).launchers,
-      ).some(
-        (launcher) =>
-          launcher.id !== launcherId && launcher.shortcut === shortcut,
-      );
-
-      if (shortcutAlreadyExists) {
-        const errorMessage = `The shortcut, ${shortcut}, already exists in this launch station. Please choose another one.`;
-
-        yield put(
-          showSnackbar({
-            key: uuid(),
-            message: errorMessage,
-            type: SnackbarType.Danger,
-          }),
-        );
-
-        yield put(registerLauncherShortcut.failure(new Error(errorMessage)));
-
-        return;
-      }
-
-      yield call(registerLaunchStationShortcutsSaga);
-
-      yield take(registerLauncherShortcut.success);
-
-      yield put(
-        setLauncherShortcut.success({ launchStationId, launcherId, shortcut }),
-      );
-    },
-  );
-}
-
 export function* launchStationsSagas(): SagaIterator {
   yield fork(addLaunchStationActionSaga);
   yield fork(triggerLauncherListener);
-  yield fork(registerLaunchStationShortcutsListener);
-  yield fork(registerLauncherShortcutListener);
-  yield fork(setLauncherShortcutListener);
 }

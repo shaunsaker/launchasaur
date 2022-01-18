@@ -110,20 +110,10 @@ export const deleteLaunchStation = createStandardAction(
   launchStationId: LaunchStationId;
 }>();
 
-interface RegisterLauncherShortcutProps {
+export const setLauncherShortcut = createStandardAction(
+  "LAUNCH_STATIONS/setLauncherShortcut",
+)<{
   launchStationId: string;
   launcherId: string;
   shortcut: string;
-}
-
-export const registerLauncherShortcut = createAsyncAction(
-  "SHORTCUTS/registerLauncherShortcutRequest",
-  "SHORTCUTS/registerLauncherShortcutSuccess",
-  "SHORTCUTS/registerLauncherShortcutFailure",
-)<RegisterLauncherShortcutProps, void, Error>();
-
-export const setLauncherShortcut = createAsyncAction(
-  "LAUNCH_STATIONS/setLauncherShortcutRequest",
-  "LAUNCH_STATIONS/setLauncherShortcutSuccess",
-  "LAUNCH_STATIONS/setLauncherShortcutFailure",
-)<RegisterLauncherShortcutProps, RegisterLauncherShortcutProps, Error>();
+}>();
