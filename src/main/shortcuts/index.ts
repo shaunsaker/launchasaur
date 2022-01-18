@@ -23,16 +23,20 @@ export const startUnregisterShortcutIPC = () => {
   );
 };
 
-export const startRegisterShortcutIPC = (window: BrowserWindow) => {
+const onAppShortcutTriggered = (window: BrowserWindow) => {
+  if (!window.isFocused()) {
+    showWindow(window);
+  } else {
+    hideWindow(window);
+  }
+};
+
+export const startRegisterAppShortcutIPC = (window: BrowserWindow) => {
   ipcMain.handle(
     IPC.RegisterShortcut,
     async (_event: IpcMainInvokeEvent, shortcut: string) => {
       globalShortcut.register(shortcut, () => {
-        if (!window.isFocused()) {
-          showWindow(window);
-        } else {
-          hideWindow(window);
-        }
+        onAppShortcutTriggered(window);
       });
     },
   );

@@ -8,7 +8,7 @@ import { startOpenLinkIPC } from "../links";
 import { startGetDisplaysIPC, startSetDisplayIPC } from "../screen";
 import {
   startCheckShortcutRegisteredIPC,
-  startRegisterShortcutIPC,
+  startRegisterAppShortcutIPC,
   startUnregisterShortcutIPC,
 } from "../shortcuts";
 import { startHideWindowIPC } from "../window";
@@ -20,7 +20,7 @@ export function startIPC(window: BrowserWindow): void {
   startOpenLinkIPC();
   startCheckShortcutRegisteredIPC();
   startUnregisterShortcutIPC();
-  startRegisterShortcutIPC(window);
+  startRegisterAppShortcutIPC(window);
   startHideWindowIPC(window);
   startGetDisplaysIPC();
   startSetDisplayIPC(window);
