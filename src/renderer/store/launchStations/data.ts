@@ -10,7 +10,7 @@ import {
   LaunchStationData,
   LauncherData,
 } from "./models";
-import { getActionIcon } from "./utils";
+import { getActionIcon, getRandomIcon } from "./utils";
 
 export const makeActionData = ({
   id,
@@ -44,7 +44,7 @@ export const makeLauncherData = ({
 }): LauncherData => ({
   id: id || uuid(),
   title: title || getRandomPhrase(),
-  icon: icon || "question",
+  icon: icon || getRandomIcon(),
   colour: colour || getRandomArrayItem(colours),
   actions: {},
   shortcut,

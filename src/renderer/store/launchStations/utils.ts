@@ -1,4 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
+import { getIconList } from "../../icons";
+import { getRandomArrayItem } from "../../utils/getRandomArrayItem";
 import { LauncherAction } from "./models";
 
 export const getActionIcon = (action: LauncherAction): IconName => {
@@ -40,4 +42,12 @@ export const getPrettyLink = (link: string): string => {
   const prettyLink = link.match(/:\/\/(.[^/]+)/)[1];
 
   return prettyLink;
+};
+
+export const getRandomIcon = (): IconName => {
+  const icons = getIconList();
+
+  const randomIcon = getRandomArrayItem(icons);
+
+  return randomIcon;
 };
