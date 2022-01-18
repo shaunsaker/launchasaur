@@ -1,16 +1,21 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { setIsClickingLauncher, setIsHoveringLauncher } from "./actions";
+import {
+  setStarsMoveFast,
+  setStarsMoveMedium,
+  setStarsMoveSlow,
+} from "./actions";
 import { StarsState } from "./models";
 
 const reducerActions = {
-  setIsHoveringLauncher,
-  setIsClickingLauncher,
+  setStarsMoveSlow,
+  setStarsMoveMedium,
+  setStarsMoveFast,
 };
 
 export const initialState: StarsState = {
-  isHoveringLauncher: false,
-  isClickingLauncher: false,
+  starsMoveMedium: false,
+  starsMoveFast: false,
 };
 
 export const starsReducer: Reducer<StarsState> = (
@@ -18,17 +23,25 @@ export const starsReducer: Reducer<StarsState> = (
   action: ActionType<typeof reducerActions>,
 ) => {
   switch (action.type) {
-    case getType(setIsHoveringLauncher):
+    case getType(setStarsMoveSlow):
       return {
         ...state,
-        isHoveringLauncher: action.payload,
-        isClickingLauncher: false,
+        starsMoveMedium: false,
+        starsMoveFast: false,
       };
 
-    case getType(setIsClickingLauncher):
+    case getType(setStarsMoveMedium):
       return {
         ...state,
-        isClickingLauncher: action.payload,
+        starsMoveMedium: true,
+        starsMoveFast: false,
+      };
+
+    case getType(setStarsMoveFast):
+      return {
+        ...state,
+        starsMoveMedium: false,
+        starsMoveFast: true,
       };
 
     default: {

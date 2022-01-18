@@ -1,7 +1,7 @@
 import { ApplicationState } from "../reducers";
 
-export const selectIsHoveringLauncher = (state: ApplicationState) =>
-  state.stars.isHoveringLauncher;
+export const selectStarsMoveMedium = (state: ApplicationState) =>
+  state.stars.starsMoveMedium;
 
-export const selectIsClickingLauncher = (state: ApplicationState) =>
-  state.stars.isClickingLauncher;
+export const selectStarsMoveFast = (state: ApplicationState) =>
+  state.stars.starsMoveFast;

@@ -1,4 +1,4 @@
 export interface StarsState {
-  isHoveringLauncher: boolean;
-  isClickingLauncher: boolean;
+  starsMoveMedium: boolean;
+  starsMoveFast: boolean;
 }

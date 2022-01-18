@@ -1,9 +1,13 @@
 import { createStandardAction } from "typesafe-actions";
 
-export const setIsHoveringLauncher = createStandardAction(
-  "STARS/setIsHoveringLauncher",
-)<boolean>();
+export const setStarsMoveSlow = createStandardAction(
+  "STARS/setStarsMoveSlow",
+)();
 
-export const setIsClickingLauncher = createStandardAction(
-  "STARS/setIsClickingLauncher",
-)<boolean>();
+export const setStarsMoveMedium = createStandardAction(
+  "STARS/setStarsMoveMedium",
+)();
+
+export const setStarsMoveFast = createStandardAction(
+  "STARS/setStarsMoveFast",
+)();

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import SpaceTravel from "space-travel"; // eslint-disable-line
 import { useSelector } from "react-redux";
 import {
-  selectIsClickingLauncher,
-  selectIsHoveringLauncher,
+  selectStarsMoveFast,
+  selectStarsMoveMedium,
 } from "../../store/stars/selectors";
 
 export const Stars = (): ReactElement => {
@@ -12,9 +12,9 @@ export const Stars = (): ReactElement => {
 
   const sceneRef = useRef<any>();
 
-  const isHoveringLauncher = useSelector(selectIsHoveringLauncher);
+  const starsMoveMedium = useSelector(selectStarsMoveMedium);
 
-  const isClickingLauncher = useSelector(selectIsClickingLauncher);
+  const starsMoveFast = useSelector(selectStarsMoveFast);
 
   useLayoutEffect(() => {
     // on mount, create and start the space travel animation
@@ -28,21 +28,22 @@ export const Stars = (): ReactElement => {
 
   useEffect(() => {
     if (sceneRef.current) {
-      if (isClickingLauncher) {
+      if (starsMoveFast) {
         sceneRef.current.throttle = 1;
 
         return;
       }
 
-      if (isHoveringLauncher) {
+      if (starsMoveMedium) {
         sceneRef.current.throttle = 0.33;
 
         return;
       }
 
+      // stars move slow
       sceneRef.current.throttle = 0;
     }
-  }, [isHoveringLauncher, isClickingLauncher]);
+  }, [starsMoveMedium, starsMoveFast]);
 
   return <Container ref={canvasRef} />;
 };

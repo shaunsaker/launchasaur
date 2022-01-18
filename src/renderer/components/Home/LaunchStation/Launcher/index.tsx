@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { triggerLauncher } from "../../../../store/launchStations/actions";
 import { LauncherData } from "../../../../store/launchStations/models";
 import {
-  setIsClickingLauncher,
-  setIsHoveringLauncher,
+  setStarsMoveFast,
+  setStarsMoveMedium,
+  setStarsMoveSlow,
 } from "../../../../store/stars/actions";
 import { LauncherBase } from "./LauncherBase";
 
@@ -26,19 +27,19 @@ export const Launcher = ({
   }, [dispatch, id]);
 
   const onMouseOver = useCallback(() => {
-    dispatch(setIsHoveringLauncher(true));
+    dispatch(setStarsMoveMedium());
   }, [dispatch]);
 
   const onMouseOut = useCallback(() => {
-    dispatch(setIsHoveringLauncher(false));
+    dispatch(setStarsMoveSlow());
   }, [dispatch]);
 
   const onMouseDown = useCallback(() => {
-    dispatch(setIsClickingLauncher(true));
+    dispatch(setStarsMoveFast());
   }, [dispatch]);
 
   const onMouseUp = useCallback(() => {
-    dispatch(setIsClickingLauncher(false));
+    dispatch(setStarsMoveFast());
   }, [dispatch]);
 
   useHotkeys(shortcut, onClick);
