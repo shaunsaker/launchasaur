@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
+import { isDevelopment } from "../../../utils/isDevelopment";
 import { getDisplays, setDisplay } from "../ipc/actions";
 import { setAppShortcut } from "./actions";
 import { SettingsState } from "./models";
@@ -11,7 +12,7 @@ const reducerActions = {
 };
 
 export const initialState: SettingsState = {
-  appShortcut: "Ctrl+Shift+`",
+  appShortcut: isDevelopment() ? "Ctrl+Shift+Z" : "Ctrl+Shift+`",
   displays: [],
   defaultDisplayId: undefined,
 };
