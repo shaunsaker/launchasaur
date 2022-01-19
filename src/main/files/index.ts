@@ -40,7 +40,7 @@ export const startCloseFileIPC = () => {
         )[0];
 
         if (process) {
-          fkill(process.pid);
+          fkill(process.pid, { force: true });
         }
       } catch (error) {
         return error;
