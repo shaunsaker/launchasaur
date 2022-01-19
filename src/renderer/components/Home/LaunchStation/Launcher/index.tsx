@@ -38,10 +38,6 @@ export const Launcher = ({
     dispatch(setStarsMoveFast());
   }, [dispatch]);
 
-  const onMouseUp = useCallback(() => {
-    dispatch(setStarsMoveFast());
-  }, [dispatch]);
-
   useHotkeys(shortcut, onClick);
 
   return (
@@ -55,7 +51,6 @@ export const Launcher = ({
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
       onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
     />
   );
 };

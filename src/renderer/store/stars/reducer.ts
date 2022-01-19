@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
+import { triggerLauncher } from "../launchStations/actions";
 import {
   setStarsMoveFast,
   setStarsMoveMedium,
@@ -11,6 +12,9 @@ const reducerActions = {
   setStarsMoveSlow,
   setStarsMoveMedium,
   setStarsMoveFast,
+  triggerLauncherRequest: triggerLauncher.request,
+  triggerLauncherSuccess: triggerLauncher.success,
+  triggerLauncherFailure: triggerLauncher.failure,
 };
 
 export const initialState: StarsState = {
@@ -42,6 +46,20 @@ export const starsReducer: Reducer<StarsState> = (
         ...state,
         starsMoveMedium: false,
         starsMoveFast: true,
+      };
+
+    case getType(triggerLauncher.request):
+      return {
+        ...state,
+        starsMoveFast: true,
+      };
+
+    case getType(triggerLauncher.success):
+    case getType(triggerLauncher.failure):
+      return {
+        ...state,
+        starsMoveMedium: false,
+        starsMoveFast: false,
       };
 
     default: {
