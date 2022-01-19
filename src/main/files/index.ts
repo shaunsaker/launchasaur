@@ -1,9 +1,7 @@
 import { dialog, ipcMain, IpcMainInvokeEvent, shell } from "electron";
-
 import { IPC } from "../ipc/models";
-import psList from "ps-list";
 import fkill from "fkill";
-import { getAppsDir } from "./utils";
+import { findProcess, getAppsDir } from "./utils";
 
 export const startGetFilepathIPC = () => {
   ipcMain.handle(IPC.GetFilePath, async () => {
@@ -21,6 +19,13 @@ export const startOpenFileIPC = () => {
   ipcMain.handle(
     IPC.OpenFile,
     async (_event: IpcMainInvokeEvent, filepath: string) => {
+      // if the file is already open, don't open another instance of it
+      const process = await findProcess(filepath);
+
+      if (process) {
+        return;
+      }
+
       const error = await shell.openPath(filepath);
 
       return error;
@@ -31,13 +36,10 @@ export const startOpenFileIPC = () => {
 export const startCloseFileIPC = () => {
   ipcMain.handle(
     IPC.CloseFile,
-    async (_event: IpcMainInvokeEvent, filename: string) => {
+    async (_event: IpcMainInvokeEvent, filepath: string) => {
       try {
         // find the process and kill it
-        const processList = await psList();
-        const process = processList.filter(
-          (process) => process.name === filename,
-        )[0];
+        const process = await findProcess(filepath);
 
         if (process) {
           fkill(process.pid, { force: true });

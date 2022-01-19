@@ -1,7 +1,6 @@
 import { ipcRenderer } from "electron";
 import { SagaIterator } from "redux-saga";
 import { IPC } from "../../../main/ipc/models";
-import { getFilenameFromFilepath } from "./utils";
 import {
   checkShortcutRegistered,
   closeFile,
@@ -76,9 +75,7 @@ export function* closeFileSaga(filepath: string): SagaIterator {
   yield put(closeFile.request({ filepath }));
 
   try {
-    const filename = getFilenameFromFilepath(filepath);
-
-    const error = yield call(() => ipcRenderer.invoke(IPC.CloseFile, filename));
+    const error = yield call(() => ipcRenderer.invoke(IPC.CloseFile, filepath));
 
     if (error) {
       yield put(closeFile.failure(error));
