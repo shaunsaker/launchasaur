@@ -10,10 +10,10 @@
     "lint:eslint": "eslint --ext [.ts,.tsx] .",
     "lint:prettier": "prettier -c \"**/*.{ts,tsx}\"",
     "lint:tsc": "tsc",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "deploy": "yarn ts-node ./scripts/deploy"
+    "start": "cross-env NODE_ENV=development electron-forge start",
+    "package": "cross-env NODE_ENV=production electron-forge package",
+    "make": "cross-env NODE_ENV=production electron-forge make",
+    "deploy": "cross-env NODE_ENV=production ts-node ./scripts/deploy"
   },
   "keywords": [],
   "author": {
