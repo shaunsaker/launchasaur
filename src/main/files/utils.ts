@@ -1,4 +1,5 @@
 import { app } from "electron";
+import fkill from "fkill";
 import psList from "ps-list";
 import { getFilenameFromFilepath } from "../../utils/getFilenameFromFilepath";
 
@@ -23,4 +24,8 @@ export const findProcess = async (
   const process = processList.filter((process) => process.name === filename)[0];
 
   return process;
+};
+
+export const killProcess = (pid: number) => {
+  fkill(pid, { force: true });
 };

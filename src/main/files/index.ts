@@ -1,7 +1,6 @@
 import { dialog, ipcMain, IpcMainInvokeEvent, shell } from "electron";
 import { IPC } from "../ipc/models";
-import fkill from "fkill";
-import { findProcess, getAppsDir } from "./utils";
+import { findProcess, getAppsDir, killProcess } from "./utils";
 
 export const startGetFilepathIPC = () => {
   ipcMain.handle(IPC.GetFilePath, async () => {
@@ -42,7 +41,7 @@ export const startCloseFileIPC = () => {
         const process = await findProcess(filepath);
 
         if (process) {
-          fkill(process.pid, { force: true });
+          killProcess(process.pid);
         }
       } catch (error) {
         return error;
