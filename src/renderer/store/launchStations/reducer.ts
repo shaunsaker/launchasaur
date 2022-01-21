@@ -24,6 +24,7 @@ import { uuid } from "../../utils/uuid";
 import { arrayToObject } from "../../utils/arrayToObject";
 import { sortArrayOfObjectsByKey } from "../../utils/sortArrayOfObjectsByKey";
 import { arraymove } from "../../utils/arrayMove";
+import { getNextLauncherOrder, getNextLauncherShortcut } from "./utils";
 
 const reducerActions = {
   addLauncher,
@@ -59,11 +60,14 @@ const addLauncherReducer = (
     launchStationId,
   );
 
-  const nextLauncherOrder = objectToArray(launchStation.launchers).length + 1;
+  const nextLauncherShortcut = getNextLauncherShortcut(launchStation);
+
+  const nextLauncherOrder = getNextLauncherOrder(launchStation);
+
   const launcherId = uuid();
   const newLauncherData = makeLauncherData({
     id: launcherId,
-    shortcut: `Ctrl+Shift+${nextLauncherOrder}`,
+    shortcut: `Ctrl+Shift+${nextLauncherShortcut}`,
     order: nextLauncherOrder,
   });
   const newLaunchers = {

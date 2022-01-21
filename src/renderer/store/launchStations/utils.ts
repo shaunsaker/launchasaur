@@ -1,7 +1,9 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"; // eslint-disable-line
 import { getIconList } from "../../icons";
 import { getRandomArrayItem } from "../../utils/getRandomArrayItem";
-import { LauncherAction } from "./models";
+import { objectToArray } from "../../utils/objectToArray";
+import { sortArrayOfObjectsByKey } from "../../utils/sortArrayOfObjectsByKey";
+import { LauncherAction, LauncherData, LaunchStationData } from "./models";
 
 export const getActionIcon = (action: LauncherAction): IconName => {
   if (action === LauncherAction.OpenFile) {
@@ -50,4 +52,51 @@ export const getRandomIcon = (): IconName => {
   const randomIcon = getRandomArrayItem(icons);
 
   return randomIcon;
+};
+
+export const getNextLauncherShortcut = (
+  launchStation: LaunchStationData,
+): number => {
+  const launchers = objectToArray(launchStation.launchers);
+
+  if (!launchers.length) {
+    return 1;
+  }
+
+  const numberRegex = /([1-9][0-9]*)/;
+  const shortcutsWithNumbers = launchers
+    .map((launcher) => {
+      const match = launcher.shortcut.match(numberRegex);
+
+      return match ? parseInt(match[0]) : null;
+    })
+    .filter((shortcut) => shortcut)
+    .sort((numberA, numberB) => {
+      // sort largest to smallest
+      if (numberA > numberB) {
+        return -1;
+      }
+
+      return 1;
+    });
+  const highestShortcutNumber = shortcutsWithNumbers[0];
+  const nextShortcutNumber = highestShortcutNumber + 1;
+
+  return nextShortcutNumber;
+};
+
+export const getNextLauncherOrder = (
+  launchStation: LaunchStationData,
+): number => {
+  const launchers = objectToArray(launchStation.launchers);
+
+  if (!launchers.length) {
+    return 1;
+  }
+
+  const sortedByOrder = sortArrayOfObjectsByKey(launchers, "order", true);
+  const highestOrder = sortedByOrder[0].order;
+  const nextOrder = highestOrder + 1;
+
+  return nextOrder;
 };
