@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { navigateTo } from "../../store/navigation/actions";
 import { launchStationIdParam, Routes } from "../../store/navigation/models";
@@ -21,6 +21,9 @@ import {
 import pkg from "../../../../package.json";
 import { openLink } from "../../store/ipc/actions";
 import { SUPPORT_EMAIL } from "../../config";
+import { playSound } from "../../sounds/playSound";
+import closeSound from "../../sounds/close.wav";
+import { selectSettingsSoundsEnabled } from "../../store/settings/selectors";
 
 const routes: SettingsNavigationMenuRoute[] = [
   {
@@ -44,13 +47,19 @@ interface SettingsBaseProps {
 export const SettingsBase = ({ children }: SettingsBaseProps): ReactElement => {
   const dispatch = useDispatch();
 
+  const soundsEnabled = useSelector(selectSettingsSoundsEnabled);
+
   const onSupportClick = useCallback(() => {
     dispatch(openLink.request({ url: `mailto: ${SUPPORT_EMAIL}` }));
   }, [dispatch]);
 
   const onCloseClick = useCallback(() => {
+    if (soundsEnabled) {
+      playSound(closeSound);
+    }
+
     dispatch(navigateTo({ to: Routes.root }));
-  }, [dispatch]);
+  }, [dispatch, soundsEnabled]);
 
   return (
     <Container>

@@ -15,3 +15,6 @@ export const selectSettingsDisplays = (state: ApplicationState) =>
 
 export const selectSettingsDefaultDisplayId = (state: ApplicationState) =>
   state.settings.defaultDisplayId;
+
+export const selectSettingsSoundsEnabled = (state: ApplicationState) =>
+  state.settings.soundsEnabled;

@@ -10,4 +10,5 @@ export interface SettingsState {
   appShortcut: string;
   displays: ExtendedDisplay[];
   defaultDisplayId: DisplayId | undefined;
+  soundsEnabled: boolean;
 }

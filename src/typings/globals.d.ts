@@ -3,4 +3,9 @@ declare module "*.svg" {
   export = path;
 }
 
+declare module "*.wav" {
+  const path: string;
+  export = path;
+}
+
 declare module "space-travel";

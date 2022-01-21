@@ -19,6 +19,12 @@ const routes: SettingsNavigationMenuRoute[] = [
     route: Routes.settingsAppSettingsDisplayScreen,
     baseRoute: Routes.settingsAppSettingsDisplayScreen,
   },
+  {
+    key: "Sounds",
+    title: "Sounds",
+    route: Routes.settingsAppSettingsSounds,
+    baseRoute: Routes.settingsAppSettingsSounds,
+  },
 ];
 
 interface SettingsBaseProps {

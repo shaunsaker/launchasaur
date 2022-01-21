@@ -2,19 +2,21 @@ import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
 import { isDevelopment } from "../../../utils/isDevelopment";
 import { getDisplays, setDisplay } from "../ipc/actions";
-import { setAppShortcut } from "./actions";
+import { setAppShortcut, setSoundsEnabled } from "./actions";
 import { SettingsState } from "./models";
 
 const reducerActions = {
   setAppShortcut,
   getDisplaysSuccess: getDisplays.success,
   setDisplaySuccess: setDisplay.success,
+  setSoundsEnabled,
 };
 
 export const initialState: SettingsState = {
   appShortcut: isDevelopment() ? "Ctrl+Shift+L" : "Ctrl+Shift+`",
   displays: [],
   defaultDisplayId: undefined,
+  soundsEnabled: true,
 };
 
 export const settingsReducer: Reducer<SettingsState> = (
@@ -38,6 +40,12 @@ export const settingsReducer: Reducer<SettingsState> = (
       return {
         ...state,
         defaultDisplayId: action.payload,
+      };
+
+    case getType(setSoundsEnabled):
+      return {
+        ...state,
+        soundsEnabled: action.payload,
       };
 
     default: {

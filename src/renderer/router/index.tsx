@@ -31,6 +31,7 @@ import {
 import { OnboardingIntroModalModal } from "../components/OnboardingIntroModal";
 import { OnboardingOutroModal } from "../components/OnboardingOutroModal";
 import { DisplayScreen } from "../components/Settings/AppSettings/DisplayScreen";
+import { Sounds } from "../components/Settings/AppSettings/Sounds";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -94,6 +95,10 @@ export const Router = (): ReactElement => {
 
           <Route path={Routes.settingsAppSettingsDisplayScreen}>
             <DisplayScreen />
+          </Route>
+
+          <Route path={Routes.settingsAppSettingsSounds}>
+            <Sounds />
           </Route>
 
           <Redirect to={Routes.root} />

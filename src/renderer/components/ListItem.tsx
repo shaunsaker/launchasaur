@@ -43,7 +43,7 @@ export const ListItem = ({
           </EditButtonContainer>
         )}
 
-        <Button danger onClick={onDelete}>
+        <Button danger shouldPlaySound onClick={onDelete}>
           DELETE
         </Button>
       </ButtonsContainer>

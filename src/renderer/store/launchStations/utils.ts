@@ -3,7 +3,7 @@ import { getIconList } from "../../icons";
 import { getRandomArrayItem } from "../../utils/getRandomArrayItem";
 import { objectToArray } from "../../utils/objectToArray";
 import { sortArrayOfObjectsByKey } from "../../utils/sortArrayOfObjectsByKey";
-import { LauncherAction, LauncherData, LaunchStationData } from "./models";
+import { LauncherAction, LaunchStationData } from "./models";
 
 export const getActionIcon = (action: LauncherAction): IconName => {
   if (action === LauncherAction.OpenFile) {

@@ -1,4 +1,4 @@
-import { createAsyncAction } from "typesafe-actions";
+import { createAsyncAction, createStandardAction } from "typesafe-actions";
 
 export const setAppShortcut = createAsyncAction(
   "SETTINGS/setAppShortcutRequest",
@@ -13,3 +13,7 @@ export const setAppShortcut = createAsyncAction(
   },
   Error
 >();
+
+export const setSoundsEnabled = createStandardAction(
+  "SETTINGS/setSoundsEnabled",
+)<boolean>();

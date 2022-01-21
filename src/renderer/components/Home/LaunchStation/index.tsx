@@ -2,6 +2,7 @@ import React, { ReactElement, useCallback } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { playSound } from "../../../sounds/playSound";
 import { addLauncher } from "../../../store/launchStations/actions";
 import { selectLaunchStation } from "../../../store/launchStations/selectors";
 import { navigateToSettings } from "../../../store/navigation/actions";
@@ -14,6 +15,8 @@ import { HeaderBar } from "../../HeaderBar";
 import { OnboardingCoachmark } from "../../OnboardingCoachmark";
 import { Launcher } from "./Launcher";
 import { LauncherBase } from "./Launcher/LauncherBase";
+import openSound from "../../../sounds/open.wav";
+import { selectSettingsSoundsEnabled } from "../../../store/settings/selectors";
 
 interface LaunchStationProps {
   id: string;
@@ -30,9 +33,15 @@ export const LaunchStation = ({ id }: LaunchStationProps): ReactElement => {
   );
   const hasLaunchers = launchers.length;
 
+  const soundsEnabled = useSelector(selectSettingsSoundsEnabled);
+
   const onSettingsClick = useCallback(() => {
+    if (soundsEnabled) {
+      playSound(openSound);
+    }
+
     dispatch(navigateToSettings());
-  }, [dispatch]);
+  }, [dispatch, soundsEnabled]);
 
   const onAddLauncherClick = useCallback(() => {
     dispatch(addLauncher({ launchStationId: launchStation.id }));
