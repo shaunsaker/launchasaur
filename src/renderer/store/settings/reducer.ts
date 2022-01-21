@@ -12,7 +12,7 @@ const reducerActions = {
 };
 
 export const initialState: SettingsState = {
-  appShortcut: isDevelopment() ? "Ctrl+Shift+Z" : "Ctrl+Shift+`",
+  appShortcut: isDevelopment() ? "Ctrl+Shift+L" : "Ctrl+Shift+`",
   displays: [],
   defaultDisplayId: undefined,
 };
