@@ -32,33 +32,45 @@ function* setAppShortcutSaga(): SagaIterator {
     ): SagaIterator {
       const { shortcut } = action.payload;
 
-      // check if the shortcut is available
-      const shortcutRegistered = yield call(
-        checkShortcutRegisteredSaga,
-        shortcut,
-      );
-
-      if (shortcutRegistered) {
-        const message =
-          "Shortcut is already registered. Please try a different one.";
-
-        yield put(setAppShortcut.failure(new Error(message)));
-
-        yield put(
-          showSnackbar({
-            key: uuid(),
-            message,
-            type: SnackbarType.Danger,
-          }),
+      // don't do the checks if the shortcut was cleared
+      if (shortcut) {
+        // check if the shortcut is available
+        const shortcutRegistered = yield call(
+          checkShortcutRegisteredSaga,
+          shortcut,
         );
-      } else {
-        const oldShortcut = yield* select(selectSettingsAppShortcut);
-        yield call(unregisterShortcutSaga, oldShortcut);
 
-        yield call(registerShortcutSaga, shortcut);
+        if (shortcutRegistered) {
+          const message =
+            "Shortcut is already registered. Please try a different one.";
 
-        yield put(setAppShortcut.success({ shortcut }));
+          yield put(setAppShortcut.failure(new Error(message)));
+
+          yield put(
+            showSnackbar({
+              key: uuid(),
+              message,
+              type: SnackbarType.Danger,
+            }),
+          );
+
+          return;
+        }
       }
+
+      const oldShortcut = yield* select(selectSettingsAppShortcut);
+
+      // only attempt to unregister the old shortcut if it was not empty
+      if (oldShortcut) {
+        yield call(unregisterShortcutSaga, oldShortcut);
+      }
+
+      // only register a new shortcut if it is not empty
+      if (shortcut) {
+        yield call(registerShortcutSaga, shortcut);
+      }
+
+      yield put(setAppShortcut.success({ shortcut }));
     },
   );
 }
