@@ -4,6 +4,20 @@ module.exports = {
   packagerConfig: {
     executableName: "launchasaur",
     icon: path.resolve(__dirname, "build/icons/icon"),
+    asar: true,
+    name: "Launchasaur",
+    osxSign: {
+      entitlements: "electron-app/src/entitlements.plist",
+      "entitlements-inherit": "electron-app/src/entitlements.plist",
+      "gatekeeper-assess": false,
+      hardenedRuntime: true,
+      identity: "Developer ID Application: Shaun Saker (sakershaun@gmail.com)",
+    },
+    osxNotarize: {
+      appleId: process.env["APPLE_ID"],
+      appleIdPassword: process.env["APPLE_ID_PASSWORD"],
+    },
+    packageManager: "yarn",
   },
   electronRebuildConfig: {},
   makers: [
