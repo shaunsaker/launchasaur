@@ -41,9 +41,11 @@ import {
 } from "../../store/onboarding/actions";
 import { LauncherAction } from "../../store/launchStations/models";
 import { ParagraphText } from "../ParagraphText";
+import { selectSettingsAppShortcut } from "../../store/settings/selectors";
 
 const getCoachmarkHtmlText = (
   onboardingCoachmarkKey: OnboardingCoachmarkKey,
+  appShortcut: string,
 ) => {
   switch (onboardingCoachmarkKey) {
     case OnboardingCoachmarkKey.ShowLaunchStation:
@@ -80,7 +82,7 @@ const getCoachmarkHtmlText = (
       return `Woohoo! Our Launcher is <b>ready</b>💪<br>Let's go back to the <b>Launch Station</b>.<br>Click on the Close icon.`;
 
     case OnboardingCoachmarkKey.TriggerLauncher:
-      return `Let's get ${ONBOARDING_CHARACTER} the <b>hell out of here</b>!<br>Click on your "Fixed Launcher" to launch ${ONBOARDING_CHARACTER} into space and escape the ${ONBOARDING_ENEMY} 👾`;
+      return `Let's get ${ONBOARDING_CHARACTER} the <b>hell out of here</b>!<br>Click on your "Fixed Launcher" to launch ${ONBOARDING_CHARACTER} into space and escape the ${ONBOARDING_ENEMY} 👾<br><br>PS: You can bring the window back into focus by pressing the App Shortcut, ${appShortcut} 🤓`;
   }
 };
 
@@ -112,6 +114,7 @@ export const OnboardingCoachmark = ({
   const nextOnboardingCoachmarkKey = useSelector(
     selectNextOnboardingCoachmarkKey,
   );
+  const appShortcut = useSelector(selectSettingsAppShortcut);
 
   const onCoachmarkClick = useCallback(() => {
     if (isLastOnboardingCoachmark) {
@@ -128,7 +131,7 @@ export const OnboardingCoachmark = ({
         <MarginContainer small>
           <ParagraphText
             dangerouslySetInnerHTML={{
-              __html: getCoachmarkHtmlText(onboardingCoachmarkKey),
+              __html: getCoachmarkHtmlText(onboardingCoachmarkKey, appShortcut),
             }}
           />
         </MarginContainer>
@@ -144,7 +147,7 @@ export const OnboardingCoachmark = ({
         </CoachmarkFooterContainer>
       </CoachmarkContentContainer>
     );
-  }, [onboardingCoachmarkKey, onCoachmarkClick]);
+  }, [onboardingCoachmarkKey, onCoachmarkClick, appShortcut]);
 
   // if we're not meant to render the coachmark, just return the children as normal
   if (!showOnboardingCoachmarks || !shouldRender(onboardingCoachmarkKey)) {
