@@ -1,6 +1,10 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { DEFAULT_LAUNCH_STATION_ID, LaunchStationsState } from "./models";
+import {
+  ActionDataResource,
+  DEFAULT_LAUNCH_STATION_ID,
+  LaunchStationsState,
+} from "./models";
 import {
   addLauncherAction,
   addLauncher,
@@ -17,7 +21,7 @@ import {
   sortLaunchers,
 } from "./actions";
 import { makeLaunchStationData, makeLauncherData } from "./data";
-import { selectLaunchStation } from "./selectors";
+import { selectLaunchStation, selectLaunchStations } from "./selectors";
 import { ApplicationState } from "../reducers";
 import { objectToArray } from "../../utils/objectToArray";
 import { uuid } from "../../utils/uuid";
@@ -87,16 +91,49 @@ const addLauncherReducer = (
   };
 };
 
+const removeOpenResourceActionFromLaunchers = (
+  state: LaunchStationsState,
+  targetResource: ActionDataResource,
+): LaunchStationsState => {
+  // will remove the open launcher or launchStation action from all launchers in state that match the resource
+  // this is needed because we might attempt to open the launcher or launch station and it has been deleted
+  const newState = { ...state };
+
+  const launchStations = selectLaunchStations({ launchStations: state });
+
+  launchStations.forEach((launchStation) => {
+    const launchers = launchStation.launchers;
+    const launchersArray = objectToArray(launchers);
+
+    launchersArray.forEach((launcher) => {
+      const actions = launcher.actions;
+      const actionsArray = objectToArray(actions);
+
+      actionsArray.forEach((action) => {
+        if (action.resource === targetResource) {
+          delete newState.data[launchStation.id].launchers[launcher.id].actions[
+            action.id
+          ];
+        }
+      });
+    });
+  });
+
+  return newState;
+};
+
 const deleteLauncherReducer = (
   state: LaunchStationsState,
   action: ActionType<typeof deleteLauncher>,
 ): LaunchStationsState => {
+  let newState = { ...state };
   const { launchStationId, launcherId } = action.payload;
-  const launchers = { ...state.data[launchStationId].launchers };
 
-  delete launchers[launcherId];
+  // delete the relevant launcher
+  delete newState.data[launchStationId].launchers[launcherId];
 
   // reset the order of each launcher
+  const launchers = newState.data[launchStationId].launchers;
   let newLaunchersArray = objectToArray(launchers);
   newLaunchersArray = sortArrayOfObjectsByKey(newLaunchersArray, "order");
   newLaunchersArray = newLaunchersArray.map((launcher, index) => ({
@@ -104,17 +141,12 @@ const deleteLauncherReducer = (
     order: index + 1,
   }));
   const newLaunchers = arrayToObject(newLaunchersArray);
+  newState.data[launchStationId].launchers = newLaunchers;
 
-  return {
-    ...state,
-    data: {
-      ...state.data,
-      [launchStationId]: {
-        ...state.data[launchStationId],
-        launchers: newLaunchers,
-      },
-    },
-  };
+  // remove it's open action from any other launchers
+  newState = removeOpenResourceActionFromLaunchers(newState, launcherId);
+
+  return newState;
 };
 
 const sortLaunchersReducer = (
@@ -343,17 +375,16 @@ const deleteLaunchStationReducer = (
   state: LaunchStationsState,
   action: ActionType<typeof deleteLaunchStation>,
 ): LaunchStationsState => {
+  let newState = { ...state };
   const { launchStationId } = action.payload;
-  const launchStations = {
-    ...state.data,
-  };
 
-  delete launchStations[launchStationId];
+  // delete the relevant launch station
+  delete newState.data[launchStationId];
 
-  return {
-    ...state,
-    data: launchStations,
-  };
+  // remove it's open action from any other launchers
+  newState = removeOpenResourceActionFromLaunchers(newState, launchStationId);
+
+  return newState;
 };
 
 export const launchstationsReducer: Reducer<LaunchStationsState> = (

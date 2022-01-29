@@ -18,7 +18,7 @@ export const LauncherActions = [
 
 export type Filepath = string;
 export type LaunchStationId = string;
-export type ActionDataResource = Filepath | LaunchStationId; // LaunchStationId is used when the type is LaunchStationActionTypes.OpenLaunchStation
+export type ActionDataResource = Filepath | LaunchStationId | LauncherId; // LaunchStationId is used when the type is LaunchStationActionTypes.OpenLaunchStation
 
 export interface ActionData {
   id: ActionId;
@@ -51,6 +51,10 @@ export interface LaunchStationData {
 
 export interface LaunchStationsState {
   data: Record<LaunchStationId, LaunchStationData>;
+}
+
+export interface LaunchStationStateAccess {
+  launchStations: LaunchStationsState;
 }
 
 export const DEFAULT_LAUNCH_STATION_ID = "default";

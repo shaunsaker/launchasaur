@@ -1,5 +1,4 @@
 import { objectToArray } from "../../utils/objectToArray";
-import { ApplicationState } from "../reducers";
 import {
   DEFAULT_LAUNCH_STATION_ID,
   LauncherAction,
@@ -7,19 +6,20 @@ import {
   LauncherId,
   ActionData,
   LauncherData,
+  LaunchStationStateAccess,
 } from "./models";
 import { getPrettyFilename, getPrettyLink } from "./utils";
 
 export const selectLaunchStation = (
-  state: ApplicationState,
+  state: LaunchStationStateAccess,
   launchStationId?: string,
 ) => state.launchStations.data[launchStationId || DEFAULT_LAUNCH_STATION_ID];
 
-export const selectLaunchStations = (state: ApplicationState) =>
+export const selectLaunchStations = (state: LaunchStationStateAccess) =>
   objectToArray(state.launchStations.data);
 
 export const selectAllOtherLaunchStations = (
-  state: ApplicationState,
+  state: LaunchStationStateAccess,
   launchStationId: LaunchStationId,
 ) =>
   objectToArray(state.launchStations.data).filter(
@@ -27,7 +27,7 @@ export const selectAllOtherLaunchStations = (
   );
 
 export const selectAllOtherLaunchers = (
-  state: ApplicationState,
+  state: LaunchStationStateAccess,
   launcherId: LauncherId,
 ) => {
   const launchers: LauncherData[] = [];
@@ -44,7 +44,7 @@ export const selectAllOtherLaunchers = (
 };
 
 export const selectLauncher = (
-  state: ApplicationState,
+  state: LaunchStationStateAccess,
   {
     launchStationId,
     launcherId,
@@ -57,7 +57,7 @@ export const selectLauncher = (
 };
 
 export const selectLauncherById = (
-  state: ApplicationState,
+  state: LaunchStationStateAccess,
   launcherId: LauncherId,
 ) => {
   const launchStations = selectLaunchStations(state);
@@ -78,7 +78,7 @@ export const selectLauncherById = (
 };
 
 export const selectLauncherHasOpenLaunchStationAction = (
-  state: ApplicationState,
+  state: LaunchStationStateAccess,
   {
     launchStationId,
     launcherId,
@@ -92,7 +92,7 @@ export const selectLauncherHasOpenLaunchStationAction = (
 };
 
 export const selectPrettyAction = (
-  state: ApplicationState,
+  state: LaunchStationStateAccess,
   { action }: { action: ActionData },
 ): string => {
   if (action.action === LauncherAction.OpenFile) {
