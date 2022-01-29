@@ -78,6 +78,7 @@ const ContentContainer = styled.div<ContentContainerProps>`
   width: ${MODAL_WIDTH}px;
   padding: ${MODAL_PADDING}px;
   margin: ${RHYTHM}px;
+  max-height: 100%;
 `;
 
 const StyledTitleText = styled(TitleText)`
