@@ -49,7 +49,7 @@ const getCoachmarkHtmlText = (
 ) => {
   switch (onboardingCoachmarkKey) {
     case OnboardingCoachmarkKey.ShowLaunchStation:
-      return `Welcome to your <b>${ONBOARDING_PLANET} Launch Station</b>.<br>Here you will find your Launchers that you can trigger to open or close files/apps/links and in our case, for this tutorial, launch a rocket into outer space 🚀`;
+      return `Welcome to your <b>${ONBOARDING_PLANET} Launch Station</b>.<br>Here you will find your Launchers that you can trigger to open or close multiple files/apps/links at once.<br><br>In our case for this tutorial, launch a rocket into outer space 🚀`;
 
     case OnboardingCoachmarkKey.ShowLauncher:
       return `${ONBOARDING_CHARACTER} arrived here using this <b>Launcher</b> but it broke down during the landing 🪂<br>You can click it but it doesn't do anything, yet!`;

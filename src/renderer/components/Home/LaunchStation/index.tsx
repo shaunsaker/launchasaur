@@ -101,6 +101,7 @@ const HeaderBarContainer = styled.div`
   top: 0;
   right: 0;
   left: 0;
+  z-index: 1;
 `;
 
 const MAX_LAUNCHERS_PER_ROW = 4;

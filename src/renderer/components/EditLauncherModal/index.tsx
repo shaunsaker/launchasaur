@@ -121,12 +121,12 @@ export const EditLauncherModal = (): ReactElement => {
       borderColor={launcher.colour}
       onClose={onCloseClick}>
       <Container>
-        <MarginContainer small>
+        <Row small>
           <OnboardingCoachmark
             shouldRender={(key) =>
               key === OnboardingCoachmarkKey.EditLauncherName
             }
-            placement="left">
+            placement="right">
             <TextInput
               label="Title"
               placeholder="What should we call your Launcher?"
@@ -134,16 +134,16 @@ export const EditLauncherModal = (): ReactElement => {
               onChangeText={onChangeTitle}
             />
           </OnboardingCoachmark>
-        </MarginContainer>
+        </Row>
 
-        <MarginContainer small>
+        <Row small>
           <FieldLabel>Icon</FieldLabel>
 
           <OnboardingCoachmark
             shouldRender={(key) =>
               key === OnboardingCoachmarkKey.EditLauncherIcon
             }
-            placement="left">
+            placement="right">
             <WithEditButtonContainer>
               <Icon icon={launcher.icon} />
 
@@ -152,25 +152,25 @@ export const EditLauncherModal = (): ReactElement => {
               </EditButtonContainer>
             </WithEditButtonContainer>
           </OnboardingCoachmark>
-        </MarginContainer>
+        </Row>
 
-        <MarginContainer small>
+        <Row small>
           <FieldLabel>Shortcut</FieldLabel>
 
           <ShortcutEditor
             shortcut={launcher.shortcut}
             onChange={onChangeShortcut}
           />
-        </MarginContainer>
+        </Row>
 
-        <MarginContainer small>
+        <Row small>
           <FieldLabel>Colour</FieldLabel>
 
           <OnboardingCoachmark
             shouldRender={(key) =>
               key === OnboardingCoachmarkKey.EditLauncherColour
             }
-            placement="left">
+            placement="right">
             <WithEditButtonContainer>
               <Circle colour={launcher.colour} />
 
@@ -179,13 +179,13 @@ export const EditLauncherModal = (): ReactElement => {
               </EditButtonContainer>
             </WithEditButtonContainer>
           </OnboardingCoachmark>
-        </MarginContainer>
+        </Row>
 
         <OnboardingCoachmark
           shouldRender={(key) =>
             key === OnboardingCoachmarkKey.EditLauncherActions
           }
-          placement="left">
+          placement="top">
           <ActionsSection small>
             <FieldLabel>Actions</FieldLabel>
 
@@ -270,4 +270,8 @@ const AddActionButtonContainer = styled.div`
 
 const DoneButtonContainer = styled.div`
   align-items: flex-end;
+`;
+
+const Row = styled(MarginContainer)`
+  align-items: flex-start;
 `;

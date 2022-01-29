@@ -46,7 +46,8 @@ export const OnboardingOutroModal = (): ReactElement => {
 
           <MarginContainer>
             <ParagraphText>
-              If at any time you need any help, we are only an email away 📧
+              If at any time you need any help, we are only an email away 📧 God
+              speed!
             </ParagraphText>
           </MarginContainer>
         </ContentContainer>
