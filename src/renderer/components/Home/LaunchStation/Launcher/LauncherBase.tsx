@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { LauncherData } from "../../../../store/launchStations/models";
+import { selectShowOnboardingCoachmarks } from "../../../../store/onboarding/selectors";
 import {
   BORDER_RADIUS,
   BORDER_WIDTH,
@@ -35,25 +37,37 @@ export const LauncherBase = ({
   onMouseDown,
   onMouseUp,
 }: LauncherBaseProps): ReactElement => {
+  const showOnboardingCoachmarks = useSelector(selectShowOnboardingCoachmarks);
+  const shouldAnimate = !showOnboardingCoachmarks;
+
+  const component = (
+    <Container
+      style={{ borderColor: shouldAnimate ? "inherit" : colour }}
+      $colour={colour}
+      onClick={onClick}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}>
+      <ContentContainer>
+        <IconContainer>
+          <Icon icon={icon} />
+        </IconContainer>
+
+        <LauncherText>{title}</LauncherText>
+
+        {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+      </ContentContainer>
+    </Container>
+  );
+
+  if (!shouldAnimate) {
+    return component;
+  }
+
   return (
     <LauncherAnimator order={order} colour={colour}>
-      <Container
-        $colour={colour}
-        onClick={onClick}
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}>
-        <ContentContainer>
-          <IconContainer>
-            <Icon icon={icon} />
-          </IconContainer>
-
-          <LauncherText>{title}</LauncherText>
-
-          {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
-        </ContentContainer>
-      </Container>
+      {component}
     </LauncherAnimator>
   );
 };
@@ -69,7 +83,6 @@ const Container = styled.div<ContainerProps>`
   border-radius: ${BORDER_RADIUS}px;
   background-color: ${theme.backgroundDarkOpaque};
   border: ${BORDER_WIDTH}px solid ${theme.black};
-  border-color: inherit;
   padding: ${RHYTHM}px ${RHYTHM}px;
   cursor: pointer;
   text-align: center;
