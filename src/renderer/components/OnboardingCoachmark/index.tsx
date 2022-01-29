@@ -179,7 +179,7 @@ const StyledTippy = styled(Tippy)`
   }
 
   & .tippy-arrow {
-    color: ${theme.black};
+    color: ${theme.backgroundLightOpaque};
   }
 `;
 
