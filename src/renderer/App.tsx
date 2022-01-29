@@ -5,17 +5,12 @@ import { store, persistor } from "./store";
 import { Router } from "./router";
 import { loadIcons } from "./icons";
 import styled from "styled-components";
-import {
-  BORDER_RADIUS,
-  FLEX_CENTER_CSS,
-  RHYTHM,
-  SCROLLBAR_WIDTH,
-  theme,
-} from "./theme";
+import { FLEX_CENTER_CSS } from "./theme";
 import { Notifier } from "./components/Notifier";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import "./fonts/fonts.css";
 import { Stars } from "./components/Stars";
+import { GlobalStyles } from "./components/GlobalStyles";
 
 require("../sentry");
 
@@ -34,6 +29,8 @@ export const App = (): ReactElement => {
             <Notifier />
           </ErrorBoundary>
         </AppContainer>
+
+        <GlobalStyles />
       </PersistGate>
     </Provider>
   );
@@ -44,33 +41,4 @@ const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
   ${FLEX_CENTER_CSS};
-
-  & ::-webkit-scrollbar {
-    width: ${SCROLLBAR_WIDTH}px;
-  }
-
-  &::-webkit-scrollbar-button {
-    width: 0;
-    height: 0;
-    display: none;
-  }
-
-  & ::-webkit-scrollbar-track,
-  & ::-webkit-scrollbar-track-piece {
-    background: transparent;
-  }
-
-  & ::-webkit-scrollbar-thumb {
-    background: transparent;
-  }
-
-  & :hover::-webkit-scrollbar-thumb {
-    background: ${theme.backgroundLight};
-    border-radius: ${BORDER_RADIUS}px;
-    min-height: ${RHYTHM}px;
-  }
-
-  & ::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
 `;

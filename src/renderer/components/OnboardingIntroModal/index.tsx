@@ -25,13 +25,17 @@ export const OnboardingIntroModalModal = (): ReactElement => {
     dispatch(showOnboardingCoachmarks());
   }, [dispatch]);
 
-  const onCancelClick = useCallback(() => {
+  const onClose = useCallback(() => {
     dispatch(hideOnboardingIntroModal());
     dispatch(setHasCompletedOnboarding());
   }, [dispatch]);
 
+  const onCancelClick = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       <Container>
         <div style={{ fontSize: 48, marginBottom: RHYTHM }}>👾🦕👾</div>
 
@@ -46,10 +50,7 @@ export const OnboardingIntroModalModal = (): ReactElement => {
           </MarginContainer>
 
           <MarginContainer>
-            <ParagraphText>
-              Can you help {ONBOARDING_CHARACTER} escape from the{" "}
-              {ONBOARDING_ENEMY} on {ONBOARDING_PLANET}?
-            </ParagraphText>
+            <ParagraphText>Can you help {ONBOARDING_CHARACTER}?</ParagraphText>
           </MarginContainer>
         </ContentContainer>
 

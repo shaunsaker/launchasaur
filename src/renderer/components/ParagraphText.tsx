@@ -9,6 +9,10 @@ export const ParagraphTextCss = css`
   color: ${theme.white};
   max-width: ${MAX_TEXT_WIDTH}px;
   display: inline-block;
+
+  & u {
+    user-select: text;
+  }
 `;
 
 export const ParagraphText = styled.div`

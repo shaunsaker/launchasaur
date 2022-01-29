@@ -42,21 +42,19 @@ export const Modal = ({
 
   return (
     <ModalBackdrop>
-      <EntryAnimator>
-        <ContentContainer $borderColor={borderColor}>
-          <MarginContainer small>
-            <StyledTitleText>{title}</StyledTitleText>
-          </MarginContainer>
+      <ContentContainer $borderColor={borderColor}>
+        <MarginContainer small>
+          <StyledTitleText>{title}</StyledTitleText>
+        </MarginContainer>
 
-          {children}
+        {children}
 
-          {onClose && (
-            <CloseIconContainer>
-              <CloseIcon onClick={onClose} />
-            </CloseIconContainer>
-          )}
-        </ContentContainer>
-      </EntryAnimator>
+        {onClose && (
+          <CloseIconContainer>
+            <CloseIcon onClick={onClose} />
+          </CloseIconContainer>
+        )}
+      </ContentContainer>
     </ModalBackdrop>
   );
 };

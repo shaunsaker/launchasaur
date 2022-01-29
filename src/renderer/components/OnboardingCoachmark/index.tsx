@@ -26,9 +26,9 @@ import {
 } from "../../store/onboarding/models";
 import styled from "styled-components";
 import {
-  BORDER_RADIUS,
   BOX_SHADOW_CSS,
   RHYTHM,
+  SMALL_BORDER_RADIUS,
   SMALL_BORDER_WIDTH,
   theme,
 } from "../../theme";
@@ -47,7 +47,7 @@ const getCoachmarkHtmlText = (
 ) => {
   switch (onboardingCoachmarkKey) {
     case OnboardingCoachmarkKey.ShowLaunchStation:
-      return `Welcome to your <b>${ONBOARDING_PLANET} Launch Station</b>.<br>Here you will find all of your Launchers that you can trigger to do amazing Launchjitsu™ 🥋`;
+      return `Welcome to your <b>${ONBOARDING_PLANET} Launch Station</b>.<br>Here you will find your Launchers that you can trigger to open or close files/apps/links and in our case, for this tutorial, launch a rocket into outer space 🚀`;
 
     case OnboardingCoachmarkKey.ShowLauncher:
       return `${ONBOARDING_CHARACTER} arrived here using this <b>Launcher</b> but it broke down during the landing 🪂<br>You can click it but it doesn't do anything, yet!`;
@@ -68,7 +68,7 @@ const getCoachmarkHtmlText = (
       return `Great, now let's change the <b>icon</b> to "${ONBOARDING_NEW_LAUNCHER_ICON}" 🚀`;
 
     case OnboardingCoachmarkKey.EditLauncherColour:
-      return `Now let's change the <b>colour</b>!<br>How about a green for "Ready"? 🎨`;
+      return `Now let's change the <b>colour</b>!<br>How about a shade of green for "Ready"? 🎨`;
 
     case OnboardingCoachmarkKey.EditLauncherActions:
       return `The last piece of the puzzle and perhaps the most important of all, the <b>Launcher Actions</b>.<br><br>Add an "${LauncherAction.OpenLink}" action with the following url:<br><br><u>${ONBOARDING_ACTION_URL}</u>`;
@@ -170,7 +170,7 @@ const StyledTippy = styled(Tippy)`
   &.tippy-box {
     background-color: ${theme.backgroundLightOpaque};
     border: ${SMALL_BORDER_WIDTH}px solid ${theme.black};
-    border-radius: ${BORDER_RADIUS}px;
+    border-radius: ${SMALL_BORDER_RADIUS}px;
     ${BOX_SHADOW_CSS};
   }
 
