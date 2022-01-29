@@ -9,7 +9,6 @@ import {
   theme,
 } from "../theme";
 import { CloseIcon, CLOSE_ICON_PADDING, CLOSE_ICON_SIZE } from "./CloseIcon";
-import { EntryAnimator } from "./EntryAnimator";
 import { MarginContainer } from "./MarginContainer";
 import { ModalBackdrop } from "./ModalBackdrop";
 import { TitleText } from "./TitleText";
@@ -33,7 +32,9 @@ export const Modal = ({
       event.preventDefault();
       event.stopImmediatePropagation();
 
-      onClose();
+      if (onClose) {
+        onClose();
+      }
     },
     [onClose],
   );
