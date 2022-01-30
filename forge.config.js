@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   packagerConfig: {
-    executableName: "launchasaur",
+    executableName: "Launchasaur",
     icon: path.resolve(__dirname, "build/icons/icon"),
     asar: true,
     name: "Launchasaur",
