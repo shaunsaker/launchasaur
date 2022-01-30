@@ -157,8 +157,9 @@ export const createRelease = (releaseName: string): void => {
   // only internal deployments create releases
   const nextBuildNumber = latestBuildNumber + 1;
 
-  updatePackageJson("version", version);
-  updatePackageJson("build", nextBuildNumber.toString());
+  const versionWithBuild = `${version}-${nextBuildNumber.toString()}`;
+
+  updatePackageJson("version", versionWithBuild);
 
   const releaseName = getReleaseTagName(version, nextBuildNumber);
   createRelease(releaseName);
