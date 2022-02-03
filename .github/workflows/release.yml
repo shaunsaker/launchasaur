@@ -35,6 +35,8 @@ jobs:
         run: yarn install
       - name: Publish
         env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.RELEASES_ACCESS_TOKEN }}
         run: yarn electron-forge publish
 
