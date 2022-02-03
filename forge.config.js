@@ -12,6 +12,7 @@ module.exports = {
       "gatekeeper-assess": false,
       hardenedRuntime: true,
       identity: "Developer ID Application: Shaun Saker (A8W93XCW3S)",
+      "signature-flags": "library",
     },
     osxNotarize: {
       appleId: process.env["APPLE_ID"],
