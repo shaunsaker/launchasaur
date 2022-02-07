@@ -72,7 +72,7 @@ export const SelectLauncherModal = (): ReactElement => {
           title="No other Launchers available"
           description="Add a Launcher so that you can start triggering other launchers like a boss!">
           <AddLauncherButtonContainer>
-            <Button primary shouldPlaySound onClick={onAddLauncherClick}>
+            <Button primary onClick={onAddLauncherClick}>
               ADD LAUNCHER
             </Button>
           </AddLauncherButtonContainer>

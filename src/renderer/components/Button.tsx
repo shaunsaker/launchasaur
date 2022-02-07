@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { MouseEvent, ReactElement, ReactNode, useCallback } from "react";
 import styled from "styled-components";
 import { useHover } from "use-hooks";
-import { playSound } from "../sounds/playSound";
 import {
   RHYTHM,
   theme,
@@ -13,9 +12,6 @@ import {
   SMALL_BORDER_RADIUS,
 } from "../theme";
 import { ParagraphText } from "./ParagraphText";
-import clickSound from "../sounds/click.wav";
-import { useSelector } from "react-redux";
-import { selectSettingsSoundsEnabled } from "../store/settings/selectors";
 
 interface SmallButtonProps {
   icon?: IconName;
@@ -24,7 +20,6 @@ interface SmallButtonProps {
   large?: boolean;
   fullWidth?: boolean;
   disabled?: boolean;
-  shouldPlaySound?: boolean;
   children: ReactNode;
   onClick: (event: MouseEvent<HTMLDivElement>) => void;
 }
@@ -36,27 +31,16 @@ export const Button = ({
   large,
   fullWidth,
   disabled,
-  shouldPlaySound,
   children,
   onClick: onClickCb,
 }: SmallButtonProps): ReactElement => {
   const [hoverRef, hovered] = useHover<HTMLDivElement>();
 
-  const soundsEnabled = useSelector(selectSettingsSoundsEnabled);
-
   const onClick = useCallback(
     (event: MouseEvent<HTMLDivElement>) => {
-      if (soundsEnabled && shouldPlaySound) {
-        const rate = primary ? 2 : danger ? 0.5 : 1;
-
-        playSound(clickSound, {
-          rate,
-        });
-      }
-
       onClickCb(event);
     },
-    [onClickCb, soundsEnabled, shouldPlaySound, primary, danger],
+    [onClickCb],
   );
 
   return (

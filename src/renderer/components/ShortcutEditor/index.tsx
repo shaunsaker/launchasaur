@@ -54,7 +54,7 @@ export const ShortcutEditor = ({
         ) : (
           <>
             <ButtonContainer>
-              <Button danger shouldPlaySound onClick={onClearClick}>
+              <Button danger onClick={onClearClick}>
                 CLEAR
               </Button>
             </ButtonContainer>

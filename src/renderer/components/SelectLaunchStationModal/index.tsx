@@ -80,7 +80,7 @@ export const SelectLaunchStationModal = (): ReactElement => {
           title="No other Launch Stations available"
           description="Add a Launch Station so that you can start grouping launchers!">
           <AddLaunchStationButtonContainer>
-            <Button primary shouldPlaySound onClick={onAddLaunchStationClick}>
+            <Button primary onClick={onAddLaunchStationClick}>
               ADD LAUNCH STATION
             </Button>
           </AddLaunchStationButtonContainer>

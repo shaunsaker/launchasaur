@@ -109,7 +109,7 @@ export const EditLauncherModal = (): ReactElement => {
 
   const addActionButton = (
     <AddActionButtonContainer>
-      <Button primary shouldPlaySound onClick={onAddActionClick}>
+      <Button primary onClick={onAddActionClick}>
         ADD ACTION
       </Button>
     </AddActionButtonContainer>

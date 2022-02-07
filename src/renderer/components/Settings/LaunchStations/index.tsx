@@ -50,11 +50,7 @@ export const LaunchStations = (): ReactElement => {
       <Container>
         <SettingsNavigationMenu title="LAUNCH STATIONS" routes={routes}>
           <AddButtonContainer>
-            <Button
-              primary
-              large
-              shouldPlaySound
-              onClick={onAddLaunchStationClick}>
+            <Button primary large onClick={onAddLaunchStationClick}>
               ADD LAUNCH STATION
             </Button>
           </AddButtonContainer>

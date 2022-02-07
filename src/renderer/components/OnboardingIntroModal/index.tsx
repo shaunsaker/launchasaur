@@ -55,7 +55,7 @@ export const OnboardingIntroModalModal = (): ReactElement => {
         </ContentContainer>
 
         <MarginContainer small>
-          <Button large primary shouldPlaySound onClick={onContinueClick}>
+          <Button large primary onClick={onContinueClick}>
             HELP {ONBOARDING_CHARACTER.toUpperCase()}! 💪
           </Button>
         </MarginContainer>

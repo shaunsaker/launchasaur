@@ -172,11 +172,7 @@ export const LaunchStationEditor = () => {
             </OnboardingCoachmark>
 
             <AddLauncherButtonContainer>
-              <Button
-                primary
-                large
-                shouldPlaySound
-                onClick={onAddLauncherClick}>
+              <Button primary large onClick={onAddLauncherClick}>
                 ADD LAUNCHER
               </Button>
             </AddLauncherButtonContainer>
@@ -187,11 +183,7 @@ export const LaunchStationEditor = () => {
             title="You have no Launchers"
             description="Add a Launcher so that you can start launching things!">
             <BlankStateAddLauncherButtonContainer>
-              <Button
-                primary
-                large
-                shouldPlaySound
-                onClick={onAddLauncherClick}>
+              <Button primary large onClick={onAddLauncherClick}>
                 ADD LAUNCHER
               </Button>
             </BlankStateAddLauncherButtonContainer>
@@ -201,11 +193,7 @@ export const LaunchStationEditor = () => {
 
       {showDeleteLaunchStationButton && (
         <DeleteButtonContainer>
-          <Button
-            danger
-            large
-            shouldPlaySound
-            onClick={onDeleteLaunchStationClick}>
+          <Button danger large onClick={onDeleteLaunchStationClick}>
             DELETE LAUNCH STATION
           </Button>
         </DeleteButtonContainer>
