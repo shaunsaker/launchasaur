@@ -6,6 +6,7 @@ module.exports = {
     icon: path.resolve(__dirname, "build/icons/icon"),
     asar: true,
     name: "Launchasaur",
+    appBundleId: "com.shaunsaker.launchasaur",
     osxSign: {
       entitlements: "./entitlements.plist",
       "entitlements-inherit": "./entitlements.plist",
