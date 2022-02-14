@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/electron";
-import { isDevelopment } from "../utils/isDevelopment";
+import { isDevelopment } from "../renderer/utils/isDevelopment";
 
 if (!isDevelopment()) {
   Sentry.init({

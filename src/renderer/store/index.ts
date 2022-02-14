@@ -10,7 +10,7 @@ import createSagaMiddleware from "redux-saga";
 import { createLogger } from "redux-logger";
 import { ApplicationState, createRootReducer } from "./reducers";
 import sagas from "./sagas";
-import { isDevelopment } from "../../utils/isDevelopment";
+import { isDevelopment } from "../utils/isDevelopment";
 import { routerMiddleware } from "connected-react-router";
 import { createHashHistory } from "history";
 import { parse, stringify } from "flatted";

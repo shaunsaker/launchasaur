@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, getType } from "typesafe-actions";
-import { isDevelopment } from "../../../utils/isDevelopment";
+import { isDevelopment } from "../../utils/isDevelopment";
 import { getDisplays, setDisplay } from "../ipc/actions";
 import { setAppShortcut, setSoundsEnabled } from "./actions";
 import { SettingsState } from "./models";

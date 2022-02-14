@@ -2,7 +2,6 @@ import { app, BrowserWindow } from "electron";
 import initUpdateElectronApp from "update-electron-app";
 import logger from "electron-log";
 import path from "path";
-import { isDevelopment } from "../utils/isDevelopment";
 import { enableAutoLaunch } from "./autoLaunch";
 import { startIPC } from "./ipc";
 
@@ -41,7 +40,7 @@ const start = (): void => {
   mainWindow.maximize();
   mainWindow.setFullScreen(true);
 
-  if (!isDevelopment()) {
+  if (app.isPackaged) {
     enableAutoLaunch();
   }
 };
