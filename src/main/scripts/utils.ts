@@ -10,11 +10,13 @@ export const exitWithError = (message?: string) => {
 
 export const spawnProcess = (
   {
-    command,
+    process,
+    args,
     showLogs,
     workingDir = ".",
   }: {
-    command: string;
+    process: string;
+    args: string[];
     showLogs?: boolean;
     workingDir?: string;
   },
@@ -34,7 +36,7 @@ export const spawnProcess = (
     options.stdio = "inherit";
   }
 
-  const ret = spawn.sync(command, options);
+  const ret = spawn.sync(process, args, options);
 
   if (ret.status !== 0) {
     return {
