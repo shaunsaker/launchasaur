@@ -10,6 +10,7 @@ import {
   openFile,
   openLink,
   registerShortcut,
+  runScript,
   setDisplay,
   unregisterShortcut,
 } from "./actions";
@@ -244,6 +245,50 @@ export function* setDisplaySaga(): SagaIterator {
       }
     },
   );
+}
+
+export function* runScriptSaga(script: string): SagaIterator {
+  yield put(runScript.request(script));
+
+  try {
+    // FIXME: how to type the result automatically
+    const result: { message: string; error?: boolean } = yield call(() =>
+      ipcRenderer.invoke(IPC.RunScript, script),
+    );
+
+    if (result.error) {
+      yield put(
+        showSnackbar({
+          key: uuid(),
+          message: result.message,
+          type: SnackbarType.Danger,
+        }),
+      );
+
+      yield put(runScript.failure(new Error(result.message)));
+
+      return;
+    }
+
+    yield put(runScript.success());
+
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: result.message,
+        type: SnackbarType.Success,
+      }),
+    );
+  } catch (error) {
+    yield put(runScript.failure(error));
+    yield put(
+      showSnackbar({
+        key: uuid(),
+        message: error.message,
+        type: SnackbarType.Danger,
+      }),
+    );
+  }
 }
 
 export function* ipcSagas(): SagaIterator {

@@ -29,6 +29,8 @@ import { OnboardingState } from "./onboarding/models";
 import { onboardingReducer } from "./onboarding/reducer";
 import { StarsState } from "./stars/models";
 import { starsReducer } from "./stars/reducer";
+import { EditScriptModalState } from "./editScriptModal/models";
+import { editScriptModalReducer } from "./editScriptModal/reducer";
 
 export interface ApplicationState {
   router: RouterState;
@@ -46,6 +48,7 @@ export interface ApplicationState {
   selectLauncherModal: SelectLauncherModalState;
   onboarding: OnboardingState;
   stars: StarsState;
+  editScriptModal: EditScriptModalState;
 }
 
 export const createRootReducer = (history_: History) =>
@@ -65,6 +68,7 @@ export const createRootReducer = (history_: History) =>
     selectLauncherModal: selectLauncherModalReducer,
     onboarding: onboardingReducer,
     stars: starsReducer,
+    editScriptModal: editScriptModalReducer,
   });
 
 export const initialState = {

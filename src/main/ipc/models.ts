@@ -9,4 +9,5 @@ export enum IPC {
   HideWindow = "HideWindow",
   GetDisplays = "GetDisplays",
   SetDisplay = "SetDisplay",
+  RunScript = "RunScript",
 }

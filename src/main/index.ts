@@ -13,7 +13,7 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-const start = (): void => {
+const start = async (): Promise<void> => {
   require("../sentry");
 
   initUpdateElectronApp({ logger, repo: "shaunsaker/launchasaur-releases" });

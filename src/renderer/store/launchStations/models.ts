@@ -6,6 +6,7 @@ export enum LauncherAction {
   OpenLink = "Open a Link",
   OpenLaunchStation = "Open a Launch Station",
   TriggerLauncher = "Trigger another Launcher",
+  RunScript = "Run Script",
 }
 
 export const LauncherActions = [
@@ -14,11 +15,17 @@ export const LauncherActions = [
   LauncherAction.OpenLink,
   LauncherAction.OpenLaunchStation,
   LauncherAction.TriggerLauncher,
+  LauncherAction.RunScript,
 ];
 
 export type Filepath = string;
 export type LaunchStationId = string;
-export type ActionDataResource = Filepath | LaunchStationId | LauncherId; // LaunchStationId is used when the type is LaunchStationActionTypes.OpenLaunchStation
+export type Script = string;
+export type ActionDataResource =
+  | Filepath
+  | LaunchStationId
+  | LauncherId
+  | Script; // LaunchStationId is used when the type is LaunchStationActionTypes.OpenLaunchStation
 
 export interface ActionData {
   id: ActionId;

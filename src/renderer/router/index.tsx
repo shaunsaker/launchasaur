@@ -32,6 +32,8 @@ import { OnboardingIntroModalModal } from "../components/OnboardingIntroModal";
 import { OnboardingOutroModal } from "../components/OnboardingOutroModal";
 import { DisplayScreen } from "../components/Settings/AppSettings/DisplayScreen";
 import { Sounds } from "../components/Settings/AppSettings/Sounds";
+import { selectEditScriptModalIsShown } from "../store/editScriptModal/selectors";
+import { EditScriptModal } from "../components/EditScriptModal";
 
 export const Router = (): ReactElement => {
   const launcherActionsModalIsShown = useSelector(
@@ -54,6 +56,7 @@ export const Router = (): ReactElement => {
   );
   const showOnboardingIntroModal = useSelector(selectShowOnboardingIntroModal);
   const showOnboardingOutroModal = useSelector(selectShowOnboardingOutroModal);
+  const editScriptModalIsShown = useSelector(selectEditScriptModalIsShown);
 
   return (
     <ConnectedRouter history={history}>
@@ -123,6 +126,8 @@ export const Router = (): ReactElement => {
         {showOnboardingIntroModal && <OnboardingIntroModalModal />}
 
         {showOnboardingOutroModal && <OnboardingOutroModal />}
+
+        {editScriptModalIsShown && <EditScriptModal />}
       </HashRouter>
     </ConnectedRouter>
   );

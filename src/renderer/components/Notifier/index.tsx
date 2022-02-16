@@ -41,6 +41,7 @@ const Container = styled.div<ContainerProps>`
     ${({ $snackbarCount }) => getTranslateY($snackbarCount)}px
   );
   transition: transform ${TRANSITION_CSS};
+  z-index: 1;
 `;
 
 const SnackbarContainer = styled.div`

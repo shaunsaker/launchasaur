@@ -25,6 +25,10 @@ export const getActionIcon = (action: LauncherAction): IconName => {
   if (action === LauncherAction.TriggerLauncher) {
     return "rocket";
   }
+
+  if (action === LauncherAction.RunScript) {
+    return "code";
+  }
 };
 
 export const getPrettyFilename = (filepath: string): string => {

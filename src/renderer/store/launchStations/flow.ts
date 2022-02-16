@@ -10,6 +10,7 @@ import {
   getFilepathSaga,
   hideWindowSaga,
   openFileSaga,
+  runScriptSaga,
 } from "../ipc/flow";
 import { hideLauncherActionsModal } from "../launcherActionsModal/actions";
 import { addLauncherAction, triggerLauncher } from "./actions";
@@ -20,7 +21,9 @@ import { ApplicationState } from "../reducers";
 import { showSelectLaunchStationModal } from "../selectLaunchStationModal/actions";
 import { selectLauncherById } from "./selectors";
 import { showSelectLauncherModal } from "../selectLauncherModal/actions";
-import { openLink } from "../ipc/actions";
+import { closeFile, openFile, openLink, runScript } from "../ipc/actions";
+import { showEditScriptModal } from "../editScriptModal/actions";
+import { race, take } from "redux-saga/effects";
 
 function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addLauncherAction.request>,
@@ -93,6 +96,18 @@ function* handleAddTriggerLauncherActionSaga(
   );
 }
 
+function* handleAddRunScriptLauncherActionSaga(
+  action: ActionType<typeof addLauncherAction.request>,
+): SagaIterator {
+  yield put(
+    showEditScriptModal({
+      launchStationId: action.payload.launchStationId,
+      launcherId: action.payload.launcherId,
+      actionId: "", // it's a new action
+    }),
+  );
+}
+
 function* addLaunchStationActionSaga(): SagaIterator {
   yield takeLatest(
     getType(addLauncherAction.request),
@@ -116,6 +131,9 @@ function* addLaunchStationActionSaga(): SagaIterator {
           break;
         case LauncherAction.TriggerLauncher:
           yield call(handleAddTriggerLauncherActionSaga, action);
+          break;
+        case LauncherAction.RunScript:
+          yield call(handleAddRunScriptLauncherActionSaga, action);
           break;
       }
     },
@@ -149,10 +167,28 @@ function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
     if (action.action === LauncherAction.TriggerLauncher) {
       return call(triggerLauncherSaga, action.resource);
     }
+
+    if (action.action === LauncherAction.RunScript) {
+      return call(runScriptSaga, action.resource);
+    }
   });
 
-  // FIXME: how to catch the errors here (they're not errors but rather failure actions) - we should not trigger success and hide window on error
-  yield all(actionsArray);
+  // if we receive any failure actions, cancel the success actions
+  const { failure } = yield race({
+    success: all(actionsArray),
+    failure: take([
+      openFile.failure,
+      closeFile.failure,
+      openLink.failure,
+      runScript.failure,
+    ]),
+  });
+
+  if (failure) {
+    yield put(triggerLauncher.failure(failure.payload));
+
+    return;
+  }
 
   yield put(triggerLauncher.success());
 

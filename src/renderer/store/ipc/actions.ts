@@ -61,3 +61,9 @@ export const setDisplay = createAsyncAction(
   "IPC/setDisplaySuccess",
   "IPC/setDisplayFailure",
 )<DisplayId, DisplayId, Error>();
+
+export const runScript = createAsyncAction(
+  "IPC/runScriptRequest",
+  "IPC/runScriptSuccess",
+  "IPC/runScriptFailure",
+)<string, void, Error>();

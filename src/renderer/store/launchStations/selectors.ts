@@ -120,4 +120,8 @@ export const selectPrettyAction = (
 
     return `Trigger Launcher: ${launcher ? launcher.title : "Unknown"}`;
   }
+
+  if (action.action === LauncherAction.RunScript) {
+    return "Run Script";
+  }
 };
