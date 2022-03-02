@@ -24,6 +24,7 @@ import { showSelectLauncherModal } from "../selectLauncherModal/actions";
 import { closeFile, openFile, openLink, runScript } from "../ipc/actions";
 import { showEditScriptModal } from "../editScriptModal/actions";
 import { race, take } from "redux-saga/effects";
+import { safeDelay } from "../../utils/safeDelay";
 
 function* handleAddOpenOrCloseFileActionSaga(
   action: ActionType<typeof addLauncherAction.request>,
@@ -140,11 +141,17 @@ function* addLaunchStationActionSaga(): SagaIterator {
   );
 }
 
+// the estimated time it takes for the browser to open
+// for some reason, 0 works 🤷‍♂️
+const LINK_TRIGGER_DELAY = 0;
+
 function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
   const launcher = yield* select((state: ApplicationState) =>
     selectLauncherById(state, launcherId),
   );
   const arrayActions = objectToArray(launcher.actions);
+
+  let linkTriggerCount = 0;
 
   // trigger the actions as appropriate
   const actionsArray = arrayActions.map((action) => {
@@ -157,6 +164,16 @@ function* triggerLauncherSaga(launcherId: LauncherId): SagaIterator {
     }
 
     if (action.action === LauncherAction.OpenLink) {
+      // with Firefox, multiple windows are opened when multiple links are opened
+      // so to mitigate this we first need to wait for the browser to open before
+      // triggering subsequent links so that they open in new tabs instead of new windows
+      // ie. for the 2nd link, wait for the browser to open before triggering it
+      if (linkTriggerCount === 1) {
+        call(safeDelay, LINK_TRIGGER_DELAY);
+      }
+
+      linkTriggerCount += 1;
+
       return put(openLink.request({ url: action.resource }));
     }
 
